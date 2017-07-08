@@ -1,13 +1,15 @@
-import Player from "./Player";
+import Player from './Player';
 
 export enum GameState {
   PLAYING,
-  FINISHED
+  FINISHED,
 }
+
+export type PlayersTuple = [Player, Player];
 
 interface Game {
   currentPlayer: Player;
-  players: [Player, Player];
+  players: PlayersTuple;
   turn: number;
   state: GameState;
 }

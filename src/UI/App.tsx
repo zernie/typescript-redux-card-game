@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
-import Board from './Board';
+import BoardContainer from './BoardContainer';
 
 class App extends React.Component<{}, {}> {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component<{}, {}> {
             Hearthstone-inspired card game written using React and Redux.
           </Header>
 
-          <Board />
+          <BoardContainer/>
         </Grid.Column>
       </Grid>
     );

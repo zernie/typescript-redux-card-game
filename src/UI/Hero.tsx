@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Card } from 'semantic-ui-react';
+import PlayerProps from '../Player';
+import { StatelessComponent } from 'react';
 
-interface PlayerProps {
-  name: string;
-}
+const Hero: StatelessComponent<PlayerProps> = ({ name, health, mana }) =>
+  <Card centered>
+    <Card.Content>
+      <Card.Header className="center aligned">
+        {name}
+        <p>{health}hp</p>
+      </Card.Header>
+    </Card.Content>
+  </Card>;
 
-const Player = ({ name }: PlayerProps) => <Card centered >
-  <Card.Content>
-    <Card.Header className="center aligned">
-      {name}
-    </Card.Header>
-  </Card.Content>
-</Card>;
-
-export default Player;
+export default Hero;

@@ -16,7 +16,7 @@ export const startGame = ({type: START_GAME});
 const reducer = (state: any = [], action: Action<any>) => {
   switch (action.type) {
     case START_GAME:
-
+      break;
     default:
       return state;
   }
