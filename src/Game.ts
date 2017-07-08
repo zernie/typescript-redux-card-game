@@ -1,6 +1,6 @@
 import Player from "./Player";
 
-enum GameState {
+export enum GameState {
   PLAYING,
   FINISHED
 }
@@ -8,8 +8,6 @@ enum GameState {
 interface Game {
   currentPlayer: Player;
   players: [Player, Player];
-  firstPlayer: Player;
-  secondPlayer: Player;
   turn: number;
   state: GameState;
 }

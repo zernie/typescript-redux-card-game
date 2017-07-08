@@ -1,8 +1,9 @@
 interface Card {
-    cost: number;
-    name: string;
-    health: number;
-    damage: number;
+  cost: number;
+  name: string;
+  desc?: string;
+  health: number;
+  damage: number;
 }
 
 export default Card;

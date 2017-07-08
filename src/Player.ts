@@ -2,7 +2,7 @@ import Card from "./Card";
 
 interface Player {
   name: string;
-  cards: Card[];
+  hand: Card[];
   deck: Card[];
   mana: number;
   totalMana: number;
