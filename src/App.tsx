@@ -1,14 +1,19 @@
 import * as React from 'react';
-import { Container, Header } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react';
+import Board from './Board';
 
 class App extends React.Component<{}, {}> {
   render() {
     return (
-      <Container>
+      <Grid container>
+        <Grid.Column>
           <Header textAlign="center">
-            React/Redux Hearthstone-inspired card game.
+            Hearthstone-inspired card game written using React and Redux.
           </Header>
-      </Container>
+
+          <Board />
+        </Grid.Column>
+      </Grid>
     );
   }
 }
