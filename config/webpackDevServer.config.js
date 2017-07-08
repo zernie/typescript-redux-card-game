@@ -6,7 +6,7 @@ const config = require('./webpack.config.dev');
 const paths = require('./paths');
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-const host = process.env.HOST || '0.0.0.0';
+const host = '0.0.0.0';
 
 module.exports = function(proxy, allowedHost) {
   return {
@@ -26,8 +26,8 @@ module.exports = function(proxy, allowedHost) {
     // So we will disable the host check normally, but enable it if you have
     // specified the `proxy` setting. Finally, we let you override it if you
     // really know what you're doing with a special environment variable.
-    disableHostCheck: !proxy ||
-      process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true',
+    disableHostCheck:
+      !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true',
     // Enable gzip compression of generated files.
     compress: true,
     // Silence WebpackDevServer's own logs since they're generally not useful.
@@ -66,10 +66,13 @@ module.exports = function(proxy, allowedHost) {
     // https://github.com/facebookincubator/create-react-app/issues/293
     watchOptions: {
       ignored: /node_modules/,
+      aggregateTimeout: 100,
+      poll: 300,
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
     host: host,
+    port: '3000',
     overlay: false,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
