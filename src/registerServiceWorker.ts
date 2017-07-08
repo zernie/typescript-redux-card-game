@@ -18,7 +18,7 @@ export default function register() {
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
             if (!installingWorker) {
-                return;
+              return;
             }
 
             installingWorker.onstatechange = () => {
