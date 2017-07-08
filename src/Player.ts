@@ -1,20 +1,12 @@
-type Card = {
-  cost: number;
-  name: string;
-  health: number;
-  damage: number;
-};
+import Card from "./Card";
 
 type Player = {
   name: string;
   cards: Card[];
+  deck: Card[];
   mana: number;
   totalMana: number;
+  health: number;
 };
 
-type Game = {
-  currentPlayer: Player;
-  firstPlayer: Player;
-  secondPlayer: Player;
-  turn: number;
-};
+export default Player;
