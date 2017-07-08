@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Divider, Segment } from 'semantic-ui-react';
 import Hero from './Hero';
 import Side from './Side';
 import { StatelessComponent } from 'react';
@@ -15,6 +15,7 @@ const Board: StatelessComponent<BoardProps> = ({ firstPlayer, secondPlayer }) =>
     <Hero {...secondPlayer}/>
 
     <Side minions={secondPlayer.minions}/>
+    <Divider section/>
     <Side minions={firstPlayer.minions}/>
 
     <Hero {...firstPlayer}/>

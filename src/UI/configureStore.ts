@@ -34,6 +34,13 @@ const players: [Player, Player] = [
     mana: 1,
     minions: [
       {
+        id: 0,
+        health: 2,
+        damage: 3,
+        name: 'Jane doe',
+      },
+      {
+        id: 33,
         health: 2,
         damage: 3,
         name: 'Jane doe',
@@ -49,6 +56,7 @@ const players: [Player, Player] = [
     mana: 1,
     minions: [
       {
+        id: 1,
         health: 3,
         damage: 2,
         name: 'Jon Jones',

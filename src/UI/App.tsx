@@ -6,13 +6,15 @@ class App extends React.Component<{}, {}> {
   render() {
     return (
       <Grid container>
-        <Grid.Column>
+        <Grid.Row centered>
           <Header textAlign="center">
             Hearthstone-inspired card game written using React and Redux.
           </Header>
+        </Grid.Row>
 
+        <Grid.Row >
           <BoardContainer/>
-        </Grid.Column>
+        </Grid.Row>
       </Grid>
     );
   }
