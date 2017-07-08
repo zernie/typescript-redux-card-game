@@ -3,7 +3,7 @@ import { Segment } from 'semantic-ui-react';
 import Player from './Player';
 import Side from "./Side";
 
-const Board = (props: any) =>
+const Board = (props: object) =>
   <Segment.Group>
     <Player name="Warrior" />
 
