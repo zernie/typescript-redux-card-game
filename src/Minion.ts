@@ -1,4 +1,4 @@
-type Minion = {
+interface Minion {
   health: number;
   damage: number;
   name: string;

@@ -1,11 +1,17 @@
-import Player from './Player';
+import Player from "./Player";
 
-type Game = {
-    currentPlayer: Player;
-    firstPlayer: Player;
-    secondPlayer: Player;
-    turn: number;
-    finished: boolean;
-};
+enum GameState {
+  PLAYING,
+  FINISHED
+}
+
+interface Game {
+  currentPlayer: Player;
+  players: [Player, Player];
+  firstPlayer: Player;
+  secondPlayer: Player;
+  turn: number;
+  state: GameState;
+}
 
 export default Game;
