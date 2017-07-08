@@ -32,6 +32,13 @@ const players: [Player, Player] = [
     hand: [],
     deck: deck,
     mana: 1,
+    minions: [
+      {
+        health: 2,
+        damage: 3,
+        name: 'Jane doe',
+      },
+    ],
     totalMana: 1,
     health: 30,
   },
@@ -40,6 +47,13 @@ const players: [Player, Player] = [
     hand: [],
     deck: deck,
     mana: 1,
+    minions: [
+      {
+        health: 3,
+        damage: 2,
+        name: 'Jon Jones',
+      },
+    ],
     totalMana: 1,
     health: 30,
   },

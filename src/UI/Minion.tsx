@@ -1,19 +1,21 @@
 import * as React from 'react';
-import { Card } from 'semantic-ui-react';
-
-interface MinionProps {
-  health: number,
-  damage: number,
-  name: string,
-}
+import { List } from 'semantic-ui-react';
+import MinionProps from '../Minion';
 
 const MinionCard = ({ damage, health, name }: MinionProps) =>
-  <Card centered>
-    <Card.Content>
-      <Card.Header className="center aligned">
-        {name}
-      </Card.Header>
-    </Card.Content>
-  </Card>;
+  <List centered>
+    <List.Item>
+      <List.Icon name="child" />
+      {name}
+    </List.Item>
+    <List.Item>
+      <List.Icon name="lightning" />
+      {damage}
+    </List.Item>
+    <List.Item>
+      <List.Icon name="heartbeat" />
+      {health}
+    </List.Item>
+  </List>;
 
 export default MinionCard;

@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { Segment } from 'semantic-ui-react';
-import { head, last } from 'ramda';
 import Hero from './Hero';
 import Side from './Side';
-import { PlayersTuple } from '../Game';
 import { StatelessComponent } from 'react';
+import Player from "../Player";
 
 interface BoardProps {
-  players: PlayersTuple;
+  firstPlayer: Player;
+  secondPlayer: Player;
 }
 
-const Board: StatelessComponent<BoardProps> = ({ players }) =>
+const Board: StatelessComponent<BoardProps> = ({ firstPlayer, secondPlayer }) =>
   <Segment.Group>
-    <Hero {...last(players)} />
+    <Hero {...secondPlayer}/>
 
-    <Side id="first" color="red" inverted />
-    <Side id="second" color="green" inverted />
+    <Side minions={secondPlayer.minions}/>
+    <Side minions={firstPlayer.minions}/>
 
-    <Hero {...head(players)} />
+    <Hero {...firstPlayer}/>
   </Segment.Group>;
 
 export default Board;

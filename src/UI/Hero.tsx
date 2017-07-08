@@ -3,13 +3,20 @@ import { Card } from 'semantic-ui-react';
 import PlayerProps from '../Player';
 import { StatelessComponent } from 'react';
 
-const Hero: StatelessComponent<PlayerProps> = ({ name, health, mana }) =>
+const Hero: StatelessComponent<PlayerProps> = ({
+  name,
+  health,
+  mana,
+  totalMana,
+}) =>
   <Card centered>
-    <Card.Content>
-      <Card.Header className="center aligned">
+    <Card.Content className="center aligned">
+      <Card.Header>
         {name}
-        <p>{health}hp</p>
       </Card.Header>
+
+      <p>{health}hp</p>
+      <p>{mana}/{totalMana} mana</p>
     </Card.Content>
   </Card>;
 
