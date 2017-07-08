@@ -9,7 +9,7 @@ interface SideProps {
 }
 
 const Side: StatelessComponent<SideProps> = ({ minions, ...props }) =>
-  <List horizontal>
+  <List horizontal size="large">
     {minions.map(minion => <Minion key={minion.id} {...minion} />)}
   </List>;
 

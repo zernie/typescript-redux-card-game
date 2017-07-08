@@ -12,6 +12,7 @@ const MinionCard = ({ id, damage, health, name }: MinionProps) =>
 
           <List.Icon name="lightning" />
           {damage}
+          <br/>
           <List.Icon name="heartbeat" />
           {health}
         </List.Content>
