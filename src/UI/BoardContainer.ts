@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 // import { toggleEmailWorkflow as handleEmailToggle } from './reducer';
-import { head, last } from 'ramda';
 import Board from './Board';
 import Game from '../Game';
 
 const mapStateToProps = (state: Game) => {
-  const { players } = state;
+  const { player, opponent } = state;
 
-  return { firstPlayer: head(players), secondPlayer: last(players) };
+  return { player, opponent };
 };
 const mapDispatchToProps = {
   // handleEmailToggle

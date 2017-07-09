@@ -3,22 +3,17 @@ import { Divider, Segment } from 'semantic-ui-react';
 import Hero from './Hero';
 import Side from './Side';
 import { StatelessComponent } from 'react';
-import Player from "../Player";
+import Game from "../Game";
 
-interface BoardProps {
-  firstPlayer: Player;
-  secondPlayer: Player;
-}
-
-const Board: StatelessComponent<BoardProps> = ({ firstPlayer, secondPlayer }) =>
+const Board: StatelessComponent<Game> = ({ player, opponent }) =>
   <Segment>
-    <Hero {...secondPlayer}/>
+    <Hero {...opponent}/>
 
-    <Side minions={secondPlayer.minions}/>
+    <Side minions={opponent.minions}/>
     <Divider section/>
-    <Side minions={firstPlayer.minions}/>
+    <Side minions={player.minions}/>
 
-    <Hero {...firstPlayer}/>
+    <Hero {...player}/>
   </Segment>;
 
 export default Board;

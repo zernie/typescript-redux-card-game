@@ -5,6 +5,7 @@ import Player from '../Player';
 import Card from '../Card';
 import { GameState } from '../Game';
 import { CardType } from '../Card';
+import { ActivePlayer } from '../Player';
 
 const deck: Card[] = [
   {
@@ -30,53 +31,52 @@ const deck: Card[] = [
   },
 ];
 
-const players: [Player, Player] = [
-  {
-    name: 'Mage',
-    hand: [],
-    deck: deck,
-    mana: 1,
-    minions: [
-      {
-        id: 0,
-        health: 2,
-        damage: 3,
-        name: 'Jane doe',
-        mechanics: [],
-      },
-      {
-        id: 33,
-        health: 2,
-        damage: 3,
-        name: 'Jane doe',
-        mechanics: [],
-      },
-    ],
-    totalMana: 1,
-    health: 30,
-  },
-  {
-    name: 'Warrior',
-    hand: [],
-    deck: deck,
-    mana: 1,
-    minions: [
-      {
-        id: 1,
-        health: 3,
-        damage: 2,
-        name: 'Jon Jones',
-        mechanics: [],
-      },
-    ],
-    totalMana: 1,
-    health: 30,
-  },
-];
+const player: Player = {
+  name: 'Mage',
+  hand: [],
+  deck: deck,
+  mana: 1,
+  minions: [
+    {
+      id: 0,
+      health: 2,
+      damage: 3,
+      name: 'Jane doe',
+      mechanics: [],
+    },
+    {
+      id: 33,
+      health: 2,
+      damage: 3,
+      name: 'Jane doe',
+      mechanics: [],
+    },
+  ],
+  totalMana: 1,
+  health: 30,
+};
+const opponent: Player = {
+  name: 'Warrior',
+  hand: [],
+  deck: deck,
+  mana: 1,
+  minions: [
+    {
+      id: 1,
+      health: 3,
+      damage: 2,
+      name: 'Jon Jones',
+      mechanics: [],
+    },
+  ],
+  totalMana: 1,
+  health: 30,
+};
 
 const initialState: Game = {
-  currentPlayer: players[0],
-  players,
+  activePlayer: ActivePlayer.Player,
+  player: player,
+  opponent: opponent,
   turn: 1,
   state: GameState.Playing,
 };
