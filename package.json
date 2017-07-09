@@ -45,6 +45,8 @@
     "@types/redux": "^3.6.0",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",
