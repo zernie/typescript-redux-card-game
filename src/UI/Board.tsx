@@ -11,7 +11,7 @@ interface BoardProps {
 }
 
 const Board: StatelessComponent<BoardProps> = ({ firstPlayer, secondPlayer }) =>
-  <Segment.Group>
+  <Segment>
     <Hero {...secondPlayer}/>
 
     <Side minions={secondPlayer.minions}/>
@@ -19,6 +19,6 @@ const Board: StatelessComponent<BoardProps> = ({ firstPlayer, secondPlayer }) =>
     <Side minions={firstPlayer.minions}/>
 
     <Hero {...firstPlayer}/>
-  </Segment.Group>;
+  </Segment>;
 
 export default Board;

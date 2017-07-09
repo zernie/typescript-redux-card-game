@@ -13,7 +13,9 @@ class App extends React.Component<{}, {}> {
         </Grid.Row>
 
         <Grid.Row >
-          <BoardContainer/>
+          <div className="column">
+            <BoardContainer/>
+          </div>
         </Grid.Row>
       </Grid>
     );
