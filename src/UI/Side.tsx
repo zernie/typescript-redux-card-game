@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { List } from 'semantic-ui-react';
-import Minion from './Minion';
-import MinionProps from '../Minion';
 import { StatelessComponent } from 'react';
+import { List, Segment } from 'semantic-ui-react';
+import Minion from './Minion';
+import Player from '../Player';
 
-interface SideProps {
-  minions: MinionProps[];
-}
-
-const Side: StatelessComponent<SideProps> = ({ minions, ...props }) =>
-  <List horizontal size="large">
-    {minions.map(minion => <Minion key={minion.id} {...minion} />)}
-  </List>;
+const Side: StatelessComponent<Player> = ({ minions, ...props }) =>
+  <Segment basic>
+    <List relaxed selection divided horizontal size="big">
+      {minions.map(minion => <Minion key={minion.id} {...minion} />)}
+    </List>
+  </Segment>;
 
 export default Side;

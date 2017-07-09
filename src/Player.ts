@@ -5,6 +5,7 @@ export enum ActivePlayer {
   Player,
   Opponent,
 }
+
 interface Player {
   name: string;
   hand: Card[];

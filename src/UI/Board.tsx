@@ -12,9 +12,9 @@ const Board: StatelessComponent<Game> = ({ player, opponent }) =>
       <Grid.Column width={14}>
         <Hero {...opponent} />
 
-        <Side minions={opponent.minions} />
+        <Side {...opponent} />
         <Divider section />
-        <Side minions={player.minions} />
+        <Side {...player} />
 
         <Hero {...player} />
       </Grid.Column>
