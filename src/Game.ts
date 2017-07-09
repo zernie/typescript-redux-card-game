@@ -1,8 +1,13 @@
 import Player from './Player';
 
 export enum GameState {
-  PLAYING,
-  FINISHED,
+  Playing,
+  Finished,
+}
+
+export enum ActivePlayer {
+  Player,
+  Opponent,
 }
 
 export type PlayersTuple = [Player, Player];

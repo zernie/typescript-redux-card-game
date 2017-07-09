@@ -1,4 +1,5 @@
 export enum CardType {
+  Enchantment,
   Minion,
   Spell,
   Weapon,

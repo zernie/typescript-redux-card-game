@@ -1,8 +1,11 @@
+import Mechanics from "./Mechanics";
+
 interface Minion {
-  id: number,
+  id: number;
   health: number;
   damage: number;
   name: string;
+  mechanics: Mechanics[];
 }
 
 export default Minion;

@@ -4,6 +4,7 @@ import Game from '../Game';
 import Player from '../Player';
 import Card from '../Card';
 import { GameState } from '../Game';
+import { CardType } from '../Card';
 
 const deck: Card[] = [
   {
@@ -11,18 +12,21 @@ const deck: Card[] = [
     name: 'card 1',
     health: 2,
     damage: 2,
+    type: CardType.Minion,
   },
   {
     cost: 2,
     name: 'card 2',
     health: 3,
     damage: 2,
+    type: CardType.Minion,
   },
   {
     cost: 2,
     name: 'card 2',
     health: 2,
     damage: 3,
+    type: CardType.Minion,
   },
 ];
 
@@ -38,12 +42,14 @@ const players: [Player, Player] = [
         health: 2,
         damage: 3,
         name: 'Jane doe',
+        mechanics: [],
       },
       {
         id: 33,
         health: 2,
         damage: 3,
         name: 'Jane doe',
+        mechanics: [],
       },
     ],
     totalMana: 1,
@@ -60,6 +66,7 @@ const players: [Player, Player] = [
         health: 3,
         damage: 2,
         name: 'Jon Jones',
+        mechanics: [],
       },
     ],
     totalMana: 1,
@@ -71,7 +78,7 @@ const initialState: Game = {
   currentPlayer: players[0],
   players,
   turn: 1,
-  state: GameState.PLAYING,
+  state: GameState.Playing,
 };
 
 export default () =>

@@ -1,0 +1,25 @@
+enum Mechanics {
+  Adapt,
+  Battlecry,
+  ChooseOne,
+  Combo,
+  Counter,
+  Charge,
+  DeathRattle,
+  Discover,
+  DivineShield,
+  Enrage,
+  Freeze,
+  Immune,
+  Inspire,
+  Overload,
+  Poisonous,
+  Quest,
+  Secret,
+  Stealth,
+  Silence,
+  Taunt,
+  Windfury,
+}
+
+export default Mechanics;
