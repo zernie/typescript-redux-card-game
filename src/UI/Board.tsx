@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
-import Hero from './Hero';
+import HeroTarget from './TargetableHero';
 import Side from './Side';
 import { StatelessComponent } from 'react';
 import Game from '../Game';
@@ -10,13 +10,13 @@ const Board: StatelessComponent<Game> = ({ player, opponent }) =>
   <Segment className="grid">
     <Grid.Row>
       <Grid.Column width={14}>
-        <Hero {...opponent} />
+        <HeroTarget {...opponent} />
 
         <Side {...opponent} />
         <Divider section />
         <Side {...player} />
 
-        <Hero {...player} />
+        <HeroTarget {...player} />
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">

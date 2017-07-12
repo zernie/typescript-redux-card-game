@@ -15,12 +15,11 @@ const MinionCard: StatelessComponent<MinionCardProps> = ({
   damage,
   health,
   name,
-  isDragging,
   connectDragSource,
 }) =>
   connectDragSource(
     <div>
-      <List.Item active={isDragging}>
+      <List.Item>
         <List.Content>
           <List.Header>
             <List.Icon name="child" />

@@ -1,23 +1,34 @@
 import * as React from 'react';
-import { Card } from 'semantic-ui-react';
-import PlayerProps from '../Player';
 import { StatelessComponent } from 'react';
+import { Card } from 'semantic-ui-react';
+import Player from '../Player';
 
-const Hero: StatelessComponent<PlayerProps> = ({
+interface HeroOwnProps {
+  connectDropTarget: Function;
+}
+
+export type HeroProps = HeroOwnProps & Player;
+
+const Hero: StatelessComponent<HeroProps> = ({
+                                               connectDropTarget,
   name,
   health,
   mana,
   totalMana,
 }) =>
-  <Card centered>
-    <Card.Content className="center aligned">
-      <Card.Header>
-        {name}
-      </Card.Header>
+  connectDropTarget(
+    <div>
+      <Card centered>
+        <Card.Content className="center aligned">
+          <Card.Header>
+            {name}
+          </Card.Header>
 
-      <p>{health}hp</p>
-      <p>{mana}/{totalMana} mana</p>
-    </Card.Content>
-  </Card>;
+          <p>{health}hp</p>
+          <p>{mana}/{totalMana} mana</p>
+        </Card.Content>
+      </Card>
+    </div>
+);
 
 export default Hero;
