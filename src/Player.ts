@@ -1,5 +1,5 @@
-import Card from "./Card";
-import Minion from "./Minion";
+import Card from './Card';
+import Minion from './Minion';
 
 export enum ActivePlayer {
   Player,

@@ -1,8 +1,4 @@
-import {
-  DragSource,
-  DragSourceCollector,
-  DragSourceSpec,
-} from 'react-dnd';
+import { DragSource, DragSourceCollector, DragSourceSpec } from 'react-dnd';
 import MinionCard from './MinionCard';
 import Minion from '../Minion';
 
@@ -11,7 +7,7 @@ const collect: DragSourceCollector = (connect, monitor) => ({
 });
 
 const spec: DragSourceSpec<Minion> = {
-  beginDrag: (props, monitor, component) => ({}),
+  beginDrag: (props, monitor, component) => props,
   isDragging: (props, monitor) => !!monitor && monitor.isDragging(),
 };
 
