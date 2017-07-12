@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { StatelessComponent } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import BoardContainer from './BoardContainer';
-import { StatelessComponent } from 'react';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 const App: StatelessComponent<{}> = props =>
   <Grid container>
@@ -18,4 +20,4 @@ const App: StatelessComponent<{}> = props =>
     </Grid.Row>
   </Grid>;
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

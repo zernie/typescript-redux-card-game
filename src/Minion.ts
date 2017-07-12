@@ -1,4 +1,4 @@
-import Mechanics from "./Mechanics";
+import Mechanics from './Mechanics';
 
 interface Minion {
   id: number;

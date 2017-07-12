@@ -21,6 +21,18 @@
   version "0.24.2"
   resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.24.2.tgz#cce538e8fef2e85e04d16a169de8c717fe243620"
 
+"@types/react-dnd-html5-backend@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@types/react-dnd-html5-backend/-/react-dnd-html5-backend-2.1.8.tgz#35499ce5db24afce847da7b5080c1ab1ec69cd86"
+  dependencies:
+    "@types/react-dnd" "*"
+
+"@types/react-dnd@*", "@types/react-dnd@^2.0.33":
+  version "2.0.33"
+  resolved "https://registry.yarnpkg.com/@types/react-dnd/-/react-dnd-2.0.33.tgz#b7ce466ef3dfba48c3e11d7151f21b02e0472f58"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^15.5.1":
   version "15.5.1"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.1.tgz#f3c3e14c682785923c7d64583537df319442dec1"
