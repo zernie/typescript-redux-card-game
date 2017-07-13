@@ -18,22 +18,19 @@ const MinionCard: StatelessComponent<MinionCardProps> = ({
   connectDragSource,
 }) =>
   connectDragSource(
-    <div>
-      <List.Item>
-        <List.Content>
-          <List.Header>
-            <List.Icon name="child" />
-            {name}
-          </List.Header>
+    <div className="item">
+      <List.Content>
+        <List.Header>
+          <List.Icon name="child" />
+          {name}
+        </List.Header>
 
-          <List.Icon name="lightning" />
-          {damage}
-          <br />
-          <List.Icon name="heartbeat" />
-          {health}
-        </List.Content>
-
-      </List.Item>
+        <List.Icon name="lightning" />
+        {damage}
+        <br />
+        <List.Icon name="heartbeat" />
+        {health}
+      </List.Content>
     </div>
   );
 
