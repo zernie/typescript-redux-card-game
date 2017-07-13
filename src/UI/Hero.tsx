@@ -5,12 +5,14 @@ import Player from '../Player';
 
 interface HeroOwnProps {
   connectDropTarget: Function;
+  isOver: boolean;
 }
 
 export type HeroProps = HeroOwnProps & Player;
 
 const Hero: StatelessComponent<HeroProps> = ({
   connectDropTarget,
+  isOver,
   name,
   health,
   mana,
@@ -18,7 +20,7 @@ const Hero: StatelessComponent<HeroProps> = ({
 }) =>
   connectDropTarget(
     <div>
-      <Card centered>
+      <Card centered color={isOver ? 'red' : 'black'}>
         <Card.Content>
           <Card.Header>
             {name}

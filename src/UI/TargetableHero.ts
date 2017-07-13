@@ -6,6 +6,7 @@ import Player from '../Player';
 
 const collect: DropTargetCollector = (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
 });
 
 const spec: DropTargetSpec<Player> = {
