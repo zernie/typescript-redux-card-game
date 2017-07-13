@@ -7,10 +7,10 @@ import Game from '../Game';
 import NextTurn from './NextTurn';
 
 const Board: StatelessComponent<Game> = ({ player, opponent }) =>
-  <Segment className="grid">
-    <Grid.Row>
+  <Segment>
+    <Grid centered>
       <Grid.Column width={14}>
-        <HeroTarget {...opponent} />
+          <HeroTarget {...opponent} />
 
         <Side {...opponent} />
         <Divider section />
@@ -22,7 +22,7 @@ const Board: StatelessComponent<Game> = ({ player, opponent }) =>
       <Grid.Column width={2} verticalAlign="middle">
         <NextTurn />
       </Grid.Column>
-    </Grid.Row>
+    </Grid>
   </Segment>;
 
 export default Board;

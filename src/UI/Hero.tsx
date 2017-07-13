@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Statistic } from 'semantic-ui-react';
 import Player from '../Player';
 
 interface HeroOwnProps {
@@ -10,7 +10,7 @@ interface HeroOwnProps {
 export type HeroProps = HeroOwnProps & Player;
 
 const Hero: StatelessComponent<HeroProps> = ({
-                                               connectDropTarget,
+  connectDropTarget,
   name,
   health,
   mana,
@@ -19,16 +19,22 @@ const Hero: StatelessComponent<HeroProps> = ({
   connectDropTarget(
     <div>
       <Card centered>
-        <Card.Content className="center aligned">
+        <Card.Content>
           <Card.Header>
             {name}
           </Card.Header>
 
-          <p>{health}hp</p>
-          <p>{mana}/{totalMana} mana</p>
+          <Statistic.Group size="small" horizontal>
+            <Statistic color="green" value={health} label="hp" />
+            <Statistic
+              color="blue"
+              value={`${mana}/${totalMana}`}
+              label="mana"
+            />
+          </Statistic.Group>
         </Card.Content>
       </Card>
     </div>
-);
+  );
 
 export default Hero;

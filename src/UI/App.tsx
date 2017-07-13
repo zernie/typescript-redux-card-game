@@ -1,23 +1,19 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import BoardContainer from './BoardContainer';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
 const App: StatelessComponent<{}> = props =>
-  <Grid container>
-    <Grid.Row centered>
-      <Header textAlign="center">
+  <Container textAlign="center">
+    <Header as="h1">
+      <Header.Content>
         Hearthstone-inspired card game written using React and Redux.
-      </Header>
-    </Grid.Row>
+      </Header.Content>
+    </Header>
 
-    <Grid.Row>
-      <div className="column">
-        <BoardContainer />
-      </div>
-    </Grid.Row>
-  </Grid>;
+    <BoardContainer />
+  </Container>;
 
 export default DragDropContext(HTML5Backend)(App);
