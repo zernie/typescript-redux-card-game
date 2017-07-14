@@ -6,7 +6,9 @@ import Side from './Side';
 import Game from '../Game';
 import NextTurn from './NextTurn';
 
-const Board: StatelessComponent<Game> = ({ player, opponent }) =>
+type BoardProps = Game & {nextTurn: Function};
+
+const Board: StatelessComponent<BoardProps> = ({ nextTurn, player, opponent }) =>
   <Segment>
     <Grid centered>
       <Grid.Column width={14}>
@@ -20,7 +22,7 @@ const Board: StatelessComponent<Game> = ({ player, opponent }) =>
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">
-        <NextTurn />
+        <NextTurn onClick={nextTurn}/>
       </Grid.Column>
     </Grid>
   </Segment>;

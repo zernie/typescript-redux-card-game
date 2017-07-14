@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { Card, Statistic } from 'semantic-ui-react';
 import Player, { ActivePlayer } from '../Player';
-import { attackFace } from './reducer';
+import { attackFace } from './characterReducer';
 
 interface HeroOwnProps {
   activePlayer: ActivePlayer;

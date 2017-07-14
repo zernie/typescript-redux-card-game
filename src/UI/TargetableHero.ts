@@ -8,7 +8,7 @@ import HeroCard, { HeroProps } from './Hero';
 import { ComponentClass } from 'react';
 import Player, { ActivePlayer } from '../Player';
 import Minion from '../Minion';
-import { attackFace } from './reducer';
+import { attackFace } from './characterReducer';
 import { connect } from 'react-redux';
 import Game from '../Game';
 
