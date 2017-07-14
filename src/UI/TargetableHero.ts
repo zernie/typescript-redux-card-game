@@ -1,23 +1,40 @@
-import { DropTarget, DropTargetCollector, DropTargetSpec } from 'react-dnd';
-// import { connect } from 'react-redux';
-import HeroCard from './Hero';
-import Player from '../Player';
-// import Game from '../Game';
+import {
+  DropTarget,
+  DropTargetCollector,
+  DropTargetMonitor,
+  DropTargetSpec,
+} from 'react-dnd';
+import HeroCard, { HeroProps } from './Hero';
+import { ComponentClass } from 'react';
+import Player, { ActivePlayer } from '../Player';
+import Minion from '../Minion';
+import { attackFace } from './reducer';
+import { connect } from 'react-redux';
+import Game from '../Game';
 
-const collect: DropTargetCollector = (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
+const collect: DropTargetCollector = (connectable, monitor) => ({
+  connectDropTarget: connectable.dropTarget(),
   isOver: monitor.isOver(),
 });
 
-const spec: DropTargetSpec<Player> = {
-  drop: (props, monitor, component) => ({}),
-  canDrop: (props: any, monitor) => true,
+const spec: DropTargetSpec<HeroProps> = {
+  drop: (props, monitor: DropTargetMonitor) => {
+    const minion = monitor.getItem() as Minion;
+    const damage = minion.damage;
+
+    return props.attackFace({
+      damage,
+      target: ActivePlayer.Player,
+      activePlayer: props.activePlayer,
+    });
+  },
+  canDrop: (props, monitor) => true,
 };
 
-// const mapStateToProps = (state: Game) => state;
+const TargetableHero = DropTarget('Minion', spec, collect)(HeroCard);
 
-// export default connect(mapStateToProps, {})(
-//   DropTarget('Minion', spec, collect)(HeroCard)
-// );
+const mapStateToProps = ({ activePlayer }: Game) => ({ activePlayer });
 
-export default DropTarget('Minion', spec, collect)(HeroCard);
+export default connect(mapStateToProps, { attackFace })(
+  TargetableHero
+) as ComponentClass<Player>;

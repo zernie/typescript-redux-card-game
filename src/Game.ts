@@ -5,12 +5,14 @@ export enum GameState {
   Finished,
 }
 
-interface Game {
-  activePlayer: ActivePlayer;
-  player: Player;
-  opponent: Player;
-  turn: number;
-  state: GameState;
-}
+type Game = Readonly<
+  {
+    activePlayer: ActivePlayer;
+    player: Player;
+    opponent: Player;
+    turn: number;
+    gameState: GameState;
+  }
+>;
 
 export default Game;
