@@ -10,6 +10,7 @@ const mapStateToProps = pick([
   'hand',
   'player',
   'opponent',
+  'turn',
 ]);
 
 export default connect(mapStateToProps, { nextTurn })(Board);
