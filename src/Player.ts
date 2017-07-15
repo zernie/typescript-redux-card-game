@@ -13,8 +13,6 @@ export enum ActivePlayer {
 }
 
 export const other = (player: ActivePlayer): ActivePlayer =>
-  player === ActivePlayer.Player
-    ? ActivePlayer.Opponent
-    : ActivePlayer.Player;
+  player === ActivePlayer.Player ? ActivePlayer.Opponent : ActivePlayer.Player;
 
 export default Player;
