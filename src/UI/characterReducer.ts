@@ -1,7 +1,7 @@
 import Player, { ActivePlayer } from '../Player';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { inc, subtract, evolve } from 'ramda';
+import { inc, evolve } from 'ramda';
 import { nextTurn } from './turnReducer';
 
 const actionCreator = actionCreatorFactory();
@@ -18,7 +18,7 @@ export const attackFace = actionCreator<AttackFaceAction>('ATTACK_FACE');
 const attackFaceHandler = (state: Player, payload: AttackFaceAction) =>
   evolve(
     {
-      health: subtract(payload.damage),
+      health: () => (state.health - payload.damage),
     },
     state
   );
@@ -32,4 +32,4 @@ const characterReducer = (character: Player) =>
     .case(attackFace, attackFaceHandler)
     .case(nextTurn, nextTurnHandler);
 
-export default characterReducer;
+export default (character: Player) => characterReducer;
