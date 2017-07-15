@@ -18,7 +18,7 @@ export const attackFace = actionCreator<AttackFaceAction>('ATTACK_FACE');
 const attackFaceHandler = (state: Player, payload: AttackFaceAction) =>
   evolve(
     {
-      health: () => (state.health - payload.damage),
+      health: () => state.health - payload.damage,
     },
     state
   );
@@ -32,4 +32,4 @@ const characterReducer = (character: Player) =>
     .case(attackFace, attackFaceHandler)
     .case(nextTurn, nextTurnHandler);
 
-export default (character: Player) => characterReducer;
+export default characterReducer;
