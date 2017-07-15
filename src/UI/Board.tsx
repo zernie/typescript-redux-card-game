@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { Divider, Label, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Button, Grid, Segment } from 'semantic-ui-react';
 import TargetableHero from './TargetableHero';
 import Side from './Side';
 import Game from '../Game';
@@ -18,7 +18,7 @@ const Board: StatelessComponent<BoardProps> = ({
   turn,
 }) =>
   <Segment>
-    <Grid >
+    <Grid>
       <Grid.Column width={14}>
         <TargetableHero {...opponent} />
 
@@ -38,9 +38,11 @@ const Board: StatelessComponent<BoardProps> = ({
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">
-        <Label color="blue" attached="top" size="large">Turn: {turn}</Label>
+        <Button.Group vertical size="large">
+          <Button color="green" basic>Turn: {turn}</Button>
 
-        <NextTurn onClick={nextTurn} />
+          <NextTurn onClick={nextTurn} />
+        </Button.Group>
       </Grid.Column>
     </Grid>
   </Segment>;
