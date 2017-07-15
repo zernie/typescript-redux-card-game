@@ -23,7 +23,7 @@ const Hero: StatelessComponent<HeroProps> = ({
 }) =>
   connectDropTarget(
     <div>
-      <Card centered color={isOver ? 'red' : 'black'}>
+      <Card centered color={isOver ? 'red' : undefined}>
         <Card.Content>
           <Card.Header>
             {name}

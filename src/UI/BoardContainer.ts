@@ -1,12 +1,15 @@
 import { connect } from 'react-redux';
 import Board from './Board';
-import Game from '../Game';
 import { nextTurn } from './turnReducer';
+import { pick } from 'ramda';
 
-const mapStateToProps = (state: Game) => {
-  const { player, opponent } = state;
+const mapStateToProps = pick([
+  'activePlayer',
+  'board',
+  'deck',
+  'hand',
+  'player',
+  'opponent',
+]);
 
-  return { player, opponent };
-};
-
-export default connect(mapStateToProps, {nextTurn})(Board);
+export default connect(mapStateToProps, { nextTurn })(Board);

@@ -5,24 +5,39 @@ import TargetableHero from './TargetableHero';
 import Side from './Side';
 import Game from '../Game';
 import NextTurn from './NextTurn';
+import { ActivePlayer } from '../Player';
 
-type BoardProps = Game & {nextTurn: Function};
+export type BoardProps = Game & { nextTurn: Function };
 
-const Board: StatelessComponent<BoardProps> = ({ nextTurn, player, opponent }) =>
+const Board: StatelessComponent<BoardProps> = ({
+  activePlayer,
+  board,
+  nextTurn,
+  player,
+  opponent,
+}) =>
   <Segment>
     <Grid centered>
       <Grid.Column width={14}>
         <TargetableHero {...opponent} />
 
-        <Side {...opponent} />
+        <Side
+          {...opponent}
+          active={activePlayer === ActivePlayer.Opponent}
+          board={board.opponent}
+        />
         <Divider section />
-        <Side {...player} />
+        <Side
+          {...player}
+          active={activePlayer === ActivePlayer.Player}
+          board={board.player}
+        />
 
         <TargetableHero {...player} />
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">
-        <NextTurn onClick={nextTurn}/>
+        <NextTurn onClick={nextTurn} />
       </Grid.Column>
     </Grid>
   </Segment>;
