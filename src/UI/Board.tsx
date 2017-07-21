@@ -5,9 +5,16 @@ import TargetableHero from './TargetableHero';
 import Side from './Side';
 import Game from '../Game';
 import NextTurn from './NextTurn';
-import { ActivePlayer } from '../Player';
+import { PlayerKind } from '../Player';
+// import { where, equals } from 'ramda';
+// import { Board } from '../Board';
 
 export type BoardProps = Game & { nextTurn: Function };
+//
+// const selectMinions: Board = (playerKind: PlayerKind) => (minions: Board) =>
+//   where({ owner: equals(playerKind) });
+//
+// const playerMinions = selectMinions(PlayerKind.Player);
 
 const Board: StatelessComponent<BoardProps> = ({
   activePlayer,
@@ -24,14 +31,14 @@ const Board: StatelessComponent<BoardProps> = ({
 
         <Side
           {...opponent}
-          active={activePlayer === ActivePlayer.Opponent}
-          board={board.opponent}
+          active={activePlayer === PlayerKind.Opponent}
+          minions={board}
         />
         <Divider section />
         <Side
           {...player}
-          active={activePlayer === ActivePlayer.Player}
-          board={board.player}
+          active={activePlayer === PlayerKind.Player}
+          minions={board}
         />
 
         <TargetableHero {...player} />

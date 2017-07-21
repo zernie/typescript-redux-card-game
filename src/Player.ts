@@ -7,12 +7,12 @@ type Player = Readonly<
   }
 >;
 
-export enum ActivePlayer {
+export enum PlayerKind {
   Player,
   Opponent,
 }
 
-export const other = (player: ActivePlayer): ActivePlayer =>
-  player === ActivePlayer.Player ? ActivePlayer.Opponent : ActivePlayer.Player;
+export const other = (player: PlayerKind): PlayerKind =>
+  player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
 
 export default Player;

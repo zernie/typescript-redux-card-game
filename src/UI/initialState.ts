@@ -1,91 +1,86 @@
 import Game, { GameState } from '../Game';
-import Player, { ActivePlayer } from '../Player';
+import Player, { PlayerKind } from '../Player';
 import { CardType } from '../Card';
-import Board from '../Board';
-import Deck from '../Deck';
-import Hand from '../Hand';
+import { Board } from '../Board';
+import { Deck } from '../Deck';
+import { Hand } from '../Hand';
 
-export const deck: Deck = {
-  player: [
-    {
-      cost: 1,
-      name: 'card 1',
-      health: 2,
-      damage: 2,
-      type: CardType.Minion,
-    },
-    {
-      cost: 2,
-      name: 'card 2',
-      health: 3,
-      damage: 2,
-      type: CardType.Minion,
-    },
-    {
-      cost: 2,
-      name: 'card 2',
-      health: 2,
-      damage: 3,
-      type: CardType.Minion,
-    },
-  ],
-  opponent: [
-    {
-      cost: 1,
-      name: 'card 1',
-      health: 2,
-      damage: 2,
-      type: CardType.Minion,
-    },
-    {
-      cost: 2,
-      name: 'card 2',
-      health: 3,
-      damage: 2,
-      type: CardType.Minion,
-    },
-    {
-      cost: 2,
-      name: 'card 2',
-      health: 2,
-      damage: 3,
-      type: CardType.Minion,
-    },
-  ],
-};
+export const deck: Deck = [
+  {
+    cost: 1,
+    damage: 2,
+    health: 2,
+    name: 'card 1',
+    type: CardType.Minion,
+  },
+  {
+    cost: 2,
+    damage: 2,
+    health: 3,
+    name: 'card 2',
+    type: CardType.Minion,
+  },
+  {
+    cost: 2,
+    damage: 3,
+    health: 2,
+    name: 'card 2',
+    type: CardType.Minion,
+  },
+  {
+    cost: 1,
+    damage: 2,
+    health: 2,
+    name: 'card 1',
+    type: CardType.Minion,
+  },
+  {
+    cost: 2,
+    damage: 2,
+    health: 3,
+    name: 'card 2',
+    type: CardType.Minion,
+  },
+  {
+    cost: 2,
+    damage: 3,
+    health: 2,
+    name: 'card 2',
+    type: CardType.Minion,
+  },
+];
 
 export const hand: Hand = {
   player: [],
   opponent: [],
 };
 
-export const board: Board = {
-  player: [
-    {
-      id: 0,
-      health: 2,
-      damage: 3,
-      name: 'Jane doe',
-      mechanics: [],
-    },
-    {
-      id: 33,
-      health: 2,
-      damage: 3,
-      name: 'Jane doe',
-      mechanics: [],
-    },
-  ],
-  opponent: [
-    {
-      id: 1,
-      health: 3,
-      damage: 2,
-      name: 'Jon Jones',
-      mechanics: [],
-    },
-  ],
-};
+export const board: Board = [
+  {
+    damage: 3,
+    health: 2,
+    id: 0,
+    mechanics: [],
+    name: 'Jane doe',
+    owner: PlayerKind.Opponent,
+  },
+  {
+    damage: 3,
+    health: 2,
+    id: 33,
+    mechanics: [],
+    name: 'Jane doe',
+    owner: PlayerKind.Opponent,
+  },
+  {
+    damage: 2,
+    health: 3,
+    id: 1,
+    mechanics: [],
+    name: 'Jon Jones',
+    owner: PlayerKind.Opponent,
+  },
+];
 
 export const player: Player = {
   name: 'Mage',
@@ -102,7 +97,7 @@ export const opponent: Player = {
 };
 
 const initialState: Game = {
-  activePlayer: ActivePlayer.Player,
+  activePlayer: PlayerKind.Player,
   board,
   hand,
   deck,

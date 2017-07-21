@@ -1,7 +1,7 @@
-import Player, { ActivePlayer } from './Player';
-import Board from './Board';
-import Hand from './Hand';
-import Deck from './Deck';
+import Player, { PlayerKind } from './Player';
+import { Board } from './Board';
+import { Hand } from './Hand';
+import { Deck } from './Deck';
 
 export enum GameState {
   Playing,
@@ -10,7 +10,7 @@ export enum GameState {
 
 type Game = Readonly<
   {
-    activePlayer: ActivePlayer;
+    activePlayer: PlayerKind;
     board: Board;
     hand: Hand;
     deck: Deck;

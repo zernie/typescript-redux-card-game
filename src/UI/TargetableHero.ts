@@ -6,7 +6,7 @@ import {
 } from 'react-dnd';
 import HeroCard, { HeroProps } from './Hero';
 import { ComponentClass } from 'react';
-import Player, { ActivePlayer } from '../Player';
+import Player from '../Player';
 import Minion from '../Minion';
 import { attackFace } from './characterReducer';
 import { connect } from 'react-redux';
@@ -23,9 +23,9 @@ const spec: DropTargetSpec<HeroProps> = {
     const damage = minion.damage;
 
     return props.attackFace({
+      source: minion,
       damage,
-      target: ActivePlayer.Player,
-      activePlayer: props.activePlayer,
+      target: props,
     });
   },
   canDrop: (props, monitor) => true,

@@ -7,15 +7,15 @@ import Minion from '../Minion';
 
 interface SideOwnProps {
   active: boolean;
-  board: Minion[];
+  minions: Minion[];
 }
 
 type SideProps = Player & SideOwnProps;
 
-const Side: StatelessComponent<SideProps> = ({ active, board, ...props }) =>
+const Side: StatelessComponent<SideProps> = ({ active, minions, ...props }) =>
   <Segment basic disabled={!active}>
     <List relaxed selection divided horizontal size="huge">
-      {board.map(minion => <DraggableMinion key={minion.id} {...minion} />)}
+      {minions.map(minion => <DraggableMinion key={minion.id} {...minion} />)}
     </List>
   </Segment>;
 
