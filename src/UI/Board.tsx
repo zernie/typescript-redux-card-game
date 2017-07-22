@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { Divider, Button, Grid, Segment } from 'semantic-ui-react';
 import TargetableHero from './TargetableHero';
-import Side from './Side';
-import Game from '../Game';
+import { Side } from './Side';
+import { Game } from '../Game';
 import NextTurn from './NextTurn';
 import { PlayerKind } from '../Player';
 // import { where, equals } from 'ramda';
@@ -30,15 +30,13 @@ const Board: StatelessComponent<BoardProps> = ({
         <TargetableHero {...opponent} />
 
         <Side
-          {...opponent}
           active={activePlayer === PlayerKind.Opponent}
-          minions={board}
+          board={board}
         />
         <Divider section />
         <Side
-          {...player}
           active={activePlayer === PlayerKind.Player}
-          minions={board}
+          board={board}
         />
 
         <TargetableHero {...player} />

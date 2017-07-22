@@ -1,5 +1,5 @@
-import Game, { GameState } from '../Game';
-import Player, { PlayerKind } from '../Player';
+import { Game, GameState } from '../Game';
+import { Player, PlayerKind } from '../Player';
 import { CardType } from '../Card';
 import { Board } from '../Board';
 import { Deck } from '../Deck';
@@ -50,10 +50,7 @@ export const deck: Deck = [
   },
 ];
 
-export const hand: Hand = {
-  player: [],
-  opponent: [],
-};
+export const hand: Hand = [];
 
 export const board: Board = [
   {

@@ -1,15 +1,13 @@
-import Mechanics from './Mechanics';
+import { Mechanics } from './Mechanics';
 import { PlayerKind } from './Player';
 
-type Minion = Readonly<
+export type Minion = Readonly<
   {
-    owner: PlayerKind;
-    id: number;
-    health: number;
     damage: number;
-    name: string;
+    health: number;
+    id: number;
     mechanics: Mechanics[];
+    name: string;
+    owner: PlayerKind;
   }
 >;
-
-export default Minion;

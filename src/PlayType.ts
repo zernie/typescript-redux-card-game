@@ -1,4 +1,4 @@
-enum PlayType {
+export enum PlayType {
   PlayerPlay,
   PlayerDraw,
   PlayerGet,
@@ -23,5 +23,3 @@ enum PlayType {
   OpponentHeroPower,
   OpponentGetToDeck,
 }
-
-export default PlayType;

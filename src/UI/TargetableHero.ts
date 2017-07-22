@@ -6,11 +6,11 @@ import {
 } from 'react-dnd';
 import HeroCard, { HeroProps } from './Hero';
 import { ComponentClass } from 'react';
-import Player from '../Player';
-import Minion from '../Minion';
+import { Player } from '../Player';
 import { attackFace } from './characterReducer';
 import { connect } from 'react-redux';
 import { pick } from 'ramda';
+import { MinionProps } from './Minion';
 
 const collect: DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
@@ -19,7 +19,8 @@ const collect: DropTargetCollector = (connector, monitor) => ({
 
 const spec: DropTargetSpec<HeroProps> = {
   drop: (props, monitor: DropTargetMonitor) => {
-    const minion = monitor.getItem() as Minion;
+    const item = monitor.getItem() as MinionProps;
+    const minion = item.minion;
     const damage = minion.damage;
 
     return props.attackFace({

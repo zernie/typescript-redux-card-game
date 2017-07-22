@@ -1,4 +1,4 @@
-import Player, { PlayerKind } from './Player';
+import { Player, PlayerKind } from './Player';
 import { Board } from './Board';
 import { Hand } from './Hand';
 import { Deck } from './Deck';
@@ -8,17 +8,15 @@ export enum GameState {
   Finished,
 }
 
-type Game = Readonly<
+export type Game = Readonly<
   {
     activePlayer: PlayerKind;
     board: Board;
-    hand: Hand;
     deck: Deck;
-    player: Player;
-    opponent: Player;
-    turn: number;
     gameState: GameState;
+    hand: Hand;
+    opponent: Player;
+    player: Player;
+    turn: number;
   }
 >;
-
-export default Game;

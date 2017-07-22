@@ -1,4 +1,4 @@
-type Player = Readonly<
+export type Player = Readonly<
   {
     health: number;
     mana: number;
@@ -14,5 +14,3 @@ export enum PlayerKind {
 
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
-
-export default Player;

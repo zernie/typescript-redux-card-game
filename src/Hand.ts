@@ -1,8 +1,3 @@
-import Card from './Card';
+import { Card } from './Card';
 
-export type Hand = Readonly<
-  {
-    player: Card[];
-    opponent: Card[];
-  }
->;
+export type Hand = Array<Card>;

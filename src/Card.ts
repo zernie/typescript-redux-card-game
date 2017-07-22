@@ -5,15 +5,13 @@ export enum CardType {
   Weapon,
 }
 
-type Card = Readonly<
+export type Card = Readonly<
   {
     cost: number;
-    name: string;
+    damage: number;
     desc?: string;
     health: number;
-    damage: number;
+    name: string;
     type: CardType;
   }
 >;
-
-export default Card;

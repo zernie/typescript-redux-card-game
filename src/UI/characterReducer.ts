@@ -1,9 +1,9 @@
-import Player from '../Player';
+import { Player } from '../Player';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { inc, evolve } from 'ramda';
 import { nextTurn } from './turnReducer';
-import Minion from '../Minion';
+import { Minion } from '../Minion';
 
 const actionCreator = actionCreatorFactory();
 

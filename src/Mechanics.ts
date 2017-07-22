@@ -1,10 +1,10 @@
-enum Mechanics {
+export enum Mechanics {
   Adapt,
   Battlecry,
+  Charge,
   ChooseOne,
   Combo,
   Counter,
-  Charge,
   DeathRattle,
   Discover,
   DivineShield,
@@ -16,10 +16,8 @@ enum Mechanics {
   Poisonous,
   Quest,
   Secret,
-  Stealth,
   Silence,
+  Stealth,
   Taunt,
   Windfury,
 }
-
-export default Mechanics;
