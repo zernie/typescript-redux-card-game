@@ -19,13 +19,11 @@ const collect: DropTargetCollector = (connector, monitor) => ({
 
 const spec: DropTargetSpec<HeroProps> = {
   drop: (props, monitor: DropTargetMonitor) => {
-    const item = monitor.getItem() as MinionProps;
-    const minion = item.minion;
-    const damage = minion.damage;
+    const { minion } = monitor.getItem() as MinionProps;
 
     return props.attackFace({
       source: minion,
-      damage,
+      damage: minion.damage,
       target: props,
     });
   },

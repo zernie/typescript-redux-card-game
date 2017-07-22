@@ -3,7 +3,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 const actionCreator = actionCreatorFactory();
 
-export const nextTurn = actionCreator<number>('NEXT_TURN');
+export const nextTurn = actionCreator('NEXT_TURN');
 const nextTurnHandler = (state: number) => state + 1;
 
 const turnReducer = reducerWithInitialState<number>(0).case(

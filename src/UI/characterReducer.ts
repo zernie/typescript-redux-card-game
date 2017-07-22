@@ -1,7 +1,6 @@
 import { Player } from '../Player';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { inc, evolve } from 'ramda';
 import { nextTurn } from './turnReducer';
 import { Minion } from '../Minion';
 
@@ -16,16 +15,15 @@ interface AttackFaceAction {
 export const attackFace = actionCreator<AttackFaceAction>('ATTACK_FACE');
 
 // TODO: refactor
-const attackFaceHandler = (state: Player, payload: AttackFaceAction) =>
-  evolve<Player>(
-    {
-      health: () => state.health - payload.damage,
-    },
-    state
-  );
+const attackFaceHandler = (state: Player, payload: AttackFaceAction) => ({
+  ...state,
+  health: state.health - payload.damage,
+});
 
-const nextTurnHandler = evolve<Player>({
-  totalMana: inc,
+const nextTurnHandler = (state: Player, payload: AttackFaceAction) => ({
+  ...state,
+  totalMana: state.totalMana + 1,
+  mana: state.totalMana + 1,
 });
 
 const characterReducer = (character: Player) =>
