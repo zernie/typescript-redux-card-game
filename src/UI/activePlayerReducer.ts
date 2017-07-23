@@ -6,9 +6,7 @@ const activePlayerHandler: (state: PlayerKind) => PlayerKind = (
   state = PlayerKind.Player
 ) => other(state);
 
-const activePlayerReducer = reducerWithInitialState<number>(0).case(
+export const activePlayerReducer = reducerWithInitialState<number>(0).case(
   nextTurn,
   activePlayerHandler
 );
-
-export default activePlayerReducer;

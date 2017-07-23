@@ -28,9 +28,7 @@ const nextTurnHandler = (state: Player) => ({
   mana: state.totalMana + 1,
 });
 
-const characterReducer = (character: Player) =>
+export const characterReducer = (character: Player) =>
   reducerWithInitialState<Player>(character)
     .case(attackFace, attackFaceHandler)
     .case(nextTurn, nextTurnHandler);
-
-export default characterReducer;
