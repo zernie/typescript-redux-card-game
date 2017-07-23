@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { Divider, Button, Grid, Segment } from 'semantic-ui-react';
+// import * as R from 'ramda';
+import { Game } from '../Game';
+import { PlayerKind } from '../Player';
 import TargetableHero from './TargetableHero';
 import { Side } from './Side';
-import { Game } from '../Game';
 import NextTurn from './NextTurn';
-import { PlayerKind } from '../Player';
-// import { where, equals } from 'ramda';
-// import { Board } from '../Board';
 
 export type BoardProps = Game & { nextTurn: Function };
 //
-// const selectMinions: Board = (playerKind: PlayerKind) => (minions: Board) =>
-//   where({ owner: equals(playerKind) });
+// const ownerEqPlayerKind = (playerKind: PlayerKind) =>
+//   R.where<Board>({ owner: R.equals(playerKind) });
 //
-// const playerMinions = selectMinions(PlayerKind.Player);
+// const selectMinions = (playerKind: PlayerKind) =>
+//   R.filter<Board>(ownerEqPlayerKind(playerKind));
 
-const Board: StatelessComponent<BoardProps> = ({
+export const Battlefield: StatelessComponent<BoardProps> = ({
   activePlayer,
   board,
   nextTurn,
@@ -51,5 +51,3 @@ const Board: StatelessComponent<BoardProps> = ({
       </Grid.Column>
     </Grid>
   </Segment>;
-
-export default Board;

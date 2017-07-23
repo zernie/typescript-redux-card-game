@@ -18,9 +18,8 @@ const spec: DragSourceSpec<MinionProps> = {
   isDragging: (props, monitor: DragSourceMonitor) => monitor.isDragging(),
   canDrag: (props, monitor: DragSourceMonitor) => {
     console.log(props);
-    console.log(monitor.getItem());
 
-    return true;
+    return props.minion.owner === props.activePlayer;
   },
 };
 

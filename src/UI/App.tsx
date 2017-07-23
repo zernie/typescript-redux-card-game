@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import BoardContainer from './BoardContainer';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import { BattleFieldContainer } from './BattlefieldContainer';
 
-const App: StatelessComponent<{}> = props =>
+const App: React.StatelessComponent<{}> = props =>
   <Container textAlign="center">
     <Header as="h1">
       <Header.Content>
@@ -13,7 +12,7 @@ const App: StatelessComponent<{}> = props =>
       </Header.Content>
     </Header>
 
-    <BoardContainer />
+    <BattleFieldContainer />
   </Container>;
 
 export default DragDropContext(HTML5Backend)(App);

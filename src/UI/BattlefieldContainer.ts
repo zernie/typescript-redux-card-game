@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Board from './Board';
+import { Battlefield } from './Battlefield';
 import { nextTurn } from './turnReducer';
 import { pick } from 'ramda';
 
@@ -13,4 +13,6 @@ const mapStateToProps = pick([
   'turn',
 ]);
 
-export default connect(mapStateToProps, { nextTurn })(Board);
+export const BattleFieldContainer = connect(mapStateToProps, { nextTurn })(
+  Battlefield
+);
