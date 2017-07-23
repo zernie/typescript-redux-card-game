@@ -6,7 +6,7 @@ import {
 } from 'react-dnd';
 import { MinionCard, MinionProps } from './Minion';
 import { connect } from 'react-redux';
-import { pick } from 'ramda';
+import * as R from 'ramda';
 import { ComponentClass } from 'react';
 
 const collect: DragSourceCollector = (connector, monitor) => ({
@@ -27,7 +27,7 @@ const DraggableMinion = DragSource<MinionProps>('Minion', spec, collect)(
   MinionCard
 );
 
-const mapStateToProps = pick(['activePlayer']);
+const mapStateToProps = R.pick(['activePlayer']);
 
 export default connect(mapStateToProps, {})(DraggableMinion) as ComponentClass<
   Partial<MinionProps>

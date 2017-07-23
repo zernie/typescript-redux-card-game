@@ -75,7 +75,7 @@ export const board: Board = [
     id: 1,
     mechanics: [],
     name: 'Jon Jones',
-    owner: PlayerKind.Opponent,
+    owner: PlayerKind.Player,
   },
 ];
 

@@ -9,7 +9,7 @@ import { ComponentClass } from 'react';
 import { Player } from '../Player';
 import { attackFace } from './characterReducer';
 import { connect } from 'react-redux';
-import { pick } from 'ramda';
+import * as R from 'ramda';
 import { MinionProps } from './Minion';
 
 const collect: DropTargetCollector = (connector, monitor) => ({
@@ -32,7 +32,7 @@ const spec: DropTargetSpec<HeroProps> = {
 
 const TargetableHero = DropTarget('Minion', spec, collect)(HeroCard);
 
-const mapStateToProps = pick(['activePlayer']);
+const mapStateToProps = R.pick(['activePlayer']);
 
 export default connect(mapStateToProps, { attackFace })(
   TargetableHero

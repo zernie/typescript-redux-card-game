@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { Battlefield } from './Battlefield';
 import { nextTurn } from './turnReducer';
-import { pick } from 'ramda';
+import * as R from 'ramda';
 
-const mapStateToProps = pick([
+const mapStateToProps = R.pick([
   'activePlayer',
   'board',
   'deck',
