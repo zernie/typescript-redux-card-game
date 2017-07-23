@@ -1,24 +1,19 @@
-import {
-  DropTarget,
-  DropTargetCollector,
-  DropTargetMonitor,
-  DropTargetSpec,
-} from 'react-dnd';
-import HeroCard, { HeroProps } from './Hero';
-import { ComponentClass } from 'react';
-import { Player } from '../Player';
-import { attackFace } from './characterReducer';
+import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
+import * as React from 'react';
+import { Player } from '../Player';
+import { attackFace } from './characterReducer';
+import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from './Minion';
 
-const collect: DropTargetCollector = (connector, monitor) => ({
+const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
   isOver: monitor.isOver(),
 });
 
-const spec: DropTargetSpec<HeroProps> = {
-  drop: (props, monitor: DropTargetMonitor) => {
+const spec: DnD.DropTargetSpec<HeroProps> = {
+  drop: (props, monitor: DnD.DropTargetMonitor) => {
     const { minion } = monitor.getItem() as MinionProps;
 
     return props.attackFace({
@@ -27,13 +22,17 @@ const spec: DropTargetSpec<HeroProps> = {
       target: props,
     });
   },
-  canDrop: (props, monitor) => true,
+  canDrop: (props, monitor: DnD.DropTargetMonitor) => {
+    const { minion: { owner } } = monitor.getItem() as MinionProps;
+
+    return props.kind !== owner;
+  },
 };
 
-const TargetableHero = DropTarget('Minion', spec, collect)(HeroCard);
+const TargetableHero = DnD.DropTarget('Minion', spec, collect)(HeroCard);
 
 const mapStateToProps = R.pick(['activePlayer']);
 
 export default connect(mapStateToProps, { attackFace })(
   TargetableHero
-) as ComponentClass<Player>;
+) as React.ComponentClass<Player>;

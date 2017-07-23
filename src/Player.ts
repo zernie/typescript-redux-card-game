@@ -1,6 +1,7 @@
 export type Player = Readonly<
   {
     health: number;
+    kind: PlayerKind;
     mana: number;
     name: string;
     totalMana: number;

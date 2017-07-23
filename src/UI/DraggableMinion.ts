@@ -1,29 +1,21 @@
-import {
-  DragSource,
-  DragSourceMonitor,
-  DragSourceCollector,
-  DragSourceSpec,
-} from 'react-dnd';
+import * as DnD from 'react-dnd';
 import { MinionCard, MinionProps } from './Minion';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { ComponentClass } from 'react';
 
-const collect: DragSourceCollector = (connector, monitor) => ({
+const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),
 });
 
-const spec: DragSourceSpec<MinionProps> = {
+const spec: DnD.DragSourceSpec<MinionProps> = {
   beginDrag: (props, monitor, component) => props,
-  isDragging: (props, monitor: DragSourceMonitor) => monitor.isDragging(),
-  canDrag: (props, monitor: DragSourceMonitor) => {
-    console.log(props);
-
-    return props.minion.owner === props.activePlayer;
-  },
+  isDragging: (props, monitor: DnD.DragSourceMonitor) => monitor.isDragging(),
+  canDrag: (props, monitor: DnD.DragSourceMonitor) =>
+    props.minion.owner === props.activePlayer,
 };
 
-const DraggableMinion = DragSource<MinionProps>('Minion', spec, collect)(
+const DraggableMinion = DnD.DragSource<MinionProps>('Minion', spec, collect)(
   MinionCard
 );
 
