@@ -17,10 +17,13 @@ interface AttackFaceAction {
 export const attackFace = actionCreator<AttackFaceAction>('ATTACK_FACE');
 
 // TODO: refactor
-const attackFaceHandler = (state: Player, payload: AttackFaceAction) => ({
-  ...state,
-  health: state.health - payload.damage,
-});
+const attackFaceHandler = (state: Player, payload: AttackFaceAction) =>
+  payload.target.kind !== state.kind
+    ? state
+    : {
+        ...state,
+        health: state.health - payload.damage,
+      };
 
 const nextTurnHandler = (state: Player) => ({
   ...state,
