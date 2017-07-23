@@ -1,13 +1,15 @@
-import { Player } from '../Player';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { nextTurn } from './turnReducer';
 import { Minion } from '../Minion';
+import { Player } from '../Player';
+import { nextTurn } from './turnReducer';
 
 const actionCreator = actionCreatorFactory();
 
+export type AttackSource = Player | Minion;
+
 interface AttackFaceAction {
-  source: Player | Minion;
+  source: AttackSource;
   damage: number;
   target: Player;
 }
@@ -20,7 +22,7 @@ const attackFaceHandler = (state: Player, payload: AttackFaceAction) => ({
   health: state.health - payload.damage,
 });
 
-const nextTurnHandler = (state: Player, payload: AttackFaceAction) => ({
+const nextTurnHandler = (state: Player) => ({
   ...state,
   totalMana: state.totalMana + 1,
   mana: state.totalMana + 1,
