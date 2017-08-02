@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Button } from 'semantic-ui-react';
 import { StatelessComponent } from 'react';
+import { Button } from 'semantic-ui-react';
 
-const NextTurn: StatelessComponent<any> = ({onClick}) =>
+interface NextTurnProps {
+  onClick: Function;
+}
+
+const NextTurn: StatelessComponent<NextTurnProps> = ({ onClick }) =>
   <Button fluid positive onClick={() => onClick()}>Finish</Button>;
 
 export default NextTurn;
