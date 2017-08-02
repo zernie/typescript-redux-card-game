@@ -1,22 +1,15 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
-import { Divider, Button, Grid, Segment } from 'semantic-ui-react';
-// import * as R from 'ramda';
+import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Game } from '../Game';
 import { PlayerKind } from '../Player';
 import TargetableHero from './TargetableHero';
 import { Side } from './Side';
 import NextTurn from './NextTurn';
+import { opponentMinions, playerMinions } from '../Minion';
 
 export type BoardProps = Game & { nextTurn: Function };
-//
-// const ownerEqPlayerKind = (playerKind: PlayerKind) =>
-//   R.where<Board>({ owner: R.equals(playerKind) });
-//
-// const selectMinions = (playerKind: PlayerKind) =>
-//   R.filter<Board>(ownerEqPlayerKind(playerKind));
 
-export const Battlefield: StatelessComponent<BoardProps> = ({
+export const Battlefield: React.StatelessComponent<BoardProps> = ({
   activePlayer,
   board,
   nextTurn,
@@ -31,12 +24,12 @@ export const Battlefield: StatelessComponent<BoardProps> = ({
 
         <Side
           active={activePlayer === PlayerKind.Opponent}
-          board={board}
+          board={opponentMinions(board)}
         />
         <Divider section />
         <Side
           active={activePlayer === PlayerKind.Player}
-          board={board}
+          board={playerMinions(board)}
         />
 
         <TargetableHero {...player} />
