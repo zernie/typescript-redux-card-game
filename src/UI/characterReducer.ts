@@ -8,16 +8,16 @@ const actionCreator = actionCreatorFactory();
 
 export type AttackSource = Player | Minion;
 
-interface AttackFaceAction {
+interface AttackFacePayload {
   source: AttackSource;
   damage: number;
   target: Player;
 }
 
-export const attackFace = actionCreator<AttackFaceAction>('ATTACK_FACE');
+export const attackFace = actionCreator<AttackFacePayload>('ATTACK_FACE');
 
 // TODO: refactor
-const attackFaceHandler = (state: Player, payload: AttackFaceAction) =>
+const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
   payload.target.kind !== state.kind
     ? state
     : {
