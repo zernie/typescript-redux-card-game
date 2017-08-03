@@ -81,17 +81,17 @@ export const board: Board = [
 
 export const player: Player = {
   name: 'Mage',
-  mana: 1,
+  mana: 0,
   kind: PlayerKind.Player,
-  totalMana: 1,
+  totalMana: 0,
   health: 30,
 };
 
 export const opponent: Player = {
   name: 'Warrior',
   kind: PlayerKind.Opponent,
-  mana: 1,
-  totalMana: 1,
+  mana: 0,
+  totalMana: 0,
   health: 30,
 };
 

@@ -7,7 +7,10 @@ import { Side } from './Side';
 import NextTurn from './NextTurn';
 import { opponentMinions, playerMinions } from '../Minion';
 
-export type BoardProps = Game & { nextTurn: Function };
+export interface BoardPropsActions {
+  nextTurn: Function;
+}
+export type BoardProps = Game & BoardPropsActions;
 
 export const Battlefield: React.StatelessComponent<BoardProps> = ({
   activePlayer,

@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import { Battlefield } from './Battlefield';
-import { nextTurn } from './turnReducer';
+import { connect, MapDispatchToProps } from 'react-redux';
+import { Battlefield, BoardPropsActions } from './Battlefield';
 import * as R from 'ramda';
+import { incTotalMana, restoreMana } from './characterReducer';
 
 const mapStateToProps = R.pick([
   'activePlayer',
@@ -13,6 +13,17 @@ const mapStateToProps = R.pick([
   'turn',
 ]);
 
-export const BattleFieldContainer = connect(mapStateToProps, { nextTurn })(
-  Battlefield
-);
+const mapDispatchToProps: MapDispatchToProps<
+  BoardPropsActions,
+  {}
+> = dispatch => ({
+  nextTurn: () => {
+    dispatch(incTotalMana({}));
+    dispatch(restoreMana({}));
+  },
+});
+
+export const BattleFieldContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Battlefield);
