@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { opponent, player } from './initialState';
 import { GameState } from '../Game';
-import { characterReducer } from './characterReducer';
-import { turnReducer } from './turnReducer';
-import { boardReducer } from './boardReducer';
-import { deckReducer } from './deckReducer';
-import { handReducer } from './handReducer';
-import { activePlayerReducer } from './activePlayerReducer';
+import characterReducer from './characterReducer';
+import turnReducer from './turnReducer';
+import boardReducer from './boardReducer';
+import deckReducer from './deckReducer';
+import handReducer from './handReducer';
+import activePlayerReducer from './activePlayerReducer';
 
 export default combineReducers({
   board: boardReducer,

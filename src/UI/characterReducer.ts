@@ -3,7 +3,6 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
 import { Player } from '../Player';
-import { nextTurn } from './turnReducer';
 
 const actionCreator = actionCreatorFactory();
 
@@ -35,8 +34,7 @@ const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
 const totalManaLens = R.lensProp('totalMana');
 const manaLens = R.lensProp('mana');
 
-const addManaHandler = (state: Player, payload: number) =>
-  R.over(manaLens, R.add(payload), state);
+const addManaHandler = R.compose(R.over(manaLens, R.add));
 
 const incTotalManaHandler = R.over(totalManaLens, R.inc);
 
@@ -46,10 +44,10 @@ const restoreManaHandler = (state: Player) =>
 const spendManaHandler = (state: Player, payload: number) =>
   R.over(manaLens, R.subtract(payload), state);
 
-export const characterReducer = (character: Player) =>
+export default (character: Player) =>
   reducerWithInitialState<Player>(character)
     .case(attackFace, attackFaceHandler)
     .case(addMana, addManaHandler)
-    .cases([incTotalMana, nextTurn], incTotalManaHandler)
-    .cases([nextTurn, restoreMana], restoreManaHandler)
+    .case(incTotalMana, incTotalManaHandler)
+    .case(restoreMana, restoreManaHandler)
     .case(spendMana, spendManaHandler);

@@ -6,7 +6,4 @@ const actionCreator = actionCreatorFactory();
 
 export const nextTurn = actionCreator('NEXT_TURN');
 
-export const turnReducer = reducerWithInitialState<number>(0).case(
-  nextTurn,
-  R.inc
-);
+export default reducerWithInitialState<number>(0).case(nextTurn, R.inc);
