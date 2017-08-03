@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { Battlefield } from './Battlefield';
-import { nextTurn } from './turnReducer';
+import { endTurn } from './turnReducer';
 
 const mapStateToProps = R.pick([
   'activePlayer',
@@ -13,6 +13,6 @@ const mapStateToProps = R.pick([
   'turn',
 ]);
 
-export const BattleFieldContainer = connect(mapStateToProps, { nextTurn })(
+export const BattleFieldContainer = connect(mapStateToProps, { endTurn })(
   Battlefield
 );

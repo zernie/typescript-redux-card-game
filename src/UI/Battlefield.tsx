@@ -8,14 +8,14 @@ import NextTurn from './NextTurn';
 import { opponentMinions, playerMinions } from '../Minion';
 
 export interface BoardPropsActions {
-  nextTurn: Function;
+  endTurn: Function;
 }
 export type BoardProps = Game & BoardPropsActions;
 
 export const Battlefield: React.StatelessComponent<BoardProps> = ({
   activePlayer,
   board,
-  nextTurn,
+  endTurn,
   player,
   opponent,
   turn,
@@ -42,7 +42,7 @@ export const Battlefield: React.StatelessComponent<BoardProps> = ({
         <Button.Group vertical size="large">
           <Button color="green" basic>Turn: {turn}</Button>
 
-          <NextTurn onClick={nextTurn} />
+          <NextTurn onClick={endTurn} />
         </Button.Group>
       </Grid.Column>
     </Grid>
