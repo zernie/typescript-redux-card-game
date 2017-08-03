@@ -6,14 +6,12 @@ export interface Minion {
   damage: number;
   health: number;
   id: number;
-  mechanics: Mechanics[];
+  mechanics: Array<Mechanics>;
   name: string;
   owner: PlayerKind;
 }
 
-export const playerMinions = R.filter<Minion>(
-  m => m.owner === PlayerKind.Player
-);
-export const opponentMinions = R.filter<Minion>(
-  m => m.owner === PlayerKind.Opponent
-);
+const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+
+export const playerMinions = selectMinions(PlayerKind.Player);
+export const opponentMinions = selectMinions(PlayerKind.Opponent);

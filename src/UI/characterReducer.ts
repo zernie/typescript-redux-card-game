@@ -3,6 +3,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
 import { Player } from '../Player';
+import { nextTurn } from './turnReducer';
 
 const actionCreator = actionCreatorFactory();
 
@@ -49,6 +50,6 @@ export const characterReducer = (character: Player) =>
   reducerWithInitialState<Player>(character)
     .case(attackFace, attackFaceHandler)
     .case(addMana, addManaHandler)
-    .case(incTotalMana, incTotalManaHandler)
-    .case(restoreMana, restoreManaHandler)
+    .cases([incTotalMana, nextTurn], incTotalManaHandler)
+    .cases([nextTurn, restoreMana], restoreManaHandler)
     .case(spendMana, spendManaHandler);
