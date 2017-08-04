@@ -20,19 +20,16 @@ export const incTotalMana = actionCreator<{}>('INC_TOTAL_MANA');
 export const restoreMana = actionCreator<{}>('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
-// TODO: refactor
-const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
-  payload.target.kind !== state.kind
-    ? state
-    : R.evolve(
-        {
-          health: () => state.health - payload.damage,
-        },
-        state
-      );
-
+const healthLens = R.lensProp('health');
 const totalManaLens = R.lensProp('totalMana');
 const manaLens = R.lensProp('mana');
+
+const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
+  R.when(
+    () => payload.target.kind === state.kind,
+    () => R.set(healthLens, R.subtract(state.health, payload.damage), state),
+    state
+  );
 
 const addManaHandler = R.compose(R.over(manaLens, R.add));
 
