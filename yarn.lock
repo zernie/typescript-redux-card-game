@@ -17,9 +17,9 @@
   version "8.0.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.9.tgz#19f44c3b6cb8a70d261d366f73650e3e3891ab2d"
 
-"@types/ramda@types/npm-ramda":
-  version "0.23.0-RC1"
-  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/14ff6db59fe91e4486af24ee545515460528d3e1"
+"@types/ramda@types/npm-ramda#dist":
+  version "0.24.3"
+  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/70db4e5f50a81cfdcb8de89c7732181bda2900be"
 
 "@types/react-dnd-html5-backend@^2.1.8":
   version "2.1.8"

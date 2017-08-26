@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
-import { Player } from '../Player';
+import { Player, PlayerKind } from '../Player';
 
 const actionCreator = actionCreatorFactory();
 
@@ -14,15 +14,17 @@ interface AttackFacePayload {
   target: Player;
 }
 
+interface AddManaPayload { amount: number; player: PlayerKind }
+
 export const attackFace = actionCreator<AttackFacePayload>('ATTACK_FACE');
-export const addMana = actionCreator<number>('ADD_MANA');
+export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
 export const incTotalMana = actionCreator<{}>('INC_TOTAL_MANA');
 export const restoreMana = actionCreator<{}>('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
-const healthLens = R.lensProp('health');
-const totalManaLens = R.lensProp('totalMana');
-const manaLens = R.lensProp('mana');
+const healthLens = R.lensProp<number, Player>('health');
+const totalManaLens = R.lensProp<number, Player>('totalMana');
+const manaLens = R.lensProp<number, Player>('mana');
 
 const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
   R.when(
@@ -31,7 +33,12 @@ const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
     state
   );
 
-const addManaHandler = R.compose(R.over(manaLens, R.add));
+const addManaHandler = (state: Player, payload: AddManaPayload) =>
+  R.when(
+    () => payload.player === state.kind,
+    () => R.set(manaLens, R.add(state.totalMana, payload.amount), state),
+    state
+  );
 
 const incTotalManaHandler = R.over(totalManaLens, R.inc);
 
