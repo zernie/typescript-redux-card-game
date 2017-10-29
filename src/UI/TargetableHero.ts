@@ -6,6 +6,7 @@ import { Player } from '../Player';
 import { attackFace } from './characterReducer';
 import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from './Minion';
+import { Game } from '../Game';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
@@ -19,7 +20,7 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
     return props.attackFace({
       source: minion,
       damage: minion.damage,
-      target: props,
+      player: props.kind,
     });
   },
   canDrop: (props, monitor: DnD.DropTargetMonitor) => {
@@ -31,7 +32,7 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
 
 const TargetableHero = DnD.DropTarget('Minion', spec, collect)(HeroCard);
 
-const mapStateToProps = R.pick(['activePlayer']);
+const mapStateToProps = R.pick<Game, 'activePlayer'>(['activePlayer']);
 
 export default connect(mapStateToProps, { attackFace })(
   TargetableHero
