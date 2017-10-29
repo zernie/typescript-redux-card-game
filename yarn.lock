@@ -19,7 +19,7 @@
 
 "@types/ramda@types/npm-ramda#dist":
   version "0.24.3"
-  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/70db4e5f50a81cfdcb8de89c7732181bda2900be"
+  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/1ddafde951824369e47adb637df09d70afc09941"
 
 "@types/react-dnd-html5-backend@^2.1.8":
   version "2.1.8"
