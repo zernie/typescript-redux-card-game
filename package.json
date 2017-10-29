@@ -25,7 +25,7 @@
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",
     "ts-loader": "^2.3.2",
-    "tslint": "^5.2.0",
+    "tslint": "^5.8.0",
     "tslint-loader": "^3.5.3",
     "tslint-react": "^3.0.0",
     "typescript": "~2.4.2",
@@ -57,6 +57,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "semantic-ui-react": "^0.71.0",
+    "ts-node": "^3.3.0",
     "typescript-fsa": "^2.4.0",
     "typescript-fsa-reducers": "^0.4.4"
   },
