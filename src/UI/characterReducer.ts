@@ -11,10 +11,13 @@ export type AttackSource = Player | Minion;
 interface AttackFacePayload {
   source: AttackSource;
   damage: number;
-  target: Player;
+  player: PlayerKind;
 }
 
-interface AddManaPayload { amount: number; player: PlayerKind }
+interface AddManaPayload {
+  amount: number;
+  player: PlayerKind;
+}
 
 export const attackFace = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
@@ -28,15 +31,15 @@ const manaLens = R.lensProp<number, Player>('mana');
 
 const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
   R.when(
-    () => payload.target.kind === state.kind,
-    () => R.set(healthLens, R.subtract(state.health, payload.damage), state),
+    () => payload.player === state.kind,
+    () => R.set(healthLens, state.health - payload.damage, state),
     state
   );
 
 const addManaHandler = (state: Player, payload: AddManaPayload) =>
   R.when(
     () => payload.player === state.kind,
-    () => R.set(manaLens, R.add(state.totalMana, payload.amount), state),
+    () => R.set(manaLens, state.totalMana + payload.amount, state),
     state
   );
 
