@@ -36,6 +36,7 @@
         "no-bitwise": true,
         "no-console": [
             true,
+            "log",
             "error",
             "debug",
             "info",
@@ -67,7 +68,7 @@
         "semicolon": [true, "always"],
         "switch-default": true,
 
-        "trailing-comma": false,
+        "trailing-comma": [false],
 
         "triple-equals": [ true, "allow-null-check" ],
         "typedef": [
