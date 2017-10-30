@@ -2,12 +2,13 @@ import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { incTotalMana, restoreMana } from './characterReducer';
+import { ThunkAction } from 'redux-thunk';
 
 const actionCreator = actionCreatorFactory();
 
 export const nextTurn = actionCreator('NEXT_TURN');
 
-export const endTurn = () => (dispatch: Function) => {
+export const endTurn = (): ThunkAction<void, {}, {}> => dispatch => {
   dispatch(incTotalMana({}));
   dispatch(restoreMana({}));
   dispatch(nextTurn());

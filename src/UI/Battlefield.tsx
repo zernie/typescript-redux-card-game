@@ -6,9 +6,10 @@ import TargetableHero from './TargetableHero';
 import { Side } from './Side';
 import NextTurn from './NextTurn';
 import { opponentMinions, playerMinions } from '../Minion';
+import { endTurn as endTurnFunction } from './turnReducer';
 
 export interface BoardPropsActions {
-  endTurn: Function;
+  endTurn: typeof endTurnFunction;
 }
 export type BoardProps = Game & BoardPropsActions;
 
