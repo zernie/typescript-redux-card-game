@@ -9,8 +9,8 @@ const actionCreator = actionCreatorFactory();
 export const nextTurn = actionCreator('NEXT_TURN');
 
 export const endTurn = (): ThunkAction<void, {}, {}> => dispatch => {
-  dispatch(incTotalMana({}));
-  dispatch(restoreMana({}));
+  dispatch(incTotalMana());
+  dispatch(restoreMana());
   dispatch(nextTurn());
 };
 

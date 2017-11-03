@@ -21,8 +21,8 @@ interface AddManaPayload {
 
 export const attackFace = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
-export const incTotalMana = actionCreator<{}>('INC_TOTAL_MANA');
-export const restoreMana = actionCreator<{}>('RESTORE_MANA');
+export const incTotalMana = actionCreator('INC_TOTAL_MANA');
+export const restoreMana = actionCreator('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
 const healthLens = R.lensProp<number, Player>('health');
