@@ -3,6 +3,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
 import { Player, PlayerKind } from '../Player';
+import { ThunkAction } from 'redux-thunk';
 
 const actionCreator = actionCreatorFactory();
 
@@ -19,7 +20,12 @@ interface AddManaPayload {
   player: PlayerKind;
 }
 
-export const attackFace = actionCreator<AttackFacePayload>('ATTACK_FACE');
+// TODO:
+export const attackFace = (payload: AttackFacePayload): ThunkAction<void, {}, {}> => dispatch => {
+  dispatch(attackHero(payload));
+
+};
+export const attackHero = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
 export const incTotalMana = actionCreator('INC_TOTAL_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
@@ -29,7 +35,7 @@ const healthLens = R.lensProp<number, Player>('health');
 const totalManaLens = R.lensProp<number, Player>('totalMana');
 const manaLens = R.lensProp<number, Player>('mana');
 
-const attackFaceHandler = (state: Player, payload: AttackFacePayload) =>
+const attackHeroHandler = (state: Player, payload: AttackFacePayload) =>
   R.when(
     () => payload.player === state.kind,
     () => R.set(healthLens, state.health - payload.damage, state),
@@ -53,7 +59,7 @@ const spendManaHandler = (state: Player, payload: number) =>
 
 export default (character: Player) =>
   reducerWithInitialState<Player>(character)
-    .case(attackFace, attackFaceHandler)
+    .case(attackHero, attackHeroHandler)
     .case(addMana, addManaHandler)
     .case(incTotalMana, incTotalManaHandler)
     .case(restoreMana, restoreManaHandler)

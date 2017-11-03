@@ -8,15 +8,18 @@ export enum GameState {
   Finished,
 }
 
-export type Game = Readonly<
-  {
-    activePlayer: PlayerKind;
-    board: Board;
-    deck: Deck;
-    gameState: GameState;
-    hand: Hand;
-    opponent: Player;
-    player: Player;
-    turn: number;
-  }
->;
+export type State = Readonly<{
+  activePlayer: PlayerKind;
+  gameState: GameState;
+  turn: number;
+  winner?: PlayerKind;
+}>;
+
+export type Game = Readonly<{
+  board: Board;
+  deck: Deck;
+  hand: Hand;
+  opponent: Player;
+  player: Player;
+  state: State;
+}>;

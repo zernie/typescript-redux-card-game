@@ -6,7 +6,7 @@ import TargetableHero from './TargetableHero';
 import { Side } from './Side';
 import NextTurn from './NextTurn';
 import { opponentMinions, playerMinions } from '../Minion';
-import { endTurn as endTurnFunction } from './turnReducer';
+import { endTurn as endTurnFunction } from './gameStateReducer';
 
 export interface BoardPropsActions {
   endTurn: typeof endTurnFunction;
@@ -14,12 +14,14 @@ export interface BoardPropsActions {
 export type BoardProps = Game & BoardPropsActions;
 
 export const Battlefield: React.StatelessComponent<BoardProps> = ({
-  activePlayer,
   board,
   endTurn,
   player,
   opponent,
-  turn,
+  state: {
+    turn,
+    activePlayer
+  }
 }) =>
   <Segment>
     <Grid>

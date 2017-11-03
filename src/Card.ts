@@ -8,9 +8,7 @@ export enum CardType {
 export type Card = Readonly<
   {
     cost: number;
-    damage: number;
     desc?: string;
-    health: number;
     name: string;
     type: CardType;
   }

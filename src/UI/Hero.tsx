@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { Card, Statistic } from 'semantic-ui-react';
-import { Player, PlayerKind } from '../Player';
+import { Player } from '../Player';
 import { attackFace } from './characterReducer';
 
 interface HeroOwnProps {
-  activePlayer: PlayerKind;
   attackFace: typeof attackFace;
   connectDropTarget: Function;
   isOver: boolean;
