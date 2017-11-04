@@ -20,13 +20,13 @@ export const craftPlayer = (props: {
   health?: number,
   mana?: number,
   totalMana?: number,
-  timesAttacked?: number,
+  attacksPerformed?: number,
 }): Player =>
   ({
     damage: 0,
     health: 30,
     mana: 0,
     totalMana: 0,
-    timesAttacked: 0,
+    attacksPerformed: 0,
     ...props,
   });

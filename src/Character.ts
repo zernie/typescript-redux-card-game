@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { PlayerKind } from './Player';
 
 export interface Character {
-  timesAttacked: number;
+  attacksPerformed: number;
   damage: number;
   health: number;
   name: string;

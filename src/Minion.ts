@@ -20,11 +20,11 @@ export const craftMinion = (props: {
   health: number,
   name: string,
   owner: PlayerKind,
-  timesAttacked?: number,
+  attacksPerformed?: number,
   id?: number,
   mechanics?: Array<Mechanics>,
 }): Minion => ({
-  timesAttacked: 0,
+  attacksPerformed: 0,
   id: newId(),
   mechanics: [],
   ...props,
