@@ -1,22 +1,25 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Game } from '../Game';
-import { PlayerKind } from '../Player';
-import TargetableHero from './TargetableHero';
-import { Side } from './Side';
-import NextTurn from './NextTurn';
-import { opponentMinions, playerMinions } from '../Minion';
-import { endTurn as endTurnFunction } from './gameStateReducer';
 import { opponentCards, playerCards } from '../Card';
+import { opponentMinions, playerMinions } from '../Minion';
+import TargetableHero from './TargetableHero';
+import Side from './Side';
+import NextTurn from './NextTurn';
+import { endTurn as endTurnFunction } from './gameStateReducer';
 import { Hand } from './Hand';
 
-export interface BoardPropsActions {
+interface BattlefieldOwnProps {
+  currentPlayer: boolean;
   endTurn: typeof endTurnFunction;
+  connectDropTarget: Function;
 }
-export type BoardProps = Game & BoardPropsActions;
+export type BattlefieldProps = Game & BattlefieldOwnProps;
 
-export const Battlefield: React.StatelessComponent<BoardProps> = ({
+const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
+  currentPlayer,
   board,
+  connectDropTarget,
   endTurn,
   hand,
   player,
@@ -32,15 +35,19 @@ export const Battlefield: React.StatelessComponent<BoardProps> = ({
         <Hand hand={opponentCards(hand)}/>
         <TargetableHero {...opponent} />
 
-        <Side
-          active={activePlayer === PlayerKind.Opponent}
-          board={opponentMinions(board)}
-        />
-        <Divider section />
-        <Side
-          active={activePlayer === PlayerKind.Player}
-          board={playerMinions(board)}
-        />
+        {connectDropTarget(
+          <div>
+            <Side
+              active={!currentPlayer}
+              board={opponentMinions(board)}
+            />
+            <Divider section />
+            <Side
+              active={currentPlayer}
+              board={playerMinions(board)}
+            />
+          </div>
+        )}
 
         <TargetableHero {...player} />
         <Hand hand={playerCards(hand)}/>
@@ -55,3 +62,5 @@ export const Battlefield: React.StatelessComponent<BoardProps> = ({
       </Grid.Column>
     </Grid>
   </Segment>;
+
+export default Battlefield;
