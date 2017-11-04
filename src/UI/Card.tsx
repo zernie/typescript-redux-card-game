@@ -1,19 +1,23 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
 import { List } from 'semantic-ui-react';
-import { Minion } from '../Minion';
+import { Card as CardInterface } from '../Card';
 import { State } from '../Game';
 
-export interface MinionProps {
+export interface CardProps {
   state: State;
   connectDragSource: Function;
   isDragging: boolean;
-  minion: Minion;
+  card: CardInterface;
 }
 
-export const MinionCard: StatelessComponent<MinionProps> = ({
+export const Card: React.StatelessComponent<CardProps> = ({
   connectDragSource,
-  minion: { attack, health, id, name },
+  card: {
+    cost,
+    name,
+    type,
+    payload,
+  },
 }) =>
   connectDragSource(
     <div className="item">
@@ -23,11 +27,8 @@ export const MinionCard: StatelessComponent<MinionProps> = ({
           {name}
         </List.Header>
 
-        <List.Icon name="lightning" />
-        {attack}
-        <br />
-        <List.Icon name="heartbeat" />
-        {health}
+        <List.Icon name="circle" />
+        {cost}
       </List.Content>
     </div>
   );

@@ -18,14 +18,14 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
 
     return props.attackFace({
       source: minion,
-      damage: minion.damage,
-      player: props.kind,
+      damage: minion.attack,
+      player: props.owner,
     });
   },
   canDrop: (props, monitor: DnD.DropTargetMonitor) => {
     const { minion: { owner } } = monitor.getItem() as MinionProps;
 
-    return props.kind !== owner;
+    return props.owner !== owner;
   },
 };
 

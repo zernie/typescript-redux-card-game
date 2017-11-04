@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { Game, GameState } from '../Game';
 import { craftPlayer, Player, PlayerKind } from '../Player';
 import { CardType } from '../Card';
@@ -5,58 +6,63 @@ import { Board } from '../Board';
 import { Deck } from '../Deck';
 import { Hand } from '../Hand';
 import { craftMinion } from '../Minion';
-import * as R from 'ramda';
 
-export const deck: Deck = [
+export const deck: Deck = [];
+
+export const hand: Hand = [
   {
     cost: 1,
     name: 'card 1',
     type: CardType.Minion,
+    owner: PlayerKind.Player,
+    payload: craftMinion({
+      attack: 3,
+      health: 2,
+      name: 'Jane doe',
+      owner: PlayerKind.Player,
+    })
   },
   {
     cost: 2,
     name: 'card 2',
     type: CardType.Minion,
+    owner: PlayerKind.Opponent,
+    payload: craftMinion({
+      attack: 3,
+      health: 2,
+      name: 'Jane doe',
+      owner: PlayerKind.Opponent,
+    })
   },
   {
     cost: 2,
     name: 'card 2',
     type: CardType.Minion,
-  },
-  {
-    cost: 1,
-    name: 'card 1',
-    type: CardType.Minion,
-  },
-  {
-    cost: 2,
-    name: 'card 2',
-    type: CardType.Minion,
-  },
-  {
-    cost: 2,
-    name: 'card 2',
-    type: CardType.Minion,
+    owner: PlayerKind.Player,
+    payload: craftMinion({
+      attack: 3,
+      health: 2,
+      name: 'Jane doe',
+      owner: PlayerKind.Player,
+    })
   },
 ];
 
-export const hand: Hand = [];
-
 export const board: Board = R.map(craftMinion, [
   {
-    damage: 3,
+    attack: 3,
     health: 2,
     name: 'Jane doe',
     owner: PlayerKind.Opponent,
   },
   {
-    damage: 3,
+    attack: 3,
     health: 2,
     name: 'Jane doe',
     owner: PlayerKind.Opponent,
   },
   {
-    damage: 2,
+    attack: 2,
     health: 3,
     name: 'Jon Jones',
     owner: PlayerKind.Player,
@@ -65,12 +71,12 @@ export const board: Board = R.map(craftMinion, [
 
 export const player: Player = craftPlayer({
   name: 'Mage',
-  kind: PlayerKind.Player,
+  owner: PlayerKind.Player,
 });
 
 export const opponent: Player = craftPlayer({
   name: 'Warrior',
-  kind: PlayerKind.Opponent,
+  owner: PlayerKind.Opponent,
 });
 
 const initialState: Game = {

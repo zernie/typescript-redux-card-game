@@ -37,14 +37,14 @@ const manaLens = R.lensProp<number, Player>('mana');
 
 const attackHeroHandler = (state: Player, payload: AttackFacePayload) =>
   R.when(
-    () => payload.player === state.kind,
+    () => payload.player === state.owner,
     () => R.set(healthLens, state.health - payload.damage, state),
     state
   );
 
 const addManaHandler = (state: Player, payload: AddManaPayload) =>
   R.when(
-    () => payload.player === state.kind,
+    () => payload.player === state.owner,
     () => R.set(manaLens, state.totalMana + payload.amount, state),
     state
   );

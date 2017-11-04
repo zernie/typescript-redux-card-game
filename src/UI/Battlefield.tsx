@@ -7,6 +7,8 @@ import { Side } from './Side';
 import NextTurn from './NextTurn';
 import { opponentMinions, playerMinions } from '../Minion';
 import { endTurn as endTurnFunction } from './gameStateReducer';
+import { opponentCards, playerCards } from '../Card';
+import { Hand } from './Hand';
 
 export interface BoardPropsActions {
   endTurn: typeof endTurnFunction;
@@ -16,16 +18,18 @@ export type BoardProps = Game & BoardPropsActions;
 export const Battlefield: React.StatelessComponent<BoardProps> = ({
   board,
   endTurn,
+  hand,
   player,
   opponent,
   state: {
     turn,
-    activePlayer
-  }
+    activePlayer,
+  },
 }) =>
   <Segment>
     <Grid>
       <Grid.Column width={14}>
+        <Hand hand={opponentCards(hand)}/>
         <TargetableHero {...opponent} />
 
         <Side
@@ -39,6 +43,7 @@ export const Battlefield: React.StatelessComponent<BoardProps> = ({
         />
 
         <TargetableHero {...player} />
+        <Hand hand={playerCards(hand)}/>
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">
