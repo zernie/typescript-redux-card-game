@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { List } from 'semantic-ui-react';
 import { Minion } from '../Minion';
-import { PlayerKind } from '../Player';
+import { State } from '../Game';
 
 export interface MinionProps {
-  activePlayer: PlayerKind;
+  state: State;
   connectDragSource: Function;
   isDragging: boolean;
   minion: Minion;
