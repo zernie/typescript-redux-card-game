@@ -13,6 +13,7 @@ interface BattlefieldOwnProps {
   currentPlayer: boolean;
   endTurn: typeof endTurnFunction;
   connectDropTarget: Function;
+  isOver: boolean;
 }
 export type BattlefieldProps = Game & BattlefieldOwnProps;
 
@@ -20,6 +21,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
   currentPlayer,
   board,
   connectDropTarget,
+  isOver,
   endTurn,
   hand,
   player,
@@ -32,11 +34,11 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
   <Segment>
     <Grid>
       <Grid.Column width={14}>
-        <Hand hand={opponentCards(hand)}/>
+        <Hand active={!currentPlayer} hand={opponentCards(hand)}/>
         <TargetableHero {...opponent} />
 
         {connectDropTarget(
-          <div>
+          <div className={`ui basic segment ${isOver ? 'inverted olive' : null}`}>
             <Side
               active={!currentPlayer}
               board={opponentMinions(board)}
@@ -50,7 +52,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
         )}
 
         <TargetableHero {...player} />
-        <Hand hand={playerCards(hand)}/>
+        <Hand active={currentPlayer} hand={playerCards(hand)}/>
       </Grid.Column>
 
       <Grid.Column width={2} verticalAlign="middle">

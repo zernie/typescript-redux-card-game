@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { List, Segment } from 'semantic-ui-react';
-import { Hand as HandInterface } from '../Hand';
+import { CardList } from '../CardList';
 import DraggableCard from './DraggableCard';
 
 interface HandProps {
-  hand: HandInterface;
+  active: boolean;
+  hand: CardList;
 }
 
-export const Hand: React.StatelessComponent<HandProps> = ({ hand }) =>
-  <Segment basic>
+export const Hand: React.StatelessComponent<HandProps> = ({ active, hand }) =>
+  <Segment disabled={!active} basic>
     <List relaxed selection divided horizontal size="huge">
       {hand.map((card, i) => <DraggableCard key={i} card={card} />)}
     </List>
