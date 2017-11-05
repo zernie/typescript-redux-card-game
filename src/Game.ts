@@ -3,8 +3,8 @@ import { Board } from './Board';
 import { CardList } from './CardList';
 
 export enum GameState {
-  Playing,
-  Finished,
+  Playing = 'PLAYING',
+  Finished = 'FINISHED',
 }
 
 export type State = Readonly<{

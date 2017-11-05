@@ -9,8 +9,8 @@ export type Player = Readonly<Character & {
 }>;
 
 export enum PlayerKind {
-  Player,
-  Opponent,
+  Player = 'PLAYER',
+  Opponent = 'OPPONENT',
 }
 
 export const other = (player: PlayerKind): PlayerKind =>

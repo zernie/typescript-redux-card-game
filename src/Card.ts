@@ -3,10 +3,10 @@ import { Minion } from './Minion';
 import { PlayerKind } from './Player';
 
 export enum CardType {
-  Enchantment,
-  Minion,
-  Spell,
-  Weapon,
+  Enchantment = 'ENCHANTMENT',
+  Minion = 'MINION',
+  Spell = 'SPELL',
+  Weapon = 'WEAPON',
 }
 
 export type CardPayload = Minion | 'Spell' | 'Hero' | 'Weapon';
