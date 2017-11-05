@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List, Segment } from 'semantic-ui-react';
-import { CardList } from '../CardList';
+import { CardList } from '../Card';
 import DraggableCard from './DraggableCard';
 
 interface HandProps {

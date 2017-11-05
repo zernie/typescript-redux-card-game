@@ -19,6 +19,7 @@ export type Card = Readonly<{
   payload: CardPayload;
   owner: PlayerKind;
 }>;
+export type CardList = Array<Card>;
 
 const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 

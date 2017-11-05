@@ -1,10 +1,9 @@
 import * as R from 'ramda';
 import { Game, GameState } from '../Game';
 import { craftPlayer, Player, PlayerKind } from '../Player';
-import { CardType } from '../Card';
+import { CardList, CardType } from '../Card';
 import { Board } from '../Board';
 import { craftMinion } from '../Minion';
-import { CardList } from '../CardList';
 
 export const deck: CardList = [];
 
