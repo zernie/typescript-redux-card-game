@@ -3,6 +3,7 @@ import { Mechanics } from './Mechanics';
 
 export type Player = Readonly<Character & {
   mana: number;
+  maximumHealth: number;
   maximumMana: number;
   armor: number;
 }>;
@@ -23,6 +24,7 @@ export const craftPlayer = (props: {
   health?: number,
   mana?: number,
   mechanics?: Mechanics[],
+  maximumHealth?: number,
   maximumMana?: number,
 }): Player =>
   ({
@@ -32,6 +34,7 @@ export const craftPlayer = (props: {
     health: 30,
     mana: 0,
     mechanics: [],
+    maximumHealth: 30,
     maximumMana: 0,
     ...props,
   });
