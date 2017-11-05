@@ -2,13 +2,12 @@ import * as R from 'ramda';
 import { Mechanics } from './Mechanics';
 import { PlayerKind } from './Player';
 import { Character } from './Character';
+import { newId } from './utils';
 
 export type Minion = Readonly<Character & {
   id: number;
 }>;
 
-let _lastId = 0;
-const newId = (): number => new Date().getTime() + _lastId++;
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 
 export const playerMinions = selectMinions(PlayerKind.Player);
