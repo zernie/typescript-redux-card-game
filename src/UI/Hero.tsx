@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
-import { Card, Statistic } from 'semantic-ui-react';
+import { Header , Segment, Grid, Statistic } from 'semantic-ui-react';
 import { Player } from '../Player';
 import { attackFace } from './characterReducer';
 
@@ -12,7 +11,7 @@ interface HeroOwnProps {
 
 export type HeroProps = HeroOwnProps & Player;
 
-const Hero: StatelessComponent<HeroProps> = ({
+const Hero: React.StatelessComponent<HeroProps> = ({
   connectDropTarget,
   isOver,
   name,
@@ -21,23 +20,23 @@ const Hero: StatelessComponent<HeroProps> = ({
   maximumMana,
 }) =>
   connectDropTarget(
-    <div>
-      <Card centered color={isOver ? 'red' : undefined}>
-        <Card.Content>
-          <Card.Header>
-            {name}
-          </Card.Header>
+    <div className="ui centered grid">
+      <Grid.Column width={4}>
+        <Segment raised={isOver} tertiary={isOver} >
+            <Header>
+              {name}
+            </Header>
 
-          <Statistic.Group size="small" horizontal>
-            <Statistic color="green" value={health} label="hp" />
-            <Statistic
-              color="blue"
-              value={`${mana}/${maximumMana}`}
-              label="mana"
-            />
-          </Statistic.Group>
-        </Card.Content>
-      </Card>
+            <Statistic.Group size="small" horizontal>
+              <Statistic color="green" value={health} label="hp" />
+              <Statistic
+                color="blue"
+                value={`${mana}/${maximumMana}`}
+                label="mana"
+              />
+            </Statistic.Group>
+        </Segment>
+      </Grid.Column>
     </div>
   );
 

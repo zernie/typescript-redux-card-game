@@ -12,7 +12,7 @@ export interface SideProps {
 
 const Side: StatelessComponent<SideProps> = ({ active, board }) =>
   <Segment basic disabled={!active}>
-    <List relaxed selection divided horizontal size="huge">
+    <List relaxed selection horizontal size="huge">
       {board.map(minion => <DraggableMinion key={newId()} minion={minion} />)}
     </List>
   </Segment>;

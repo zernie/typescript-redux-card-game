@@ -8,7 +8,7 @@ const App: React.StatelessComponent<{}> = props =>
   <Container textAlign="center">
     <Header as="h1">
       <Header.Content>
-        Hearthstone-inspired card game written using React and Redux.
+        Hearthstone-like card game written using React and Redux.
       </Header.Content>
     </Header>
 

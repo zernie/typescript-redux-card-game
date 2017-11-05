@@ -33,12 +33,12 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
 }) =>
   <Segment>
     <Grid>
-      <Grid.Column width={14}>
+      <Grid.Column computer={14} mobile={16}>
         <Hand active={!currentPlayer} hand={opponentCards(hand)}/>
         <TargetableHero {...opponent} />
 
         {connectDropTarget(
-          <div className={`ui basic segment ${isOver ? 'inverted olive' : null}`}>
+          <div className={`ui basic segment ${isOver ? 'inverted olive raised' : undefined}`}>
             <Side
               active={!currentPlayer}
               board={opponentMinions(board)}
@@ -55,7 +55,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
         <Hand active={currentPlayer} hand={playerCards(hand)}/>
       </Grid.Column>
 
-      <Grid.Column width={2} verticalAlign="middle">
+      <Grid.Column computer={2} mobile={16} verticalAlign="middle" stretched>
         <Button.Group vertical size="large">
           <Button color="green" basic>Turn: {turn}</Button>
 
