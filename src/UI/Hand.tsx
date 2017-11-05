@@ -2,6 +2,7 @@ import * as React from 'react';
 import { List, Segment } from 'semantic-ui-react';
 import { CardList } from '../Card';
 import DraggableCard from './DraggableCard';
+import { newId } from '../utils';
 
 interface HandProps {
   active: boolean;
@@ -11,6 +12,6 @@ interface HandProps {
 export const Hand: React.StatelessComponent<HandProps> = ({ active, hand }) =>
   <Segment disabled={!active} basic>
     <List relaxed selection divided horizontal size="huge">
-      {hand.map((card, i) => <DraggableCard key={i} card={card} />)}
+      {hand.map(card => <DraggableCard key={newId()} card={card} />)}
     </List>
   </Segment>;

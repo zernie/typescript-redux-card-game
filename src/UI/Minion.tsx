@@ -13,7 +13,7 @@ export interface MinionProps {
 
 export const MinionCard: StatelessComponent<MinionProps> = ({
   connectDragSource,
-  minion: { attack, health, id, name },
+  minion: { attack, health, name },
 }) =>
   connectDragSource(
     <div className="item">

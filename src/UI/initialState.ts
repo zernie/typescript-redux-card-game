@@ -1,50 +1,35 @@
 import * as R from 'ramda';
 import { Game, GameState } from '../Game';
 import { craftPlayer, Player, PlayerKind } from '../Player';
-import { CardList, CardType } from '../Card';
+import { CardList, craftMinionCard } from '../Card';
 import { Board } from '../Board';
 import { craftMinion } from '../Minion';
 
 export const deck: CardList = [];
 
-export const hand: CardList = [
+export const hand: CardList = R.map(craftMinionCard, [
   {
+    attack: 3,
     cost: 1,
+    health: 2,
     name: 'card 1',
-    type: CardType.Minion,
     owner: PlayerKind.Player,
-    payload: craftMinion({
-      attack: 3,
-      health: 2,
-      name: 'Jane doe',
-      owner: PlayerKind.Player,
-    }),
   },
   {
+    attack: 3,
     cost: 2,
+    health: 2,
     name: 'card 2',
-    type: CardType.Minion,
     owner: PlayerKind.Opponent,
-    payload: craftMinion({
-      attack: 3,
-      health: 2,
-      name: 'Jane doe',
-      owner: PlayerKind.Opponent,
-    })
   },
   {
+    attack: 3,
     cost: 2,
+    health: 2,
     name: 'card 2',
-    type: CardType.Minion,
     owner: PlayerKind.Player,
-    payload: craftMinion({
-      attack: 3,
-      health: 2,
-      name: 'Jane doe',
-      owner: PlayerKind.Player,
-    })
   },
-];
+]);
 
 export const board: Board = R.map(craftMinion, [
   {

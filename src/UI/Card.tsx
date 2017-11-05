@@ -16,7 +16,6 @@ export const Card: React.StatelessComponent<CardProps> = ({
     cost,
     name,
     type,
-    payload,
   },
 }) =>
   connectDragSource(

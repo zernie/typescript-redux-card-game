@@ -2,11 +2,10 @@ import * as R from 'ramda';
 import { Mechanics } from './Mechanics';
 import { PlayerKind } from './Player';
 import { Character } from './Character';
-import { newId } from './utils';
+import { MinionCard } from './Card';
+// import { Card } from './Card';
 
-export type Minion = Readonly<Character & {
-  id: number;
-}>;
+export type Minion = Character;
 
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 
@@ -16,13 +15,13 @@ export const craftMinion = (props: {
   attack: number,
   health: number,
   name: string,
-  attacksPerformed?: number,
-  id?: number,
-  mechanics?: Array<Mechanics>,
   owner: PlayerKind,
+  attacksPerformed?: number,
+  mechanics?: Array<Mechanics>,
 }): Minion => ({
   attacksPerformed: 0,
-  id: newId(),
   mechanics: [],
   ...props,
 });
+export const fromCard = (card: MinionCard): any =>
+  R.pipe(R.pick(['attack', 'health', 'name']), R.tap(console.log));
