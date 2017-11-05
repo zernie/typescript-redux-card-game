@@ -18,7 +18,7 @@ const Hero: StatelessComponent<HeroProps> = ({
   name,
   health,
   mana,
-  totalMana,
+  maximumMana,
 }) =>
   connectDropTarget(
     <div>
@@ -32,7 +32,7 @@ const Hero: StatelessComponent<HeroProps> = ({
             <Statistic color="green" value={health} label="hp" />
             <Statistic
               color="blue"
-              value={`${mana}/${totalMana}`}
+              value={`${mana}/${maximumMana}`}
               label="mana"
             />
           </Statistic.Group>

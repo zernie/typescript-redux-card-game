@@ -3,13 +3,12 @@ import { Game, GameState } from '../Game';
 import { craftPlayer, Player, PlayerKind } from '../Player';
 import { CardType } from '../Card';
 import { Board } from '../Board';
-import { Deck } from '../Deck';
-import { Hand } from '../Hand';
 import { craftMinion } from '../Minion';
+import { CardList } from '../CardList';
 
-export const deck: Deck = [];
+export const deck: CardList = [];
 
-export const hand: Hand = [
+export const hand: CardList = [
   {
     cost: 1,
     name: 'card 1',
@@ -20,7 +19,7 @@ export const hand: Hand = [
       health: 2,
       name: 'Jane doe',
       owner: PlayerKind.Player,
-    })
+    }),
   },
   {
     cost: 2,
@@ -89,7 +88,7 @@ const initialState: Game = {
     activePlayer: PlayerKind.Player,
     turn: 1,
     gameState: GameState.Playing,
-  }
+  },
 };
 
 export default initialState;

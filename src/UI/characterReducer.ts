@@ -32,7 +32,7 @@ export const restoreMana = actionCreator('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
 const healthLens = R.lensProp<number, Player>('health');
-const totalManaLens = R.lensProp<number, Player>('totalMana');
+const totalManaLens = R.lensProp<number, Player>('maximumMana');
 const manaLens = R.lensProp<number, Player>('mana');
 
 const attackHeroHandler = (state: Player, payload: AttackFacePayload) =>
@@ -45,7 +45,7 @@ const attackHeroHandler = (state: Player, payload: AttackFacePayload) =>
 const addManaHandler = (state: Player, payload: AddManaPayload) =>
   R.when(
     () => payload.player === state.owner,
-    () => R.set(manaLens, state.totalMana + payload.amount, state),
+    () => R.set(manaLens, state.maximumMana + payload.amount, state),
     state
   );
 

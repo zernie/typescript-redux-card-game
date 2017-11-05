@@ -3,7 +3,8 @@ import { Mechanics } from './Mechanics';
 
 export type Player = Readonly<Character & {
   mana: number;
-  totalMana: number;
+  maximumMana: number;
+  armor: number;
 }>;
 
 export enum PlayerKind {
@@ -14,21 +15,23 @@ export enum PlayerKind {
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
 export const craftPlayer = (props: {
-  attack?: number,
   owner: PlayerKind,
   name: string,
+  armor?: number;
+  attack?: number,
+  attacksPerformed?: number,
   health?: number,
   mana?: number,
-  totalMana?: number,
   mechanics?: Mechanics[],
-  attacksPerformed?: number,
+  maximumMana?: number,
 }): Player =>
   ({
+    armor: 0,
     attack: 0,
+    attacksPerformed: 0,
     health: 30,
     mana: 0,
-    totalMana: 0,
     mechanics: [],
-    attacksPerformed: 0,
+    maximumMana: 0,
     ...props,
   });

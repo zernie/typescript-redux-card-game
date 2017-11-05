@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deck } from './initialState';
-import { Deck } from '../Deck';
+import { CardList } from '../CardList';
 
-export default reducerWithInitialState<Deck>(deck);
+export default reducerWithInitialState<CardList>(deck);

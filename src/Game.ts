@@ -1,7 +1,6 @@
 import { Player, PlayerKind } from './Player';
 import { Board } from './Board';
-import { Hand } from './Hand';
-import { Deck } from './Deck';
+import { CardList } from './CardList';
 
 export enum GameState {
   Playing,
@@ -17,8 +16,8 @@ export type State = Readonly<{
 
 export type Game = Readonly<{
   board: Board;
-  deck: Deck;
-  hand: Hand;
+  deck: CardList;
+  hand: CardList;
   opponent: Player;
   player: Player;
   state: State;

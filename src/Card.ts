@@ -17,11 +17,7 @@ export type Card = Readonly<{
   name: string;
   type: CardType;
   payload: CardPayload;
-  owner: PlayerKind
-}>;
-
-export type MinionCard = Readonly<Card & {
-  type: CardType.Minion
+  owner: PlayerKind;
 }>;
 
 const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);

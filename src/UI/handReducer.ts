@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { hand } from './initialState';
-import { Hand } from '../Hand';
+import { CardList } from '../CardList';
 
-export default reducerWithInitialState<Hand>(hand);
+export default reducerWithInitialState<CardList>(hand);
