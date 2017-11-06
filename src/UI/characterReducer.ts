@@ -52,7 +52,7 @@ const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
 const addManaHandler = (state: Hero, payload: AddManaPayload) =>
   R.when(
     () => payload.player === state.owner,
-    () => R.set(manaLens, state.maximumMana + payload.amount, state),
+    R.set(manaLens, state.maximumMana + payload.amount),
     state
   );
 
@@ -64,7 +64,7 @@ const restoreManaHandler = (state: Hero) =>
 const spendManaHandler = (state: Hero, payload: number) =>
   R.when(
     () => canSpendMana(state, payload),
-    () => R.set(manaLens, state.mana - payload, state),
+    R.set(manaLens, state.mana - payload),
     state
   );
 
