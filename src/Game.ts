@@ -22,3 +22,6 @@ export type Game = Readonly<{
   player: Hero;
   state: State;
 }>;
+
+export const currentPlayer = (game: Game) =>
+  game.state.activePlayer === PlayerKind.Player ? game.player : game.opponent;

@@ -18,6 +18,4 @@ const DraggableCard = DnD.DragSource<CardProps>('Card', spec, collect)(
   Card
 );
 
-const mapStateToProps = R.pick(['state']);
-
-export default connect(mapStateToProps, {})(DraggableCard) as React.ComponentClass<Partial<CardProps>>;
+export default connect(R.identity, {})(DraggableCard) as React.ComponentClass<Partial<CardProps>>;

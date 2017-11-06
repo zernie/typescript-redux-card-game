@@ -40,3 +40,5 @@ export const craftPlayer = (props: {
     maximumMana: 0,
     ...props,
   });
+
+export const canSpendMana = (hero: Hero, mana: number) => hero.maximumMana - mana >= 0;

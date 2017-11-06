@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
-import { Hero, PlayerKind } from '../Hero';
+import { canSpendMana, Hero, PlayerKind } from '../Hero';
 import { ThunkAction } from 'redux-thunk';
 
 const actionCreator = actionCreatorFactory();
@@ -55,7 +55,11 @@ const restoreManaHandler = (state: Hero) =>
   R.set(manaLens, R.view(totalManaLens, state), state);
 
 const spendManaHandler = (state: Hero, payload: number) =>
-  R.over(manaLens, R.subtract(payload), state);
+  R.when(
+    () => canSpendMana(state, payload),
+    () => R.set(manaLens, state.mana - payload, state),
+    state
+  );
 
 export default (character: Hero) =>
   reducerWithInitialState<Hero>(character)
