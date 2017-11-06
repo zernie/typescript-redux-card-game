@@ -3,10 +3,10 @@ import { Mechanics } from './Mechanics';
 import { newId } from './utils';
 
 export type Hero = Readonly<Character & {
+  armor: number;
   mana: number;
   maximumHealth: number;
   maximumMana: number;
-  armor: number;
 }>;
 
 export enum PlayerKind {

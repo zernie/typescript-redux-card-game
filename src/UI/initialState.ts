@@ -61,6 +61,7 @@ export const player: Hero = craftPlayer({
 });
 
 export const opponent: Hero = craftPlayer({
+  armor: 3,
   name: 'Warrior',
   owner: PlayerKind.Opponent,
 });

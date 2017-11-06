@@ -21,9 +21,10 @@ interface AddManaPayload {
 }
 
 // TODO:
-export const attackFace = (payload: AttackFacePayload): ThunkAction<void, {}, {}> => dispatch => {
+export const attackFace = (
+  payload: AttackFacePayload
+): ThunkAction<void, {}, {}> => dispatch => {
   dispatch(attackHero(payload));
-
 };
 export const attackHero = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
@@ -31,14 +32,20 @@ export const incTotalMana = actionCreator('INC_TOTAL_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
-const healthLens = R.lensProp<number, Hero>('health');
 const totalManaLens = R.lensProp<number, Hero>('maximumMana');
 const manaLens = R.lensProp<number, Hero>('mana');
 
 const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
   R.when(
     () => payload.player === state.owner,
-    () => R.set(healthLens, state.health - payload.damage, state),
+    () =>
+      R.evolve(
+        {
+          armor: () => state.armor - payload.damage,
+          health: () => R.min(state.health, state.health + state.armor - payload.damage),
+        },
+        state
+      ),
     state
   );
 
