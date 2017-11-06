@@ -6,6 +6,7 @@ export interface Character {
   attacksPerformed: number;
   attack: number;
   health: number;
+  id: number;
   mechanics: Array<Mechanics>;
   name: string;
   owner: PlayerKind;

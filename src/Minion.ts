@@ -3,6 +3,7 @@ import { Mechanics } from './Mechanics';
 import { PlayerKind } from './Hero';
 import { Character } from './Character';
 import { MinionCard } from './Card';
+import { newId } from './utils';
 
 export type Minion = Character;
 
@@ -19,6 +20,7 @@ export const craftMinion = (props: {
   mechanics?: Array<Mechanics>,
 }): Minion => ({
   attacksPerformed: 0,
+  id: newId(),
   mechanics: [],
   ...props,
 });

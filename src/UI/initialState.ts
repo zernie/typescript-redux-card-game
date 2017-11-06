@@ -1,13 +1,13 @@
 import * as R from 'ramda';
 import { Game, GameState } from '../Game';
 import { craftPlayer, Hero, PlayerKind } from '../Hero';
-import { CardList, craftMinionCard } from '../Card';
-import { Board } from '../Board';
+import { CardList, cardListFrom, craftMinionCard } from '../Card';
+import { Board, boardFrom } from '../Board';
 import { craftMinion } from '../Minion';
 
-export const deck: CardList = [];
+export const deck: CardList = {};
 
-export const hand: CardList = R.map(craftMinionCard, [
+const rawHand = [
   {
     attack: 3,
     cost: 2,
@@ -29,9 +29,11 @@ export const hand: CardList = R.map(craftMinionCard, [
     name: 'Boulderfist Ogre',
     owner: PlayerKind.Player,
   },
-]);
+];
 
-export const board: Board = R.map(craftMinion, [
+export const hand: CardList = cardListFrom(R.map(craftMinionCard, rawHand));
+
+const rawBoard = [
   {
     attack: 1,
     health: 1,
@@ -50,7 +52,8 @@ export const board: Board = R.map(craftMinion, [
     name: 'Gnomish Inventor',
     owner: PlayerKind.Player,
   },
-]);
+];
+export const board: Board = boardFrom(R.map(craftMinion, rawBoard));
 
 export const player: Hero = craftPlayer({
   name: 'Mage',
@@ -64,14 +67,14 @@ export const opponent: Hero = craftPlayer({
 
 const initialState: Game = {
   board,
-  hand,
   deck,
+  hand,
   player,
   opponent,
   state: {
     activePlayer: PlayerKind.Player,
-    turn: 1,
     gameState: GameState.Playing,
+    turn: 1,
   },
 };
 

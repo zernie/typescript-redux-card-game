@@ -1,5 +1,6 @@
 import { Character } from './Character';
 import { Mechanics } from './Mechanics';
+import { newId } from './utils';
 
 export type Hero = Readonly<Character & {
   mana: number;
@@ -32,6 +33,7 @@ export const craftPlayer = (props: {
     attack: 0,
     attacksPerformed: 0,
     health: 30,
+    id: newId(),
     mana: 0,
     mechanics: [],
     maximumHealth: 30,
