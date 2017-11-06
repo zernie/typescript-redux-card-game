@@ -1,6 +1,7 @@
 import { Character } from './Character';
 import { Mechanics } from './Mechanics';
 import { newId } from './utils';
+import * as R from 'ramda';
 
 export type Hero = Readonly<Character & {
   armor: number;
@@ -42,3 +43,7 @@ export const craftPlayer = (props: {
   });
 
 export const canSpendMana = (hero: Hero, mana: number) => hero.maximumMana - mana >= 0;
+export const reduceArmor = (hero: Hero, damage: number): number =>
+  R.max(0, hero.armor - damage);
+export const reduceHealth = (hero: Hero, damage: number): number =>
+  R.min(hero.health, hero.health + hero.armor - damage);

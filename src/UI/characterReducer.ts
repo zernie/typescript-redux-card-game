@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
-import { canSpendMana, Hero, PlayerKind } from '../Hero';
+import { canSpendMana, Hero, PlayerKind, reduceArmor, reduceHealth } from '../Hero';
 import { ThunkAction } from 'redux-thunk';
 
 const actionCreator = actionCreatorFactory();
@@ -39,12 +39,12 @@ const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
   R.when(
     () => payload.player === state.owner,
     () =>
-      R.evolve(
+      R.merge(
+        state,
         {
-          armor: () => state.armor - payload.damage,
-          health: () => R.min(state.health, state.health + state.armor - payload.damage),
-        },
-        state
+          armor: reduceArmor(state, payload.damage),
+          health: reduceHealth(state, payload.damage),
+        }
       ),
     state
   );
