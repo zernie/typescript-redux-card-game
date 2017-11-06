@@ -58,7 +58,7 @@ const addManaHandler = (state: Hero, payload: AddManaPayload) =>
 
 const gainManaHandler = (state: Hero, payload: AddManaPayload) =>
   R.when(
-    () => state.mana <= 9,
+    () => state.maximumMana <= 9,
     R.over(totalManaLens, R.inc),
     state
 );
