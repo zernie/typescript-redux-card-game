@@ -28,7 +28,7 @@ export const attackFace = (
 };
 export const attackHero = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
-export const incTotalMana = actionCreator('INC_TOTAL_MANA');
+export const gainMana = actionCreator('GAIN_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
@@ -56,7 +56,12 @@ const addManaHandler = (state: Hero, payload: AddManaPayload) =>
     state
   );
 
-const incTotalManaHandler = R.over(totalManaLens, R.inc);
+const gainManaHandler = (state: Hero, payload: AddManaPayload) =>
+  R.when(
+    () => state.mana <= 9,
+    R.over(totalManaLens, R.inc),
+    state
+);
 
 const restoreManaHandler = (state: Hero) =>
   R.set(manaLens, R.view(totalManaLens, state), state);
@@ -72,6 +77,6 @@ export default (character: Hero) =>
   reducerWithInitialState<Hero>(character)
     .case(attackHero, attackHeroHandler)
     .case(addMana, addManaHandler)
-    .case(incTotalMana, incTotalManaHandler)
+    .case(gainMana, gainManaHandler)
     .case(restoreMana, restoreManaHandler)
     .case(spendMana, spendManaHandler);
