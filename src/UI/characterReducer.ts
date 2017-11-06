@@ -2,12 +2,12 @@ import * as R from 'ramda';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { Minion } from '../Minion';
-import { Player, PlayerKind } from '../Player';
+import { Hero, PlayerKind } from '../Hero';
 import { ThunkAction } from 'redux-thunk';
 
 const actionCreator = actionCreatorFactory();
 
-export type AttackSource = Player | Minion;
+export type AttackSource = Hero | Minion;
 
 interface AttackFacePayload {
   source: AttackSource;
@@ -31,18 +31,18 @@ export const incTotalMana = actionCreator('INC_TOTAL_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
 export const spendMana = actionCreator<number>('SPEND_MANA');
 
-const healthLens = R.lensProp<number, Player>('health');
-const totalManaLens = R.lensProp<number, Player>('maximumMana');
-const manaLens = R.lensProp<number, Player>('mana');
+const healthLens = R.lensProp<number, Hero>('health');
+const totalManaLens = R.lensProp<number, Hero>('maximumMana');
+const manaLens = R.lensProp<number, Hero>('mana');
 
-const attackHeroHandler = (state: Player, payload: AttackFacePayload) =>
+const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
   R.when(
     () => payload.player === state.owner,
     () => R.set(healthLens, state.health - payload.damage, state),
     state
   );
 
-const addManaHandler = (state: Player, payload: AddManaPayload) =>
+const addManaHandler = (state: Hero, payload: AddManaPayload) =>
   R.when(
     () => payload.player === state.owner,
     () => R.set(manaLens, state.maximumMana + payload.amount, state),
@@ -51,14 +51,14 @@ const addManaHandler = (state: Player, payload: AddManaPayload) =>
 
 const incTotalManaHandler = R.over(totalManaLens, R.inc);
 
-const restoreManaHandler = (state: Player) =>
+const restoreManaHandler = (state: Hero) =>
   R.set(manaLens, R.view(totalManaLens, state), state);
 
-const spendManaHandler = (state: Player, payload: number) =>
+const spendManaHandler = (state: Hero, payload: number) =>
   R.over(manaLens, R.subtract(payload), state);
 
-export default (character: Player) =>
-  reducerWithInitialState<Player>(character)
+export default (character: Hero) =>
+  reducerWithInitialState<Hero>(character)
     .case(attackHero, attackHeroHandler)
     .case(addMana, addManaHandler)
     .case(incTotalMana, incTotalManaHandler)

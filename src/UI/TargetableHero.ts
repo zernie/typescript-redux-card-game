@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
-import { Player } from '../Player';
+import { Hero } from '../Hero';
 import { attackFace } from './characterReducer';
 import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from './Minion';
@@ -32,4 +32,4 @@ const TargetableHero = DnD.DropTarget('Minion', spec, collect)(HeroCard);
 
 export default connect(null, { attackFace })(
   TargetableHero
-) as React.ComponentClass<Player>;
+) as React.ComponentClass<Hero>;

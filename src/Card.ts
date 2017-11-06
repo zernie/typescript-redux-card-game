@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { PlayerKind } from './Player';
+import { PlayerKind } from './Hero';
 import { Mechanics } from './Mechanics';
 
 type BasicCard = Readonly<{
@@ -40,6 +40,6 @@ export const craftMinionCard = (props: {
   text?: string,
 }): MinionCard => ({
   mechanics: [],
-  type: 'minion',
   ...props,
+  type: 'minion',
 });

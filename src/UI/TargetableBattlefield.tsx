@@ -3,9 +3,10 @@ import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { Game } from '../Game';
+import { PlayerKind } from '../Hero';
 import Battlefield, { BattlefieldProps } from './Battlefield';
 import { endTurn } from './gameStateReducer';
-import { PlayerKind } from '../Player';
+import { playCard } from './handReducer';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
@@ -14,14 +15,9 @@ const collect: DnD.DropTargetCollector = (connector, monitor) => ({
 
 const spec: DnD.DropTargetSpec<BattlefieldProps> = {
   drop: (props, monitor: DnD.DropTargetMonitor) => {
-    // const { minion } = monitor.getItem() as MinionProps;
-    console.log(props);
-    console.log(monitor.getItem());
-    // return props.attackFace({
-    //   source: minion,
-    //   damage: minion.attack,
-    //   player: props.owner,
-    // });
+    const { card } = monitor.getItem() as BattlefieldProps;
+
+    return props.playCard(card);
   },
   canDrop: (props, monitor: DnD.DropTargetMonitor) => true,
 };
@@ -41,6 +37,6 @@ const mapStateToProps = R.pipe(
   R.converge(R.assoc('currentPlayer'), [R.pathEq(['state', 'activePlayer'], PlayerKind.Player), R.identity])
 );
 
-export default connect(mapStateToProps, { endTurn })(
+export default connect(mapStateToProps, { endTurn, playCard })(
   TargetableBattlefield
 ) as React.ComponentClass<Partial<BattlefieldProps>>;

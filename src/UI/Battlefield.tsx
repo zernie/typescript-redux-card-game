@@ -1,19 +1,22 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Game } from '../Game';
-import { opponentCards, playerCards } from '../Card';
+import { Card, opponentCards, playerCards } from '../Card';
 import { opponentMinions, playerMinions } from '../Minion';
 import TargetableHero from './TargetableHero';
 import Side from './Side';
 import NextTurn from './NextTurn';
 import { endTurn as endTurnFunction } from './gameStateReducer';
 import { Hand } from './Hand';
+import { playCard } from './handReducer';
 
 interface BattlefieldOwnProps {
+  card: Card;
+  connectDropTarget: Function;
   currentPlayer: boolean;
   endTurn: typeof endTurnFunction;
-  connectDropTarget: Function;
   isOver: boolean;
+  playCard: typeof playCard;
 }
 export type BattlefieldProps = Game & BattlefieldOwnProps;
 

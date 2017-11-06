@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Header , Segment, Grid, Statistic } from 'semantic-ui-react';
-import { Player } from '../Player';
+import { Hero } from '../Hero';
 import { attackFace } from './characterReducer';
 
 interface HeroOwnProps {
@@ -9,7 +9,7 @@ interface HeroOwnProps {
   isOver: boolean;
 }
 
-export type HeroProps = HeroOwnProps & Player;
+export type HeroProps = HeroOwnProps & Hero;
 
 const Hero: React.StatelessComponent<HeroProps> = ({
   connectDropTarget,

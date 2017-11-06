@@ -1,9 +1,8 @@
 import * as R from 'ramda';
 import { Mechanics } from './Mechanics';
-import { PlayerKind } from './Player';
+import { PlayerKind } from './Hero';
 import { Character } from './Character';
 import { MinionCard } from './Card';
-// import { Card } from './Card';
 
 export type Minion = Character;
 
@@ -23,5 +22,8 @@ export const craftMinion = (props: {
   mechanics: [],
   ...props,
 });
-export const fromCard = (card: MinionCard): any =>
-  R.pipe(R.pick(['attack', 'health', 'name']), R.tap(console.log));
+export const fromCard =
+  R.pipe(
+    R.pick<MinionCard, keyof MinionCard>(['attack', 'health', 'name']),
+    craftMinion
+  );

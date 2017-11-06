@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { PlayerKind } from './Player';
+import { PlayerKind } from './Hero';
 import { Mechanics } from './Mechanics';
 
 export interface Character {

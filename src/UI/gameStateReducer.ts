@@ -4,7 +4,7 @@ import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { incTotalMana, restoreMana } from './characterReducer';
 import { State } from '../Game';
-import { other, PlayerKind } from '../Player';
+import { other, PlayerKind } from '../Hero';
 import initialState from './initialState';
 
 const actionCreator = actionCreatorFactory();
