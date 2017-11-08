@@ -2,12 +2,14 @@ import * as React from 'react';
 import { List } from 'semantic-ui-react';
 import { Card as CardInterface } from '../Card';
 import { State } from '../Game';
+import { Hero } from '../Hero';
 
 export interface CardProps {
-  state: State;
-  connectDragSource: Function;
-  isDragging: boolean;
   card: CardInterface;
+  connectDragSource: Function;
+  hero: Hero;
+  isDragging: boolean;
+  state: State;
 }
 
 export const Card: React.StatelessComponent<CardProps> = ({

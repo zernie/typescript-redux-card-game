@@ -42,7 +42,7 @@ export const craftPlayer = (props: {
     ...props,
   });
 
-export const canSpendMana = (hero: Hero, mana: number) => hero.maximumMana - mana >= 0;
+export const canSpendMana = (hero: Hero, amount: number) => hero.mana - amount >= 0;
 export const reduceArmor = (hero: Hero, damage: number): number =>
   R.max(0, hero.armor - damage);
 export const reduceHealth = (hero: Hero, damage: number): number =>
