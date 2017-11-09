@@ -4,23 +4,26 @@ import { craftPlayer, Hero, PlayerKind } from '../Hero';
 import { CardList, cardListFrom, craftMinionCard } from '../Card';
 import { Board, boardFrom } from '../Board';
 import { craftMinion } from '../Minion';
+import { Ability } from '../Abilities';
 
 export const deck: CardList = {};
 
 const rawHand = [
   {
-    attack: 3,
+    abilities: [Ability.Charge],
+    attack: 1,
     cost: 2,
     health: 2,
-    name: 'Acidic Swamp Ooze',
+    name: 'Bluegill Warrior',
     owner: PlayerKind.Player,
   },
   {
-    attack: 4,
+    abilities: [Ability.Windfury],
+    attack: 3,
     cost: 4,
-    health: 5,
-    name: 'Chillwind Yeti',
-    owner: PlayerKind.Opponent,
+    health: 4,
+    name: 'Windbreaker',
+    owner: PlayerKind.Player,
   },
   {
     attack: 6,

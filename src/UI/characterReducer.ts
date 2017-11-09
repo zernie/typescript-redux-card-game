@@ -1,16 +1,22 @@
-import * as R from 'ramda';
+import { ThunkAction } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { Minion } from '../Minion';
-import { canSpendMana, Hero, PlayerKind, reduceArmor, reduceHealth } from '../Hero';
-import { ThunkAction } from 'redux-thunk';
+import * as R from 'ramda';
+import {
+  canSpendMana,
+  Hero,
+  PlayerKind,
+  reduceArmor,
+  reduceHealth,
+} from '../Hero';
+import { Character } from '../Character';
+// import { exhaustMinion } from './boardReducer';
+import {  Game } from '../Game';
 
 const actionCreator = actionCreatorFactory();
 
-export type AttackSource = Hero | Minion;
-
-interface AttackFacePayload {
-  source: AttackSource;
+export interface AttackFacePayload {
+  source: Character;
   damage: number;
   player: PlayerKind;
 }
@@ -20,12 +26,18 @@ interface AddManaPayload {
   player: PlayerKind;
 }
 
-// TODO:
+// TODO: refactor
 export const attackFace = (
   payload: AttackFacePayload
-): ThunkAction<void, {}, {}> => dispatch => {
+): ThunkAction<void, Game, {}> => (dispatch, getState) => {
   dispatch(attackHero(payload));
+  // const hero = currentPlayer(getState());
+
+  // if (!canAttack(hero)) {
+  //   dispatch(exhaustMinion(payload.source));
+  // }
 };
+
 export const attackHero = actionCreator<AttackFacePayload>('ATTACK_FACE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
 export const gainMana = actionCreator('GAIN_MANA');
@@ -39,13 +51,10 @@ const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
   R.when(
     () => payload.player === state.owner,
     () =>
-      R.merge(
-        state,
-        {
-          armor: reduceArmor(state, payload.damage),
-          health: reduceHealth(state, payload.damage),
-        }
-      ),
+      R.merge(state, {
+        armor: reduceArmor(state, payload.damage),
+        health: reduceHealth(state, payload.damage),
+      }),
     state
   );
 
@@ -57,11 +66,7 @@ const addManaHandler = (state: Hero, payload: AddManaPayload) =>
   );
 
 const gainManaHandler = (state: Hero, payload: AddManaPayload) =>
-  R.when(
-    () => state.maximumMana <= 9,
-    R.over(totalManaLens, R.inc),
-    state
-);
+  R.when(() => state.maximumMana < 10, R.over(totalManaLens, R.inc), state);
 
 const restoreManaHandler = (state: Hero) =>
   R.set(manaLens, R.view(totalManaLens, state), state);

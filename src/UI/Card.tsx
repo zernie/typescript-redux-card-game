@@ -15,6 +15,7 @@ export interface CardProps {
 export const Card: React.StatelessComponent<CardProps> = ({
   connectDragSource,
   card: {
+    abilities,
     attack,
     cost,
     health,
@@ -40,6 +41,9 @@ export const Card: React.StatelessComponent<CardProps> = ({
         {cost}
         <br/>
         {text}
+        <br/>
+
+        {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
       </List.Content>
     </div>
   );

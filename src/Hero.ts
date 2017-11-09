@@ -1,5 +1,5 @@
 import { Character } from './Character';
-import { Mechanics } from './Mechanics';
+import { Ability } from './Abilities';
 import { newId } from './utils';
 import * as R from 'ramda';
 
@@ -20,23 +20,25 @@ export const other = (player: PlayerKind): PlayerKind =>
 export const craftPlayer = (props: {
   owner: PlayerKind,
   name: string,
+  abilities?: Ability[],
   armor?: number;
   attack?: number,
   attacksPerformed?: number,
+  exhausted?: boolean,
   health?: number,
   mana?: number,
-  mechanics?: Mechanics[],
   maximumHealth?: number,
   maximumMana?: number,
 }): Hero =>
   ({
+    abilities: [],
     armor: 0,
     attack: 0,
     attacksPerformed: 0,
+    exhausted: false,
     health: 30,
     id: newId(),
     mana: 0,
-    mechanics: [],
     maximumHealth: 30,
     maximumMana: 0,
     ...props,

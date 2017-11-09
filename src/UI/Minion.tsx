@@ -13,10 +13,11 @@ export interface MinionProps {
 
 export const MinionCard: StatelessComponent<MinionProps> = ({
   connectDragSource,
-  minion: { attack, health, name },
+  minion: { abilities, attack, exhausted, health, name },
 }) =>
   connectDragSource(
     <div className="item">
+      {exhausted ? 'Exhausted' : undefined}
       <List.Content>
         <List.Header>
           <List.Icon name="child" />
@@ -28,6 +29,9 @@ export const MinionCard: StatelessComponent<MinionProps> = ({
         <br />
         <List.Icon name="heartbeat" />
         {health}
+        <br />
+
+        {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
       </List.Content>
     </div>
   );

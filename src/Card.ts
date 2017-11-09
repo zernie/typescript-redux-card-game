@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { PlayerKind } from './Hero';
-import { Mechanics } from './Mechanics';
+import { Ability } from './Abilities';
 import { newId } from './utils';
 
 type BasicCard = Readonly<{
@@ -14,15 +14,16 @@ type BasicCard = Readonly<{
 export type Card = MinionCard | WeaponCard;
 
 export interface WeaponCard extends BasicCard {
+  abilities: Array<Ability>;
   attack: number;
   health: number;
   type: 'weapon';
 }
 
 export interface MinionCard extends BasicCard {
+  abilities: Array<Ability>;
   attack: number;
   health: number;
-  mechanics: Array<Mechanics>;
   type: 'minion';
 }
 
@@ -40,10 +41,10 @@ export const craftMinionCard = (props: {
   health: number;
   name: string;
   owner: PlayerKind;
-  mechanics?: Array<Mechanics>;
+  abilities?: Array<Ability>;
   text?: string;
 }): MinionCard => ({
-  mechanics: [],
+  abilities: [],
   ...props,
   id: newId(),
   type: 'minion',

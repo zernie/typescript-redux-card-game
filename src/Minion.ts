@@ -1,8 +1,7 @@
 import * as R from 'ramda';
-import { Mechanics } from './Mechanics';
+import { Ability } from './Abilities';
 import { PlayerKind } from './Hero';
-import { Character } from './Character';
-import { MinionCard } from './Card';
+import { Character, hasAbility } from './Character';
 import { newId } from './utils';
 
 export type Minion = Character;
@@ -16,15 +15,18 @@ export const craftMinion = (props: {
   health: number;
   name: string;
   owner: PlayerKind;
+  abilities?: Array<Ability>;
   attacksPerformed?: number;
-  mechanics?: Array<Mechanics>;
+  exhausted?: boolean;
 }): Minion => ({
+  abilities: [],
   attacksPerformed: 0,
+  exhausted: true,
   id: newId(),
-  mechanics: [],
   ...props,
 });
 export const fromCard = R.pipe(
-  R.pick<MinionCard, keyof MinionCard>(['attack', 'health', 'name', 'owner']),
-  craftMinion
+  R.pick(['abilities', 'attack', 'health', 'name', 'owner']),
+  R.when(hasAbility(Ability.Charge), R.assoc('exhausted', false)),
+  craftMinion,
 );

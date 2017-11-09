@@ -3,12 +3,12 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Card, CardList } from '../Card';
+import { currentPlayer, Game } from '../Game';
+import { fromCard } from '../Minion';
+import { canSpendMana } from '../Hero';
 import { hand } from './initialState';
 import { summonMinion } from './boardReducer';
-import { fromCard } from '../Minion';
 import { spendMana } from './characterReducer';
-import { currentPlayer, Game } from '../Game';
-import { canSpendMana } from '../Hero';
 
 const actionCreator = actionCreatorFactory();
 export const removeCard = actionCreator<Card>('REMOVE_CARD');
