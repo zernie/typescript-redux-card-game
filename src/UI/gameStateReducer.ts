@@ -4,20 +4,17 @@ import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { gainMana, restoreMana } from './characterReducer';
 import { currentPlayer, Game, State } from '../Game';
-import { other, PlayerKind } from '../Hero';
+import { other } from '../Hero';
 import initialState from './initialState';
 
 const actionCreator = actionCreatorFactory();
 
-const turnLens = R.lensProp<number, State>('turn');
-const activePlayerLens = R.lensProp<PlayerKind, State>('activePlayer');
-
 export const nextTurn = actionCreator('NEXT_TURN');
 
-const nextTurnHandler = R.pipe(
-  R.over(turnLens, R.inc),
-  R.over(activePlayerLens, other)
-);
+const nextTurnHandler = R.evolve<State>({
+  turn: R.inc,
+  activePlayer: other,
+});
 
 export const endTurn = (): ThunkAction<void, Game, {}> => (
   dispatch,
