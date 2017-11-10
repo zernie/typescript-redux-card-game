@@ -1,39 +1,43 @@
-import actionCreatorFactory from 'typescript-fsa';
+import actionCreatorFactory, { Action } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Board } from '../Board';
 import { Minion } from '../Minion';
 import { board } from './initialState';
 import { nextTurn } from './gameStateReducer';
-import { attackCharacter, AttackCharacterPayload, } from './characterReducer';
+import {
+  attackCharacter,
+  CharactersPayload,
+  dealDamage,
+  default as characterReducer,
+  exhaust,
+} from './characterReducer';
+import { getEntity } from '../EntityContainer';
+import { Character } from '../Character';
 
 const actionCreator = actionCreatorFactory();
-export const exhaustMinion = actionCreator<Minion>('EXHAUST_MINION');
+
 export const summonMinion = actionCreator<Minion>('SUMMON_MINION');
 
-const attackCharacterHandler = (
+const nextTurnHandler = R.map(R.assoc('exhausted', false));
+
+const summonMinionHandler = (state: Board, payload: Minion): Board =>
+  R.assoc(payload.id, payload, state);
+
+const characterHandler = (
   state: Board,
-  payload: AttackCharacterPayload
+  action: Action<CharactersPayload>
 ): Board =>
-  R.evolve(
-    {
-      [payload.source.id]: { attacksPerformed: R.inc },
-    },
+  R.assoc(
+    action.payload.source.id,
+    characterReducer(
+      getEntity<Character>(action.payload.source.id, state),
+      action
+    ),
     state
   );
-
-const exhaustMinionHandler = (state: Board, payload: Minion): Board =>
-  R.assocPath([payload.id, 'exhausted'], true, state);
-
-export const nextTurnHandler = R.map<Minion, Board>(
-  R.assoc('exhausted', false)
-);
-
-export const summonMinionHandler = (state: Board, payload: Minion): Board =>
-  R.assoc(payload.id, payload, state);
 
 export default reducerWithInitialState<Board>(board)
   .case(nextTurn, nextTurnHandler)
   .case(summonMinion, summonMinionHandler)
-  .case(attackCharacter, attackCharacterHandler)
-  .case(exhaustMinion, exhaustMinionHandler);
+  .casesWithAction([attackCharacter, dealDamage, exhaust], characterHandler);

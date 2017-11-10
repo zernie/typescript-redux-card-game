@@ -47,5 +47,5 @@ export const craftPlayer = (props: {
 export const canSpendMana = (hero: Hero, amount: number) => hero.mana - amount >= 0;
 export const reduceArmor = (hero: Hero, damage: number): number =>
   R.max(0, hero.armor - damage);
-export const reduceHealth = (hero: Hero, damage: number): number =>
-  R.min(hero.health, hero.health + hero.armor - damage);
+export const reduceHealth = (hero: Character, damage: number): number =>
+  R.min(hero.health, hero.health - damage);

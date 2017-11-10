@@ -4,7 +4,7 @@ import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
-import { gainMana, restoreMana } from './characterReducer';
+import { gainMana, restoreMana } from './heroReducer';
 import { PlayerKind } from '../Hero';
 
 const store = configureStore();

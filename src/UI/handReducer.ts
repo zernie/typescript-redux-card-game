@@ -8,7 +8,7 @@ import { fromCard } from '../Minion';
 import { canSpendMana } from '../Hero';
 import { hand } from './initialState';
 import { summonMinion } from './boardReducer';
-import { spendMana } from './characterReducer';
+import { spendMana } from './heroReducer';
 
 const actionCreator = actionCreatorFactory();
 export const removeCard = actionCreator<Card>('REMOVE_CARD');
@@ -36,8 +36,8 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
   }
 };
 
-export const removeCardHandler = (state: CardList, payload: Card) =>
-  R.reject(R.propEq('id', payload.id), state) as CardList;
+export const removeCardHandler = (state: CardList, payload: Card): CardList =>
+  R.dissoc(payload.id, state);
 
 export default reducerWithInitialState<CardList>(hand).case(
   removeCard,

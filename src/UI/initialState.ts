@@ -39,18 +39,21 @@ export const hand: CardList = cardListFrom(R.map(craftMinionCard, rawHand));
 const rawBoard = [
   {
     attack: 1,
+    exhausted: false,
     health: 1,
     name: 'Elven archer',
     owner: PlayerKind.Opponent,
   },
   {
     attack: 2,
+    exhausted: false,
     health: 2,
     name: 'Frostwolf Grunt',
     owner: PlayerKind.Opponent,
   },
   {
     attack: 2,
+    exhausted: false,
     health: 4,
     name: 'Gnomish Inventor',
     owner: PlayerKind.Player,

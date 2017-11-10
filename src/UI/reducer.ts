@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { opponent, player } from './initialState';
-import characterReducer from './characterReducer';
+import heroReducer from './heroReducer';
 import gameStateReducer from './gameStateReducer';
 import boardReducer from './boardReducer';
 import deckReducer from './deckReducer';
@@ -10,7 +10,7 @@ export default combineReducers({
   board: boardReducer,
   deck: deckReducer,
   hand: handReducer,
-  player: characterReducer(player),
-  opponent: characterReducer(opponent),
+  player: heroReducer(player),
+  opponent: heroReducer(opponent),
   state: gameStateReducer,
 });

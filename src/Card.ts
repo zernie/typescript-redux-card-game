@@ -2,6 +2,7 @@ import * as R from 'ramda';
 import { PlayerKind } from './Hero';
 import { Ability } from './Abilities';
 import { newId } from './utils';
+import { EntityContainer } from './EntityContainer';
 
 type BasicCard = Readonly<{
   cost: number;
@@ -27,9 +28,7 @@ export interface MinionCard extends BasicCard {
   type: 'minion';
 }
 
-export type CardList = {
-  [id: number]: Card;
-};
+export type CardList = EntityContainer<Card>;
 
 const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 
