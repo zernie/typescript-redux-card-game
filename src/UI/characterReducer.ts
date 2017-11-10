@@ -47,7 +47,7 @@ export const attackCharacter = actionCreator<AttackCharacterPayload>(
 );
 export const dealDamage = actionCreator<AttackCharacterPayload>('DEAL_DAMAGE');
 export const gainMana = actionCreator<GainManaPayload>('GAIN_MANA');
-export const restoreMana = actionCreator('RESTORE_MANA');
+export const restoreMana = actionCreator<PlayerKind>('RESTORE_MANA');
 export const spendMana = actionCreator<SpendManaPayload>('SPEND_MANA');
 
 const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
@@ -71,8 +71,12 @@ const gainManaHandler = (state: Hero, payload: GainManaPayload) =>
     state
   );
 
-const restoreManaHandler = (state: Hero) =>
-  R.set(manaLens, R.view(maximumManaLens, state), state);
+const restoreManaHandler = (state: Hero, payload: PlayerKind) =>
+  R.when(
+    () => payload === state.owner ,
+    R.set(manaLens, R.view(maximumManaLens, state)),
+    state
+  );
 
 const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
   R.when(

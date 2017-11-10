@@ -25,8 +25,9 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
 ) => {
   const player = currentPlayer(getState());
 
+  const newPlayer = other(player.owner);
   dispatch(gainMana({ player: other(player.owner) }));
-  dispatch(restoreMana());
+  dispatch(restoreMana(newPlayer));
   dispatch(nextTurn());
 };
 

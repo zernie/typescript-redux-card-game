@@ -8,8 +8,9 @@ import { gainMana, restoreMana } from './characterReducer';
 import { PlayerKind } from '../Hero';
 
 const store = configureStore();
-store.dispatch(gainMana({ player: PlayerKind.Player }));
-store.dispatch(restoreMana());
+const initialPlayer = PlayerKind.Player;
+store.dispatch(gainMana({ player: initialPlayer }));
+store.dispatch(restoreMana(initialPlayer));
 
 ReactDOM.render(
   <Provider store={store}>
