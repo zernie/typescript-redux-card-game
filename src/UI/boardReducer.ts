@@ -5,7 +5,7 @@ import { Board } from '../Board';
 import { Minion } from '../Minion';
 import { board } from './initialState';
 import { nextTurn } from './gameStateReducer';
-import { attackCharacter, AttackCharacterPayload } from './characterReducer';
+import { attackCharacter, AttackCharacterPayload, } from './characterReducer';
 
 const actionCreator = actionCreatorFactory();
 export const exhaustMinion = actionCreator<Minion>('EXHAUST_MINION');

@@ -9,13 +9,12 @@ import initialState from './initialState';
 
 const actionCreator = actionCreatorFactory();
 
-// const turnLens = R.lensProp<number, State>('turn');
+const turnLens = R.lensProp<number, State>('turn');
 const activePlayerLens = R.lensProp<PlayerKind, State>('activePlayer');
 
 export const nextTurn = actionCreator('NEXT_TURN');
 
-const activePlayerHandler = R.over(activePlayerLens, other);
-// const nextTurnHandler = R.over(turnLens, R.inc);
+const nextTurnHandler = R.pipe(R.over(turnLens, R.inc), R.over(activePlayerLens, other));
 
 export const endTurn = (): ThunkAction<void, {}, {}> => dispatch => {
   dispatch(gainMana());
@@ -24,5 +23,4 @@ export const endTurn = (): ThunkAction<void, {}, {}> => dispatch => {
 };
 
 export default reducerWithInitialState<State>(initialState.state)
-  .case(nextTurn, activePlayerHandler);
-  // .case(nextTurn, nextTurnHandler);
+  .case(nextTurn, nextTurnHandler);
