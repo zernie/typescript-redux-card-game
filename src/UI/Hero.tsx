@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Header, Segment, Grid, Statistic } from 'semantic-ui-react';
 import { Hero } from '../Hero';
-import { attackFace } from './characterReducer';
+import { performAttack } from './characterReducer';
 
 interface HeroOwnProps {
-  attackFace: typeof attackFace;
+  performAttack: typeof performAttack;
   connectDropTarget: Function;
   isOver: boolean;
 }

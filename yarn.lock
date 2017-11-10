@@ -5397,6 +5397,12 @@ typescript-fsa-reducers@^0.4.4:
   dependencies:
     typescript-fsa "^2.0.0"
 
+typescript-fsa-redux-thunk@^2.0.0-beta.6:
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/typescript-fsa-redux-thunk/-/typescript-fsa-redux-thunk-2.0.0-beta.6.tgz#abcca60be42838b0ac05f2414082c047deabe677"
+  dependencies:
+    typescript-fsa "^2.5.0"
+
 typescript-fsa@^2.0.0, typescript-fsa@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-2.5.0.tgz#1baec01b5e8f5f34c322679d1327016e9e294faf"

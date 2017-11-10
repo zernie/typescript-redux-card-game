@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import { Hero } from '../Hero';
-import { attackFace } from './characterReducer';
+import { performAttack } from './characterReducer';
 import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from './Minion';
 
@@ -15,10 +15,9 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
   drop: (props, monitor: DnD.DropTargetMonitor) => {
     const { minion } = monitor.getItem() as MinionProps;
 
-    return props.attackFace({
+    return props.performAttack({
       source: minion,
-      damage: minion.attack,
-      player: props.owner,
+      target: props,
     });
   },
   canDrop: (props, monitor: DnD.DropTargetMonitor) => {
@@ -30,6 +29,6 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
 
 const TargetableHero = DnD.DropTarget('Minion', spec, collect)(HeroCard);
 
-export default connect(null, { attackFace })(
+export default connect(null, { performAttack })(
   TargetableHero
 ) as React.ComponentClass<Hero>;

@@ -1,6 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
+
 import * as R from 'ramda';
 import {
   canSpendMana,
@@ -11,14 +12,13 @@ import {
 } from '../Hero';
 import { Character } from '../Character';
 // import { exhaustMinion } from './boardReducer';
-import {  Game } from '../Game';
+import { Game } from '../Game';
 
 const actionCreator = actionCreatorFactory();
 
-export interface AttackFacePayload {
+export interface AttackCharacterPayload {
   source: Character;
-  damage: number;
-  player: PlayerKind;
+  target: Character;
 }
 
 interface AddManaPayload {
@@ -27,18 +27,21 @@ interface AddManaPayload {
 }
 
 // TODO: refactor
-export const attackFace = (
-  payload: AttackFacePayload
-): ThunkAction<void, Game, {}> => (dispatch, getState) => {
-  dispatch(attackHero(payload));
-  // const hero = currentPlayer(getState());
+export const performAttack = (
+  payload: AttackCharacterPayload
+): ThunkAction<void, Game, {}> => dispatch => {
+  dispatch(attackCharacter(payload));
+  dispatch(dealDamage(payload));
 
-  // if (!canAttack(hero)) {
+  // if (shouldExhaust(payload.source)) {
   //   dispatch(exhaustMinion(payload.source));
   // }
 };
 
-export const attackHero = actionCreator<AttackFacePayload>('ATTACK_FACE');
+export const attackCharacter = actionCreator<AttackCharacterPayload>(
+  'ATTACK_CHARACTER'
+);
+export const dealDamage = actionCreator<AttackCharacterPayload>('DEAL_DAMAGE');
 export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
 export const gainMana = actionCreator('GAIN_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
@@ -47,13 +50,13 @@ export const spendMana = actionCreator<number>('SPEND_MANA');
 const totalManaLens = R.lensProp<number, Hero>('maximumMana');
 const manaLens = R.lensProp<number, Hero>('mana');
 
-const attackHeroHandler = (state: Hero, payload: AttackFacePayload) =>
+const dealDamageHandler = (state: Hero, payload: AttackCharacterPayload) =>
   R.when(
-    () => payload.player === state.owner,
+    () => payload.target.owner === state.owner,
     () =>
       R.merge(state, {
-        armor: reduceArmor(state, payload.damage),
-        health: reduceHealth(state, payload.damage),
+        armor: reduceArmor(state, payload.source.attack),
+        health: reduceHealth(state, payload.source.attack),
       }),
     state
   );
@@ -80,8 +83,8 @@ const spendManaHandler = (state: Hero, payload: number) =>
 
 export default (character: Hero) =>
   reducerWithInitialState<Hero>(character)
-    .case(attackHero, attackHeroHandler)
     .case(addMana, addManaHandler)
+    .case(dealDamage, dealDamageHandler)
     .case(gainMana, gainManaHandler)
     .case(restoreMana, restoreManaHandler)
     .case(spendMana, spendManaHandler);
