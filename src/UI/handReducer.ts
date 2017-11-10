@@ -22,7 +22,7 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
   }
 
   dispatch(removeCard(payload));
-  dispatch(spendMana(payload.cost));
+  dispatch(spendMana({ amount: payload.cost, player: hero.owner }));
 
   switch (payload.type) {
     case 'minion':

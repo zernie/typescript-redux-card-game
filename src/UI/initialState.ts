@@ -30,7 +30,7 @@ const rawHand = [
     cost: 6,
     health: 7,
     name: 'Boulderfist Ogre',
-    owner: PlayerKind.Player,
+    owner: PlayerKind.Opponent,
   },
 ];
 

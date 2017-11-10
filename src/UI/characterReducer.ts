@@ -20,7 +20,12 @@ export interface AttackCharacterPayload {
   target: Character;
 }
 
-interface AddManaPayload {
+interface GainManaPayload {
+  amount?: number;
+  player: PlayerKind;
+}
+
+interface SpendManaPayload {
   amount: number;
   player: PlayerKind;
 }
@@ -41,12 +46,11 @@ export const attackCharacter = actionCreator<AttackCharacterPayload>(
   'ATTACK_CHARACTER'
 );
 export const dealDamage = actionCreator<AttackCharacterPayload>('DEAL_DAMAGE');
-export const addMana = actionCreator<AddManaPayload>('ADD_MANA');
-export const gainMana = actionCreator('GAIN_MANA');
+export const gainMana = actionCreator<GainManaPayload>('GAIN_MANA');
 export const restoreMana = actionCreator('RESTORE_MANA');
-export const spendMana = actionCreator<number>('SPEND_MANA');
+export const spendMana = actionCreator<SpendManaPayload>('SPEND_MANA');
 
-const totalManaLens = R.lensProp<number, Hero>('maximumMana');
+const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
 const manaLens = R.lensProp<number, Hero>('mana');
 
 const dealDamageHandler = (state: Hero, payload: AttackCharacterPayload) =>
@@ -60,29 +64,25 @@ const dealDamageHandler = (state: Hero, payload: AttackCharacterPayload) =>
     state
   );
 
-const addManaHandler = (state: Hero, payload: AddManaPayload) =>
+const gainManaHandler = (state: Hero, payload: GainManaPayload) =>
   R.when(
-    () => payload.player === state.owner,
-    R.set(manaLens, state.maximumMana + payload.amount),
+    () => payload.player === state.owner && state.maximumMana < 10,
+    R.over(maximumManaLens, R.add(payload.amount || 1)),
     state
   );
 
-const gainManaHandler = (state: Hero, payload: AddManaPayload) =>
-  R.when(() => state.maximumMana < 10, R.over(totalManaLens, R.inc), state);
-
 const restoreManaHandler = (state: Hero) =>
-  R.set(manaLens, R.view(totalManaLens, state), state);
+  R.set(manaLens, R.view(maximumManaLens, state), state);
 
-const spendManaHandler = (state: Hero, payload: number) =>
+const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
   R.when(
-    () => canSpendMana(state, payload),
-    R.set(manaLens, state.mana - payload),
+    () => payload.player === state.owner && canSpendMana(state, payload.amount),
+    R.set(manaLens, state.mana - payload.amount),
     state
   );
 
 export default (character: Hero) =>
   reducerWithInitialState<Hero>(character)
-    .case(addMana, addManaHandler)
     .case(dealDamage, dealDamageHandler)
     .case(gainMana, gainManaHandler)
     .case(restoreMana, restoreManaHandler)
