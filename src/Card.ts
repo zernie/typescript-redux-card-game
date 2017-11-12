@@ -17,14 +17,14 @@ export type Card = MinionCard | WeaponCard;
 export interface WeaponCard extends BasicCard {
   abilities: Array<Ability>;
   attack: number;
-  health: number;
+  maxHealth: number;
   type: 'weapon';
 }
 
 export interface MinionCard extends BasicCard {
   abilities: Array<Ability>;
   attack: number;
-  health: number;
+  maxHealth: number;
   type: 'minion';
 }
 
@@ -37,7 +37,7 @@ export const opponentCards = selectCards(PlayerKind.Opponent);
 export const craftMinionCard = (props: {
   attack: number;
   cost: number;
-  health: number;
+  maxHealth: number;
   name: string;
   owner: PlayerKind;
   abilities?: Array<Ability>;
@@ -48,4 +48,5 @@ export const craftMinionCard = (props: {
   id: newId(),
   type: 'minion',
 });
-export const cardListFrom = (array: Array<Card>): CardList => R.indexBy<Card>(R.prop('id'), array);
+export const cardListFrom = (array: Array<Card>): CardList =>
+  R.indexBy<Card>(R.prop('id'), array);

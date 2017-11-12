@@ -1,14 +1,16 @@
-import { Character } from './Character';
+import { Character, Playable } from './Character';
 import { Ability } from './Abilities';
 import { newId } from './utils';
 import * as R from 'ramda';
 
-export type Hero = Readonly<Character & {
-  armor: number;
-  mana: number;
-  maximumHealth: number;
-  maximumMana: number;
-}>;
+export type Hero = Readonly<
+  Playable & {
+    armor: number;
+    mana: number;
+    maximumMana: number;
+    type: 'hero';
+  }
+>;
 
 export enum PlayerKind {
   Player = 'PLAYER',
@@ -18,34 +20,40 @@ export enum PlayerKind {
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
 export const craftPlayer = (props: {
-  owner: PlayerKind,
-  name: string,
-  abilities?: Ability[],
+  abilities?: Ability[];
   armor?: number;
-  attack?: number,
-  attacksPerformed?: number,
-  exhausted?: boolean,
-  health?: number,
-  mana?: number,
-  maximumHealth?: number,
-  maximumMana?: number,
-}): Hero =>
-  ({
-    abilities: [],
-    armor: 0,
-    attack: 0,
-    attacksPerformed: 0,
-    exhausted: false,
-    health: 30,
-    id: newId(),
-    mana: 0,
-    maximumHealth: 30,
-    maximumMana: 0,
-    ...props,
-  });
+  attack?: number;
+  attacksPerformed?: number;
+  exhausted?: boolean;
+  health?: number;
+  mana?: number;
+  maxHealth?: number;
+  maximumMana?: number;
+  name: string;
+  owner: PlayerKind;
+}): Hero => ({
+  abilities: [],
+  armor: 0,
+  attack: 0,
+  attacksPerformed: 0,
+  exhausted: false,
+  health: props.maxHealth || 30,
+  id: newId(),
+  maxHealth: 30,
+  maximumMana: 0,
+  ...props,
+  mana: 0,
+  type: 'hero',
+});
 
-export const canSpendMana = (hero: Hero, amount: number) => hero.mana - amount >= 0;
+export const canSpendMana = (hero: Hero, amount: number) =>
+  hero.mana - amount >= 0;
 export const reduceArmor = (hero: Hero, damage: number): number =>
   R.max(0, hero.armor - damage);
-export const reduceHealth = (hero: Character, damage: number): number =>
-  R.min(hero.health, hero.health - damage);
+export const reduceHealth = (character: Character, damage: number): number =>
+  R.min(
+    character.health,
+    character.type === 'hero'
+      ? character.health + character.armor - damage
+      : character.health - damage
+  );

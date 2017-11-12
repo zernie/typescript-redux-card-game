@@ -3,7 +3,7 @@ import { Game, GameState } from '../Game';
 import { craftPlayer, Hero, PlayerKind } from '../Hero';
 import { CardList, cardListFrom, craftMinionCard } from '../Card';
 import { Board, boardFrom } from '../Board';
-import { craftMinion } from '../Minion';
+import { craftMinion, CraftMinionProps } from '../Minion';
 import { Ability } from '../Abilities';
 
 export const deck: CardList = {};
@@ -13,7 +13,7 @@ const rawHand = [
     abilities: [Ability.Charge],
     attack: 1,
     cost: 2,
-    health: 2,
+    maxHealth: 2,
     name: 'Bluegill Warrior',
     owner: PlayerKind.Player,
   },
@@ -21,14 +21,14 @@ const rawHand = [
     abilities: [Ability.Windfury],
     attack: 3,
     cost: 4,
-    health: 4,
+    maxHealth: 4,
     name: 'Windbreaker',
     owner: PlayerKind.Player,
   },
   {
     attack: 6,
     cost: 6,
-    health: 7,
+    maxHealth: 7,
     name: 'Boulderfist Ogre',
     owner: PlayerKind.Opponent,
   },
@@ -36,25 +36,25 @@ const rawHand = [
 
 export const hand: CardList = cardListFrom(R.map(craftMinionCard, rawHand));
 
-const rawBoard = [
+const rawBoard: Array<CraftMinionProps> = [
   {
     attack: 1,
     exhausted: false,
-    health: 1,
+    maxHealth: 1,
     name: 'Elven archer',
     owner: PlayerKind.Opponent,
   },
   {
     attack: 2,
     exhausted: false,
-    health: 2,
+    maxHealth: 2,
     name: 'Frostwolf Grunt',
     owner: PlayerKind.Opponent,
   },
   {
     attack: 2,
     exhausted: false,
-    health: 4,
+    maxHealth: 4,
     name: 'Gnomish Inventor',
     owner: PlayerKind.Player,
   },

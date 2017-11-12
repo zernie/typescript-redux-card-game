@@ -5,21 +5,23 @@ import { Board } from '../Board';
 import { Minion } from '../Minion';
 import { board } from './initialState';
 import { nextTurn } from './gameStateReducer';
+import characterReducer from './characterReducer';
+import { getEntity } from '../EntityContainer';
+import { Character } from '../Character';
 import {
   attackCharacter,
   CharactersPayload,
   dealDamage,
-  default as characterReducer,
   exhaust,
-} from './characterReducer';
-import { getEntity } from '../EntityContainer';
-import { Character } from '../Character';
+} from './actions';
 
 const actionCreator = actionCreatorFactory();
 
 export const summonMinion = actionCreator<Minion>('SUMMON_MINION');
 
-const nextTurnHandler = R.map(R.assoc('exhausted', false));
+const nextTurnHandler = R.map(
+  R.mergeDeepLeft({ attacksPerformed: 0, exhausted: false })
+);
 
 const summonMinionHandler = (state: Board, payload: Minion): Board =>
   R.assoc(payload.id, payload, state);

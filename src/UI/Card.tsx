@@ -18,7 +18,7 @@ export const Card: React.StatelessComponent<CardProps> = ({
     abilities,
     attack,
     cost,
-    health,
+    maxHealth,
     name,
     text,
   },
@@ -38,7 +38,7 @@ export const Card: React.StatelessComponent<CardProps> = ({
         {attack}
         <br/>
         <List.Icon name="heartbeat" />
-        {cost}
+        {maxHealth}
         <br/>
         {text}
         <br/>

@@ -1,8 +1,15 @@
 import actionCreatorFactory from 'typescript-fsa';
-import { reducerWithInitialState } from 'typescript-fsa-reducers';
+import { upcastingReducer } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
-import { canSpendMana, Hero, PlayerKind } from '../Hero';
-// import { characterReducer, dealDamage, exhaust } from './characterReducer';
+import {
+  canSpendMana,
+  Hero,
+  PlayerKind,
+  reduceArmor,
+  reduceHealth,
+} from '../Hero';
+import { CharactersPayload, dealDamage } from './actions';
+import { Character } from '../Character';
 
 const actionCreator = actionCreatorFactory();
 
@@ -44,9 +51,20 @@ const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
     state
   );
 
-export default (hero: Hero) =>
-  reducerWithInitialState<Hero>(hero)
-    .case(gainMana, gainManaHandler)
-    .case(restoreMana, restoreManaHandler)
-    .case(spendMana, spendManaHandler);
-// .casesWithAction([attackCharacter, dealDamage, exhaust],  characterReducer);
+const damageHeroHandler = (state: Hero, payload: CharactersPayload): Hero => {
+  return R.when(
+    () => payload.target.id === state.id,
+    () =>
+      R.merge(state, {
+        armor: reduceArmor(state, payload.source.attack),
+        health: reduceHealth(state, payload.source.attack),
+      }),
+    state
+  );
+};
+
+export default upcastingReducer<Hero, Character>()
+  .case(gainMana, gainManaHandler)
+  .case(restoreMana, restoreManaHandler)
+  .case(spendMana, spendManaHandler)
+  .case(dealDamage, damageHeroHandler);
