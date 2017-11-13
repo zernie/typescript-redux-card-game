@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, Segment, Grid, Statistic } from 'semantic-ui-react';
+import { Grid, Header, Segment, Statistic } from 'semantic-ui-react';
 import { Hero } from '../../../Hero';
 import { performAttack } from '../characterReducer';
 
@@ -26,16 +26,17 @@ const Hero: React.StatelessComponent<HeroProps> = ({
         <Segment raised={isOver} tertiary={isOver}>
           <Header>{name}</Header>
 
-          <Statistic.Group size="small" horizontal>
-            <Statistic color="green" value={health} label="hp" />
+          <Statistic.Group size="tiny" widths={armor > 0 ? 3 : 2}>
             {armor > 0 && (
               <Statistic color="blue" value={armor} label="armor" />
             )}
+            <Statistic color="green" value={health} label="hp" />
 
             <Statistic
               color="blue"
               value={`${mana}/${maximumMana}`}
               label="mana"
+              size="tiny"
             />
           </Statistic.Group>
         </Segment>
