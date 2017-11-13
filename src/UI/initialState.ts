@@ -7,7 +7,52 @@ import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
 import { Character } from '../Character';
 
-export const deck: CardList = {};
+const rawDeck = [
+  {
+    attack: 3,
+    cost: 2,
+    maxHealth: 2,
+    name: 'Bloodfen Raptor',
+    owner: PlayerKind.Player,
+  },
+  {
+    attack: 5,
+    cost: 5,
+    maxHealth: 4,
+    name: 'Booty Bay Bodyguard',
+    owner: PlayerKind.Opponent,
+  },
+  {
+    attack: 3,
+    cost: 4,
+    maxHealth: 4,
+    name: 'Chillwind Yeti',
+    owner: PlayerKind.Player,
+  },
+  {
+    attack: 2,
+    cost: 2,
+    maxHealth: 2,
+    name: 'Frostwolf Grunt',
+    owner: PlayerKind.Opponent,
+  },
+  {
+    attack: 2,
+    cost: 3,
+    maxHealth: 2,
+    name: 'Ironforge Rifleman',
+    owner: PlayerKind.Player,
+  },
+  {
+    attack: 3,
+    cost: 3,
+    maxHealth: 3,
+    name: 'Ironfur Grizzly',
+    owner: PlayerKind.Player,
+  },
+];
+
+export const deck: CardList = cardListFrom(R.map(craftMinionCard, rawDeck));
 
 const rawHand = [
   {

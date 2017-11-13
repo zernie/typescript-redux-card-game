@@ -14,23 +14,34 @@ type BasicCard = Readonly<{
 
 export type Card = MinionCard | WeaponCard;
 
+export enum CardType {
+  Minion = 'MINION',
+  Weapon = 'WEAPON',
+  Hero = 'HERO',
+  Enchantment = 'ENCHANTMENT',
+}
+
 export interface WeaponCard extends BasicCard {
   abilities: Array<Ability>;
   attack: number;
   maxHealth: number;
-  type: 'weapon';
+  type: CardType.Weapon;
 }
 
 export interface MinionCard extends BasicCard {
   abilities: Array<Ability>;
   attack: number;
   maxHealth: number;
-  type: 'minion';
+  type: CardType.Minion;
 }
 
 export type CardList = EntityContainer<Card>;
 
-const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+// export const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+export const selectCards = R.curry(
+  (player: PlayerKind, cards: CardList): CardList =>
+    R.filter((card: Card) => card.owner === player, cards)
+);
 
 export const playerCards = selectCards(PlayerKind.Player);
 export const opponentCards = selectCards(PlayerKind.Opponent);
@@ -46,7 +57,7 @@ export const craftMinionCard = (props: {
   abilities: [],
   ...props,
   id: newId(),
-  type: 'minion',
+  type: CardType.Minion,
 });
 export const cardListFrom = (array: Array<Card>): CardList =>
   R.indexBy<Card>(R.prop('id'), array);

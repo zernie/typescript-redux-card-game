@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
-import { Game } from '../../Game';
-import { Card, opponentCards, playerCards } from '../../Card';
-import { opponentMinions, playerMinions } from '../../Minion';
-import TargetableHero from './Hero/TargetableHero';
-import Side from './Minion/Side';
-import NextTurn from './NextTurn';
-import { endTurn as endTurnFunction } from '../gameStateReducer';
-import { Hand } from '../Hand/Hand';
-import { playCard } from '../Hand/handReducer';
-import { Hero } from '../../Hero';
+import { Game } from '../Game';
+import { Card, opponentCards, playerCards } from '../Card';
+import { opponentMinions, playerMinions } from '../Minion';
+import TargetableHero from './Board/Hero/TargetableHero';
+import Side from './Board/Minion/Side';
+import NextTurn from './Board/NextTurn';
+import { endTurn as endTurnFunction } from './gameStateReducer';
+import { Hand } from './Hand/Hand';
+import { playCard } from './Hand/handReducer';
+import { Hero } from '../Hero';
+import Deck from './Deck/Deck';
 
 interface BattlefieldOwnProps {
   card: Card;
@@ -27,6 +28,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
   currentPlayer,
   board,
   connectDropTarget,
+  deck,
   isOver,
   endTurn,
   hand,
@@ -62,11 +64,15 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
       </Grid.Column>
 
       <Grid.Column computer={2} mobile={16} verticalAlign="middle" stretched>
+        <Deck deck={opponentCards(deck)}/>
+
         <Button.Group vertical size="large">
           <Button color="green" basic>Turn: {turn}</Button>
 
           <NextTurn onClick={endTurn} />
         </Button.Group>
+        <Deck deck={playerCards(deck)}/>
+
       </Grid.Column>
     </Grid>
   </Segment>;

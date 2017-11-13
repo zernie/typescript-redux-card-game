@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import TargetableBattlefield from './Board/TargetableBattlefield';
+import TargetableBattlefield from './TargetableBattlefield';
 
 const App: React.StatelessComponent<{}> = props =>
   <Container textAlign="center">

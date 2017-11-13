@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
-import { Game } from '../../Game';
-import { activeHero, getOpponent, getPlayer } from '../../Hero';
+import { Game } from '../Game';
+import { activeHero, getOpponent, getPlayer } from '../Hero';
 import Battlefield, { BattlefieldProps } from './Battlefield';
-import { endTurn } from '../gameStateReducer';
-import { playCard } from '../Hand/handReducer';
+import { endTurn } from './gameStateReducer';
+import { playCard } from './Hand/handReducer';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
