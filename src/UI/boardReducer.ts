@@ -9,8 +9,7 @@ import characterReducer from './characterReducer';
 import { getEntity } from '../EntityContainer';
 import { Character, CharacterType } from '../Character';
 import {
-  attackCharacter,
-  CharactersPayload,
+  attackCharacter, CharacterPayload,
   dealDamage,
   exhaust,
 } from './actions';
@@ -35,7 +34,7 @@ const processDeathsHandler = R.reject(
 // TODO: refactor
 const characterHandler = (
   state: Board,
-  action: Action<CharactersPayload>
+  action: Action<CharacterPayload<any>>
 ): Board =>
   R.merge(state, {
     [action.payload.id]: characterReducer(

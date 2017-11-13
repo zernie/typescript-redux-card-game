@@ -5,7 +5,6 @@ const actionCreator = actionCreatorFactory();
 export type CharacterPayload<T> = T & { id: number };
 
 export type AttackCharacterPayload = CharacterPayload<{}>;
-export type CharactersPayload = SourceTargetPayload | ExhaustPayload;
 export type SourceTargetPayload = CharacterPayload<{
   source: Character;
   target: Character;
