@@ -3,8 +3,9 @@ import { Game, GameState } from '../Game';
 import { craftPlayer, Hero, PlayerKind } from '../Hero';
 import { CardList, cardListFrom, craftMinionCard } from '../Card';
 import { Board, boardFrom } from '../Board';
-import { craftMinion, CraftMinionProps } from '../Minion';
+import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
+import { Character } from '../Character';
 
 export const deck: CardList = {};
 
@@ -36,7 +37,18 @@ const rawHand = [
 
 export const hand: CardList = cardListFrom(R.map(craftMinionCard, rawHand));
 
-const rawBoard: Array<CraftMinionProps> = [
+export const player: Hero = craftPlayer({
+  name: 'Mage',
+  owner: PlayerKind.Player,
+});
+
+export const opponent: Hero = craftPlayer({
+  armor: 3,
+  name: 'Warrior',
+  owner: PlayerKind.Opponent,
+});
+
+const minions = R.map(craftMinion, [
   {
     attack: 1,
     exhausted: false,
@@ -58,29 +70,21 @@ const rawBoard: Array<CraftMinionProps> = [
     name: 'Gnomish Inventor',
     owner: PlayerKind.Player,
   },
-];
-export const board: Board = boardFrom(R.map(craftMinion, rawBoard));
+]);
 
-export const player: Hero = craftPlayer({
-  name: 'Mage',
-  owner: PlayerKind.Player,
-});
+const characters: Array<Character> = [player, opponent, ...minions];
 
-export const opponent: Hero = craftPlayer({
-  armor: 3,
-  name: 'Warrior',
-  owner: PlayerKind.Opponent,
-});
+export const board: Board = boardFrom(characters);
 
 const initialState: Game = {
   board,
   deck,
   hand,
-  player,
-  opponent,
   state: {
     activePlayer: PlayerKind.Player,
     gameState: GameState.Playing,
+    playerID: player.id,
+    opponentID: opponent.id,
     turn: 1,
   },
 };

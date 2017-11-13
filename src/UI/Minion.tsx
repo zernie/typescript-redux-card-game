@@ -3,35 +3,49 @@ import { StatelessComponent } from 'react';
 import { List } from 'semantic-ui-react';
 import { Minion } from '../Minion';
 import { State } from '../Game';
+import { performAttack } from './characterReducer';
 
-export interface MinionProps {
-  state: State;
+interface MinionOwnProps {
   connectDragSource: Function;
+  connectDropTarget: Function;
+  isOver: boolean;
   isDragging: boolean;
-  minion: Minion;
+  performAttack: typeof performAttack;
+  state: State;
 }
 
-export const MinionCard: StatelessComponent<MinionProps> = ({
+export type MinionProps = Minion & MinionOwnProps;
+
+const MinionCard: StatelessComponent<MinionProps> = ({
+  abilities,
+  attack,
   connectDragSource,
-  minion: { abilities, attack, exhausted, health, name },
+  connectDropTarget,
+  exhausted,
+  health,
+  name,
 }) =>
-  connectDragSource(
-    <div className="item">
-      {exhausted ? 'Exhausted' : undefined}
-      <List.Content>
-        <List.Header>
-          <List.Icon name="child" />
-          {name}
-        </List.Header>
+  connectDropTarget(
+    connectDragSource(
+      <div className="item">
+        {exhausted ? 'Exhausted' : undefined}
+        <List.Content>
+          <List.Header>
+            <List.Icon name="child" />
+            {name}
+          </List.Header>
 
-        <List.Icon name="lightning" />
-        {attack}
-        <br />
-        <List.Icon name="heartbeat" />
-        {health}
-        <br />
+          <List.Icon name="lightning" />
+          {attack}
+          <br />
+          <List.Icon name="heartbeat" />
+          {health}
+          <br />
 
-        {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
-      </List.Content>
-    </div>
+          {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
+        </List.Content>
+      </div>
+    )
   );
+
+export default MinionCard;

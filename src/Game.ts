@@ -1,4 +1,4 @@
-import { Hero, PlayerKind } from './Hero';
+import { PlayerKind } from './Hero';
 import { Board } from './Board';
 import { CardList } from './Card';
 
@@ -10,6 +10,8 @@ export enum GameState {
 export type State = Readonly<{
   activePlayer: PlayerKind;
   gameState: GameState;
+  playerID: number;
+  opponentID: number;
   turn: number;
   winner?: PlayerKind;
 }>;
@@ -18,10 +20,5 @@ export type Game = Readonly<{
   board: Board;
   deck: CardList;
   hand: CardList;
-  opponent: Hero;
-  player: Hero;
   state: State;
 }>;
-
-export const currentPlayer = (game: Game) =>
-  game.state.activePlayer === PlayerKind.Player ? game.player : game.opponent;

@@ -3,9 +3,9 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Card, CardList } from '../Card';
-import { currentPlayer, Game } from '../Game';
+import { Game } from '../Game';
 import { fromCard } from '../Minion';
-import { canSpendMana } from '../Hero';
+import { activeHero, canSpendMana } from '../Hero';
 import { hand } from './initialState';
 import { summonMinion } from './boardReducer';
 import { spendMana } from './heroReducer';
@@ -16,13 +16,13 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
   dispatch,
   getState
 ) => {
-  const hero = currentPlayer(getState());
+  const hero = activeHero(getState());
   if (!canSpendMana(hero, payload.cost)) {
     return;
   }
 
   dispatch(removeCard(payload));
-  dispatch(spendMana({ amount: payload.cost, player: hero.owner }));
+  dispatch(spendMana({ amount: payload.cost, id: hero.id }));
 
   switch (payload.type) {
     case 'minion':

@@ -2,7 +2,13 @@ import * as R from 'ramda';
 import { Hero, PlayerKind } from './Hero';
 import { Ability } from './Abilities';
 import { Minion } from './Minion';
+import { getEntity } from './EntityContainer';
+import { Game } from './Game';
 
+export enum CharacterType {
+  Minion = 'MINION',
+  Hero = 'HERO',
+}
 export type Character = Hero | Minion;
 export type Playable = Readonly<{
   abilities: Array<Ability>;
@@ -16,10 +22,12 @@ export type Playable = Readonly<{
   owner: PlayerKind;
 }>;
 
-const selectCharacters = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+// const selectCharacters = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+//
+// export const playerCharacters = selectCharacters(PlayerKind.Player);
+// export const opponentCharacters = selectCharacters(PlayerKind.Opponent);
 
-export const playerCharacters = selectCharacters(PlayerKind.Player);
-export const opponentCharacters = selectCharacters(PlayerKind.Opponent);
+export const getCharacter = (id: number, game: Game) => getEntity<Character>(id, game.board);
 
 export const hasAbility = R.curry((ability: Ability, character: Character) =>
   R.contains(ability, character.abilities)

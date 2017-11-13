@@ -1,10 +1,10 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
 import { PlayerKind } from './Hero';
-import { hasAbility, Playable } from './Character';
+import { CharacterType, hasAbility, Playable } from './Character';
 import { newId } from './utils';
 
-export type Minion = Readonly<Playable & { type: 'minion' }>;
+export type Minion = Readonly<Playable & { type: CharacterType.Minion }>;
 export type CraftMinionProps = Readonly<{
   abilities?: Array<Ability>;
   attack: number;
@@ -28,7 +28,7 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   health: props.maxHealth,
   ...props,
   id: newId(),
-  type: 'minion',
+  type: CharacterType.Minion,
 });
 export const fromCard = R.pipe(
   R.pick(['abilities', 'attack', 'health', 'maxHealth', 'name', 'owner']),

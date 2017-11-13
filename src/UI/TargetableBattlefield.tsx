@@ -3,7 +3,7 @@ import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { Game } from '../Game';
-import { PlayerKind } from '../Hero';
+import { activeHero, getOpponent, getPlayer } from '../Hero';
 import Battlefield, { BattlefieldProps } from './Battlefield';
 import { endTurn } from './gameStateReducer';
 import { playCard } from './handReducer';
@@ -22,20 +22,19 @@ const spec: DnD.DropTargetSpec<BattlefieldProps> = {
   canDrop: (props, monitor: DnD.DropTargetMonitor) => true,
 };
 
-const TargetableBattlefield = DnD.DropTarget('Card', spec, collect)(Battlefield);
-
-const mapStateToProps = R.pipe(
-  R.pick<Game, keyof Game>([
-    'board',
-    'deck',
-    'hand',
-    'player',
-    'opponent',
-    'state',
-  ]),
-  // TODO: refactor
-  R.converge(R.assoc('currentPlayer'), [R.pathEq(['state', 'activePlayer'], PlayerKind.Player), R.identity])
+const TargetableBattlefield = DnD.DropTarget('Card', spec, collect)(
+  Battlefield
 );
+
+const mapStateToProps = (game: Game) =>
+  R.merge(
+    {
+      currentPlayer: activeHero(game) === getPlayer(game),
+      player: getPlayer(game),
+      opponent: getOpponent(game),
+    },
+    game
+  );
 
 export default connect(mapStateToProps, { endTurn, playCard })(
   TargetableBattlefield

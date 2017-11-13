@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 import { gainMana, restoreMana } from './heroReducer';
-import { PlayerKind } from '../Hero';
+import { player } from './initialState';
+// import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
-const initialPlayer = PlayerKind.Player;
-store.dispatch(gainMana({ player: initialPlayer }));
-store.dispatch(restoreMana(initialPlayer));
+// TODO: refactor
+store.dispatch(gainMana({ id: player.id }));
+store.dispatch(restoreMana({id: player.id}));
 
 ReactDOM.render(
   <Provider store={store}>

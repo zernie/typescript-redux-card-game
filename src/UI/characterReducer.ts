@@ -1,66 +1,56 @@
 import { ThunkAction } from 'redux-thunk';
 import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
-import { Character, shouldExhaust } from '../Character';
+import {
+  Character,
+  CharacterType,
+  getCharacter,
+  shouldExhaust,
+} from '../Character';
 import { Game } from '../Game';
-import { getEntity } from '../EntityContainer';
-import { Minion } from '../Minion';
 import {
   attackCharacter,
-  CharactersPayload,
   dealDamage,
   exhaust,
+  SourceTargetPayload,
 } from './actions';
 import heroReducer, { gainMana, restoreMana, spendMana } from './heroReducer';
 import minionReducer from './minionReducer';
 
 // TODO: refactor
 export const performAttack = (
-  payload: CharactersPayload
+  payload: SourceTargetPayload
 ): ThunkAction<void, Game, {}> => (dispatch, getState) => {
-  dispatch(attackCharacter(payload));
+  dispatch(attackCharacter({ id: payload.source.id }));
   dispatch(dealDamage(payload));
 
-  // TODO: refactor
-  const attacker = getEntity<Minion>(payload.source.id, getState().board);
+  const attacker = getCharacter(payload.source.id, getState());
+
+  if (payload.target.type === CharacterType.Minion) {
+    dispatch(
+      dealDamage({
+        id: attacker.id,
+        source: payload.target,
+        target: attacker,
+      })
+    );
+  }
 
   if (shouldExhaust(attacker)) {
-    dispatch(exhaust(payload));
+    dispatch(exhaust({ id: attacker, ...attacker }));
   }
 };
 
-const attackCharacterHandler = (
-  state: Character,
-  payload: CharactersPayload
-): Character =>
-  payload.source.id === state.id
-    ? R.evolve({ attacksPerformed: R.inc }, state)
-    : state;
-
-const exhaustHandler = (
-  state: Character,
-  payload: CharactersPayload
-): Character =>
-  payload.source.id === state.id ? R.assoc('exhausted', true, state) : state;
+const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });
+const exhaustHandler = R.assoc('exhausted', true);
 
 export default reducerWithoutInitialState<Character>()
   .case(attackCharacter, attackCharacterHandler)
-  // .case(dealDamage, dealDamageHandler)
   .case(exhaust, exhaustHandler)
   .casesWithAction(
     [dealDamage, gainMana, restoreMana, spendMana],
-    (state, action) => {
-      if (state.type !== 'hero') {
-        return state;
-      }
-
-      return heroReducer(state, action);
-    }
-  )
-  .casesWithAction([dealDamage], (state, action) => {
-    if (state.type !== 'minion') {
-      return state;
-    }
-
-    return minionReducer(state, action);
-  });
+    (state, action) =>
+      state.type === CharacterType.Minion
+        ? minionReducer(state, action)
+        : heroReducer(state, action)
+  );

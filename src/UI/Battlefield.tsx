@@ -9,6 +9,7 @@ import NextTurn from './NextTurn';
 import { endTurn as endTurnFunction } from './gameStateReducer';
 import { Hand } from './Hand';
 import { playCard } from './handReducer';
+import { Hero } from '../Hero';
 
 interface BattlefieldOwnProps {
   card: Card;
@@ -17,6 +18,8 @@ interface BattlefieldOwnProps {
   endTurn: typeof endTurnFunction;
   isOver: boolean;
   playCard: typeof playCard;
+  player: Hero;
+  opponent: Hero;
 }
 export type BattlefieldProps = Game & BattlefieldOwnProps;
 

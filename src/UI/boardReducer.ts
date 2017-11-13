@@ -1,5 +1,7 @@
-import actionCreatorFactory, { Action } from 'typescript-fsa';
-import { reducerWithInitialState } from 'typescript-fsa-reducers';
+import actionCreatorFactory, {
+  Action,
+} from 'typescript-fsa';
+import { reducerWithInitialState, } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Board } from '../Board';
 import { Minion } from '../Minion';
@@ -8,12 +10,8 @@ import { nextTurn } from './gameStateReducer';
 import characterReducer from './characterReducer';
 import { getEntity } from '../EntityContainer';
 import { Character } from '../Character';
-import {
-  attackCharacter,
-  CharactersPayload,
-  dealDamage,
-  exhaust,
-} from './actions';
+import { attackCharacter, CharactersPayload, dealDamage, exhaust } from './actions';
+import { gainMana, restoreMana, spendMana } from './heroReducer';
 
 const actionCreator = actionCreatorFactory();
 
@@ -26,20 +24,19 @@ const nextTurnHandler = R.map(
 const summonMinionHandler = (state: Board, payload: Minion): Board =>
   R.assoc(payload.id, payload, state);
 
+// TODO: refactor
 const characterHandler = (
   state: Board,
   action: Action<CharactersPayload>
 ): Board =>
-  R.assoc(
-    action.payload.source.id,
-    characterReducer(
-      getEntity<Character>(action.payload.source.id, state),
+  R.merge(state, {
+    [action.payload.id]: characterReducer(
+      getEntity<Character>(action.payload.id, state),
       action
     ),
-    state
-  );
+  });
 
 export default reducerWithInitialState<Board>(board)
   .case(nextTurn, nextTurnHandler)
   .case(summonMinion, summonMinionHandler)
-  .casesWithAction([attackCharacter, dealDamage, exhaust], characterHandler);
+  .casesWithAction([attackCharacter, dealDamage, exhaust, gainMana, restoreMana, spendMana], characterHandler);

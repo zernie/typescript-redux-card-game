@@ -9,7 +9,7 @@ interface HeroOwnProps {
   isOver: boolean;
 }
 
-export type HeroProps = HeroOwnProps & Hero;
+export type HeroProps = Hero & HeroOwnProps;
 
 const Hero: React.StatelessComponent<HeroProps> = ({
   armor,
