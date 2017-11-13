@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
-import { activeHero, canSpendMana } from '../Hero';
-import { Game, } from '../Game';
+import { activeHero, canSpendMana } from '../../Hero';
+import { Game, } from '../../Game';
 import { Card, CardProps } from './Card';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({

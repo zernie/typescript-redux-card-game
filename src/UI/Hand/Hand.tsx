@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List, Segment } from 'semantic-ui-react';
 import * as R from 'ramda';
-import { Card, CardList } from '../Card';
+import { Card, CardList } from '../../Card';
 import DraggableCard from './DraggableCard';
 
 interface HandProps {

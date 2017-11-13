@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
-import { gainMana, restoreMana } from './heroReducer';
+import { gainMana, restoreMana } from './Board/Hero/heroReducer';
 import { player } from './initialState';
 // import registerServiceWorker from './registerServiceWorker';
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
 import { List } from 'semantic-ui-react';
-import { Minion } from '../Minion';
-import { State } from '../Game';
-import { performAttack } from './characterReducer';
+import { Minion } from '../../../Minion';
+import { State } from '../../../Game';
+import { performAttack } from '../characterReducer';
 
 interface MinionOwnProps {
   connectDragSource: Function;

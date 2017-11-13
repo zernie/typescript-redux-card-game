@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { ThunkAction } from 'redux-thunk';
 import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { gainMana, restoreMana } from './heroReducer';
+import { gainMana, restoreMana } from './Board/Hero/heroReducer';
 import { Game, State } from '../Game';
 import { activeHero, other } from '../Hero';
 import initialState from './initialState';

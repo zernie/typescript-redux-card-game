@@ -3,8 +3,8 @@ import { StatelessComponent } from 'react';
 import { List, Segment } from 'semantic-ui-react';
 import * as R from 'ramda';
 import DraggableMinion from './DraggableMinion';
-import { Board, minionsFrom } from '../Board';
-import { Minion } from '../Minion';
+import { Board, minionsFrom } from '../../../Board';
+import { Minion } from '../../../Minion';
 
 export interface SideProps {
   active: boolean;

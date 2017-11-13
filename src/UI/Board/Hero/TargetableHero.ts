@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
-import { Hero } from '../Hero';
-import { performAttack } from './characterReducer';
+import { Hero } from '../../../Hero';
+import { performAttack } from '../characterReducer';
 import HeroCard, { HeroProps } from './Hero';
-import { MinionProps } from './Minion';
+import { MinionProps } from '../Minion/Minion';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),

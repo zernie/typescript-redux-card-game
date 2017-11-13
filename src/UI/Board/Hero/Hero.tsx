@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Header, Segment, Grid, Statistic } from 'semantic-ui-react';
-import { Hero } from '../Hero';
-import { performAttack } from './characterReducer';
+import { Hero } from '../../../Hero';
+import { performAttack } from '../characterReducer';
 
 interface HeroOwnProps {
   performAttack: typeof performAttack;

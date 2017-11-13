@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
-import { Card as CardInterface } from '../Card';
-import { State } from '../Game';
-import { Hero } from '../Hero';
+import { Card as CardInterface } from '../../Card';
+import { State } from '../../Game';
+import { Hero } from '../../Hero';
 
 export interface CardProps {
   card: CardInterface;

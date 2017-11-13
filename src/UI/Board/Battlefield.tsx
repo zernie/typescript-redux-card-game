@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
-import { Game } from '../Game';
-import { Card, opponentCards, playerCards } from '../Card';
-import { opponentMinions, playerMinions } from '../Minion';
-import TargetableHero from './TargetableHero';
-import Side from './Side';
+import { Game } from '../../Game';
+import { Card, opponentCards, playerCards } from '../../Card';
+import { opponentMinions, playerMinions } from '../../Minion';
+import TargetableHero from './Hero/TargetableHero';
+import Side from './Minion/Side';
 import NextTurn from './NextTurn';
-import { endTurn as endTurnFunction } from './gameStateReducer';
-import { Hand } from './Hand';
-import { playCard } from './handReducer';
-import { Hero } from '../Hero';
+import { endTurn as endTurnFunction } from '../gameStateReducer';
+import { Hand } from '../Hand/Hand';
+import { playCard } from '../Hand/handReducer';
+import { Hero } from '../../Hero';
 
 interface BattlefieldOwnProps {
   card: Card;

@@ -5,7 +5,7 @@ import * as R from 'ramda';
 import { MinionProps } from './Minion';
 import TargetableMinion from './TargetableMinion';
 
-import { canAttack } from '../Character';
+import { canAttack } from '../../../Character';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),

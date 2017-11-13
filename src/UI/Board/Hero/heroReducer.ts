@@ -1,9 +1,9 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { upcastingReducer } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
-import { canSpendMana, Hero, reduceArmor, reduceHealth } from '../Hero';
-import { CharacterPayload, dealDamage, SourceTargetPayload } from './actions';
-import { Character } from '../Character';
+import { canSpendMana, Hero, reduceArmor, reduceHealth } from '../../../Hero';
+import { CharacterPayload, dealDamage, SourceTargetPayload } from '../actions';
+import { Character } from '../../../Character';
 
 const actionCreator = actionCreatorFactory();
 

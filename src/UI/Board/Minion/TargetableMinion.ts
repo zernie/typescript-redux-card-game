@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DnD from 'react-dnd';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
-import { performAttack } from './characterReducer';
+import { performAttack } from '../characterReducer';
 import MinionCard, { MinionProps } from './Minion';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({

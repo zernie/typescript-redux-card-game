@@ -1,8 +1,8 @@
-import { reduceHealth } from '../Hero';
-import { dealDamage, SourceTargetPayload } from './actions';
-import { Minion } from '../Minion';
+import { reduceHealth } from '../../../Hero';
+import { dealDamage, SourceTargetPayload } from '../actions';
+import { Minion } from '../../../Minion';
 import { upcastingReducer } from 'typescript-fsa-reducers';
-import { Character } from '../Character';
+import { Character } from '../../../Character';
 import * as R from 'ramda';
 
 const damageMinionHandler = (

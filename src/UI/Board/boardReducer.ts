@@ -1,19 +1,19 @@
 import actionCreatorFactory, { Action } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
-import { Board } from '../Board';
-import { Minion } from '../Minion';
-import { board } from './initialState';
-import { nextTurn } from './gameStateReducer';
+import { Board } from '../../Board';
+import { Minion } from '../../Minion';
+import { board } from '../initialState';
+import { nextTurn } from '../gameStateReducer';
 import characterReducer from './characterReducer';
-import { getEntity } from '../EntityContainer';
-import { Character, CharacterType } from '../Character';
+import { getEntity } from '../../EntityContainer';
+import { Character, CharacterType } from '../../Character';
 import {
   attackCharacter, CharacterPayload,
   dealDamage,
   exhaust,
 } from './actions';
-import { gainMana, restoreMana, spendMana } from './heroReducer';
+import { gainMana, restoreMana, spendMana } from './Hero/heroReducer';
 
 const actionCreator = actionCreatorFactory();
 

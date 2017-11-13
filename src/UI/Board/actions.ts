@@ -1,5 +1,5 @@
 import actionCreatorFactory from 'typescript-fsa';
-import { Character } from '../Character';
+import { Character } from '../../Character';
 
 const actionCreator = actionCreatorFactory();
 export type CharacterPayload<T> = T & { id: number };

@@ -6,16 +6,16 @@ import {
   CharacterType,
   getCharacter,
   shouldExhaust,
-} from '../Character';
-import { Game } from '../Game';
+} from '../../Character';
+import { Game } from '../../Game';
 import {
   attackCharacter,
   dealDamage,
   exhaust,
   SourceTargetPayload,
 } from './actions';
-import heroReducer, { gainMana, restoreMana, spendMana } from './heroReducer';
-import minionReducer from './minionReducer';
+import heroReducer, { gainMana, restoreMana, spendMana } from './Hero/heroReducer';
+import minionReducer from './Minion/minionReducer';
 import { processDeaths } from './boardReducer';
 
 // TODO: refactor
