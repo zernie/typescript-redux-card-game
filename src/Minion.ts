@@ -25,6 +25,7 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   abilities: [],
   attacksPerformed: 0,
   exhausted: true,
+  destroyed: false,
   health: props.maxHealth,
   ...props,
   id: newId(),

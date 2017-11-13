@@ -16,6 +16,7 @@ import {
 } from './actions';
 import heroReducer, { gainMana, restoreMana, spendMana } from './heroReducer';
 import minionReducer from './minionReducer';
+import { processDeaths } from './boardReducer';
 
 // TODO: refactor
 export const performAttack = (
@@ -39,6 +40,8 @@ export const performAttack = (
   if (shouldExhaust(attacker)) {
     dispatch(exhaust({ id: attacker, ...attacker }));
   }
+
+  dispatch(processDeaths());
 };
 
 const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });

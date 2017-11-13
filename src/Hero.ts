@@ -37,6 +37,7 @@ export const craftPlayer = (props: {
   armor: 0,
   attack: 0,
   attacksPerformed: 0,
+  destroyed: false,
   exhausted: false,
   health: props.maxHealth || 30,
   id: newId(),

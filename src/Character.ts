@@ -14,6 +14,7 @@ export type Playable = Readonly<{
   abilities: Array<Ability>;
   attacksPerformed: number;
   attack: number;
+  destroyed: boolean;
   exhausted: boolean;
   health: number;
   id: number;

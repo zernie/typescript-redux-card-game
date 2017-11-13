@@ -36,11 +36,15 @@ const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
     ? R.set(manaLens, state.mana - payload.amount, state)
     : state;
 
-const damageHeroHandler = (state: Hero, payload: SourceTargetPayload): Hero =>
-  R.merge(state, {
+const damageHeroHandler = (state: Hero, payload: SourceTargetPayload): Hero => {
+  const health = reduceHealth(state, payload.source.attack);
+
+  return R.merge(state, {
     armor: reduceArmor(state, payload.source.attack),
-    health: reduceHealth(state, payload.source.attack),
+    destroyed: health <= 0,
+    health: health,
   });
+};
 
 export default upcastingReducer<Hero, Character>()
   .case(gainMana, gainManaHandler)

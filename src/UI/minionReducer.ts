@@ -8,10 +8,14 @@ import * as R from 'ramda';
 const damageMinionHandler = (
   state: Minion,
   payload: SourceTargetPayload
-): Minion =>
-  R.merge(state, {
-    health: reduceHealth(state, payload.source.attack),
+): Minion => {
+  const health = reduceHealth(state, payload.source.attack);
+
+  return R.merge(state, {
+    destroyed: health <= 0,
+    health: health,
   });
+};
 
 export default upcastingReducer<Minion, Character>().case(
   dealDamage,
