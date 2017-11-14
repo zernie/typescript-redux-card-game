@@ -10,14 +10,12 @@ const actionCreator = actionCreatorFactory();
 type GainManaPayload = CharacterPayload<{
   amount?: number;
 }>;
-type RestoreManaPayload = CharacterPayload<{}>;
-
 type SpendManaPayload = CharacterPayload<{
   amount: number;
 }>;
 
 export const gainMana = actionCreator<GainManaPayload>('GAIN_MANA');
-export const restoreMana = actionCreator<RestoreManaPayload>('RESTORE_MANA');
+export const restoreMana = actionCreator<CharacterPayload>('RESTORE_MANA');
 export const spendMana = actionCreator<SpendManaPayload>('SPEND_MANA');
 
 const maximumManaLens = R.lensProp<number, Hero>('maximumMana');

@@ -34,7 +34,7 @@ const processDeathsHandler = R.reject(
 // TODO: refactor
 const characterHandler = (
   state: Board,
-  action: Action<CharacterPayload<any>>
+  action: Action<CharacterPayload>
 ): Board =>
   R.merge(state, {
     [action.payload.id]: characterReducer(
