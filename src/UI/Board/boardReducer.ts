@@ -9,7 +9,8 @@ import characterReducer from './characterReducer';
 import { getEntity } from '../../EntityContainer';
 import { Character, CharacterType } from '../../Character';
 import {
-  attackCharacter, CharacterPayload,
+  attackCharacter,
+  CharacterPayload,
   dealDamage,
   exhaust,
 } from './actions';
@@ -20,9 +21,8 @@ const actionCreator = actionCreatorFactory();
 export const summonMinion = actionCreator<Minion>('SUMMON_MINION');
 export const processDeaths = actionCreator('PROCESS_DEATHS');
 
-const nextTurnHandler = R.map(
-  R.mergeDeepLeft({ attacksPerformed: 0, exhausted: false })
-);
+const nextTurnHandler = (state: Board): Board =>
+  R.map(R.mergeDeepLeft({ attacksPerformed: 0, exhausted: false }), state);
 
 const summonMinionHandler = (state: Board, payload: Minion): Board =>
   R.assoc(payload.id, payload, state);
