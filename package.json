@@ -2,7 +2,7 @@
   "name": "typescript-redux-card-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zernie.github.io/cardgame",
+  "homepage": "https://zernie.github.io/typescript-redux-card-game",
   "dependencies": {
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
