@@ -1,7 +1,8 @@
 {
-  "name": "react-redux-card-game",
+  "name": "typescript-redux-card-game",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://zernie.github.io/cardgame",
   "dependencies": {
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
@@ -11,6 +12,7 @@
     "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "0.11.2",
     "fs-extra": "3.0.1",
+    "gh-pages": "^1.0.0",
     "html-webpack-plugin": "2.29.0",
     "jest": "21.2.1",
     "object-assign": "4.1.1",
@@ -49,7 +51,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",
