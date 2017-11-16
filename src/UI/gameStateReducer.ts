@@ -21,11 +21,11 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
   dispatch,
   getState
 ) => {
+  dispatch(nextTurn());
   const state = getState();
 
-  dispatch(nextTurn());
-
   const player = activeHero(state);
+
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
 
