@@ -1,8 +1,9 @@
-import { Character, CharacterType, Playable } from './Character';
+import { Character, CharacterType } from './Character';
 import { Ability } from './Abilities';
 import { newId } from './utils';
 import * as R from 'ramda';
 import { Game } from './Game';
+import { Playable } from './Playable';
 
 export type Hero = Readonly<
   Playable & {

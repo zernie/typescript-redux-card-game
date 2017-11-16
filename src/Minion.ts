@@ -1,8 +1,9 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
 import { PlayerKind } from './Hero';
-import { CharacterType, hasAbility, Playable } from './Character';
+import { CharacterType, hasAbility } from './Character';
 import { newId } from './utils';
+import { Playable } from './Playable';
 
 export type Minion = Readonly<Playable & { type: CharacterType.Minion }>;
 export type CraftMinionProps = Readonly<{
