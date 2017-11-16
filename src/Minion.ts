@@ -32,7 +32,7 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   id: newId(),
   type: CharacterType.Minion,
 });
-export const fromCard = R.pipe(
+export const minionFromCard = R.pipe(
   R.pick(['abilities', 'attack', 'health', 'maxHealth', 'name', 'owner']),
   R.when(hasAbility(Ability.Charge), R.assoc('exhausted', false)),
   craftMinion

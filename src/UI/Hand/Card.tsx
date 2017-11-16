@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
-import { Card as CardInterface } from '../../Card';
+import { Card as CardInterface, CardType } from '../../Card';
 import { State } from '../../Game';
 import { Hero } from '../../Hero';
+import MinionCard from './MinionCard';
+import WeaponCard from './WeaponCard';
 
 export interface CardProps {
   card: CardInterface;
@@ -12,38 +14,30 @@ export interface CardProps {
   state: State;
 }
 
+const cardComponent = (card: CardInterface) =>
+  card.type === CardType.Minion ? (
+    <MinionCard {...card} />
+  ) : (
+    <WeaponCard {...card} />
+  );
+
 export const Card: React.StatelessComponent<CardProps> = ({
   connectDragSource,
-  card: {
-    abilities,
-    attack,
-    cost,
-    maxHealth,
-    name,
-    text,
-  },
+  card,
 }) =>
   connectDragSource(
     <div className="item">
       <List.Content>
         <List.Header>
           <List.Icon name="child" />
-          {name}
+          {card.name}
         </List.Header>
 
         <List.Icon name="circle" />
-        {cost}
-        <br/>
-        <List.Icon name="lightning" />
-        {attack}
-        <br/>
-        <List.Icon name="heartbeat" />
-        {maxHealth}
-        <br/>
-        {text}
-        <br/>
+        {card.cost}
+        <br />
 
-        {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
+        {cardComponent(card)}
       </List.Content>
     </div>
   );

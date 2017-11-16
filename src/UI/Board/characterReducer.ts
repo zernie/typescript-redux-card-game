@@ -14,7 +14,12 @@ import {
   exhaust,
   SourceTargetPayload,
 } from './actions';
-import heroReducer, { gainMana, restoreMana, spendMana } from './Hero/heroReducer';
+import heroReducer, {
+  equipWeapon,
+  gainMana,
+  restoreMana,
+  spendMana,
+} from './Hero/heroReducer';
 import minionReducer from './Minion/minionReducer';
 import { processDeaths } from './boardReducer';
 
@@ -44,14 +49,12 @@ export const performAttack = (
   dispatch(processDeaths());
 };
 
-const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });
 const exhaustHandler = R.assoc('exhausted', true);
 
 export default reducerWithoutInitialState<Character>()
-  .case(attackCharacter, attackCharacterHandler)
   .case(exhaust, exhaustHandler)
   .casesWithAction(
-    [dealDamage, gainMana, restoreMana, spendMana],
+    [attackCharacter, dealDamage, equipWeapon, gainMana, restoreMana, spendMana],
     (state, action) =>
       state.type === CharacterType.Minion
         ? minionReducer(state, action)

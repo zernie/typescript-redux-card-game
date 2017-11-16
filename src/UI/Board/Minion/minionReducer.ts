@@ -1,9 +1,11 @@
 import { reduceHealth } from '../../../Hero';
-import { dealDamage, SourceTargetPayload } from '../actions';
+import { attackCharacter, dealDamage, SourceTargetPayload } from '../actions';
 import { Minion } from '../../../Minion';
 import { upcastingReducer } from 'typescript-fsa-reducers';
 import { Character } from '../../../Character';
 import * as R from 'ramda';
+
+const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });
 
 const damageMinionHandler = (
   state: Minion,
@@ -17,7 +19,6 @@ const damageMinionHandler = (
   });
 };
 
-export default upcastingReducer<Minion, Character>().case(
-  dealDamage,
-  damageMinionHandler
-);
+export default upcastingReducer<Minion, Character>()
+  .case(attackCharacter, attackCharacterHandler)
+  .case(dealDamage, damageMinionHandler);

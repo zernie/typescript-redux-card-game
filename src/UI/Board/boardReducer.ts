@@ -14,7 +14,12 @@ import {
   dealDamage,
   exhaust,
 } from './actions';
-import { gainMana, restoreMana, spendMana } from './Hero/heroReducer';
+import {
+  equipWeapon,
+  gainMana,
+  restoreMana,
+  spendMana,
+} from './Hero/heroReducer';
 
 const actionCreator = actionCreatorFactory();
 
@@ -48,6 +53,14 @@ export default reducerWithInitialState<Board>(board)
   .case(summonMinion, summonMinionHandler)
   .case(processDeaths, processDeathsHandler)
   .casesWithAction(
-    [attackCharacter, dealDamage, exhaust, gainMana, restoreMana, spendMana],
+    [
+      attackCharacter,
+      dealDamage,
+      exhaust,
+      equipWeapon,
+      gainMana,
+      restoreMana,
+      spendMana,
+    ],
     characterHandler
   );

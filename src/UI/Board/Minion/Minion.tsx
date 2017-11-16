@@ -16,7 +16,7 @@ interface MinionOwnProps {
 
 export type MinionProps = Minion & MinionOwnProps;
 
-const MinionCard: StatelessComponent<MinionProps> = ({
+const Minion: StatelessComponent<MinionProps> = ({
   abilities,
   attack,
   connectDragSource,
@@ -48,4 +48,4 @@ const MinionCard: StatelessComponent<MinionProps> = ({
     )
   );
 
-export default MinionCard;
+export default Minion;

@@ -3,7 +3,7 @@ import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Game } from '../Game';
 import { Card, opponentCards, playerCards } from '../Card';
 import { opponentMinions, playerMinions } from '../Minion';
-import TargetableHero from './Board/Hero/TargetableHero';
+import DraggableHero from './Board/Hero/DraggableHero';
 import Side from './Board/Minion/Side';
 import NextTurn from './Board/NextTurn';
 import { endTurn as endTurnFunction } from './gameStateReducer';
@@ -43,7 +43,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
     <Grid>
       <Grid.Column computer={14} mobile={16}>
         <Hand active={!currentPlayer} hand={opponentCards(hand)}/>
-        <TargetableHero {...opponent} />
+        <DraggableHero {...opponent} />
 
         {connectDropTarget(
           <div className={`ui basic segment ${isOver ? 'inverted olive raised' : undefined}`}>
@@ -59,7 +59,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
           </div>
         )}
 
-        <TargetableHero {...player} />
+        <DraggableHero {...player} />
         <Hand active={currentPlayer} hand={playerCards(hand)}/>
       </Grid.Column>
 

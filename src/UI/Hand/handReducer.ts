@@ -4,12 +4,13 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Card, CardList, CardType } from '../../Card';
 import { Game } from '../../Game';
-import { fromCard } from '../../Minion';
+import { minionFromCard } from '../../Minion';
 import { activeHero, canSpendMana } from '../../Hero';
 import { hand } from '../initialState';
 import { summonMinion } from '../Board/boardReducer';
-import { spendMana } from '../Board/Hero/heroReducer';
+import { equipWeapon, spendMana } from '../Board/Hero/heroReducer';
 import { drawCard } from '../Deck/deckReducer';
+import { weaponFromCard } from '../../Weapon';
 
 const actionCreator = actionCreatorFactory();
 export const removeCard = actionCreator<Card>('REMOVE_CARD');
@@ -28,10 +29,10 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
 
   switch (payload.type) {
     case CardType.Minion:
-      dispatch(summonMinion(fromCard(payload)));
+      dispatch(summonMinion(minionFromCard(payload)));
       break;
     case CardType.Weapon:
-      //  TODO add weapons
+      dispatch(equipWeapon({id: hero.id, weapon: weaponFromCard(payload)}));
       return;
     default:
       return;

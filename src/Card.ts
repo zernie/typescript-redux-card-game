@@ -24,7 +24,7 @@ export enum CardType {
 export interface WeaponCard extends BasicCard {
   abilities: Array<Ability>;
   attack: number;
-  maxHealth: number;
+  durability: number;
   type: CardType.Weapon;
 }
 
@@ -59,5 +59,20 @@ export const craftMinionCard = (props: {
   id: newId(),
   type: CardType.Minion,
 });
+export const craftWeaponCard = (props: {
+  attack: number;
+  cost: number;
+  durability: number;
+  name: string;
+  owner: PlayerKind;
+  abilities?: Array<Ability>;
+  text?: string;
+}): WeaponCard => ({
+  abilities: [],
+  ...props,
+  id: newId(),
+  type: CardType.Weapon,
+});
+
 export const cardListFrom = (array: Array<Card>): CardList =>
   R.indexBy<Card>(R.prop('id'), array);
