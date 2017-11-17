@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
-import { PlayerKind } from './Hero';
+import { CardType, PlayerKind } from './enums';
 
 export type Weapon = Readonly<{
   abilities: Array<Ability>;
@@ -9,7 +9,7 @@ export type Weapon = Readonly<{
   // exhausted: boolean;
   name: string;
   owner: PlayerKind;
-  type: 'WEAPON';
+  type: CardType.Weapon;
 }>;
 export type CraftWeaponProps = Readonly<{
   abilities?: Array<Ability>;
@@ -24,7 +24,7 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon => ({
   abilities: [],
   // exhausted: false,
   ...props,
-  type: 'WEAPON',
+  type: CardType.Weapon,
 });
 export const weaponFromCard = R.pipe(
   R.pick(['abilities', 'attack', 'durability', 'name', 'owner']),

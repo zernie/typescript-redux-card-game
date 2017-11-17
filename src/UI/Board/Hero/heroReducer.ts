@@ -36,7 +36,10 @@ const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
 const manaLens = R.lensProp<number, Hero>('mana');
 
 const equipWeaponHandler = (state: Hero, payload: EquipWeaponPayload) =>
-  R.merge<Hero, {}>(state, { attack: payload.weapon.attack, weapon: payload.weapon });
+  R.merge<Hero, {}>(state, {
+    attack: payload.weapon.attack,
+    weapon: payload.weapon,
+  });
 
 const gainManaHandler = (state: Hero, payload: GainManaPayload) =>
   state.maximumMana < 10

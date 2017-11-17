@@ -1,6 +1,6 @@
 import * as R from 'ramda';
-import { Game, GameState } from '../Game';
-import { craftPlayer, Hero, PlayerKind } from '../Hero';
+import { Game } from '../Game';
+import { craftPlayer, Hero } from '../Hero';
 import {
   CardList,
   cardListFrom,
@@ -11,6 +11,7 @@ import { Board, boardFrom } from '../Board';
 import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
 import { Character } from '../Character';
+import { GameState, PlayerKind } from '../enums';
 
 const rawDeck = [
   {

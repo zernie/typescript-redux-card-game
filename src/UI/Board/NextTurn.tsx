@@ -6,7 +6,10 @@ interface NextTurnProps {
   onClick: Function;
 }
 
-const NextTurn: StatelessComponent<NextTurnProps> = ({ onClick }) =>
-  <Button fluid positive onClick={() => onClick()}>Finish</Button>;
+const NextTurn: StatelessComponent<NextTurnProps> = ({ onClick }) => (
+  <Button fluid positive onClick={() => onClick()}>
+    Finish
+  </Button>
+);
 
 export default NextTurn;

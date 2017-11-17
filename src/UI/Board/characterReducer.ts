@@ -1,12 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
-import {
-  Character,
-  CharacterType,
-  getCharacter,
-  shouldExhaust,
-} from '../../Character';
+import { Character, getCharacter, shouldExhaust } from '../../Character';
 import { Game } from '../../Game';
 import {
   attackCharacter,
@@ -22,6 +17,7 @@ import heroReducer, {
 } from './Hero/heroReducer';
 import minionReducer from './Minion/minionReducer';
 import { processDeaths } from './boardReducer';
+import { CardType } from '../../enums';
 
 // TODO: refactor
 export const performAttack = (
@@ -32,7 +28,7 @@ export const performAttack = (
 
   const attacker = getCharacter(payload.source.id, getState());
 
-  if (payload.target.type === CharacterType.Minion) {
+  if (payload.target.type === CardType.Minion) {
     dispatch(
       dealDamage({
         id: attacker.id,
@@ -54,9 +50,16 @@ const exhaustHandler = R.assoc('exhausted', true);
 export default reducerWithoutInitialState<Character>()
   .case(exhaust, exhaustHandler)
   .casesWithAction(
-    [attackCharacter, dealDamage, equipWeapon, gainMana, restoreMana, spendMana],
+    [
+      attackCharacter,
+      dealDamage,
+      equipWeapon,
+      gainMana,
+      restoreMana,
+      spendMana,
+    ],
     (state, action) =>
-      state.type === CharacterType.Minion
+      state.type === CardType.Minion
         ? minionReducer(state, action)
         : heroReducer(state, action)
   );

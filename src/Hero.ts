@@ -1,25 +1,21 @@
-import { Character, CharacterType } from './Character';
+import { Character } from './Character';
 import { Ability } from './Abilities';
 import { newId } from './utils';
 import * as R from 'ramda';
 import { Game } from './Game';
 import { Playable } from './Playable';
 import { Weapon } from './Weapon';
+import { CardType, PlayerKind } from './enums';
 
 export type Hero = Readonly<
   Playable & {
     armor: number;
     mana: number;
     maximumMana: number;
-    type: CharacterType.Hero;
+    type: CardType.Hero;
     weapon?: Weapon;
   }
 >;
-
-export enum PlayerKind {
-  Player = 'PLAYER',
-  Opponent = 'OPPONENT',
-}
 
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
@@ -48,7 +44,7 @@ export const craftPlayer = (props: {
   maximumMana: 0,
   ...props,
   mana: 0,
-  type: CharacterType.Hero,
+  type: CardType.Hero,
 });
 
 export const canSpendMana = (hero: Hero, amount: number) =>
@@ -58,7 +54,7 @@ export const reduceArmor = (hero: Hero, damage: number): number =>
 export const reduceHealth = (character: Character, damage: number): number =>
   R.min(
     character.health,
-    character.type === CharacterType.Hero
+    character.type === CardType.Hero
       ? character.health + character.armor - damage
       : character.health - damage
   );

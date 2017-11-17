@@ -5,11 +5,6 @@ import { Minion } from './Minion';
 import { getEntity } from './EntityContainer';
 import { Game } from './Game';
 
-export enum CharacterType {
-  Minion = 'MINION',
-  Hero = 'HERO',
-}
-
 export type Character = Hero | Minion;
 
 // const selectCharacters = R.useWith(R.filter, [R.propEq('owner'), R.identity]);

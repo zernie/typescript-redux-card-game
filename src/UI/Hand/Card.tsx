@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
-import { Card as CardInterface, CardType } from '../../Card';
+import { Card as CardInterface,  } from '../../Card';
 import { State } from '../../Game';
 import { Hero } from '../../Hero';
 import MinionCard from './MinionCard';
 import WeaponCard from './WeaponCard';
+import { CardType } from '../../enums';
 
 export interface CardProps {
   card: CardInterface;

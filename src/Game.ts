@@ -1,11 +1,6 @@
-import { PlayerKind } from './Hero';
 import { Board } from './Board';
 import { CardList } from './Card';
-
-export enum GameState {
-  Playing = 'PLAYING',
-  Finished = 'FINISHED',
-}
+import { GameState, PlayerKind } from './enums';
 
 export type State = Readonly<{
   activePlayer: PlayerKind;

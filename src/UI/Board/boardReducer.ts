@@ -7,7 +7,7 @@ import { board } from '../initialState';
 import { nextTurn } from '../gameStateReducer';
 import characterReducer from './characterReducer';
 import { getEntity } from '../../EntityContainer';
-import { Character, CharacterType } from '../../Character';
+import { Character } from '../../Character';
 import {
   attackCharacter,
   CharacterPayload,
@@ -20,6 +20,7 @@ import {
   restoreMana,
   spendMana,
 } from './Hero/heroReducer';
+import { CardType } from '../../enums';
 
 const actionCreator = actionCreatorFactory();
 
@@ -33,7 +34,7 @@ const summonMinionHandler = (state: Board, payload: Minion): Board =>
   R.assoc(payload.id, payload, state);
 
 const processDeathsHandler = R.reject(
-  R.whereEq({ destroyed: true, type: CharacterType.Minion })
+  R.whereEq({ destroyed: true, type: CardType.Minion })
 );
 
 // TODO: refactor

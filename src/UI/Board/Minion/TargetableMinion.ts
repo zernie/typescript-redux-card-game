@@ -27,7 +27,9 @@ const spec: DnD.DropTargetSpec<MinionProps> = {
   },
 };
 
-const TargetableMinion = DnD.DropTarget(['Minion', 'Hero'], spec, collect)(MinionCard);
+const TargetableMinion = DnD.DropTarget(['Minion', 'Hero'], spec, collect)(
+  MinionCard
+);
 
 export default connect(R.identity, { performAttack })(
   TargetableMinion

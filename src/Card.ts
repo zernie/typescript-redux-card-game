@@ -1,8 +1,8 @@
 import * as R from 'ramda';
-import { PlayerKind } from './Hero';
 import { Ability } from './Abilities';
 import { newId } from './utils';
 import { EntityContainer } from './EntityContainer';
+import { CardType, PlayerKind } from './enums';
 
 type BasicCard = Readonly<{
   cost: number;
@@ -13,13 +13,6 @@ type BasicCard = Readonly<{
 }>;
 
 export type Card = MinionCard | WeaponCard;
-
-export enum CardType {
-  Minion = 'MINION',
-  Weapon = 'WEAPON',
-  Hero = 'HERO',
-  Enchantment = 'ENCHANTMENT',
-}
 
 export interface WeaponCard extends BasicCard {
   abilities: Array<Ability>;
