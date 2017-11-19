@@ -8,7 +8,7 @@ import { minionFromCard } from '../../Minion';
 import { activeHero, canSpendMana } from '../../Hero';
 import { hand } from '../initialState';
 import { summonMinion } from '../Board/boardReducer';
-import { equipWeapon, spendMana } from '../Board/Hero/heroReducer';
+import { equipWeapon, spendMana } from '../Board/Hero/actions';
 import { drawCard } from '../Deck/deckReducer';
 import { weaponFromCard } from '../../Weapon';
 import { CardType } from '../../enums';

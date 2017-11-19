@@ -1,39 +1,25 @@
-import actionCreatorFactory from 'typescript-fsa';
 import { upcastingReducer } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { canSpendMana, Hero, reduceArmor, reduceHealth } from '../../../Hero';
-import {
-  attackCharacter,
-  CharacterPayload,
-  dealDamage,
-  SourceTargetPayload,
-} from '../actions';
+import { attackCharacter, dealDamage, SourceTargetPayload } from '../actions';
 import { Character } from '../../../Character';
-import { Weapon } from '../../../Weapon';
+import {
+  equipWeapon,
+  EquipWeaponPayload,
+  gainMana,
+  GainManaPayload,
+  restoreMana,
+  spendMana,
+  SpendManaPayload,
+} from './actions';
 
-const actionCreator = actionCreatorFactory();
-
-type GainManaPayload = CharacterPayload<{
-  amount?: number;
-}>;
-type SpendManaPayload = CharacterPayload<{
-  amount: number;
-}>;
-type EquipWeaponPayload = CharacterPayload<{
-  weapon: Weapon;
-}>;
+const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
+const manaLens = R.lensProp<number, Hero>('mana');
 
 const attackCharacterHandler = R.evolve<Hero>({
   attacksPerformed: R.inc,
   weapon: { durability: R.dec },
 });
-export const equipWeapon = actionCreator<EquipWeaponPayload>('EQUIP_WEAPON');
-export const gainMana = actionCreator<GainManaPayload>('GAIN_MANA');
-export const restoreMana = actionCreator<CharacterPayload>('RESTORE_MANA');
-export const spendMana = actionCreator<SpendManaPayload>('SPEND_MANA');
-
-const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
-const manaLens = R.lensProp<number, Hero>('mana');
 
 const equipWeaponHandler = (state: Hero, payload: EquipWeaponPayload) =>
   R.merge<Hero, {}>(state, {

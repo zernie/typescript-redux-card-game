@@ -5,22 +5,16 @@ import { Board } from '../../Board';
 import { Minion } from '../../Minion';
 import { board } from '../initialState';
 import { nextTurn } from '../gameStateReducer';
-import characterReducer from './characterReducer';
-import { getEntity } from '../../EntityContainer';
 import { Character } from '../../Character';
+import { CardType } from '../../enums';
+import characterReducer from './characterReducer';
 import {
   attackCharacter,
   CharacterPayload,
   dealDamage,
   exhaust,
 } from './actions';
-import {
-  equipWeapon,
-  gainMana,
-  restoreMana,
-  spendMana,
-} from './Hero/heroReducer';
-import { CardType } from '../../enums';
+import { equipWeapon, gainMana, restoreMana, spendMana } from './Hero/actions';
 
 const actionCreator = actionCreatorFactory();
 
@@ -40,28 +34,23 @@ const processDeathsHandler = R.reject(
 // TODO: refactor
 const characterHandler = (
   state: Board,
-  action: Action<CharacterPayload>
+  action: Action<CharacterPayload<Object>>
 ): Board =>
-  R.merge(state, {
-    [action.payload.id]: characterReducer(
-      getEntity<Character>(action.payload.id, state),
-      action
-    ),
-  });
+  R.evolve(
+    {
+      [action.payload.id]: (character: Character) =>
+        characterReducer(character, action),
+    },
+    state
+  );
 
 export default reducerWithInitialState<Board>(board)
   .case(nextTurn, nextTurnHandler)
   .case(summonMinion, summonMinionHandler)
   .case(processDeaths, processDeathsHandler)
+  // TODO: we can give 4 elements maximum to casesWithAction method in order to make inference possible
+  .casesWithAction([attackCharacter, dealDamage, exhaust], characterHandler)
   .casesWithAction(
-    [
-      attackCharacter,
-      dealDamage,
-      exhaust,
-      equipWeapon,
-      gainMana,
-      restoreMana,
-      spendMana,
-    ],
+    [equipWeapon, gainMana, restoreMana, spendMana],
     characterHandler
   );

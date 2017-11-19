@@ -1,9 +1,10 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
-import { hasAbility } from './Character';
+// import { hasAbility } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
 import { CardType, PlayerKind } from './enums';
+import { MinionCard } from './Card';
 
 export type Minion = Readonly<Playable & { type: CardType.Minion }>;
 export type CraftMinionProps = Readonly<{
@@ -32,8 +33,15 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   id: newId(),
   type: CardType.Minion,
 });
-export const minionFromCard = R.pipe(
-  R.pick(['abilities', 'attack', 'health', 'maxHealth', 'name', 'owner']),
-  R.when(hasAbility(Ability.Charge), R.assoc('exhausted', false)),
+export const minionFromCard = R.pipe<MinionCard, MinionCard, Minion>(
+  R.pick<MinionCard, keyof MinionCard>([
+    'abilities',
+    'attack',
+    'maxHealth',
+    'name',
+    'owner',
+  ]),
+  // FIXME
+  // R.when(hasAbility(Ability.Charge), R.assoc('exhausted', false)),
   craftMinion
 );

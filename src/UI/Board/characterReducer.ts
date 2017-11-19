@@ -1,23 +1,21 @@
 import { ThunkAction } from 'redux-thunk';
+import { Action } from 'typescript-fsa';
 import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Character, getCharacter, shouldExhaust } from '../../Character';
 import { Game } from '../../Game';
+import { CardType } from '../../enums';
 import {
   attackCharacter,
+  CharacterPayload,
   dealDamage,
   exhaust,
   SourceTargetPayload,
 } from './actions';
-import heroReducer, {
-  equipWeapon,
-  gainMana,
-  restoreMana,
-  spendMana,
-} from './Hero/heroReducer';
+import { equipWeapon, gainMana, restoreMana, spendMana } from './Hero/actions';
 import minionReducer from './Minion/minionReducer';
 import { processDeaths } from './boardReducer';
-import { CardType } from '../../enums';
+import heroReducer from './Hero/heroReducer';
 
 // TODO: refactor
 export const performAttack = (
@@ -47,19 +45,18 @@ export const performAttack = (
 
 const exhaustHandler = R.assoc('exhausted', true);
 
+const chooseReducer = (
+  state: Character,
+  action: Action<CharacterPayload<Object>>
+) =>
+  state.type === CardType.Minion
+    ? minionReducer(state, action)
+    : heroReducer(state, action);
+
 export default reducerWithoutInitialState<Character>()
   .case(exhaust, exhaustHandler)
+  .casesWithAction([attackCharacter, dealDamage], chooseReducer)
   .casesWithAction(
-    [
-      attackCharacter,
-      dealDamage,
-      equipWeapon,
-      gainMana,
-      restoreMana,
-      spendMana,
-    ],
-    (state, action) =>
-      state.type === CardType.Minion
-        ? minionReducer(state, action)
-        : heroReducer(state, action)
+    [equipWeapon, gainMana, restoreMana, spendMana],
+    chooseReducer
   );

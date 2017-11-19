@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { ThunkAction } from 'redux-thunk';
 import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { gainMana, restoreMana } from './Board/Hero/heroReducer';
+import { gainMana, restoreMana } from './Board/Hero/actions';
 import { Game, State } from '../Game';
 import { activeHero, other } from '../Hero';
 import initialState from './initialState';
@@ -32,7 +32,7 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
   const cards = R.values(state.deck);
 
   if (cards.length > 0) {
-    dispatch(drawCard((cards[0])));
+    dispatch(drawCard(cards[0]));
   }
 };
 
