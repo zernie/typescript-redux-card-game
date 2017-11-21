@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
-// import { hasAbility } from './Character';
+import { hasAbility } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
 import { CardType, PlayerKind } from './enums';
@@ -33,7 +33,12 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   id: newId(),
   type: CardType.Minion,
 });
-export const minionFromCard = R.pipe<MinionCard, MinionCard, Minion>(
+export const minionFromCard = R.pipe<
+  MinionCard,
+  CraftMinionProps,
+  Minion,
+  Minion
+>(
   R.pick<MinionCard, keyof MinionCard>([
     'abilities',
     'attack',
@@ -41,7 +46,9 @@ export const minionFromCard = R.pipe<MinionCard, MinionCard, Minion>(
     'name',
     'owner',
   ]),
-  // FIXME
-  // R.when(hasAbility(Ability.Charge), R.assoc('exhausted', false)),
-  craftMinion
+  craftMinion,
+  R.when<Minion, Minion>(
+    hasAbility(Ability.Charge),
+    R.assoc<keyof CraftMinionProps, boolean>('exhausted', false)
+  )
 );
