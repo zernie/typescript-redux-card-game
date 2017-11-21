@@ -16,6 +16,14 @@ interface MinionOwnProps {
 
 export type MinionProps = Minion & MinionOwnProps;
 
+const ZZZ: StatelessComponent<{}> = () => (
+  <span>
+    z<sup>
+      z<sup>z</sup>
+    </sup>
+  </span>
+);
+
 const Minion: StatelessComponent<MinionProps> = ({
   abilities,
   attack,
@@ -27,14 +35,10 @@ const Minion: StatelessComponent<MinionProps> = ({
 }) =>
   connectDropTarget(
     connectDragSource(
-      <div className="item">
-        {exhausted ? 'Exhausted' : undefined}
+      <div className={`item ${exhausted ? 'disabled' : undefined}`}>
+        {exhausted ? <ZZZ /> : undefined}
+        <List.Header>{name}</List.Header>
         <List.Content>
-          <List.Header>
-            <List.Icon name="child" />
-            {name}
-          </List.Header>
-
           <List.Icon name="lightning" />
           {attack}
           <br />

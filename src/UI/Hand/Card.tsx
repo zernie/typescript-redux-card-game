@@ -30,7 +30,6 @@ export const Card: React.StatelessComponent<CardProps> = ({
     <div className="item">
       <List.Content>
         <List.Header>
-          <List.Icon name="child" />
           {card.name}
         </List.Header>
 
