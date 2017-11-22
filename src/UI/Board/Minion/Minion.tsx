@@ -35,43 +35,34 @@ const Minion: StatelessComponent<MinionProps> = ({
 }) =>
   connectDropTarget(
     connectDragSource(
-      <div className={'item'}>
-        <List disabled={exhausted} size="tiny">
-          <List.Content>
-            <Segment circular size="small" disabled={exhausted}>
-              {exhausted && (
-                <Label basic floating circular size="large">
-                  <ZZZ />
+      <div>
+        <Segment circular size="small" disabled={exhausted}>
+          {exhausted && (
+            <Label basic floating circular size="large">
+              <ZZZ />
+            </Label>
+          )}
+          <Header size="small">{name}</Header>
+          <br />
+
+          {/* TODO: extract component */}
+          <List>
+            {abilities.map((ability, i) => (
+              <List.Item>
+                <Label key={i} color={'black'} horizontal>
+                  {ability}
                 </Label>
-              )}
-              <Header size="small">{name}</Header>
-              <br />
+              </List.Item>
+            ))}
+          </List>
 
-              {/* TODO: extract component */}
-              <List>
-                {abilities.map((ability, i) => (
-                  <List.Item>
-                    <Label key={i} color={'black'} horizontal>
-                      {ability}
-                    </Label>
-                  </List.Item>
-                ))}
-              </List>
-
-              <Label attached={'bottom left'} color="red" circular size="large">
-                {attack}
-              </Label>
-              <Label
-                attached={'bottom right'}
-                color="green"
-                circular
-                size="large"
-              >
-                {health}
-              </Label>
-            </Segment>
-          </List.Content>
-        </List>
+          <Label attached={'bottom left'} color="red" circular size="large">
+            {attack}
+          </Label>
+          <Label attached={'bottom right'} color="green" circular size="large">
+            {health}
+          </Label>
+        </Segment>
       </div>
     )
   );
