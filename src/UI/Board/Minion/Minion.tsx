@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { Header, List, Segment, Label } from 'semantic-ui-react';
+import { Image, Label, List, Segment } from 'semantic-ui-react';
 import { Minion } from '../../../Minion';
 import { State } from '../../../Game';
 import { performAttack } from '../characterReducer';
@@ -32,29 +32,25 @@ const Minion: StatelessComponent<MinionProps> = ({
   exhausted,
   health,
   name,
+  texture,
 }) =>
   connectDropTarget(
     connectDragSource(
       <div>
-        <Segment circular size="small" disabled={exhausted}>
+        <Segment compact size="tiny" disabled={exhausted} basic>
           {exhausted && (
             <Label basic floating circular size="large">
               <ZZZ />
             </Label>
           )}
-          <Header size="small">{name}</Header>
           <br />
 
-          {/* TODO: extract component */}
-          <List>
-            {abilities.map((ability, i) => (
-              <List.Item>
-                <Label key={i} color={'black'} horizontal>
-                  {ability}
-                </Label>
-              </List.Item>
-            ))}
-          </List>
+          <Image
+            alt={name}
+            shape="circular"
+            src={`https://art.hearthstonejson.com/v1/256x/${texture}.jpg`}
+            size="tiny"
+          />
 
           <Label attached={'bottom left'} color="red" circular size="large">
             {attack}
@@ -63,6 +59,16 @@ const Minion: StatelessComponent<MinionProps> = ({
             {health}
           </Label>
         </Segment>
+        {/* TODO: extract component */}
+        <List>
+          {abilities.map((ability, i) => (
+            <List.Item>
+              <Label key={i} color={'black'} horizontal>
+                {ability}
+              </Label>
+            </List.Item>
+          ))}
+        </List>
       </div>
     )
   );

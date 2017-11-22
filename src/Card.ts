@@ -10,6 +10,7 @@ type BasicCard = Readonly<{
   name: string;
   owner: PlayerKind;
   text?: string;
+  texture?: string;
 }>;
 
 export type Card = MinionCard | WeaponCard;
@@ -46,6 +47,7 @@ export const craftMinionCard = (props: {
   owner: PlayerKind;
   abilities?: Array<Ability>;
   text?: string;
+  texture?: string;
 }): MinionCard => ({
   abilities: [],
   ...props,

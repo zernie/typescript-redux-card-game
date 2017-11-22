@@ -16,6 +16,7 @@ export type CraftMinionProps = Readonly<{
   maxHealth: number;
   name: string;
   owner: PlayerKind;
+  texture?: string;
 }>;
 
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
@@ -45,6 +46,7 @@ export const minionFromCard = R.pipe<
     'maxHealth',
     'name',
     'owner',
+    'texture'
   ]),
   craftMinion,
   R.when<Minion, Minion>(

@@ -20,6 +20,7 @@ const rawDeck = [
     maxHealth: 2,
     name: 'Bloodfen Raptor',
     owner: PlayerKind.Player,
+    texture: 'CS2_172',
   },
   {
     attack: 5,
@@ -27,6 +28,7 @@ const rawDeck = [
     maxHealth: 4,
     name: 'Booty Bay Bodyguard',
     owner: PlayerKind.Opponent,
+    texture: 'CS2_187',
   },
   {
     attack: 3,
@@ -34,6 +36,7 @@ const rawDeck = [
     maxHealth: 4,
     name: 'Chillwind Yeti',
     owner: PlayerKind.Player,
+    texture: 'CS2_182',
   },
   {
     attack: 2,
@@ -41,6 +44,7 @@ const rawDeck = [
     maxHealth: 2,
     name: 'Frostwolf Grunt',
     owner: PlayerKind.Opponent,
+    texture: 'CS2_121',
   },
   {
     attack: 2,
@@ -48,6 +52,7 @@ const rawDeck = [
     maxHealth: 2,
     name: 'Ironforge Rifleman',
     owner: PlayerKind.Player,
+    texture: 'CS2_141',
   },
   {
     attack: 3,
@@ -55,6 +60,7 @@ const rawDeck = [
     maxHealth: 3,
     name: 'Ironfur Grizzly',
     owner: PlayerKind.Player,
+    texture: 'CS2_125',
   },
 ];
 
@@ -68,14 +74,16 @@ const handMinions = R.map(craftMinionCard, [
     maxHealth: 2,
     name: 'Bluegill Warrior',
     owner: PlayerKind.Player,
+    texture: 'CS2_173',
   },
   {
     abilities: [Ability.Windfury],
     attack: 3,
     cost: 4,
     maxHealth: 4,
-    name: 'Windbreaker',
+    name: 'Windspeaker',
     owner: PlayerKind.Player,
+    texture: 'EX1_587',
   },
   {
     attack: 6,
@@ -83,6 +91,7 @@ const handMinions = R.map(craftMinionCard, [
     maxHealth: 7,
     name: 'Boulderfist Ogre',
     owner: PlayerKind.Opponent,
+    texture: 'CS2_200',
   },
 ]);
 
@@ -118,6 +127,7 @@ const minions = R.map(craftMinion, [
     maxHealth: 1,
     name: 'Elven archer',
     owner: PlayerKind.Opponent,
+    texture: 'CS2_189',
   },
   {
     attack: 2,
@@ -125,6 +135,7 @@ const minions = R.map(craftMinion, [
     maxHealth: 2,
     name: 'Frostwolf Grunt',
     owner: PlayerKind.Opponent,
+    texture: 'CS2_121',
   },
   {
     attack: 2,
@@ -132,6 +143,7 @@ const minions = R.map(craftMinion, [
     maxHealth: 4,
     name: 'Gnomish Inventor',
     owner: PlayerKind.Player,
+    texture: 'CS2_147',
   },
 ]);
 

@@ -12,4 +12,5 @@ export type Playable = Readonly<{
   maxHealth: number;
   name: string;
   owner: PlayerKind;
+  texture?: string;
 }>;
