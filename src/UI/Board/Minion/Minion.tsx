@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { List } from 'semantic-ui-react';
+import { Header, List, Segment, Label } from 'semantic-ui-react';
 import { Minion } from '../../../Minion';
 import { State } from '../../../Game';
 import { performAttack } from '../characterReducer';
@@ -35,19 +35,43 @@ const Minion: StatelessComponent<MinionProps> = ({
 }) =>
   connectDropTarget(
     connectDragSource(
-      <div className={`item ${exhausted ? 'disabled' : undefined}`}>
-        {exhausted ? <ZZZ /> : undefined}
-        <List.Header>{name}</List.Header>
-        <List.Content>
-          <List.Icon name="lightning" />
-          {attack}
-          <br />
-          <List.Icon name="heartbeat" />
-          {health}
-          <br />
+      <div className={'item'}>
+        <List disabled={exhausted} size="tiny">
+          <List.Content>
+            <Segment circular size="small" disabled={exhausted}>
+              {exhausted && (
+                <Label basic floating circular size="large">
+                  <ZZZ />
+                </Label>
+              )}
+              <Header size="small">{name}</Header>
+              <br />
 
-          {abilities.map((ability, i) => <div key={i}>{ability}</div>)}
-        </List.Content>
+              {/* TODO: extract component */}
+              <List>
+                {abilities.map((ability, i) => (
+                  <List.Item>
+                    <Label key={i} color={'black'} horizontal>
+                      {ability}
+                    </Label>
+                  </List.Item>
+                ))}
+              </List>
+
+              <Label attached={'bottom left'} color="red" circular size="large">
+                {attack}
+              </Label>
+              <Label
+                attached={'bottom right'}
+                color="green"
+                circular
+                size="large"
+              >
+                {health}
+              </Label>
+            </Segment>
+          </List.Content>
+        </List>
       </div>
     )
   );
