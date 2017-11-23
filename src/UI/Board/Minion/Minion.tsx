@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatelessComponent } from 'react';
-import { Image, Label, List, Segment } from 'semantic-ui-react';
+import { Image, Label, List, Segment, Transition } from 'semantic-ui-react';
 import { Minion } from '../../../Minion';
 import { State } from '../../../Game';
 import { performAttack } from '../characterReducer';
@@ -32,18 +32,18 @@ const Minion: StatelessComponent<MinionProps> = ({
   connectDropTarget,
   exhausted,
   health,
+  maxHealth,
   name,
 }) =>
   connectDropTarget(
     connectDragSource(
       <div>
-        <Segment compact size="tiny" disabled={exhausted} basic>
-          {exhausted && (
-            <Label basic floating circular size="large">
+        <Segment compact size="tiny" basic vertical>
+          <Transition visible={exhausted} animation="fade up" duration="800">
+            <Label floating circular size="large" color="green">
               <ZZZ />
             </Label>
-          )}
-          <br />
+          </Transition>
 
           <Image
             alt={name}
@@ -52,15 +52,20 @@ const Minion: StatelessComponent<MinionProps> = ({
             size="tiny"
           />
 
-          <Label attached={'bottom left'} color="red" circular size="large">
+          <Label attached={'bottom left'} circular size="large">
             {attack}
           </Label>
-          <Label attached={'bottom right'} color="green" circular size="large">
+          <Label
+            attached={'bottom right'}
+            color={health < maxHealth ? 'red' : undefined}
+            circular
+            size="large"
+          >
             {health}
           </Label>
         </Segment>
         {/* TODO: extract component */}
-        <List>
+        <List.List>
           {abilities.map((ability, i) => (
             <List.Item>
               <Label key={i} color={'black'} horizontal>
@@ -68,7 +73,7 @@ const Minion: StatelessComponent<MinionProps> = ({
               </Label>
             </List.Item>
           ))}
-        </List>
+        </List.List>
       </div>
     )
   );
