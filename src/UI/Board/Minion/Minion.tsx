@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
-import { Image, Label, List, Segment, Transition } from 'semantic-ui-react';
+import { Label, List, Segment, Transition } from 'semantic-ui-react';
 import { Minion } from '../../../Minion';
 import { State } from '../../../Game';
 import { performAttack } from '../characterReducer';
+import CardArt from '../../CardArt';
 
 interface MinionOwnProps {
   connectDragSource: Function;
@@ -16,7 +16,7 @@ interface MinionOwnProps {
 
 export type MinionProps = Minion & MinionOwnProps;
 
-const ZZZ: StatelessComponent<{}> = () => (
+const ZZZ: React.StatelessComponent<{}> = () => (
   <span>
     z<sup>
       z<sup>z</sup>
@@ -24,7 +24,7 @@ const ZZZ: StatelessComponent<{}> = () => (
   </span>
 );
 
-const Minion: StatelessComponent<MinionProps> = ({
+const Minion: React.StatelessComponent<MinionProps> = ({
   abilities,
   attack,
   cardID,
@@ -45,12 +45,7 @@ const Minion: StatelessComponent<MinionProps> = ({
             </Label>
           </Transition>
 
-          <Image
-            alt={name}
-            shape="circular"
-            src={`https://art.hearthstonejson.com/v1/256x/${cardID}.jpg`}
-            size="tiny"
-          />
+          <CardArt alt={name} cardID={cardID} size="tiny" />
 
           <Label attached={'bottom left'} circular size="large">
             {attack}
