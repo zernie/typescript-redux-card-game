@@ -24,6 +24,7 @@ export const craftPlayer = (props: {
   armor?: number;
   attack?: number;
   attacksPerformed?: number;
+  cardID: string;
   exhausted?: boolean;
   health?: number;
   mana?: number;

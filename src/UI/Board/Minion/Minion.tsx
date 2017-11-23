@@ -27,12 +27,12 @@ const ZZZ: StatelessComponent<{}> = () => (
 const Minion: StatelessComponent<MinionProps> = ({
   abilities,
   attack,
+  cardID,
   connectDragSource,
   connectDropTarget,
   exhausted,
   health,
   name,
-  texture,
 }) =>
   connectDropTarget(
     connectDragSource(
@@ -48,7 +48,7 @@ const Minion: StatelessComponent<MinionProps> = ({
           <Image
             alt={name}
             shape="circular"
-            src={`https://art.hearthstonejson.com/v1/256x/${texture}.jpg`}
+            src={`https://art.hearthstonejson.com/v1/256x/${cardID}.jpg`}
             size="tiny"
           />
 

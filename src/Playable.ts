@@ -5,6 +5,7 @@ export type Playable = Readonly<{
   abilities: Array<Ability>;
   attacksPerformed: number;
   attack: number;
+  cardID: string;
   destroyed: boolean;
   exhausted: boolean;
   health: number;
@@ -12,5 +13,4 @@ export type Playable = Readonly<{
   maxHealth: number;
   name: string;
   owner: PlayerKind;
-  texture?: string;
 }>;

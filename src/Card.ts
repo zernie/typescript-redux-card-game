@@ -6,11 +6,11 @@ import { CardType, PlayerKind } from './enums';
 
 type BasicCard = Readonly<{
   cost: number;
+  cardID: string;
   id: number;
   name: string;
   owner: PlayerKind;
   text?: string;
-  texture?: string;
 }>;
 
 export type Card = MinionCard | WeaponCard;
@@ -41,13 +41,13 @@ export const playerCards = selectCards(PlayerKind.Player);
 export const opponentCards = selectCards(PlayerKind.Opponent);
 export const craftMinionCard = (props: {
   attack: number;
+  cardID: string;
   cost: number;
   maxHealth: number;
   name: string;
   owner: PlayerKind;
   abilities?: Array<Ability>;
   text?: string;
-  texture?: string;
 }): MinionCard => ({
   abilities: [],
   ...props,
@@ -56,6 +56,7 @@ export const craftMinionCard = (props: {
 });
 export const craftWeaponCard = (props: {
   attack: number;
+  cardID: string;
   cost: number;
   durability: number;
   name: string;

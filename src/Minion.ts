@@ -11,12 +11,12 @@ export type CraftMinionProps = Readonly<{
   abilities?: Array<Ability>;
   attack: number;
   attacksPerformed?: number;
+  cardID: string;
   exhausted?: boolean;
   health?: number;
   maxHealth: number;
   name: string;
   owner: PlayerKind;
-  texture?: string;
 }>;
 
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
@@ -43,10 +43,10 @@ export const minionFromCard = R.pipe<
   R.pick<MinionCard, keyof MinionCard>([
     'abilities',
     'attack',
+    'cardID',
     'maxHealth',
     'name',
     'owner',
-    'texture'
   ]),
   craftMinion,
   R.when<Minion, Minion>(
