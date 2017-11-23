@@ -7,6 +7,7 @@ import { Game, State } from '../Game';
 import { activeHero, other } from '../Hero';
 import initialState from './initialState';
 import { drawCard } from './Deck/deckReducer';
+import { selectCards } from '../Card';
 
 const actionCreator = actionCreatorFactory();
 
@@ -29,7 +30,7 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
 
-  const cards = R.values(state.deck);
+  const cards = R.values(selectCards(player.owner, state.deck));
 
   if (cards.length > 0) {
     dispatch(drawCard(cards[0]));
