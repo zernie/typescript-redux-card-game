@@ -46,7 +46,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
         <DraggableHero {...opponent} />
 
         {connectDropTarget(
-          <div className={`ui basic segment ${isOver ? 'inverted olive raised' : undefined}`}>
+          <div className={`ui basic segment ${isOver ? 'inverted green raised' : ''}`}>
             <Side
               active={!currentPlayer}
               board={opponentMinions(board)}

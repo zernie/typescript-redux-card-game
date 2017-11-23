@@ -3,6 +3,7 @@ import { Grid, Header, Segment, Statistic } from 'semantic-ui-react';
 import { Hero } from '../../../Hero';
 import { performAttack } from '../characterReducer';
 import { State } from '../../../Game';
+import CardArt from '../../CardArt';
 
 interface HeroOwnProps {
   performAttack: typeof performAttack;
@@ -16,6 +17,7 @@ export type HeroProps = Hero & HeroOwnProps;
 
 const Hero: React.StatelessComponent<HeroProps> = ({
   armor,
+  cardID,
   connectDropTarget,
   connectDragSource,
   exhausted,
@@ -41,9 +43,11 @@ const Hero: React.StatelessComponent<HeroProps> = ({
             </Segment>
           )}
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column width={5}>
           <Segment raised={isOver} tertiary={isOver}>
             <Header>{name}</Header>
+
+            <CardArt cardID={cardID} size="tiny" centered/>
 
             <Statistic.Group size="tiny" widths={armor > 0 ? 3 : 2}>
               {armor > 0 && (

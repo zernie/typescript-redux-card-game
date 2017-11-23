@@ -23,6 +23,7 @@ const rawDeck = [
     owner: PlayerKind.Player,
   },
   {
+    abilities: [Ability.Taunt],
     attack: 5,
     cardID: 'CS2_187',
     cost: 5,
@@ -100,7 +101,7 @@ export const handWeapons = R.map(craftWeaponCard, [
     attack: 3,
     cardID: 'CS2_106',
     cost: 3,
-    durability: 3,
+    durability: 2,
     name: 'Fiery War Axe',
     owner: PlayerKind.Opponent,
   },

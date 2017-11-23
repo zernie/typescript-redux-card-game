@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Segment } from 'semantic-ui-react';
+import { List, Segment, Transition } from 'semantic-ui-react';
 import * as R from 'ramda';
 import { Card, CardList } from '../../Card';
 import DraggableCard from './DraggableCard';
@@ -12,12 +12,18 @@ interface HandProps {
 export const Hand: React.StatelessComponent<HandProps> = ({ active, hand }) => {
   return (
     <Segment disabled={!active} basic>
-      <List relaxed selection divided horizontal size="large">
+      <Transition.Group as={List} animation="pulse" horizontal duration={800}>
         {R.map(
-          (card: Card) => <DraggableCard key={card.id} card={card} />,
+          (card: Card) => (
+            <List.Item key={card.id}>
+              <List.Content>
+                <DraggableCard key={card.id} card={card} />
+              </List.Content>
+            </List.Item>
+          ),
           R.values(hand)
         )}
-      </List>
+      </Transition.Group>
     </Segment>
   );
 };
