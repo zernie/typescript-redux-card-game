@@ -12,6 +12,7 @@ import {
   spendMana,
   SpendManaPayload,
 } from './actions';
+import { PlayState } from '../../../enums';
 
 const maximumManaLens = R.lensProp<number, Hero>('maximumMana');
 const manaLens = R.lensProp<number, Hero>('mana');
@@ -42,10 +43,12 @@ const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
 
 const damageHeroHandler = (state: Hero, payload: SourceTargetPayload): Hero => {
   const health = reduceHealth(state, payload.source.attack);
+  const destroyed = health <= 0;
 
   return R.merge(state, {
     armor: reduceArmor(state, payload.source.attack),
-    destroyed: health <= 0,
+    destroyed,
+    playState: destroyed ? PlayState.Lost : state.playState,
     health: health,
   });
 };

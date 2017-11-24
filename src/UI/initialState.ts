@@ -11,7 +11,7 @@ import { Board, boardFrom } from '../Board';
 import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
 import { Character } from '../Character';
-import { GameState, PlayerKind } from '../enums';
+import { PlayerKind, Step } from '../enums';
 
 const rawDeck = [
   {
@@ -142,7 +142,7 @@ const minions = R.map(craftMinion, [
     owner: PlayerKind.Opponent,
   },
   {
-    attack: 2,
+    attack: 200,
     cardID: 'CS2_147',
     exhausted: false,
     maxHealth: 4,
@@ -161,7 +161,7 @@ const initialState: Game = {
   hand,
   state: {
     activePlayer: PlayerKind.Player,
-    gameState: GameState.Playing,
+    step: Step.BeginFirst,
     playerID: player.id,
     opponentID: opponent.id,
     turn: 1,

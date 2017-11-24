@@ -16,6 +16,7 @@ import { equipWeapon, gainMana, restoreMana, spendMana } from './Hero/actions';
 import minionReducer from './Minion/minionReducer';
 import { processDeaths } from './boardReducer';
 import heroReducer from './Hero/heroReducer';
+import { checkForEndGame } from '../gameStateReducer';
 
 // TODO: refactor
 export const performAttack = (
@@ -41,6 +42,7 @@ export const performAttack = (
   }
 
   dispatch(processDeaths());
+  dispatch(checkForEndGame());
 };
 
 const exhaustHandler = R.assoc('exhausted', true);

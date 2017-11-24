@@ -5,13 +5,14 @@ import * as R from 'ramda';
 import { Game } from './Game';
 import { Playable } from './Playable';
 import { Weapon } from './Weapon';
-import { CardType, PlayerKind } from './enums';
+import { CardType, PlayerKind, PlayState } from './enums';
 
 export type Hero = Readonly<
   Playable & {
     armor: number;
     mana: number;
     maximumMana: number;
+    playState: PlayState;
     type: CardType.Hero;
     weapon?: Weapon;
   }
@@ -45,6 +46,7 @@ export const craftPlayer = (props: {
   maximumMana: 0,
   ...props,
   mana: 0,
+  playState: PlayState.Playing,
   type: CardType.Hero,
 });
 
