@@ -43,7 +43,7 @@ const Hero: React.StatelessComponent<HeroProps> = ({
             </Segment>
           )}
         </Grid.Column>
-        <Grid.Column width={5}>
+        <Grid.Column computer={5} tablet={12} mobile={16}>
           <Segment raised={isOver} tertiary={isOver}>
             <Header>{name}</Header>
 

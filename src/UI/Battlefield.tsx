@@ -44,6 +44,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
       player={player}
       opponent={opponent}
       open={step === Step.FinalGameOver}
+      dimmer="blurring"
     />
     <Grid>
       <Grid.Column computer={14} mobile={16}>
