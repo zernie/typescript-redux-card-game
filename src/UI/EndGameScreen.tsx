@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { ModalProps, Modal } from 'semantic-ui-react';
+import { ModalProps, Modal, Transition } from 'semantic-ui-react';
 import { Hero } from '../Hero';
 import { PlayState } from '../enums';
 
 export type EndGameScreenProps = ModalProps & {
   player: Hero;
   opponent: Hero;
+  open: boolean;
 };
 
 const endGameHeader = (player: Hero, opponent: Hero): string => {
@@ -29,12 +30,15 @@ const endGameHeader = (player: Hero, opponent: Hero): string => {
 const EndGameScreen: React.StatelessComponent<EndGameScreenProps> = ({
   player,
   opponent,
+  open,
   ...props,
 }) => (
-  <Modal {...props}>
-    <Modal.Header>{endGameHeader(player, opponent)}</Modal.Header>
-    <Modal.Content />
-  </Modal>
+  <Transition animation={'fade up'} duration={500} visible={open}>
+    <Modal {...props} open={open}>
+      <Modal.Header>{endGameHeader(player, opponent)}</Modal.Header>
+      <Modal.Content />
+    </Modal>
+  </Transition>
 );
 
 export default EndGameScreen;
