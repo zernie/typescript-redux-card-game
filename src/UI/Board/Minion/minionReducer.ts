@@ -1,17 +1,17 @@
-import { reduceHealth } from '../../../Hero';
-import { attackCharacter, dealDamage, SourceTargetPayload } from '../actions';
-import { Minion } from '../../../Minion';
-import { upcastingReducer } from 'typescript-fsa-reducers';
-import { Character } from '../../../Character';
 import * as R from 'ramda';
+import { upcastingReducer } from 'typescript-fsa-reducers';
+import { reduceHealth } from '../../../Hero';
+import { attackCharacter, dealDamage, DealDamagePayload } from '../actions';
+import { Minion } from '../../../Minion';
+import { Character } from '../../../Character';
 
 const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });
 
 const damageMinionHandler = (
   state: Minion,
-  payload: SourceTargetPayload
+  payload: DealDamagePayload
 ): Minion => {
-  const health = reduceHealth(state, payload.source.attack);
+  const health = reduceHealth(state, payload.amount);
 
   return R.merge(state, {
     destroyed: health <= 0,

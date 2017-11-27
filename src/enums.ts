@@ -10,7 +10,7 @@ export enum PlayerKind {
   Opponent = 'OPPONENT',
 }
 
-export const enum PlayState {
+export  enum PlayState {
   Invalid = 'INVALID',
   Playing = 'PLAYING',
   Winning = 'WINNING',
@@ -23,7 +23,7 @@ export const enum PlayState {
   Quit = 'QUIT',
 }
 
-export const enum Step {
+export  enum Step {
   Invalid = 'INVALID',
   BeginFirst = 'BEGIN_FIRST',
   BeginShuffle = 'BEGIN_SHUFFLE',
@@ -42,4 +42,15 @@ export const enum Step {
   FinalGameOver = 'FINAL_GAMEOVER',
   MainCleanup = 'MAIN_CLEANUP',
   MainStartTriggers = 'MAIN_START_TRIGGERS',
+}
+
+export  enum Zone {
+  Invalid = 'INVALID',
+  Play = 'PLAY',
+  Deck = 'DECK',
+  Hand = 'HAND',
+  Graveyard = 'GRAVEYARD',
+  RemovedFromGame = 'REMOVEDFROMGAME',
+  SetAside = 'SETASIDE',
+  Secret = 'SECRET',
 }

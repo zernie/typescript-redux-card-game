@@ -26,6 +26,12 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon => ({
   type: CardType.Weapon,
 });
 export const weaponFromCard = R.pipe<WeaponCard, WeaponCard, Weapon>(
-  R.pick<WeaponCard, keyof WeaponCard>(['abilities', 'attack', 'durability', 'name', 'owner']),
+  R.pick<WeaponCard, keyof WeaponCard>([
+    'abilities',
+    'attack',
+    'durability',
+    'name',
+    'owner',
+  ]),
   craftWeapon
 );

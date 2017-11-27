@@ -1,9 +1,10 @@
 import { upcastingReducer } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { canSpendMana, Hero, reduceArmor, reduceHealth } from '../../../Hero';
-import { attackCharacter, dealDamage, SourceTargetPayload } from '../actions';
+import { attackCharacter, dealDamage, DealDamagePayload } from '../actions';
 import { Character } from '../../../Character';
 import {
+  destroyWeapon,
   equipWeapon,
   EquipWeaponPayload,
   gainMana,
@@ -21,6 +22,8 @@ const attackCharacterHandler = R.evolve<Hero>({
   attacksPerformed: R.inc,
   weapon: { durability: R.dec },
 });
+
+const destroyWeaponHandler = R.assoc<keyof Hero, null>('weapon', null);
 
 const equipWeaponHandler = (state: Hero, payload: EquipWeaponPayload) =>
   R.merge<Hero, {}>(state, {
@@ -41,12 +44,12 @@ const spendManaHandler = (state: Hero, payload: SpendManaPayload) =>
     ? R.set(manaLens, state.mana - payload.amount, state)
     : state;
 
-const damageHeroHandler = (state: Hero, payload: SourceTargetPayload): Hero => {
-  const health = reduceHealth(state, payload.source.attack);
+const damageHeroHandler = (state: Hero, payload: DealDamagePayload): Hero => {
+  const health = reduceHealth(state, payload.amount);
   const destroyed = health <= 0;
 
   return R.merge(state, {
-    armor: reduceArmor(state, payload.source.attack),
+    armor: reduceArmor(state, payload.amount),
     destroyed,
     playState: destroyed ? PlayState.Lost : state.playState,
     health: health,
@@ -55,6 +58,7 @@ const damageHeroHandler = (state: Hero, payload: SourceTargetPayload): Hero => {
 
 export default upcastingReducer<Hero, Character>()
   .case(attackCharacter, attackCharacterHandler)
+  .case(destroyWeapon, destroyWeaponHandler)
   .case(equipWeapon, equipWeaponHandler)
   .case(gainMana, gainManaHandler)
   .case(restoreMana, restoreManaHandler)

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://zernie.github.io/typescript-redux-card-game",
   "dependencies": {
+    "@types/reduce-reducers": "^0.1.3",
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
@@ -26,6 +27,7 @@
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.5",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",

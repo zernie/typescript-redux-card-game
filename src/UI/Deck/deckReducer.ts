@@ -1,16 +1,16 @@
-import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { deck } from '../initialState';
+import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
 import actionCreatorFactory from 'typescript-fsa';
 import * as R from 'ramda';
-import { Card, CardList } from '../../Card';
+import { CardContainer } from '../../Card';
+import { Zone } from '../../enums';
 
 const actionCreator = actionCreatorFactory();
-export const drawCard = actionCreator<Card>('DRAW_CARD');
+export const drawCard = actionCreator<number>('DRAW_CARD');
 
-const drawCardHandler = (state: CardList, payload: Card): CardList =>
-  R.dissoc(payload.id, state);
+const drawCardHandler = (state: CardContainer, payload: number): CardContainer =>
+  R.assocPath([payload, 'zone'], Zone.Hand, state);
 
-export default reducerWithInitialState<CardList>(deck).case(
+export default reducerWithoutInitialState<CardContainer>().case(
   drawCard,
   drawCardHandler
 );

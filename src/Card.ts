@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
 import { newId } from './utils';
-import { EntityContainer } from './EntityContainer';
-import { CardType, PlayerKind } from './enums';
+import { Container } from './Container';
+import { CardType, PlayerKind, Zone } from './enums';
 
 type BasicCard = Readonly<{
   cost: number;
@@ -11,6 +11,7 @@ type BasicCard = Readonly<{
   name: string;
   owner: PlayerKind;
   text?: string;
+  zone: Zone;
 }>;
 
 export type Card = MinionCard | WeaponCard;
@@ -29,11 +30,11 @@ export interface MinionCard extends BasicCard {
   type: CardType.Minion;
 }
 
-export type CardList = EntityContainer<Card>;
+export type CardContainer = Container<Card>;
 
 // export const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 export const selectCards = R.curry(
-  (player: PlayerKind, cards: CardList): CardList =>
+  (player: PlayerKind, cards: CardContainer): CardContainer =>
     R.filter((card: Card) => card.owner === player, cards)
 );
 
@@ -48,6 +49,7 @@ export const craftMinionCard = (props: {
   owner: PlayerKind;
   abilities?: Array<Ability>;
   text?: string;
+  zone: Zone;
 }): MinionCard => ({
   abilities: [],
   ...props,
@@ -63,6 +65,7 @@ export const craftWeaponCard = (props: {
   owner: PlayerKind;
   abilities?: Array<Ability>;
   text?: string;
+  zone: Zone;
 }): WeaponCard => ({
   abilities: [],
   ...props,
@@ -70,5 +73,5 @@ export const craftWeaponCard = (props: {
   type: CardType.Weapon,
 });
 
-export const cardListFrom = (array: Array<Card>): CardList =>
+export const cardListFrom = (array: Array<Card>): CardContainer =>
   R.indexBy<Card>(R.prop('id'), array);

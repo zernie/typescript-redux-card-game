@@ -2,16 +2,16 @@ import actionCreatorFactory from 'typescript-fsa';
 import { Character } from '../../Character';
 
 const actionCreator = actionCreatorFactory();
-export type CharacterPayload<T = {}> = T & { id: number };
+export type EntityPayload<T = {}> = T & { id: number };
 
-export type SourceTargetPayload = CharacterPayload<{
+export type SourceTargetPayload = EntityPayload<{
   source: Character;
   target: Character;
 }>;
-export type ExhaustPayload = CharacterPayload<Character>;
+export type DealDamagePayload = EntityPayload<{ amount: number }>;
 
-export const attackCharacter = actionCreator<CharacterPayload>(
+export const attackCharacter = actionCreator<EntityPayload>(
   'ATTACK_CHARACTER'
 );
-export const dealDamage = actionCreator<SourceTargetPayload>('DEAL_DAMAGE');
-export const exhaust = actionCreator<ExhaustPayload>('EXHAUST');
+export const dealDamage = actionCreator<DealDamagePayload>('DEAL_DAMAGE');
+export const exhaust = actionCreator<EntityPayload>('EXHAUST');

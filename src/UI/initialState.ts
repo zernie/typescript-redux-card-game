@@ -1,81 +1,28 @@
 import * as R from 'ramda';
 import { Game } from '../Game';
-import { craftPlayer, Hero } from '../Hero';
+import { craftHero, Hero } from '../Hero';
 import {
-  CardList,
+  CardContainer,
   cardListFrom,
   craftMinionCard,
   craftWeaponCard,
 } from '../Card';
-import { Board, boardFrom } from '../Board';
+import {  entitiesFrom } from '../Board';
 import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
-import { Character } from '../Character';
-import { PlayerKind, Step } from '../enums';
-
-const rawDeck = [
-  {
-    attack: 3,
-    cardID: 'CS2_172',
-    cost: 2,
-    maxHealth: 2,
-    name: 'Bloodfen Raptor',
-    owner: PlayerKind.Player,
-  },
-  {
-    abilities: [Ability.Taunt],
-    attack: 5,
-    cardID: 'CS2_187',
-    cost: 5,
-    maxHealth: 4,
-    name: 'Booty Bay Bodyguard',
-    owner: PlayerKind.Opponent,
-  },
-  {
-    attack: 3,
-    cardID: 'CS2_182',
-    cost: 4,
-    maxHealth: 4,
-    name: 'Chillwind Yeti',
-    owner: PlayerKind.Player,
-  },
-  {
-    attack: 2,
-    cardID: 'CS2_121',
-    cost: 2,
-    maxHealth: 2,
-    name: 'Frostwolf Grunt',
-    owner: PlayerKind.Opponent,
-  },
-  {
-    attack: 2,
-    cardID: 'CS2_141',
-    cost: 3,
-    maxHealth: 2,
-    name: 'Ironforge Rifleman',
-    owner: PlayerKind.Player,
-  },
-  {
-    attack: 3,
-    cardID: 'CS2_125',
-    cost: 3,
-    maxHealth: 3,
-    name: 'Ironfur Grizzly',
-    owner: PlayerKind.Player,
-  },
-];
-
-export const deck: CardList = cardListFrom(R.map(craftMinionCard, rawDeck));
+import { PlayerKind, Step, Zone } from '../enums';
+import { EntityContainer } from '../Entity';
 
 const handMinions = R.map(craftMinionCard, [
   {
     abilities: [Ability.Charge],
-    attack: 1,
+    attack: 2,
     cardID: 'CS2_173',
     cost: 2,
-    maxHealth: 2,
+    maxHealth: 1,
     name: 'Bluegill Warrior',
     owner: PlayerKind.Player,
+    zone: Zone.Hand,
   },
   {
     abilities: [Ability.Windfury],
@@ -85,6 +32,7 @@ const handMinions = R.map(craftMinionCard, [
     maxHealth: 4,
     name: 'Windspeaker',
     owner: PlayerKind.Player,
+    zone: Zone.Hand,
   },
   {
     attack: 6,
@@ -93,10 +41,11 @@ const handMinions = R.map(craftMinionCard, [
     maxHealth: 7,
     name: 'Boulderfist Ogre',
     owner: PlayerKind.Opponent,
+    zone: Zone.Hand,
   },
 ]);
 
-export const handWeapons = R.map(craftWeaponCard, [
+const handWeapons = R.map(craftWeaponCard, [
   {
     attack: 3,
     cardID: 'CS2_106',
@@ -104,22 +53,82 @@ export const handWeapons = R.map(craftWeaponCard, [
     durability: 2,
     name: 'Fiery War Axe',
     owner: PlayerKind.Opponent,
+    zone: Zone.Hand,
   },
 ]);
 
-export const hand: CardList = cardListFrom([...handMinions, ...handWeapons]);
+const hand: CardContainer = cardListFrom([...handMinions, ...handWeapons]);
+const rawDeck = [
+  {
+    attack: 3,
+    cardID: 'CS2_172',
+    cost: 2,
+    maxHealth: 2,
+    name: 'Bloodfen Raptor',
+    owner: PlayerKind.Player,
+    zone: Zone.Deck,
+  },
+  {
+    abilities: [Ability.Taunt],
+    attack: 5,
+    cardID: 'CS2_187',
+    cost: 5,
+    maxHealth: 4,
+    name: 'Booty Bay Bodyguard',
+    owner: PlayerKind.Opponent,
+    zone: Zone.Deck,
+  },
+  {
+    attack: 3,
+    cardID: 'CS2_182',
+    cost: 4,
+    maxHealth: 4,
+    name: 'Chillwind Yeti',
+    owner: PlayerKind.Player,
+    zone: Zone.Deck,
+  },
+  {
+    attack: 2,
+    cardID: 'CS2_121',
+    cost: 2,
+    maxHealth: 2,
+    name: 'Frostwolf Grunt',
+    owner: PlayerKind.Opponent,
+    zone: Zone.Deck,
+  },
+  {
+    attack: 2,
+    cardID: 'CS2_141',
+    cost: 3,
+    maxHealth: 2,
+    name: 'Ironforge Rifleman',
+    owner: PlayerKind.Player,
+    zone: Zone.Deck,
+  },
+  {
+    attack: 3,
+    cardID: 'CS2_125',
+    cost: 3,
+    maxHealth: 3,
+    name: 'Ironfur Grizzly',
+    owner: PlayerKind.Player,
+    zone: Zone.Deck,
+  },
+];
 
-export const player: Hero = craftPlayer({
+const deck: CardContainer = cardListFrom(R.map(craftMinionCard, rawDeck));
+
+const player: Hero = craftHero({
   cardID: 'HERO_08',
-  name: 'Mage',
+  name: 'Jaina',
   owner: PlayerKind.Player,
   maximumMana: 4,
 });
 
-export const opponent: Hero = craftPlayer({
+const opponent: Hero = craftHero({
   cardID: 'HERO_01',
   armor: 3,
-  name: 'Warrior',
+  name: 'Garrosh',
   owner: PlayerKind.Opponent,
   maximumMana: 4,
 });
@@ -151,14 +160,12 @@ const minions = R.map(craftMinion, [
   },
 ]);
 
-const characters: Array<Character> = [player, opponent, ...minions];
-
-export const board: Board = boardFrom(characters);
+export const cards: CardContainer = { ...deck, ...hand };
+export const board: EntityContainer = entitiesFrom([player, opponent, ...minions]);
 
 const initialState: Game = {
-  board,
-  deck,
-  hand,
+  cards,
+  entities: board,
   state: {
     activePlayer: PlayerKind.Player,
     step: Step.BeginFirst,

@@ -20,7 +20,7 @@ export type Hero = Readonly<
 
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
-export const craftPlayer = (props: {
+export const craftHero = (props: {
   abilities?: Ability[];
   armor?: number;
   attack?: number;
@@ -42,10 +42,10 @@ export const craftPlayer = (props: {
   exhausted: false,
   health: props.maxHealth || 30,
   id: newId(),
+  mana: 0,
   maxHealth: 30,
   maximumMana: 0,
   ...props,
-  mana: 0,
   playState: PlayState.Playing,
   type: CardType.Hero,
 });
@@ -68,8 +68,10 @@ export const activeHero = (game: Game): Hero =>
     : getOpponent(game);
 
 export const getPlayer = (game: Game): Hero =>
-  game.board[game.state.playerID] as Hero;
+  game.entities[game.state.playerID] as Hero;
 export const getOpponent = (game: Game): Hero =>
-  game.board[game.state.opponentID] as Hero;
+  game.entities[game.state.opponentID] as Hero;
 export const playerID = (player: PlayerKind, game: Game): number =>
+  player === PlayerKind.Player ? getPlayer(game).id : getOpponent(game).id;
+export const opponentID = (player: PlayerKind, game: Game): number =>
   player === PlayerKind.Player ? getPlayer(game).id : getOpponent(game).id;

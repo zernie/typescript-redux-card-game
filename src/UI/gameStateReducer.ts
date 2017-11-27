@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { actionCreatorFactory } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { gainMana, restoreMana } from './Board/Hero/actions';
-import { Game, State } from '../Game';
+import { Game, getDeck, State } from '../Game';
 import { activeHero, getOpponent, getPlayer, other } from '../Hero';
 import initialState from './initialState';
 import { drawCard } from './Deck/deckReducer';
@@ -52,10 +52,10 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
 
-  const cards = R.values(selectCards(player.owner, state.deck));
+  const cards = R.values(selectCards(player.owner, getDeck(state)));
 
   if (cards.length > 0) {
-    dispatch(drawCard(cards[0]));
+    dispatch(drawCard(cards[0].id));
   }
 };
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Game } from '../Game';
-import { Card, opponentCards, playerCards } from '../Card';
+import { Card, CardContainer, opponentCards, playerCards } from '../Card';
 import { opponentMinions, playerMinions } from '../Minion';
 import DraggableHero from './Board/Hero/DraggableHero';
 import Side from './Board/Minion/Side';
@@ -13,6 +13,7 @@ import { Hero } from '../Hero';
 import Deck from './Deck/Deck';
 import { Step } from '../enums';
 import EndGameScreen from './EndGameScreen';
+import { MinionContainer } from '../Board';
 
 interface BattlefieldOwnProps {
   card: Card;
@@ -23,6 +24,9 @@ interface BattlefieldOwnProps {
   playCard: typeof playCard;
   player: Hero;
   opponent: Hero;
+  board: MinionContainer;
+  hand: CardContainer;
+  deck: CardContainer;
 }
 
 export type BattlefieldProps = Game & BattlefieldOwnProps;

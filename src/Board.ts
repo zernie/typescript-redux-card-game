@@ -1,14 +1,10 @@
 import * as R from 'ramda';
-import { EntityContainer } from './EntityContainer';
+import { Container } from './Container';
 import { Character } from './Character';
-import { CardType } from './enums';
 import { Minion } from './Minion';
+import { EntityContainer } from './Entity';
 
-export type Board = EntityContainer<Character>;
-export type MinionContainer = EntityContainer<Minion>;
+export type MinionContainer = Container<Minion>;
 
-export const boardFrom = (array: Array<Character>): Board =>
+export const entitiesFrom = (array: Array<Character>): EntityContainer =>
   R.indexBy<Character>(R.prop('id'), array);
-
-export const minionsFrom = (board: Board): MinionContainer =>
-  R.filter(R.propEq('type', CardType.Minion), board);

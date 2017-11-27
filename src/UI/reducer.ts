@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import gameStateReducer from './gameStateReducer';
+import cardsReducer from './cardsReducer';
 import boardReducer from './Board/boardReducer';
-import deckReducer from './Deck/deckReducer';
-import handReducer from './Hand/handReducer';
 
 export default combineReducers({
-  board: boardReducer,
-  deck: deckReducer,
-  hand: handReducer,
+  entities: boardReducer,
+  cards: cardsReducer,
   state: gameStateReducer,
 });

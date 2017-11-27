@@ -3,12 +3,12 @@ import { StatelessComponent } from 'react';
 import { List, Segment, Transition } from 'semantic-ui-react';
 import * as R from 'ramda';
 import DraggableMinion from './DraggableMinion';
-import { Board, minionsFrom } from '../../../Board';
+import { MinionContainer } from '../../../Board';
 import { Minion } from '../../../Minion';
 
 export interface SideProps {
   active: boolean;
-  board: Board;
+  board: MinionContainer;
 }
 
 const Side: StatelessComponent<SideProps> = ({ active, board }) => (
@@ -27,7 +27,7 @@ const Side: StatelessComponent<SideProps> = ({ active, board }) => (
             <DraggableMinion {...minion} />
           </List.Item>
         ),
-        R.values(minionsFrom(board))
+        R.values(board)
       )}
     </Transition.Group>
   </Segment>

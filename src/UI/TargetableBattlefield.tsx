@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
-import { Game } from '../Game';
+import { Game, getBoard, getDeck, getHand } from '../Game';
 import { activeHero, getOpponent, getPlayer } from '../Hero';
 import Battlefield, { BattlefieldProps } from './Battlefield';
 import { endTurn } from './gameStateReducer';
@@ -32,6 +32,9 @@ const mapStateToProps = (game: Game) =>
       currentPlayer: activeHero(game) === getPlayer(game),
       player: getPlayer(game),
       opponent: getOpponent(game),
+      board: getBoard(game),
+      hand: getHand(game),
+      deck: getDeck(game),
     },
     game
   );
