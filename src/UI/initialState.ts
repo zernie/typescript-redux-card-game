@@ -7,7 +7,7 @@ import {
   craftMinionCard,
   craftWeaponCard,
 } from '../Card';
-import {  entitiesFrom } from '../Board';
+import { entitiesFrom } from '../Board';
 import { craftMinion } from '../Minion';
 import { Ability } from '../Abilities';
 import { PlayerKind, Step, Zone } from '../enums';
@@ -143,6 +143,7 @@ const minions = R.map(craftMinion, [
     owner: PlayerKind.Opponent,
   },
   {
+    abilities: [Ability.Taunt],
     attack: 2,
     cardID: 'CS2_121',
     exhausted: false,
@@ -161,7 +162,11 @@ const minions = R.map(craftMinion, [
 ]);
 
 export const cards: CardContainer = { ...deck, ...hand };
-export const board: EntityContainer = entitiesFrom([player, opponent, ...minions]);
+export const board: EntityContainer = entitiesFrom([
+  player,
+  opponent,
+  ...minions,
+]);
 
 const initialState: Game = {
   cards,

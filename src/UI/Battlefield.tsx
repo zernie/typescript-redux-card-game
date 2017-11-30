@@ -53,7 +53,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
     <Grid>
       <Grid.Column computer={14} mobile={16}>
         <Hand active={!currentPlayer} hand={opponentCards(hand)} />
-        <DraggableHero {...opponent} />
+        <DraggableHero character={opponent} />
 
         {connectDropTarget(
           <div
@@ -67,7 +67,7 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
           </div>
         )}
 
-        <DraggableHero {...player} />
+        <DraggableHero character={player} />
         <Hand active={currentPlayer} hand={playerCards(hand)} />
       </Grid.Column>
 

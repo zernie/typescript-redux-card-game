@@ -14,7 +14,8 @@ const spec: DnD.DragSourceSpec<HeroProps> = {
   beginDrag: (props, monitor, component) => props,
   isDragging: (props, monitor: DnD.DragSourceMonitor) => monitor.isDragging(),
   canDrag: (props, monitor: DnD.DragSourceMonitor) =>
-    props.owner === props.state.activePlayer && canAttack(props),
+    props.character.owner === props.state.activePlayer &&
+    canAttack(props.character),
 };
 
 const DraggableHero = DnD.DragSource<HeroProps>('Hero', spec, collect)(

@@ -3,14 +3,22 @@ import { Hero } from './Hero';
 import { Ability } from './Abilities';
 import { Minion } from './Minion';
 import { Card } from './Card';
-import { Game, getCharacters } from './Game';
+import { Game } from './Game';
 import { Container } from './Container';
+import { CardType } from './enums';
+import { MinionContainer } from './Board';
 
 export type Character = Hero | Minion;
 export type CharacterContainer = Container<Character>;
 
 export const getCharacter = (id: number, game: Game): Character =>
   getCharacters(game)[id];
+
+export const getCharacters = (game: Game): CharacterContainer =>
+  R.filter(
+    R.propSatisfies(R.contains(R.__, [CardType.Minion, CardType.Hero]), 'type'),
+    game.entities
+  );
 
 export const hasAbility = R.curry(
   (ability: Ability, entity: Character | Card): boolean =>
@@ -24,3 +32,11 @@ export const shouldExhaust = (character: Character): boolean =>
     character.attacksPerformed < 1 ||
     (hasAbility(Ability.Windfury, character) && character.attacksPerformed < 2)
   );
+
+export const anyTaunts = (characters: MinionContainer) =>
+  R.any(
+    R.propSatisfies(R.contains(Ability.Taunt), 'abilities'),
+    R.values(characters)
+  );
+
+export const hasTaunt = hasAbility(Ability.Taunt);

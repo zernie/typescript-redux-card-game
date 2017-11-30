@@ -24,7 +24,7 @@ const Side: StatelessComponent<SideProps> = ({ active, board }) => (
       {R.map(
         (minion: Minion) => (
           <List.Item key={minion.id}>
-            <DraggableMinion {...minion} />
+            <DraggableMinion character={minion} />
           </List.Item>
         ),
         R.values(board)

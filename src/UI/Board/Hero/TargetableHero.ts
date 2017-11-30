@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { performAttack } from '../characterReducer';
 import HeroCard, { HeroProps } from './Hero';
-import {  MinionProps } from '../Minion/Minion';
+import { MinionProps } from '../Minion/Minion';
+import { getMinions, isValidTarget, ownerMinions } from '../../../Minion';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
@@ -13,18 +14,32 @@ const collect: DnD.DropTargetCollector = (connector, monitor) => ({
 
 const spec: DnD.DropTargetSpec<HeroProps> = {
   drop: (props, monitor: DnD.DropTargetMonitor) => {
-    const attacker = monitor.getItem() as MinionProps;
+    const { character } = monitor.getItem() as MinionProps;
+
+    console.log({
+      id: props.character.id,
+      source: character,
+      target: props,
+    });
 
     return props.performAttack({
-      id: props.id,
-      source: attacker,
-      target: props,
+      id: props.character.id,
+      source: character,
+      target: props.character,
     });
   },
   canDrop: (props, monitor: DnD.DropTargetMonitor) => {
-    const { owner } = monitor.getItem() as MinionProps;
+    const { character, entities } = monitor.getItem() as MinionProps;
 
-    return props.owner !== owner;
+    const enemyMinions = ownerMinions(
+      props.character.owner,
+      getMinions(entities)
+    );
+
+    return (
+      props.character.owner !== character.owner &&
+      isValidTarget(props.character, enemyMinions)
+    );
   },
 };
 

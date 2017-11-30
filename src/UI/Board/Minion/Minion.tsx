@@ -4,17 +4,18 @@ import { Minion } from '../../../Minion';
 import { State } from '../../../Game';
 import { performAttack } from '../characterReducer';
 import CardArt from '../../CardArt';
+import { EntityContainer } from '../../../Entity';
 
-interface MinionOwnProps {
+export interface MinionProps {
+  character: Minion;
   connectDragSource: Function;
   connectDropTarget: Function;
+  entities: EntityContainer;
   isOver: boolean;
   isDragging: boolean;
   performAttack: typeof performAttack;
   state: State;
 }
-
-export type MinionProps = Minion & MinionOwnProps;
 
 const ZZZ: React.StatelessComponent<{}> = () => (
   <span>
@@ -25,15 +26,9 @@ const ZZZ: React.StatelessComponent<{}> = () => (
 );
 
 const Minion: React.StatelessComponent<MinionProps> = ({
-  abilities,
-  attack,
-  cardID,
+  character: { abilities, attack, cardID, exhausted, health, maxHealth, name },
   connectDragSource,
   connectDropTarget,
-  exhausted,
-  health,
-  maxHealth,
-  name,
 }) =>
   connectDropTarget(
     connectDragSource(

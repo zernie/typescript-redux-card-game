@@ -3,7 +3,6 @@ import { CardType, PlayerKind, Step, Zone } from './enums';
 import { CardContainer } from './Card';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
-import { CharacterContainer } from './Character';
 
 export type State = Readonly<{
   activePlayer: PlayerKind;
@@ -18,12 +17,6 @@ export type Game = Readonly<{
   cards: CardContainer;
   state: State;
 }>;
-
-export const getCharacters = (game: Game): CharacterContainer =>
-  R.filter(
-    R.propSatisfies(R.contains(R.__, [CardType.Minion, CardType.Hero]), 'type'),
-    game.entities
-  );
 
 export const getHand = (game: Game): CardContainer =>
   R.pickBy(R.propEq('zone', Zone.Hand), game.cards);

@@ -1,10 +1,12 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
-import { hasAbility } from './Character';
+import { anyTaunts, Character, hasAbility, hasTaunt } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
 import { CardType, PlayerKind } from './enums';
 import { MinionCard } from './Card';
+import { EntityContainer } from './Entity';
+import { MinionContainer } from './Board';
 
 export type Minion = Readonly<Playable & { type: CardType.Minion }>;
 export type CraftMinionProps = Readonly<{
@@ -54,3 +56,14 @@ export const minionFromCard = R.pipe<
     R.assoc<keyof CraftMinionProps, boolean>('exhausted', false)
   )
 );
+
+export const getMinions = (entities: EntityContainer): MinionContainer =>
+  R.pickBy(R.propEq('type', CardType.Minion), entities);
+
+export const ownerMinions = R.curry(
+  (player: PlayerKind, minions: MinionContainer): MinionContainer =>
+    R.filter(R.propEq('owner', player), minions)
+);
+
+export const isValidTarget = (character: Character, characters: MinionContainer) =>
+  anyTaunts(characters) ? hasTaunt(character) : true;

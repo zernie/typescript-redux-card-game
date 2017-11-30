@@ -5,7 +5,8 @@ import { performAttack } from '../characterReducer';
 import { State } from '../../../Game';
 import CardArt from '../../CardArt';
 
-interface HeroOwnProps {
+export interface HeroProps {
+  character: Hero;
   performAttack: typeof performAttack;
   connectDragSource: Function;
   connectDropTarget: Function;
@@ -13,20 +14,20 @@ interface HeroOwnProps {
   state: State;
 }
 
-export type HeroProps = Hero & HeroOwnProps;
-
 const Hero: React.StatelessComponent<HeroProps> = ({
-  armor,
-  cardID,
+  character: {
+    armor,
+    cardID,
+    exhausted,
+    name,
+    health,
+    mana,
+    maximumMana,
+    weapon,
+  },
   connectDropTarget,
   connectDragSource,
-  exhausted,
   isOver,
-  name,
-  health,
-  mana,
-  maximumMana,
-  weapon,
 }) =>
   connectDropTarget(
     connectDragSource(
@@ -47,7 +48,7 @@ const Hero: React.StatelessComponent<HeroProps> = ({
           <Segment raised={isOver} tertiary={isOver}>
             <Header>{name}</Header>
 
-            <CardArt cardID={cardID} size="tiny" centered/>
+            <CardArt cardID={cardID} size="tiny" centered />
 
             <Statistic.Group size="tiny" widths={armor > 0 ? 3 : 2}>
               {armor > 0 && (
