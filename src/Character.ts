@@ -6,7 +6,6 @@ import { Card } from './Card';
 import { Game } from './Game';
 import { Container } from './Container';
 import { CardType } from './enums';
-import { MinionContainer } from './Board';
 
 export type Character = Hero | Minion;
 export type CharacterContainer = Container<Character>;
@@ -30,13 +29,9 @@ export const canAttack = (character: Character): boolean =>
 export const shouldExhaust = (character: Character): boolean =>
   !(
     character.attacksPerformed < 1 ||
-    (hasAbility(Ability.Windfury, character) && character.attacksPerformed < 2)
-  );
-
-export const anyTaunts = (characters: MinionContainer) =>
-  R.any(
-    R.propSatisfies(R.contains(Ability.Taunt), 'abilities'),
-    R.values(characters)
+    (hasWindfury(character) && character.attacksPerformed < 2)
   );
 
 export const hasTaunt = hasAbility(Ability.Taunt);
+export const hasCharge = hasAbility(Ability.Charge);
+export const hasWindfury = hasAbility(Ability.Windfury);

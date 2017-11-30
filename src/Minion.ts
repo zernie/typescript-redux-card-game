@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { Ability } from './Abilities';
-import { anyTaunts, Character, hasAbility, hasTaunt } from './Character';
+import { Character, hasCharge, hasTaunt } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
 import { CardType, PlayerKind } from './enums';
@@ -52,7 +52,7 @@ export const minionFromCard = R.pipe<
   ]),
   craftMinion,
   R.when<Minion, Minion>(
-    hasAbility(Ability.Charge),
+    hasCharge,
     R.assoc<keyof CraftMinionProps, boolean>('exhausted', false)
   )
 );
@@ -64,6 +64,12 @@ export const ownerMinions = R.curry(
   (player: PlayerKind, minions: MinionContainer): MinionContainer =>
     R.filter(R.propEq('owner', player), minions)
 );
+
+export const anyTaunts = (minions: MinionContainer) =>
+  R.any(
+    R.propSatisfies(R.contains(Ability.Taunt), 'abilities'),
+    R.values(minions)
+  );
 
 export const isValidTarget = (character: Character, characters: MinionContainer) =>
   anyTaunts(characters) ? hasTaunt(character) : true;
