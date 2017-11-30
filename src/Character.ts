@@ -1,11 +1,10 @@
 import * as R from 'ramda';
 import { Hero } from './Hero';
-import { Ability } from './Abilities';
 import { Minion } from './Minion';
 import { Card } from './Card';
 import { Game } from './Game';
 import { Container } from './Container';
-import { CardType } from './enums';
+import { Ability, CardType } from './enums';
 
 export type Character = Hero | Minion;
 export type CharacterContainer = Container<Character>;

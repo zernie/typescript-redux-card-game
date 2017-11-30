@@ -1,8 +1,8 @@
-import { Ability } from './Abilities';
+import { Abilities } from './Abilities';
 import { PlayerKind } from './enums';
 
 export type Playable = Readonly<{
-  abilities: Array<Ability>;
+  abilities: Abilities;
   attacksPerformed: number;
   attack: number;
   cardID: string;

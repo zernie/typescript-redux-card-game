@@ -9,7 +9,7 @@ import {
 } from '../Card';
 import { entitiesFrom } from '../Board';
 import { craftMinion } from '../Minion';
-import { Ability } from '../Abilities';
+import { Ability } from '../enums';
 import { PlayerKind, Step, Zone } from '../enums';
 import { EntityContainer } from '../Entity';
 

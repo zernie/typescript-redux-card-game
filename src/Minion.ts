@@ -1,16 +1,16 @@
 import * as R from 'ramda';
-import { Ability } from './Abilities';
+import { Abilities } from './Abilities';
 import { Character, hasCharge, hasTaunt } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
-import { CardType, PlayerKind } from './enums';
+import { Ability, CardType, PlayerKind } from './enums';
 import { MinionCard } from './Card';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
 
 export type Minion = Readonly<Playable & { type: CardType.Minion }>;
 export type CraftMinionProps = Readonly<{
-  abilities?: Array<Ability>;
+  abilities?: Abilities;
   attack: number;
   attacksPerformed?: number;
   cardID: string;

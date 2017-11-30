@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { Ability } from './Abilities';
+import { Abilities } from './Abilities';
 import { newId } from './utils';
 import { Container } from './Container';
 import { CardType, PlayerKind, Zone } from './enums';
@@ -17,14 +17,14 @@ type BasicCard = Readonly<{
 export type Card = MinionCard | WeaponCard;
 
 export interface WeaponCard extends BasicCard {
-  abilities: Array<Ability>;
+  abilities: Abilities;
   attack: number;
   durability: number;
   type: CardType.Weapon;
 }
 
 export interface MinionCard extends BasicCard {
-  abilities: Array<Ability>;
+  abilities: Abilities;
   attack: number;
   maxHealth: number;
   type: CardType.Minion;
@@ -47,7 +47,7 @@ export const craftMinionCard = (props: {
   maxHealth: number;
   name: string;
   owner: PlayerKind;
-  abilities?: Array<Ability>;
+  abilities?: Abilities;
   text?: string;
   zone: Zone;
 }): MinionCard => ({
@@ -63,7 +63,7 @@ export const craftWeaponCard = (props: {
   durability: number;
   name: string;
   owner: PlayerKind;
-  abilities?: Array<Ability>;
+  abilities?: Abilities;
   text?: string;
   zone: Zone;
 }): WeaponCard => ({

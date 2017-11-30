@@ -1,3 +1,27 @@
+export enum Ability {
+  Adapt = 'Adapt',
+  Battlecry = 'Battlecry',
+  Charge = 'Charge',
+  ChooseOne = 'Choose one',
+  Combo = 'Combo',
+  Counter = 'Counter',
+  DeathRattle = 'Deathrattle',
+  Discover = 'Discover',
+  DivineShield = 'Divine shield',
+  Enrage = 'Enrage',
+  Freeze = 'Freeze',
+  Immune = 'Immune',
+  Inspire = 'Inspire',
+  Overload = 'Overload',
+  Poisonous = 'Poisonous',
+  Quest = 'Quest',
+  Secret = 'Secret',
+  Silence = 'Silence',
+  Stealth = 'Stealth',
+  Taunt = 'Taunt',
+  Windfury = 'Windfury',
+}
+
 export enum CardType {
   Minion = 'MINION',
   Weapon = 'WEAPON',

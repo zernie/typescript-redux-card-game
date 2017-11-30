@@ -1,5 +1,5 @@
 import { Character } from './Character';
-import { Ability } from './Abilities';
+import { Abilities } from './Abilities';
 import { newId } from './utils';
 import * as R from 'ramda';
 import { Game } from './Game';
@@ -21,7 +21,7 @@ export type Hero = Readonly<
 export const other = (player: PlayerKind): PlayerKind =>
   player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
 export const craftHero = (props: {
-  abilities?: Ability[];
+  abilities?: Abilities;
   armor?: number;
   attack?: number;
   attacksPerformed?: number;
