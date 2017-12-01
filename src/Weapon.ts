@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { Abilities } from './Abilities';
-import { CardType, PlayerKind } from './enums';
+import { CardType, Controller } from './enums';
 import { WeaponCard } from './Card';
 
 export type Weapon = Readonly<{
@@ -8,7 +8,7 @@ export type Weapon = Readonly<{
   attack: number;
   durability: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
   type: CardType.Weapon;
 }>;
 export type CraftWeaponProps = Readonly<{
@@ -16,7 +16,7 @@ export type CraftWeaponProps = Readonly<{
   attack: number;
   durability: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
 }>;
 
 export const craftWeapon = (props: CraftWeaponProps): Weapon => ({

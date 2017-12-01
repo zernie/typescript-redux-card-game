@@ -1,11 +1,11 @@
 import * as R from 'ramda';
-import { CardType, PlayerKind, Step, Zone } from './enums';
+import { CardType, Controller, Step, Zone } from './enums';
 import { CardContainer } from './Card';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
 
 export type State = Readonly<{
-  activePlayer: PlayerKind;
+  activePlayer: Controller;
   step: Step;
   playerID: number;
   opponentID: number;

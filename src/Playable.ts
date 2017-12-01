@@ -1,5 +1,5 @@
 import { Abilities } from './Abilities';
-import { PlayerKind } from './enums';
+import { Controller } from './enums';
 
 export type Playable = Readonly<{
   abilities: Abilities;
@@ -12,5 +12,5 @@ export type Playable = Readonly<{
   id: number;
   maxHealth: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
 }>;

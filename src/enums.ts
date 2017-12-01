@@ -29,7 +29,7 @@ export enum CardType {
   Enchantment = 'ENCHANTMENT',
 }
 
-export enum PlayerKind {
+export enum Controller {
   Player = 'PLAYER',
   Opponent = 'OPPONENT',
 }

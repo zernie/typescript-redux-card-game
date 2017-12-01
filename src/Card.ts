@@ -2,14 +2,14 @@ import * as R from 'ramda';
 import { Abilities } from './Abilities';
 import { newId } from './utils';
 import { Container } from './Container';
-import { CardType, PlayerKind, Zone } from './enums';
+import { CardType, Controller, Zone } from './enums';
 
 type BasicCard = Readonly<{
   cost: number;
   cardID: string;
   id: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
   text?: string;
   zone: Zone;
 }>;
@@ -34,19 +34,19 @@ export type CardContainer = Container<Card>;
 
 // export const selectCards = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 export const selectCards = R.curry(
-  (player: PlayerKind, cards: CardContainer): CardContainer =>
+  (player: Controller, cards: CardContainer): CardContainer =>
     R.filter((card: Card) => card.owner === player, cards)
 );
 
-export const playerCards = selectCards(PlayerKind.Player);
-export const opponentCards = selectCards(PlayerKind.Opponent);
+export const playerCards = selectCards(Controller.Player);
+export const opponentCards = selectCards(Controller.Opponent);
 export const craftMinionCard = (props: {
   attack: number;
   cardID: string;
   cost: number;
   maxHealth: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
   abilities?: Abilities;
   text?: string;
   zone: Zone;
@@ -62,7 +62,7 @@ export const craftWeaponCard = (props: {
   cost: number;
   durability: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
   abilities?: Abilities;
   text?: string;
   zone: Zone;

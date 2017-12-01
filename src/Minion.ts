@@ -3,7 +3,7 @@ import { Abilities } from './Abilities';
 import { Character, hasCharge, hasTaunt } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
-import { Ability, CardType, PlayerKind } from './enums';
+import { Ability, CardType, Controller } from './enums';
 import { MinionCard } from './Card';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
@@ -18,13 +18,13 @@ export type CraftMinionProps = Readonly<{
   health?: number;
   maxHealth: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
 }>;
 
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
 
-export const playerMinions = selectMinions(PlayerKind.Player);
-export const opponentMinions = selectMinions(PlayerKind.Opponent);
+export const playerMinions = selectMinions(Controller.Player);
+export const opponentMinions = selectMinions(Controller.Opponent);
 
 export const craftMinion = (props: CraftMinionProps): Minion => ({
   abilities: [],
@@ -61,7 +61,7 @@ export const getMinions = (entities: EntityContainer): MinionContainer =>
   R.pickBy(R.propEq('type', CardType.Minion), entities);
 
 export const ownerMinions = R.curry(
-  (player: PlayerKind, minions: MinionContainer): MinionContainer =>
+  (player: Controller, minions: MinionContainer): MinionContainer =>
     R.filter(R.propEq('owner', player), minions)
 );
 

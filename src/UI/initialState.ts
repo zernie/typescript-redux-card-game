@@ -10,7 +10,7 @@ import {
 import { entitiesFrom } from '../Board';
 import { craftMinion } from '../Minion';
 import { Ability } from '../enums';
-import { PlayerKind, Step, Zone } from '../enums';
+import { Controller, Step, Zone } from '../enums';
 import { EntityContainer } from '../Entity';
 
 const handMinions = R.map(craftMinionCard, [
@@ -21,7 +21,7 @@ const handMinions = R.map(craftMinionCard, [
     cost: 2,
     maxHealth: 1,
     name: 'Bluegill Warrior',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Hand,
   },
   {
@@ -31,7 +31,7 @@ const handMinions = R.map(craftMinionCard, [
     cost: 4,
     maxHealth: 4,
     name: 'Windspeaker',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Hand,
   },
   {
@@ -40,7 +40,7 @@ const handMinions = R.map(craftMinionCard, [
     cost: 6,
     maxHealth: 7,
     name: 'Boulderfist Ogre',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
     zone: Zone.Hand,
   },
 ]);
@@ -52,7 +52,7 @@ const handWeapons = R.map(craftWeaponCard, [
     cost: 3,
     durability: 2,
     name: 'Fiery War Axe',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
     zone: Zone.Hand,
   },
 ]);
@@ -65,7 +65,7 @@ const rawDeck = [
     cost: 2,
     maxHealth: 2,
     name: 'Bloodfen Raptor',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Deck,
   },
   {
@@ -75,7 +75,7 @@ const rawDeck = [
     cost: 5,
     maxHealth: 4,
     name: 'Booty Bay Bodyguard',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
     zone: Zone.Deck,
   },
   {
@@ -84,7 +84,7 @@ const rawDeck = [
     cost: 4,
     maxHealth: 4,
     name: 'Chillwind Yeti',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Deck,
   },
   {
@@ -93,7 +93,7 @@ const rawDeck = [
     cost: 2,
     maxHealth: 2,
     name: 'Frostwolf Grunt',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
     zone: Zone.Deck,
   },
   {
@@ -102,7 +102,7 @@ const rawDeck = [
     cost: 3,
     maxHealth: 2,
     name: 'Ironforge Rifleman',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Deck,
   },
   {
@@ -111,7 +111,7 @@ const rawDeck = [
     cost: 3,
     maxHealth: 3,
     name: 'Ironfur Grizzly',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
     zone: Zone.Deck,
   },
 ];
@@ -121,7 +121,7 @@ const deck: CardContainer = cardListFrom(R.map(craftMinionCard, rawDeck));
 const player: Hero = craftHero({
   cardID: 'HERO_08',
   name: 'Jaina',
-  owner: PlayerKind.Player,
+  owner: Controller.Player,
   maximumMana: 4,
 });
 
@@ -129,7 +129,7 @@ const opponent: Hero = craftHero({
   cardID: 'HERO_01',
   armor: 3,
   name: 'Garrosh',
-  owner: PlayerKind.Opponent,
+  owner: Controller.Opponent,
   maximumMana: 4,
 });
 
@@ -140,7 +140,7 @@ const minions = R.map(craftMinion, [
     exhausted: false,
     maxHealth: 1,
     name: 'Elven archer',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
   },
   {
     abilities: [Ability.Taunt],
@@ -149,7 +149,7 @@ const minions = R.map(craftMinion, [
     exhausted: false,
     maxHealth: 2,
     name: 'Frostwolf Grunt',
-    owner: PlayerKind.Opponent,
+    owner: Controller.Opponent,
   },
   {
     attack: 200,
@@ -157,7 +157,7 @@ const minions = R.map(craftMinion, [
     exhausted: false,
     maxHealth: 4,
     name: 'Gnomish Inventor',
-    owner: PlayerKind.Player,
+    owner: Controller.Player,
   },
 ]);
 
@@ -172,7 +172,7 @@ const initialState: Game = {
   cards,
   entities: board,
   state: {
-    activePlayer: PlayerKind.Player,
+    activePlayer: Controller.Player,
     step: Step.BeginFirst,
     playerID: player.id,
     opponentID: opponent.id,

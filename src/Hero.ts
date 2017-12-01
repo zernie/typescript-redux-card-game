@@ -5,7 +5,7 @@ import * as R from 'ramda';
 import { Game } from './Game';
 import { Playable } from './Playable';
 import { Weapon } from './Weapon';
-import { CardType, PlayerKind, PlayState } from './enums';
+import { CardType, Controller, PlayState } from './enums';
 
 export type Hero = Readonly<
   Playable & {
@@ -18,8 +18,8 @@ export type Hero = Readonly<
   }
 >;
 
-export const other = (player: PlayerKind): PlayerKind =>
-  player === PlayerKind.Player ? PlayerKind.Opponent : PlayerKind.Player;
+export const other = (player: Controller): Controller =>
+  player === Controller.Player ? Controller.Opponent : Controller.Player;
 export const craftHero = (props: {
   abilities?: Abilities;
   armor?: number;
@@ -32,7 +32,7 @@ export const craftHero = (props: {
   maxHealth?: number;
   maximumMana?: number;
   name: string;
-  owner: PlayerKind;
+  owner: Controller;
 }): Hero => ({
   abilities: [],
   armor: 0,
@@ -63,7 +63,7 @@ export const reduceHealth = (character: Character, damage: number): number =>
   );
 
 export const activeHero = (game: Game): Hero =>
-  game.state.activePlayer === PlayerKind.Player
+  game.state.activePlayer === Controller.Player
     ? getPlayer(game)
     : getOpponent(game);
 
@@ -71,7 +71,7 @@ export const getPlayer = (game: Game): Hero =>
   game.entities[game.state.playerID] as Hero;
 export const getOpponent = (game: Game): Hero =>
   game.entities[game.state.opponentID] as Hero;
-export const playerID = (player: PlayerKind, game: Game): number =>
-  player === PlayerKind.Player ? getPlayer(game).id : getOpponent(game).id;
-export const opponentID = (player: PlayerKind, game: Game): number =>
-  player === PlayerKind.Player ? getPlayer(game).id : getOpponent(game).id;
+export const playerID = (player: Controller, game: Game): number =>
+  player === Controller.Player ? getPlayer(game).id : getOpponent(game).id;
+export const opponentID = (player: Controller, game: Game): number =>
+  player === Controller.Player ? getPlayer(game).id : getOpponent(game).id;
