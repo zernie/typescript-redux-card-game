@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { performAttack } from '../characterReducer';
 import MinionCard, { MinionProps } from './Minion';
 import { getMinions, isValidTarget, ownerMinions } from '../../../Minion';
+import { CardType } from '../../../enums';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
+  canDrop: monitor.canDrop(),
   connectDropTarget: connector.dropTarget(),
   isOver: monitor.isOver(),
 });
@@ -36,7 +38,7 @@ const spec: DnD.DropTargetSpec<MinionProps> = {
   },
 };
 
-const TargetableMinion = DnD.DropTarget(['Minion', 'Hero'], spec, collect)(
+const TargetableMinion = DnD.DropTarget([CardType.Minion, CardType.Hero], spec, collect)(
   MinionCard
 );
 

@@ -7,12 +7,11 @@ import { MinionContainer } from '../../../Board';
 import { Minion } from '../../../Minion';
 
 export interface SideProps {
-  active: boolean;
   board: MinionContainer;
 }
 
-const Side: StatelessComponent<SideProps> = ({ active, board }) => (
-  <Segment basic disabled={!active}>
+const Side: StatelessComponent<SideProps> = ({ board }) => (
+  <Segment basic>
     <Transition.Group
       as={List}
       animation="pulse"

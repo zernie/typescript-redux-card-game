@@ -7,12 +7,13 @@ import CardArt from '../../CardArt';
 import { EntityContainer } from '../../../Entity';
 
 export interface MinionProps {
+  canDrop: boolean;
+  canDrag: boolean;
   character: Minion;
   connectDragSource: Function;
   connectDropTarget: Function;
   entities: EntityContainer;
   isOver: boolean;
-  isDragging: boolean;
   performAttack: typeof performAttack;
   state: State;
 }
@@ -26,6 +27,8 @@ const ZZZ: React.StatelessComponent<{}> = () => (
 );
 
 const Minion: React.StatelessComponent<MinionProps> = ({
+  canDrop,
+  canDrag,
   character: { abilities, attack, cardID, exhausted, health, maxHealth, name },
   connectDragSource,
   connectDropTarget,
@@ -33,7 +36,13 @@ const Minion: React.StatelessComponent<MinionProps> = ({
   connectDropTarget(
     connectDragSource(
       <div>
-        <Segment compact size="tiny" basic vertical>
+        <Segment
+          disabled={!(canDrop || canDrag)}
+          compact
+          size="tiny"
+          basic
+          vertical
+        >
           <Transition visible={exhausted} animation="fade up" duration="800">
             <Label floating circular size="large" color="green">
               <ZZZ />

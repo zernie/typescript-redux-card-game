@@ -61,9 +61,9 @@ const Battlefield: React.StatelessComponent<BattlefieldProps> = ({
               ? 'inverted green raised'
               : ''}`}
           >
-            <Side active={!currentPlayer} board={opponentMinions(board)} />
+            <Side board={opponentMinions(board)} />
             <Divider section />
-            <Side active={currentPlayer} board={playerMinions(board)} />
+            <Side board={playerMinions(board)} />
           </div>
         )}
 

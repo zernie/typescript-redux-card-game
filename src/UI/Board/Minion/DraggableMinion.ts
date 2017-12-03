@@ -3,21 +3,24 @@ import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
 import { canAttack } from '../../../Character';
+import { CardType } from '../../../enums';
 import { MinionProps } from './Minion';
 import TargetableMinion from './TargetableMinion';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),
+  canDrag: monitor.canDrag(),
 });
 
 const spec: DnD.DragSourceSpec<MinionProps> = {
   beginDrag: (props, monitor, component) => props,
-  isDragging: (props, monitor: DnD.DragSourceMonitor) => monitor.isDragging(),
-  canDrag: (props, monitor: DnD.DragSourceMonitor) =>
-    props.character.owner === props.state.activePlayer && canAttack(props.character),
+  canDrag: (props, monitor: DnD.DragSourceMonitor) => {
+    return props.character.owner === props.state.activePlayer &&
+      canAttack(props.character);
+  },
 };
 
-const DraggableMinion = DnD.DragSource<MinionProps>('Minion', spec, collect)(
+const DraggableMinion = DnD.DragSource<MinionProps>(CardType.Minion, spec, collect)(
   TargetableMinion
 );
 

@@ -6,6 +6,7 @@ import { performAttack } from '../characterReducer';
 import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from '../Minion/Minion';
 import { getMinions, isValidTarget, ownerMinions } from '../../../Minion';
+import { CardType } from '../../../enums';
 
 const collect: DnD.DropTargetCollector = (connector, monitor) => ({
   connectDropTarget: connector.dropTarget(),
@@ -15,12 +16,6 @@ const collect: DnD.DropTargetCollector = (connector, monitor) => ({
 const spec: DnD.DropTargetSpec<HeroProps> = {
   drop: (props, monitor: DnD.DropTargetMonitor) => {
     const { character } = monitor.getItem() as MinionProps;
-
-    console.log({
-      id: props.character.id,
-      source: character,
-      target: props,
-    });
 
     return props.performAttack({
       id: props.character.id,
@@ -43,7 +38,7 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
   },
 };
 
-const TargetableHero = DnD.DropTarget(['Minion', 'Hero'], spec, collect)(
+const TargetableHero = DnD.DropTarget([CardType.Minion, CardType.Hero], spec, collect)(
   HeroCard
 );
 
