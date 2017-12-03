@@ -13,13 +13,13 @@ export interface Weapon extends BasicCard {
 }
 
 export type CraftWeaponProps = Readonly<{
+  abilities?: Abilities;
   attack: number;
   cardID: string;
   cost: number;
   durability: number;
   name: string;
   owner: Controller;
-  abilities?: Abilities;
   text?: string;
   zone: Zone;
 }>;

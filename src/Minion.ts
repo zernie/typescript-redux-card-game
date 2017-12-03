@@ -1,11 +1,12 @@
 import * as R from 'ramda';
 import { Abilities } from './Abilities';
-import { Character, hasTaunt } from './Character';
-import { newId } from './utils';
+import { Character } from './Character';
 import { Playable } from './Playable';
 import { Ability, CardType, Controller, Zone } from './enums';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
+import { newId } from './utils';
+import { hasTaunt } from './Card';
 
 export interface Minion extends Playable {
   abilities: Abilities;
