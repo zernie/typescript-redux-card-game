@@ -119,8 +119,8 @@ const rawDeck = [
 const deck: CardContainer = cardListFrom(R.map(craftMinionCard, rawDeck));
 
 const player: Hero = craftHero({
-  cardID: 'HERO_08',
-  name: 'Jaina',
+  cardID: 'HERO_02',
+  name: 'Thrall',
   owner: Controller.Player,
   maximumMana: 4,
 });
