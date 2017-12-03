@@ -1,8 +1,4 @@
-import * as React from 'react';
 import * as DnD from 'react-dnd';
-import { connect } from 'react-redux';
-import * as R from 'ramda';
-import { performAttack } from '../characterReducer';
 import HeroCard, { HeroProps } from './Hero';
 import { MinionProps } from '../Minion/Minion';
 import { getMinions, isValidTarget, ownerMinions } from '../../../Minion';
@@ -38,10 +34,6 @@ const spec: DnD.DropTargetSpec<HeroProps> = {
   },
 };
 
-const TargetableHero = DnD.DropTarget([CardType.Minion, CardType.Hero], spec, collect)(
+export default DnD.DropTarget([CardType.Minion, CardType.Hero], spec, collect)(
   HeroCard
 );
-
-export default connect(R.identity, { performAttack })(
-  TargetableHero
-) as React.ComponentClass<HeroProps>;

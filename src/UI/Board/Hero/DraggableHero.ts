@@ -6,6 +6,7 @@ import { canAttack } from '../../../Character';
 import { CardType } from '../../../enums';
 import { HeroProps } from './Hero';
 import TargetableHero from './TargetableHero';
+import { performAttack } from '../characterReducer';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),
@@ -24,6 +25,6 @@ const DraggableHero = DnD.DragSource<HeroProps>(CardType.Hero, spec, collect)(
 
 const mapStateToProps = R.pick(['state']);
 
-export default connect(mapStateToProps, {})(
+export default connect(mapStateToProps, { performAttack})(
   DraggableHero
 ) as React.ComponentClass<Partial<HeroProps>>;

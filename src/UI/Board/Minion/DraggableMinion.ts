@@ -6,6 +6,7 @@ import { canAttack } from '../../../Character';
 import { CardType } from '../../../enums';
 import { MinionProps } from './Minion';
 import TargetableMinion from './TargetableMinion';
+import { performAttack } from '../characterReducer';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),
@@ -14,18 +15,19 @@ const collect: DnD.DragSourceCollector = (connector, monitor) => ({
 
 const spec: DnD.DragSourceSpec<MinionProps> = {
   beginDrag: (props, monitor, component) => props,
-  canDrag: (props, monitor: DnD.DragSourceMonitor) => {
-    return props.character.owner === props.state.activePlayer &&
-      canAttack(props.character);
-  },
+  canDrag: (props, monitor: DnD.DragSourceMonitor) =>
+    props.character.owner === props.state.activePlayer &&
+    canAttack(props.character),
 };
 
-const DraggableMinion = DnD.DragSource<MinionProps>(CardType.Minion, spec, collect)(
-  TargetableMinion
-);
+const DraggableMinion = DnD.DragSource<MinionProps>(
+  CardType.Minion,
+  spec,
+  collect
+)(TargetableMinion);
 
 const mapStateToProps = R.pick(['state', 'entities']);
 
-export default connect(mapStateToProps, {})(
+export default connect(mapStateToProps, { performAttack })(
   DraggableMinion
 ) as React.ComponentClass<Partial<MinionProps>>;
