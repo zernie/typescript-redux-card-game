@@ -38,7 +38,10 @@ export const opponentMinions = selectMinions(Controller.Opponent);
 export const craftMinion = (props: CraftMinionProps): Minion => ({
   abilities: [],
   attacksPerformed: 0,
-  exhausted: true,
+  // TODO: refactor
+  exhausted: !!props.abilities && props.abilities.length > 0
+    ? !R.contains(Ability.Charge, props.abilities)
+    : true,
   destroyed: false,
   health: props.maxHealth,
   ...props,
