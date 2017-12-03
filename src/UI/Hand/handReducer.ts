@@ -4,11 +4,9 @@ import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
 import * as R from 'ramda';
 import { Card, CardContainer } from '../../Card';
 import { Game } from '../../Game';
-import { minionFromCard } from '../../Minion';
 import { activeHero, canSpendMana } from '../../Hero';
 import { summonMinion } from '../Board/boardReducer';
 import { equipWeapon, spendMana } from '../Board/Hero/actions';
-import { weaponFromCard } from '../../Weapon';
 import { CardType, Zone } from '../../enums';
 
 const actionCreator = actionCreatorFactory();
@@ -28,18 +26,20 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
 
   switch (payload.type) {
     case CardType.Minion:
-      dispatch(summonMinion(minionFromCard(payload)));
+      dispatch(summonMinion(payload));
       break;
     case CardType.Weapon:
-      dispatch(equipWeapon({ id: hero.id, weapon: weaponFromCard(payload) }));
+      dispatch(equipWeapon({ id: hero.id, weapon: payload }));
       return;
     default:
       return;
   }
 };
 
-export const removeCardHandler = (state: CardContainer, payload: Card): CardContainer =>
-  R.assocPath([payload.id, 'zone'], Zone.Graveyard, state);
+export const removeCardHandler = (
+  state: CardContainer,
+  payload: Card
+): CardContainer => R.assocPath([payload.id, 'zone'], Zone.Graveyard, state);
 
 export default reducerWithoutInitialState<CardContainer>().case(
   removeCard,

@@ -1,36 +1,32 @@
-import * as R from 'ramda';
 import { Abilities } from './Abilities';
-import { CardType, Controller } from './enums';
-import { WeaponCard } from './Card';
+import { CardType, Controller, Zone } from './enums';
+import { BasicCard } from './BasicCard';
+import { newId } from './utils';
 
-export type Weapon = Readonly<{
+export interface Weapon extends BasicCard {
   abilities: Abilities;
   attack: number;
   durability: number;
   name: string;
   owner: Controller;
   type: CardType.Weapon;
-}>;
+}
+
 export type CraftWeaponProps = Readonly<{
-  abilities?: Abilities;
   attack: number;
+  cardID: string;
+  cost: number;
   durability: number;
   name: string;
   owner: Controller;
+  abilities?: Abilities;
+  text?: string;
+  zone: Zone;
 }>;
 
 export const craftWeapon = (props: CraftWeaponProps): Weapon => ({
   abilities: [],
   ...props,
+  id: newId(),
   type: CardType.Weapon,
 });
-export const weaponFromCard = R.pipe<WeaponCard, WeaponCard, Weapon>(
-  R.pick<WeaponCard, keyof WeaponCard>([
-    'abilities',
-    'attack',
-    'durability',
-    'name',
-    'owner',
-  ]),
-  craftWeapon
-);

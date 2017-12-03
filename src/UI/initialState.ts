@@ -1,19 +1,14 @@
 import * as R from 'ramda';
 import { Game } from '../Game';
 import { craftHero, Hero } from '../Hero';
-import {
-  CardContainer,
-  cardListFrom,
-  craftMinionCard,
-  craftWeaponCard,
-} from '../Card';
+import { CardContainer, cardListFrom } from '../Card';
 import { entitiesFrom } from '../Board';
-import { craftMinion } from '../Minion';
-import { Ability } from '../enums';
-import { Controller, Step, Zone } from '../enums';
+import { Ability, Controller, Step, Zone } from '../enums';
 import { EntityContainer } from '../Entity';
+import { craftMinion } from '../Minion';
+import { craftWeapon } from '../Weapon';
 
-const handMinions = R.map(craftMinionCard, [
+const handMinions = R.map(craftMinion, [
   {
     abilities: [Ability.Charge],
     attack: 2,
@@ -45,7 +40,7 @@ const handMinions = R.map(craftMinionCard, [
   },
 ]);
 
-const handWeapons = R.map(craftWeaponCard, [
+const handWeapons = R.map(craftWeapon, [
   {
     attack: 3,
     cardID: 'CS2_106',
@@ -116,13 +111,14 @@ const rawDeck = [
   },
 ];
 
-const deck: CardContainer = cardListFrom(R.map(craftMinionCard, rawDeck));
+const deck: CardContainer = cardListFrom(R.map(craftMinion, rawDeck));
 
 const player: Hero = craftHero({
   cardID: 'HERO_02',
   name: 'Thrall',
   owner: Controller.Player,
   maximumMana: 4,
+  zone: Zone.Play,
 });
 
 const opponent: Hero = craftHero({
@@ -131,33 +127,40 @@ const opponent: Hero = craftHero({
   name: 'Garrosh',
   owner: Controller.Opponent,
   maximumMana: 4,
+  zone: Zone.Play,
 });
 
 const minions = R.map(craftMinion, [
   {
     attack: 1,
     cardID: 'CS2_189',
+    cost: 1,
     exhausted: false,
     maxHealth: 1,
     name: 'Elven archer',
     owner: Controller.Opponent,
+    zone: Zone.Play,
   },
   {
     abilities: [Ability.Taunt],
     attack: 2,
     cardID: 'CS2_121',
+    cost: 2,
     exhausted: false,
     maxHealth: 2,
     name: 'Frostwolf Grunt',
     owner: Controller.Opponent,
+    zone: Zone.Play,
   },
   {
     attack: 200,
     cardID: 'CS2_147',
+    cost: 4,
     exhausted: false,
     maxHealth: 4,
     name: 'Gnomish Inventor',
     owner: Controller.Player,
+    zone: Zone.Play,
   },
 ]);
 

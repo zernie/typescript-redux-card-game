@@ -33,7 +33,8 @@ export const Card: React.StatelessComponent<CardProps> = ({
           {card.attack}
         </Label>
         <Label attached={'bottom right'} circular size="large">
-          {card.type === CardType.Minion ? card.maxHealth : card.durability}
+          {card.type === CardType.Minion && card.maxHealth}
+          {card.type === CardType.Weapon && card.durability}
         </Label>
       </Segment>
 

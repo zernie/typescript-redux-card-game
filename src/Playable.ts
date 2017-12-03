@@ -1,16 +1,12 @@
 import { Abilities } from './Abilities';
-import { Controller } from './enums';
+import { BasicCard } from './BasicCard';
 
-export type Playable = Readonly<{
+export interface Playable extends BasicCard {
   abilities: Abilities;
   attacksPerformed: number;
   attack: number;
-  cardID: string;
   destroyed: boolean;
   exhausted: boolean;
   health: number;
-  id: number;
   maxHealth: number;
-  name: string;
-  owner: Controller;
-}>;
+}

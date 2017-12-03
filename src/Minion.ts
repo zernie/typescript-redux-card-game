@@ -1,14 +1,19 @@
 import * as R from 'ramda';
 import { Abilities } from './Abilities';
-import { Character, hasCharge, hasTaunt } from './Character';
+import { Character, hasTaunt } from './Character';
 import { newId } from './utils';
 import { Playable } from './Playable';
-import { Ability, CardType, Controller } from './enums';
-import { MinionCard } from './Card';
+import { Ability, CardType, Controller, Zone } from './enums';
 import { EntityContainer } from './Entity';
 import { MinionContainer } from './Board';
 
-export type Minion = Readonly<Playable & { type: CardType.Minion }>;
+export interface Minion extends Playable {
+  abilities: Abilities;
+  attack: number;
+  maxHealth: number;
+  type: CardType.Minion;
+}
+
 export type CraftMinionProps = Readonly<{
   abilities?: Abilities;
   attack: number;
@@ -19,6 +24,9 @@ export type CraftMinionProps = Readonly<{
   maxHealth: number;
   name: string;
   owner: Controller;
+  cost: number;
+  text?: string;
+  zone: Zone;
 }>;
 
 const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
@@ -36,26 +44,6 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   id: newId(),
   type: CardType.Minion,
 });
-export const minionFromCard = R.pipe<
-  MinionCard,
-  CraftMinionProps,
-  Minion,
-  Minion
->(
-  R.pick<MinionCard, keyof MinionCard>([
-    'abilities',
-    'attack',
-    'cardID',
-    'maxHealth',
-    'name',
-    'owner',
-  ]),
-  craftMinion,
-  R.when<Minion, Minion>(
-    hasCharge,
-    R.assoc<keyof CraftMinionProps, boolean>('exhausted', false)
-  )
-);
 
 export const getMinions = (entities: EntityContainer): MinionContainer =>
   R.pickBy(R.propEq('type', CardType.Minion), entities);
@@ -71,5 +59,7 @@ export const anyTaunts = (minions: MinionContainer) =>
     R.values(minions)
   );
 
-export const isValidTarget = (character: Character, characters: MinionContainer) =>
-  anyTaunts(characters) ? hasTaunt(character) : true;
+export const isValidTarget = (
+  character: Character,
+  characters: MinionContainer
+) => (anyTaunts(characters) ? hasTaunt(character) : true);

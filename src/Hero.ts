@@ -5,22 +5,18 @@ import * as R from 'ramda';
 import { Game } from './Game';
 import { Playable } from './Playable';
 import { Weapon } from './Weapon';
-import { CardType, Controller, PlayState } from './enums';
+import { CardType, Controller, PlayState, Zone } from './enums';
 
-export type Hero = Readonly<
-  Playable & {
-    armor: number;
-    mana: number;
-    maximumMana: number;
-    playState: PlayState;
-    type: CardType.Hero;
-    weapon?: Weapon;
-  }
->;
+export interface Hero extends Playable {
+  armor: number;
+  mana: number;
+  maximumMana: number;
+  playState: PlayState;
+  type: CardType.Hero;
+  weapon?: Weapon;
+}
 
-export const other = (player: Controller): Controller =>
-  player === Controller.Player ? Controller.Opponent : Controller.Player;
-export const craftHero = (props: {
+export interface CraftHeroProps {
   abilities?: Abilities;
   armor?: number;
   attack?: number;
@@ -33,11 +29,17 @@ export const craftHero = (props: {
   maximumMana?: number;
   name: string;
   owner: Controller;
-}): Hero => ({
+  zone: Zone;
+}
+
+export const other = (player: Controller): Controller =>
+  player === Controller.Player ? Controller.Opponent : Controller.Player;
+export const craftHero = (props: CraftHeroProps): Hero => ({
   abilities: [],
   armor: 0,
   attack: 0,
   attacksPerformed: 0,
+  cost: 0,
   destroyed: false,
   exhausted: false,
   health: props.maxHealth || 30,
