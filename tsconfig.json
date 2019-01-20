@@ -13,8 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true //,
-//    "skipLibCheck": true
+    "noUnusedLocals": false ,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
