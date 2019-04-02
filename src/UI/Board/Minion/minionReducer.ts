@@ -1,11 +1,12 @@
-import * as R from 'ramda';
-import { upcastingReducer } from 'typescript-fsa-reducers';
-import { reduceHealth } from '../../../Hero';
-import { attackCharacter, dealDamage, DealDamagePayload } from '../actions';
-import { Minion } from '../../../Minion';
-import { Character } from '../../../Character';
+// import { createAction, createReducer } from 'redux-starter-kit';
+import { createAction, createReducer } from 'redux-starter-kit/src';
+// import * as _ from "lodash/fp";
+import { reduceHealth } from "../../../Hero";
+import { attackCharacter, dealDamage, DealDamagePayload } from "../actions";
+import { Minion } from "../../../Minion";
+import { Character } from "../../../Character";
 
-const attackCharacterHandler = R.evolve({ attacksPerformed: R.inc });
+const attackCharacterHandler = (char: Character) => char.attacksPerformed++;
 
 const damageMinionHandler = (
   state: Minion,
@@ -13,12 +14,10 @@ const damageMinionHandler = (
 ): Minion => {
   const health = reduceHealth(state, payload.amount);
 
-  return R.merge(state, {
-    destroyed: health <= 0,
-    health: health,
-  });
+  return { ...state, destroyed: health <= 0, health}
 };
 
-export default upcastingReducer<Minion, Character>()
-  .case(attackCharacter, attackCharacterHandler)
-  .case(dealDamage, damageMinionHandler);
+export default createReducer<Minion, Character>(undefined, {
+  [attackCharacter]: attackCharacterHandler,
+  [dealDamage]: damageMinionHandler
+})

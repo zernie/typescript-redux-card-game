@@ -14,7 +14,7 @@ export interface HeroProps {
   state: State;
 }
 
-const Hero: React.StatelessComponent<HeroProps> = ({
+const HeroComponent: React.FunctionComponent<HeroProps> = ({
   character: {
     armor,
     cardID,
@@ -69,4 +69,4 @@ const Hero: React.StatelessComponent<HeroProps> = ({
     )
   );
 
-export default Hero;
+export default HeroComponent;

@@ -6,7 +6,7 @@ export type CardArtProps = ImageProps & {
   resolution?: 256 | 512;
 };
 
-const CardArt: React.StatelessComponent<CardArtProps> = ({
+const CardArt: React.FunctionComponent<CardArtProps> = ({
   cardID,
   resolution = 512,
   ...props,

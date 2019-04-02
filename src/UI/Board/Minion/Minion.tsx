@@ -18,7 +18,7 @@ export interface MinionProps {
   state: State;
 }
 
-const ZZZ: React.StatelessComponent<{}> = () => (
+const ZZZ: React.FunctionComponent<{}> = () => (
   <span>
     z<sup>
       z<sup>z</sup>
@@ -26,7 +26,7 @@ const ZZZ: React.StatelessComponent<{}> = () => (
   </span>
 );
 
-const Minion: React.StatelessComponent<MinionProps> = ({
+const Minion: React.FunctionComponent<MinionProps> = ({
   canDrop,
   canDrag,
   character: { abilities, attack, cardID, exhausted, health, maxHealth, name },

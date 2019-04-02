@@ -1,12 +1,12 @@
-import * as R from 'ramda';
-import { Abilities } from './Abilities';
-import { Character } from './Character';
-import { Playable } from './Playable';
-import { Ability, CardType, Controller, Zone } from './enums';
-import { EntityContainer } from './Entity';
-import { MinionContainer } from './Board';
-import { newId } from './utils';
-import { hasTaunt } from './Card';
+import * as _ from "lodash/fp";
+import { Abilities } from "./Abilities";
+import { MinionContainer } from "./Board";
+import { hasTaunt } from "./Card";
+import { Character } from "./Character";
+import { EntityContainer } from "./Entity";
+import { Ability, CardType, Controller, Zone } from "./enums";
+import { Playable } from "./Playable";
+import { newId } from "./utils";
 
 export interface Minion extends Playable {
   abilities: Abilities;
@@ -30,7 +30,8 @@ export type CraftMinionProps = Readonly<{
   zone: Zone;
 }>;
 
-const selectMinions = R.useWith(R.filter, [R.propEq('owner'), R.identity]);
+const selectMinions = (controller: Controller) =>
+  _.filter(_.propEq("owner", controller), _.identity);
 
 export const playerMinions = selectMinions(Controller.Player);
 export const opponentMinions = selectMinions(Controller.Opponent);
@@ -39,28 +40,29 @@ export const craftMinion = (props: CraftMinionProps): Minion => ({
   abilities: [],
   attacksPerformed: 0,
   // TODO: refactor
-  exhausted: !!props.abilities && props.abilities.length > 0
-    ? !R.contains(Ability.Charge, props.abilities)
-    : true,
   destroyed: false,
+  exhausted:
+    !!props.abilities && props.abilities.length > 0
+      ? !_.contains(Ability.Charge, props.abilities)
+      : true,
   health: props.maxHealth,
   ...props,
   id: newId(),
-  type: CardType.Minion,
+  type: CardType.Minion
 });
 
 export const getMinions = (entities: EntityContainer): MinionContainer =>
-  R.pickBy(R.propEq('type', CardType.Minion), entities);
+  _.pickBy(_.propEq("type", CardType.Minion), entities);
 
-export const ownerMinions = R.curry(
+export const ownerMinions = _.curry(
   (player: Controller, minions: MinionContainer): MinionContainer =>
-    R.filter(R.propEq('owner', player), minions)
+    _.filter(_.propEq("owner", player), minions)
 );
 
 export const anyTaunts = (minions: MinionContainer) =>
-  R.any(
-    R.propSatisfies(R.contains(Ability.Taunt), 'abilities'),
-    R.values(minions)
+  _.any(
+    minion => _.contains(Ability.Taunt, minion.abilities),
+    _.values(minions)
   );
 
 export const isValidTarget = (

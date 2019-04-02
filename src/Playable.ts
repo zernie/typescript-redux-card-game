@@ -1,5 +1,5 @@
-import { Abilities } from './Abilities';
-import { BasicCard } from './BasicCard';
+import { Abilities } from "./Abilities";
+import { BasicCard } from "./BasicCard";
 
 export interface Playable extends BasicCard {
   abilities: Abilities;

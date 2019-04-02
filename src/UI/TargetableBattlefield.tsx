@@ -1,25 +1,32 @@
 import * as React from 'react';
 import * as DnD from 'react-dnd';
 import { connect } from 'react-redux';
-import * as R from 'ramda';
 import { Game, getBoard, getDeck, getHand } from '../Game';
 import { activeHero, getOpponent, getPlayer } from '../Hero';
 import Battlefield, { BattlefieldProps } from './Battlefield';
 import { endTurn } from './gameStateReducer';
 import { playCard } from './Hand/handReducer';
 
-const collect: DnD.DropTargetCollector = (connector, monitor) => ({
+interface CollectedProps {
+  isOver: boolean
+  canDrop: boolean
+  connectDropTarget: DnD.ConnectDropTarget
+}
+
+
+const collect: DnD.DropTargetCollector<CollectedProps> = (connector: DnD.DropTargetConnector, monitor: DnD.DropTargetMonitor) => ({
+  canDrop: true,
   connectDropTarget: connector.dropTarget(),
   isOver: monitor.isOver(),
 });
 
 const spec: DnD.DropTargetSpec<BattlefieldProps> = {
+  canDrop: (props, monitor: DnD.DropTargetMonitor) => true,
   drop: (props, monitor: DnD.DropTargetMonitor) => {
-    const { card } = monitor.getItem() as BattlefieldProps;
+    const { card } = monitor.getItem();
 
     return props.playCard(card);
   },
-  canDrop: (props, monitor: DnD.DropTargetMonitor) => true,
 };
 
 const TargetableBattlefield = DnD.DropTarget('Card', spec, collect)(
@@ -27,17 +34,15 @@ const TargetableBattlefield = DnD.DropTarget('Card', spec, collect)(
 );
 
 const mapStateToProps = (game: Game) =>
-  R.merge(
-    {
-      currentPlayer: activeHero(game) === getPlayer(game),
-      player: getPlayer(game),
-      opponent: getOpponent(game),
-      board: getBoard(game),
-      hand: getHand(game),
-      deck: getDeck(game),
-    },
-    game
-  );
+  ({
+    board: getBoard(game),
+    currentPlayer: activeHero(game) === getPlayer(game),
+    deck: getDeck(game),
+    hand: getHand(game),
+    opponent: getOpponent(game),
+    player: getPlayer(game),
+    ...game
+  });
 
 export default connect(mapStateToProps, { endTurn, playCard })(
   TargetableBattlefield

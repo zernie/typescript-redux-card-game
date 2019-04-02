@@ -14,7 +14,7 @@ export interface CardProps {
   state: State;
 }
 
-export const Card: React.StatelessComponent<CardProps> = ({
+export const Card: React.FunctionComponent<CardProps> = ({
   connectDragSource,
   card,
 }) =>

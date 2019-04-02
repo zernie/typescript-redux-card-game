@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List, Segment, Transition } from 'semantic-ui-react';
-import * as R from 'ramda';
+import _ from 'lodash/fp';
 import { Card, CardContainer } from '../../Card';
 import DraggableCard from './DraggableCard';
 
@@ -9,11 +9,11 @@ interface HandProps {
   hand: CardContainer;
 }
 
-export const Hand: React.StatelessComponent<HandProps> = ({ active, hand }) => {
+export const Hand: React.FunctionComponent<HandProps> = ({ active, hand }) => {
   return (
     <Segment disabled={!active} basic>
       <Transition.Group as={List} animation="pulse" horizontal duration={800}>
-        {R.map(
+        {_.map(
           (card: Card) => (
             <List.Item key={card.id}>
               <List.Content>
@@ -21,7 +21,7 @@ export const Hand: React.StatelessComponent<HandProps> = ({ active, hand }) => {
               </List.Content>
             </List.Item>
           ),
-          R.values(hand)
+          _.values(hand)
         )}
       </Transition.Group>
     </Segment>

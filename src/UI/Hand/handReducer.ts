@@ -1,16 +1,16 @@
-import { ThunkAction } from 'redux-thunk';
-import actionCreatorFactory from 'typescript-fsa';
-import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
-import * as R from 'ramda';
-import { Card, CardContainer } from '../../Card';
-import { Game } from '../../Game';
-import { activeHero, canSpendMana } from '../../Hero';
-import { summonMinion } from '../Board/boardReducer';
-import { equipWeapon, spendMana } from '../Board/Hero/actions';
-import { CardType, Zone } from '../../enums';
+import { ThunkAction } from "redux-thunk";
+import * as _ from "lodash/fp";
+// import { Action, AnyAction, createAction, createReducer } from 'redux-starter-kit';
+import { createReducer, createAction } from 'redux-starter-kit/src';
+import { Card, CardContainer } from "../../Card";
+import { Game } from "../../Game";
+import { activeHero, canSpendMana } from "../../Hero";
+import { summonMinion } from "../Board/boardReducer";
+import { equipWeapon, spendMana } from "../Board/Hero/actions";
+import { CardType, Zone } from "../../enums";
+import { AnyAction } from 'redux';
 
-const actionCreator = actionCreatorFactory();
-export const removeCard = actionCreator<Card>('REMOVE_CARD');
+export const removeCard = createAction<Card>("REMOVE_CARD");
 
 export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
   dispatch,
@@ -38,10 +38,9 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
 
 export const removeCardHandler = (
   state: CardContainer,
-  payload: Card
-): CardContainer => R.assocPath([payload.id, 'zone'], Zone.Graveyard, state);
+  action: AnyAction//Action<Card>
+): CardContainer => { state[action.payload.id].zone = Zone.Graveyard; return undefined };
 
-export default reducerWithoutInitialState<CardContainer>().case(
-  removeCard,
-  removeCardHandler
-);
+export default createReducer<CardContainer>(undefined, {
+  [removeCard]: removeCardHandler
+})

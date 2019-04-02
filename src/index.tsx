@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
+import App from './UI/App';
 import { Provider } from 'react-redux';
-import configureStore from './configureStore';
-import { gainMana, restoreMana } from './Board/Hero/actions';
-import { getPlayer } from '../Hero';
-import { Game } from '../Game';
+import configureStore from './UI/configureStore';
+import { gainMana, restoreMana } from './UI/Board/Hero/actions';
+import { getPlayer } from './Hero';
+import { Game } from './Game';
 // import { Game, getBoard, getDeck, getHand } from '../Game';
 // import registerServiceWorker from './registerServiceWorker';
 
@@ -23,6 +23,6 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root')
 );
 // registerServiceWorker();

@@ -1,11 +1,11 @@
-import { Character } from './Character';
-import { Abilities } from './Abilities';
-import { newId } from './utils';
-import * as R from 'ramda';
-import { Game } from './Game';
-import { Playable } from './Playable';
-import { Weapon } from './Weapon';
-import { CardType, Controller, PlayState, Zone } from './enums';
+import * as _ from "lodash/fp";
+import { Abilities } from "./Abilities";
+import { Character } from "./Character";
+import { CardType, Controller, PlayState, Zone } from "./enums";
+import { Game } from "./Game";
+import { Playable } from "./Playable";
+import { newId } from "./utils";
+import { Weapon } from "./Weapon";
 
 export interface Hero extends Playable {
   armor: number;
@@ -49,20 +49,20 @@ export const craftHero = (props: CraftHeroProps): Hero => ({
   maximumMana: 0,
   ...props,
   playState: PlayState.Playing,
-  type: CardType.Hero,
+  type: CardType.Hero
 });
 
 export const canSpendMana = (hero: Hero, amount: number) =>
   hero.mana - amount >= 0;
 export const reduceArmor = (hero: Hero, damage: number): number =>
-  R.max(0, hero.armor - damage);
+  _.max([0, hero.armor - damage]) as number;
 export const reduceHealth = (character: Character, damage: number): number =>
-  R.min(
+  _.min([
     character.health,
     character.type === CardType.Hero
       ? character.health + character.armor - damage
       : character.health - damage
-  );
+  ]) as number;
 
 export const activeHero = (game: Game): Hero =>
   game.state.activePlayer === Controller.Player

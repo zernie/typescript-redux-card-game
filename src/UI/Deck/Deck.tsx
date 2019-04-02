@@ -9,7 +9,7 @@ export interface SideProps {
 
 const deckColor = (deck: CardContainer) => size(deck) > 0 ? 'blue' : 'red';
 
-const Deck: React.StatelessComponent<SideProps> = ({ deck }) => (
+const Deck: React.FunctionComponent<SideProps> = ({ deck }) => (
   <Segment basic>
     <Statistic color={deckColor(deck)} value={size(deck)} label="Cards" />
   </Segment>

@@ -1,8 +1,8 @@
-import * as R from 'ramda';
-import { CardType, Controller, Step, Zone } from './enums';
-import { CardContainer } from './Card';
-import { EntityContainer } from './Entity';
-import { MinionContainer } from './Board';
+import * as _ from "lodash/fp";
+import { MinionContainer } from "./Board";
+import { CardContainer } from "./Card";
+import { EntityContainer } from "./Entity";
+import { CardType, Controller, Step, Zone } from "./enums";
 
 export type State = Readonly<{
   activePlayer: Controller;
@@ -19,10 +19,10 @@ export type Game = Readonly<{
 }>;
 
 export const getHand = (game: Game): CardContainer =>
-  R.pickBy(R.propEq('zone', Zone.Hand), game.cards);
+  _.pickBy(_.propEq("zone", Zone.Hand), game.cards);
 
 export const getDeck = (game: Game): CardContainer =>
-  R.pickBy(R.propEq('zone', Zone.Deck), game.cards);
+  _.pickBy(_.propEq("zone", Zone.Deck), game.cards);
 
 export const getBoard = (game: Game): MinionContainer =>
-  R.pickBy(R.propEq('type', CardType.Minion), game.entities);
+  _.pickBy(_.propEq("type", CardType.Minion), game.entities);

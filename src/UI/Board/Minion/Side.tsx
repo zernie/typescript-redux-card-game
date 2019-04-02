@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
 import { List, Segment, Transition } from 'semantic-ui-react';
-import * as R from 'ramda';
+import _ from 'lodash/fp';
 import DraggableMinion from './DraggableMinion';
 import { MinionContainer } from '../../../Board';
 import { Minion } from '../../../Minion';
@@ -10,7 +9,7 @@ export interface SideProps {
   board: MinionContainer;
 }
 
-const Side: StatelessComponent<SideProps> = ({ board }) => (
+const Side: React.FunctionComponent<SideProps> = ({ board }) => (
   <Segment basic>
     <Transition.Group
       as={List}
@@ -20,13 +19,13 @@ const Side: StatelessComponent<SideProps> = ({ board }) => (
       horizontal
       size="huge"
     >
-      {R.map(
+      {_.map(
         (minion: Minion) => (
           <List.Item key={minion.id}>
             <DraggableMinion character={minion} />
           </List.Item>
         ),
-        R.values(board)
+        _.values(board)
       )}
     </Transition.Group>
   </Segment>

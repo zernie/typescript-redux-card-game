@@ -21,5 +21,5 @@ export enum PlayType {
   OpponentSecretPlayed,
   OpponentSecretTriggered,
   OpponentHeroPower,
-  OpponentGetToDeck,
+  OpponentGetToDeck
 }

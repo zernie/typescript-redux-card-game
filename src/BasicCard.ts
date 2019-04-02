@@ -1,4 +1,4 @@
-import { Controller, Zone } from './enums';
+import { Controller, Zone } from "./enums";
 
 export type BasicCard = Readonly<{
   cost: number;

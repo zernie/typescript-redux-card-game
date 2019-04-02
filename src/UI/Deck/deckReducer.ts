@@ -1,16 +1,17 @@
-import { reducerWithoutInitialState } from 'typescript-fsa-reducers';
-import actionCreatorFactory from 'typescript-fsa';
-import * as R from 'ramda';
+// import { createAction, createReducer } from 'redux-starter-kit';
+import { createAction, createReducer } from 'redux-starter-kit/src';
+// import _ from 'lodash/fp';
 import { CardContainer } from '../../Card';
 import { Zone } from '../../enums';
 
-const actionCreator = actionCreatorFactory();
-export const drawCard = actionCreator<number>('DRAW_CARD');
+export const drawCard = createAction<number>("DRAW_CARD");
 
-const drawCardHandler = (state: CardContainer, payload: number): CardContainer =>
-  R.assocPath([payload, 'zone'], Zone.Hand, state);
+const drawCardHandler = (
+  state: CardContainer,
+  action
+// ): CardContainer => { state[action.payload].zone = Zone.Hand };
+): void => { state[action.payload].zone = Zone.Hand };
 
-export default reducerWithoutInitialState<CardContainer>().case(
-  drawCard,
-  drawCardHandler
-);
+export default createReducer(undefined, {
+  [drawCard]: drawCardHandler
+})

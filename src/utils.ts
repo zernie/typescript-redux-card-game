@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import _ from "lodash/fp";
 
 let _lastId = 0;
 export const newId = (): number => new Date().getTime() + _lastId++;
 
-export const size = R.pipe(R.values, R.length);
+export const size =_.size;
