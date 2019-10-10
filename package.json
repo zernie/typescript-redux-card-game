@@ -6,15 +6,15 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
-    "react": "^16.8.6",
-    "react-dnd": "^7.4.3",
-    "react-dnd-html5-backend": "^7.4.0",
-    "react-dom": "^16.8.6",
-    "react-redux": "^6.0.1",
-    "react-scripts": "^2.1.8",
-    "reduce-reducers": "^1.0.1",
-    "redux-starter-kit": "zernie/redux-starter-kit#upgrade-packages",
-    "semantic-ui-react": "^0.86.0"
+    "react": "^16.10.2",
+    "react-dnd": "^9.4.0",
+    "react-dnd-html5-backend": "^9.4.0",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.1.1",
+    "react-scripts": "^3.2.0",
+    "reduce-reducers": "^1.0.4",
+    "redux-starter-kit": "^0.7.0",
+    "semantic-ui-react": "^0.88.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,14 +23,14 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "node-gyp": "^3.8.0",
-    "@types/classnames": "^2.2.7",
-    "@types/lodash": "^4.14.123",
-    "@types/jest": "^24.0.11",
-    "@types/node": "^11.12.2",
-    "@types/react": "^16.8.10",
-    "@types/react-dom": "^16.8.3",
-    "@types/react-redux": "^7.0.6",
-    "typescript": "~3.4.1"
+    "node-gyp": "^6.0.0",
+    "@types/classnames": "^2.2.9",
+    "@types/lodash": "^4.14.144",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.12",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
+    "@types/react-redux": "^7.1.4",
+    "typescript": "~3.6.4"
   }
 }
