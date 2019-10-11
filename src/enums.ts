@@ -22,7 +22,7 @@ export enum Ability {
   Windfury = "Windfury"
 }
 
-export const enum CardClass {
+export enum CardClass {
   Invalid = "INVALID",
   DeathKnight = "DEATHKNIGHT",
   Druid = "DRUID",

@@ -29,7 +29,7 @@ const TargetableBattlefield = DnD.DropTarget("Card", spec, collect)(
 const mapStateToProps = (game: Game) =>
   _.merge(
     {
-      currentPlayer: activeHero(game) === getPlayerHero(game),
+      isCurrentPlayer: activeHero(game) === getPlayerHero(game),
       player: getPlayerHero(game),
       opponent: getOpponentHero(game),
       board: getBoard(game),

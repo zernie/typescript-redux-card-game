@@ -1,4 +1,4 @@
-import * as _ from "lodash/fp";
+import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { MinionContainer } from "./Board";
 import { hasTaunt } from "./Card";
@@ -9,9 +9,7 @@ import { Playable } from "./Playable";
 import { newId } from "./utils";
 
 export interface Minion extends Playable {
-  abilities: Abilities;
   attack: number;
-  maxHealth: number;
   type: CardType.Minion;
 }
 
@@ -39,24 +37,20 @@ export const opponentMinions = selectMinions(Controller.Opponent);
 export const craftMinion = (props: CraftMinionProps): Minion => ({
   abilities: [],
   attacksPerformed: 0,
-  // TODO: refactor
   destroyed: false,
-  exhausted:
-    !!props.abilities && props.abilities.length > 0
-      ? !_.contains(Ability.Charge, props.abilities)
-      : true,
+  exhausted: !!props.abilities && !props.abilities.includes(Ability.Charge),
   health: props.maxHealth,
   ...props,
   id: newId(),
   type: CardType.Minion
 });
 
-export const getMinions = (entities: EntityContainer): MinionContainer =>
-  _.pickBy(_.propEq("type", CardType.Minion), entities);
+export const getMinions = (entities: EntityContainer) =>
+  _.pickBy(_.propEq("type", CardType.Minion), entities) as MinionContainer;
 
 export const ownerMinions = _.curry(
-  (player: Controller, minions: MinionContainer): MinionContainer =>
-    _.filter(_.propEq("owner", player), minions)
+  (player: Controller, minions: MinionContainer) =>
+    _.filter(_.propEq("owner", player), minions) as MinionContainer
 );
 
 export const anyTaunts = (minions: MinionContainer) =>

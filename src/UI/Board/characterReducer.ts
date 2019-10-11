@@ -1,10 +1,9 @@
-import * as _ from "lodash/fp";
 import { ThunkAction } from "redux-thunk";
-// import { createAction, createReducer } from "../../node_modules/redux-starter-kit";
-import { createAction, createReducer } from 'redux-starter-kit/src';
+import { createReducer, PayloadAction } from 'redux-starter-kit';
+import * as _ from "lodash/fp";
 import { Character, getCharacter, shouldExhaust } from "../../Character";
-import { CardType } from "../../enums";
 import { Game } from "../../Game";
+import { CardType } from "../../enums";
 import { checkForEndGame } from "../gameStateReducer";
 import {
   attackCharacter,
@@ -13,40 +12,38 @@ import {
   exhaust,
   SourceTargetPayload
 } from "./actions";
-import { processDeaths } from "./boardReducer";
-import { destroyWeapon } from "./Hero/actions";
-import heroReducer from "./Hero/heroReducer";
 import minionReducer from "./Minion/minionReducer";
-import { ActionCreator } from 'redux';
+import { processDeaths } from "./boardReducer";
+import heroReducer from "./Hero/heroReducer";
 
 // TODO: refactor
 export const performAttack = (
   payload: SourceTargetPayload
-): ThunkAction<void, Game, {}, ActionCreator<EntityPayload>> => (dispatch, getState) => {
+): ThunkAction<void, Game, {}> => (dispatch, getState) => {
   dispatch(attackCharacter({ id: payload.source.id }));
   dispatch(
     dealDamage({ id: payload.target.id, amount: payload.source.attack })
   );
 
-  const attacker = getCharacter(payload.source.id, getState());
+  const state = getState();
+  const attacker = getCharacter(payload.source.id, state);
 
   if (payload.target.type === CardType.Minion) {
     dispatch(
       dealDamage({
-        amount: payload.target.attack,
         id: attacker.id,
+        amount: payload.target.attack
       })
     );
   }
-
-  // TODO: refactor
-  if (
-    attacker.type === CardType.Hero &&
-    attacker.weapon &&
-    attacker.weapon.durability <= 0
-  ) {
-    dispatch(destroyWeapon({ id: attacker.id }));
-  }
+  //
+  // // TODO: refactor
+  // if (attacker.type === CardType.Hero && attacker.weapon) {
+  //   const weapon = getWeapon(attacker.weapon, state);
+  //   if (weapon.durability <= 0) {
+  //     dispatch(destroyWeapon({ id: weapon.id }));
+  //   }
+  // }
 
   if (shouldExhaust(attacker)) {
     dispatch(exhaust({ id: attacker.id }));
@@ -56,16 +53,31 @@ export const performAttack = (
   dispatch(checkForEndGame());
 };
 
-// const exhaustHandler = _.assoc<keyof Character, boolean>("exhausted", true);
-const exhaustHandler = _.assoc("exhausted", true);
+const attackCharacterHandler = (
+  state: Character,
+  action: PayloadAction<number>
+) => {
+  state.attacksPerformed += action.payload;
+};
 
-export default (state: Character, action: Action<EntityPayload<Object>>) => {
-  // if (action.type === exhaust) {
-  //   return reducerWithoutInitialState<Character>().case(
-  //     exhaust,
-  //     exhaustHandler
-  //   )(state, action);
-  // }
+const exhaustHandler = (state: Character) => {
+  state.exhausted = true;
+};
+
+// TODO: refactor
+export default (
+  state: Character,
+  action: PayloadAction<EntityPayload<Object>>
+) => {
+  if (
+    action.type === exhaust.type ||
+    action.type === attackCharacter.type
+  ) {
+    return createReducer<Character|null>(null, {
+        exhaust: exhaustHandler,
+        attackCharacter: attackCharacterHandler
+    })(state, action);
+  }
 
   return state.type === CardType.Minion
     ? minionReducer(state, action)

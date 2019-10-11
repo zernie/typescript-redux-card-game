@@ -9,7 +9,7 @@ export type Card = Hero | Minion | Weapon;
 export type CardContainer = Container<Card>;
 
 export const selectCards = _.curry(
-  (player: Controller, cards: CardContainer): CardContainer =>
+  (player: Controller, cards: CardContainer) =>
     _.filter((card: Card) => card.owner === player, cards) as CardContainer
 );
 

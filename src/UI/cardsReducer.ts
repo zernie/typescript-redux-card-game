@@ -1,5 +1,5 @@
 import reduceReducers from "reduce-reducers";
-import { AnyAction } from 'redux';
+import { AnyAction } from "redux";
 import { cards } from "./initialState";
 import deckReducer from "./Deck/deckReducer";
 import handReducer from "./Hand/handReducer";
@@ -11,4 +11,5 @@ import { CardContainer } from "../Card";
 export default (
   state: CardContainer = cards,
   action: AnyAction
-): CardContainer => reduceReducers<CardContainer>(deckReducer, handReducer)(state, action);
+): CardContainer =>
+  reduceReducers<CardContainer>(deckReducer, handReducer)(state, action);

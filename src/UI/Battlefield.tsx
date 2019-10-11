@@ -17,10 +17,10 @@ import { endTurn as endTurnFunction } from "./gameStateReducer";
 import { Hand } from "./Hand/Hand";
 import { playCard } from "./Hand/handReducer";
 
-export interface BattlefieldOwnProps {
+interface BattlefieldOwnProps {
   card: Card;
   connectDropTarget: ConnectDropTarget;
-  currentPlayer: boolean;
+  isCurrentPlayer: boolean;
   endTurn: typeof endTurnFunction;
   isOver: boolean;
   playCard: typeof playCard;
@@ -34,7 +34,7 @@ export interface BattlefieldOwnProps {
 export type BattlefieldProps = Game & BattlefieldOwnProps;
 
 const Battlefield: React.FunctionComponent<BattlefieldProps> = ({
-  currentPlayer,
+                                                                  isCurrentPlayer,
   board,
   connectDropTarget,
   deck,
@@ -54,7 +54,7 @@ const Battlefield: React.FunctionComponent<BattlefieldProps> = ({
     />
     <Grid>
       <Grid.Column computer={14} mobile={16}>
-        <Hand active={!currentPlayer} hand={opponentCards(hand)} />
+        <Hand active={!isCurrentPlayer} hand={opponentCards(hand)} />
         <DraggableHero character={opponent} />
 
         {connectDropTarget(

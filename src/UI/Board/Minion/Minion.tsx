@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Label, List, Segment, Transition } from "semantic-ui-react";
 import { Minion } from "../../../Minion";
 import { State } from "../../../Game";
@@ -27,7 +27,7 @@ const ZZZ: React.FunctionComponent<{}> = () => (
   </span>
 );
 
-const Minion: React.FunctionComponent<MinionProps> = ({
+const MinionComponent: React.FunctionComponent<MinionProps> = ({
   canDrop,
   canDrag,
   character: { abilities, attack, cardID, exhausted, health, maxHealth, name },
@@ -64,6 +64,7 @@ const Minion: React.FunctionComponent<MinionProps> = ({
             {health}
           </Label>
         </Segment>
+
         {/* TODO: extract component */}
         <List.List>
           {abilities.map((ability, i) => (
@@ -78,4 +79,4 @@ const Minion: React.FunctionComponent<MinionProps> = ({
     )
   );
 
-export default Minion;
+export default MinionComponent;

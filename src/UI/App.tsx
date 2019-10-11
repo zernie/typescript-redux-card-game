@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createDndContext } from "react-dnd/lib/common/DndContext";
+import { DndProvider  } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { Container, Header } from "semantic-ui-react";
 import TargetableBattlefield from "./TargetableBattlefield";
@@ -12,8 +12,10 @@ const App: React.FunctionComponent<{}> = props => (
       </Header.Content>
     </Header>
 
-    <TargetableBattlefield />
+    <DndProvider backend={HTML5Backend}>
+      <TargetableBattlefield />
+    </DndProvider>
   </Container>
 );
 
-export default createDndContext(HTML5Backend)(App);
+export default  App;

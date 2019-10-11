@@ -1,25 +1,25 @@
-import _ from "lodash/fp";
+import * as _ from "lodash/fp";
 import { ThunkAction } from "redux-thunk";
-import { createAction, createReducer } from "redux-starter-kit/src";
-import { gainMana, restoreMana } from "./Board/Hero/actions";
+import { createReducer, createAction } from "redux-starter-kit";
 import { Game, getDeck, State } from "../Game";
-import { activeHero, getOpponent, getPlayer, other } from "../Hero";
+import { activeHero } from "../Hero";
+import { PlayState, Step } from "../enums";
+import { selectCards } from "../Card";
+import { getOpponent, getPlayer, other } from "../Player";
 import initialState from "./initialState";
 import { drawCard } from "./Deck/deckReducer";
-import { selectCards } from "../Card";
-import { PlayState, Step } from "../enums";
+import { gainMana, restoreMana } from './Board/actions';
 
 export const finishGame = createAction<void>("FINISH_GAME");
 export const nextTurn = createAction<void>("NEXT_TURN");
 
-const finishGameHandler = R.evolve<State>({
-  step: () => Step.FinalGameOver
-});
-
-const nextTurnHandler = R.evolve<State>({
-  turn: R.inc,
-  activePlayer: other
-});
+const finishGameHandler = (state: State) => {
+  state.step = Step.FinalGameOver;
+};
+const nextTurnHandler = (state: State) => {
+  state.turn++;
+  state.activePlayer = other(state.activePlayer);
+};
 
 export const checkForEndGame = (): ThunkAction<void, Game, {}> => (
   dispatch,
@@ -49,14 +49,15 @@ export const endTurn = (): ThunkAction<void, Game, {}> => (
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
 
-  const cards = R.values(selectCards(player.owner, getDeck(state)));
+  const cards = _.values(selectCards(player.owner, getDeck(state)));
 
   if (cards.length > 0) {
     dispatch(drawCard(cards[0].id));
   }
 };
 
-export default createReducer(initialState.state, {
-  [nextTurn]: nextTurnHandler,
-  [finishGame]: finishGameHandler
-})
+const reducer = createReducer<State>(initialState.state, {
+  nextTurn: nextTurnHandler,
+  finishGame: finishGameHandler
+});
+export default reducer;

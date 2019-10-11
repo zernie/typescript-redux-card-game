@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
 import { Card as CardInterface } from "../../Card";
 import { State } from "../../Game";
@@ -23,7 +23,7 @@ export const Card: React.FunctionComponent<CardProps> = ({
       <List.Header>{card.name}</List.Header>
 
       <Segment compact size="tiny" basic vertical>
-        <CardArt alt={name} cardID={card.cardID} size="tiny" centered />
+        <CardArt alt={card.name} cardID={card.cardID} size="tiny" centered />
 
         <Label attached={"top left"} circular size="large" color="blue">
           {card.cost}
@@ -41,7 +41,7 @@ export const Card: React.FunctionComponent<CardProps> = ({
       <br />
 
       {/* TODO: extract component */}
-      {!!card.abilities && (
+      {card.abilities.length && (
         <List verticalAlign="bottom">
           {card.abilities.map((ability, i) => (
             <List.Item>

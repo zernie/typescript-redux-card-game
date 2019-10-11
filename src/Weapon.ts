@@ -1,7 +1,9 @@
+import * as _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { CardType, Controller, Zone } from "./enums";
 import { BasicCard } from "./BasicCard";
 import { newId } from "./utils";
+import { Game } from "./Game";
 
 export interface Weapon extends BasicCard {
   abilities: Abilities;
@@ -30,3 +32,7 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon => ({
   id: newId(),
   type: CardType.Weapon
 });
+
+export const getWeapon = _.curry(
+  (id: number, game: Game) => game.entities[id] as Weapon
+);

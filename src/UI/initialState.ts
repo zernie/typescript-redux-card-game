@@ -1,13 +1,13 @@
-import _ from "lodash/fp";
-import { entitiesFrom } from "../Board";
-import { Card, CardContainer, cardListFrom } from '../Card';
-import { EntityContainer } from "../Entity";
-import { Ability, Controller, Step, Zone } from "../enums";
+import * as _ from "lodash/fp";
 import { Game } from "../Game";
 import { craftHero, Hero } from "../Hero";
+import { CardContainer, cardListFrom } from "../Card";
+import { entitiesFrom } from "../Board";
+import { Ability, CardClass, Controller, Step, Zone } from "../enums";
+import { EntityContainer } from "../Entity";
 import { craftMinion } from "../Minion";
 import { craftWeapon } from "../Weapon";
-import { Character } from '../Character';
+import { craftPlayer, Player } from "../Player";
 
 const handMinions = _.map(craftMinion, [
   {
@@ -39,7 +39,7 @@ const handMinions = _.map(craftMinion, [
     owner: Controller.Opponent,
     zone: Zone.Hand
   }
-]) as Card[];
+]);
 
 const handWeapons = _.map(craftWeapon, [
   {
@@ -51,7 +51,7 @@ const handWeapons = _.map(craftWeapon, [
     owner: Controller.Opponent,
     zone: Zone.Hand
   }
-])  as Card[];
+]);
 
 const hand: CardContainer = cardListFrom([...handMinions, ...handWeapons]);
 const rawDeck = [
@@ -112,26 +112,33 @@ const rawDeck = [
   }
 ];
 
-const deck: CardContainer = cardListFrom(R.map(craftMinion, rawDeck));
+const deck: CardContainer = cardListFrom(_.map(craftMinion, rawDeck));
 
-const player: Hero = craftHero({
+const playerHero: Hero = craftHero({
   cardID: "HERO_02",
-  maximumMana: 4,
   name: "Thrall",
   owner: Controller.Player,
   zone: Zone.Play
 });
 
-const opponent: Hero = craftHero({
-  armor: 3,
+const opponentHero: Hero = craftHero({
   cardID: "HERO_01",
-  maximumMana: 4,
+  armor: 3,
   name: "Garrosh",
   owner: Controller.Opponent,
   zone: Zone.Play
 });
+const player: Player = craftPlayer({
+  cardClass: CardClass.Shaman,
+  owner: Controller.Player,
+  hero: playerHero.id
+});
+const opponent: Player = craftPlayer({
+  cardClass: CardClass.Hunter,
+  owner: Controller.Opponent
+});
 
-const minions: Array<Character>  = _.map(craftMinion, [
+const minions = _.map(craftMinion, [
   {
     attack: 1,
     cardID: "CS2_189",
@@ -163,7 +170,7 @@ const minions: Array<Character>  = _.map(craftMinion, [
     owner: Controller.Player,
     zone: Zone.Play
   }
-]) as Array<Character>;
+]);
 
 export const cards: CardContainer = { ...deck, ...hand };
 export const board: EntityContainer = entitiesFrom([

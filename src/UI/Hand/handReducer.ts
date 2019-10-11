@@ -1,14 +1,15 @@
 import { ThunkAction } from "redux-thunk";
 import * as _ from "lodash/fp";
-// import { Action, AnyAction, createAction, createReducer } from 'redux-starter-kit';
-import { createReducer, createAction } from 'redux-starter-kit/src';
+import {
+  createAction,
+  createReducer, PayloadAction
+} from 'redux-starter-kit';
 import { Card, CardContainer } from "../../Card";
 import { Game } from "../../Game";
-import { activeHero, canSpendMana } from "../../Hero";
+import { canSpendMana, getActivePlayer } from '../../Hero';
 import { summonMinion } from "../Board/boardReducer";
-import { equipWeapon, spendMana } from "../Board/Hero/actions";
+import { equipWeapon, spendMana } from "../Board/actions";
 import { CardType, Zone } from "../../enums";
-import { AnyAction } from 'redux';
 
 export const removeCard = createAction<Card>("REMOVE_CARD");
 
@@ -16,9 +17,9 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
   dispatch,
   getState
 ) => {
-  const hero = activeHero(getState());
-  if (!canSpendMana(hero, payload.cost)) {
-    return;
+  const state = getState();
+  if (!canSpendMana(getActivePlayer(state), payload.cost)) {
+    return console.warn("Cannot spend mana");
   }
 
   dispatch(removeCard(payload));
@@ -29,7 +30,7 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
       dispatch(summonMinion(payload));
       break;
     case CardType.Weapon:
-      dispatch(equipWeapon({ id: hero.id, weapon: payload }));
+      dispatch(equipWeapon({ id: payload.id, weapon: payload }));
       return;
     default:
       return;
@@ -38,9 +39,15 @@ export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
 
 export const removeCardHandler = (
   state: CardContainer,
-  action: AnyAction//Action<Card>
-): CardContainer => { state[action.payload.id].zone = Zone.Graveyard; return undefined };
+  action: PayloadAction<Card>
+): CardContainer => {
+  state[action.payload.id].zone = Zone.Graveyard;
+  return state;
+};
 
-export default createReducer<CardContainer>(undefined, {
-  [removeCard]: removeCardHandler
-})
+export default createReducer<CardContainer>(
+  {},
+  {
+    [removeCard]: removeCardHandler
+  }
+);
