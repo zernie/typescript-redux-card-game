@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Image, ImageProps } from 'semantic-ui-react';
+import * as React from "react";
+import { Image, ImageProps } from "semantic-ui-react";
 
 export type CardArtProps = ImageProps & {
   cardID: string;
@@ -9,10 +9,10 @@ export type CardArtProps = ImageProps & {
 const CardArt: React.FunctionComponent<CardArtProps> = ({
   cardID,
   resolution = 512,
-  ...props,
+  ...props
 }) => (
   <Image
-    alt={name}
+    // alt={name}
     shape="circular"
     src={`https://art.hearthstonejson.com/v1/${resolution}x/${cardID}.jpg`}
     {...props}
