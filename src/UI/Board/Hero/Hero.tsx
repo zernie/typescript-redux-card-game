@@ -1,33 +1,29 @@
-import * as React from 'react';
-import { Grid, Header, Segment, Statistic } from 'semantic-ui-react';
-import { Hero } from '../../../Hero';
-import { performAttack } from '../characterReducer';
-import { State } from '../../../Game';
-import CardArt from '../../CardArt';
+import * as React from "react";
+import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
+import { Hero } from "../../../Hero";
+import { performAttack } from "../characterReducer";
+import { State } from "../../../Game";
+import CardArt from "../../CardArt";
+import { Weapon } from "../../../Weapon";
+import { EntityContainer } from "../../../Entity";
 
 export interface HeroProps {
   character: Hero;
+  entities: EntityContainer;
   performAttack: typeof performAttack;
   connectDragSource: Function;
   connectDropTarget: Function;
   isOver: boolean;
   state: State;
+  weapon?: Weapon;
 }
 
 const HeroComponent: React.FunctionComponent<HeroProps> = ({
-  character: {
-    armor,
-    cardID,
-    exhausted,
-    name,
-    health,
-    mana,
-    maximumMana,
-    weapon,
-  },
+  character: { armor, cardID, exhausted, name, health, mana, maximumMana },
   connectDropTarget,
   connectDragSource,
   isOver,
+  weapon
 }) =>
   connectDropTarget(
     connectDragSource(

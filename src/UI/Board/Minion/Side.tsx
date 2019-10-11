@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { List, Segment, Transition } from 'semantic-ui-react';
-import _ from 'lodash/fp';
-import DraggableMinion from './DraggableMinion';
-import { MinionContainer } from '../../../Board';
-import { Minion } from '../../../Minion';
+import * as React from "react";
+import { List, Segment, Transition } from "semantic-ui-react";
+import _ from "lodash/fp";
+import DraggableMinion from "./DraggableMinion";
+import { MinionContainer } from "../../../Board";
+import { Minion } from "../../../Minion";
 
 export interface SideProps {
   board: MinionContainer;

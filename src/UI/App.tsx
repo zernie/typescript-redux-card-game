@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { Container, Header } from 'semantic-ui-react';
-import TargetableBattlefield from './TargetableBattlefield';
+import * as React from "react";
+import { createDndContext } from "react-dnd/lib/common/DndContext";
+import HTML5Backend from "react-dnd-html5-backend";
+import { Container, Header } from "semantic-ui-react";
+import TargetableBattlefield from "./TargetableBattlefield";
 
-const App: React.FunctionComponent<{}> = props =>
+const App: React.FunctionComponent<{}> = props => (
   <Container textAlign="center">
     <Header as="h1">
       <Header.Content>
@@ -13,6 +13,7 @@ const App: React.FunctionComponent<{}> = props =>
     </Header>
 
     <TargetableBattlefield />
-  </Container>;
+  </Container>
+);
 
-export default DragDropContext(HTML5Backend)(App);
+export default createDndContext(HTML5Backend)(App);

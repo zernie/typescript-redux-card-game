@@ -1,23 +1,17 @@
-// import { createAction, createReducer } from 'redux-starter-kit';
-import { createAction, createReducer } from 'redux-starter-kit/src';
-// import * as _ from "lodash/fp";
+import * as _ from "lodash/fp";
 import { reduceHealth } from "../../../Hero";
-import { attackCharacter, dealDamage, DealDamagePayload } from "../actions";
+import { DealDamagePayload } from "../actions";
 import { Minion } from "../../../Minion";
 import { Character } from "../../../Character";
+import { createReducer } from "redux-starter-kit";
 
-const attackCharacterHandler = (char: Character) => char.attacksPerformed++;
-
-const damageMinionHandler = (
-  state: Minion,
-  payload: DealDamagePayload
-): Minion => {
+const damageMinionHandler = (state: Minion, payload: DealDamagePayload) => {
   const health = reduceHealth(state, payload.amount);
 
-  return { ...state, destroyed: health <= 0, health}
+  state.destroyed = health <= 0;
+  state.health = health;
 };
 
-export default createReducer<Minion, Character>(undefined, {
-  [attackCharacter]: attackCharacterHandler,
-  [dealDamage]: damageMinionHandler
-})
+export default createReducer<Minion | null>(null, {
+  dealDamage: damageMinionHandler
+});

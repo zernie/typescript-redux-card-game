@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { Modal, ModalProps, Transition } from 'semantic-ui-react';
-import { PlayState } from '../enums';
-import { Hero } from '../Hero';
+import React from "react";
+import { Modal, ModalProps, Transition } from "semantic-ui-react";
+import { PlayState } from "../enums";
+import { Player } from "../Player";
 
 export type EndGameScreenProps = ModalProps & {
-  player: Hero;
-  opponent: Hero;
+  player: Player;
+  opponent: Player;
   open: boolean;
 };
 
-const endGameHeader = (player: Hero, opponent: Hero): string => {
+const endGameHeader = (player: Player, opponent: Player): string => {
   if (
     player.playState === PlayState.Lost &&
     opponent.playState === PlayState.Lost
@@ -24,7 +24,7 @@ const endGameHeader = (player: Hero, opponent: Hero): string => {
     return `${player.name} has won!`;
   }
 
-  throw new Error('This shouldn\'t have happened');
+  return 'This shouldn\'t have happened';
 };
 
 const EndGameScreen: React.FunctionComponent<EndGameScreenProps> = ({
@@ -33,7 +33,7 @@ const EndGameScreen: React.FunctionComponent<EndGameScreenProps> = ({
   open,
   ...props
 }) => (
-  <Transition animation={'fade up'} duration={500} visible={open}>
+  <Transition animation={"fade up"} duration={1500} visible={open}>
     <Modal {...props} open={open}>
       <Modal.Header>{endGameHeader(player, opponent)}</Modal.Header>
       <Modal.Content />

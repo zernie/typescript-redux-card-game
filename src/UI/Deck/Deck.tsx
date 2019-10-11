@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { Segment, Statistic } from 'semantic-ui-react';
-import { CardContainer } from '../../Card';
-import { size } from '../../utils';
+import * as React from "react";
+import { Segment, Statistic } from "semantic-ui-react";
+import { CardContainer } from "../../Card";
+import { size } from "../../utils";
 
 export interface SideProps {
   deck: CardContainer;
 }
 
-const deckColor = (deck: CardContainer) => size(deck) > 0 ? 'blue' : 'red';
+const deckColor = (deck: CardContainer) => (size(deck) > 0 ? "blue" : "red");
 
 const Deck: React.FunctionComponent<SideProps> = ({ deck }) => (
   <Segment basic>

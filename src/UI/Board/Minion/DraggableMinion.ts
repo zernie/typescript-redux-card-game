@@ -26,7 +26,7 @@ const DraggableMinion = DnD.DragSource<MinionProps>(
   collect
 )(TargetableMinion);
 
-const mapStateToProps = R.pick(["state", "entities"]);
+const mapStateToProps = _.pick(["state", "entities"]);
 
 export default connect(
   mapStateToProps,

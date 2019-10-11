@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { List, Segment, Transition } from 'semantic-ui-react';
-import _ from 'lodash/fp';
-import { Card, CardContainer } from '../../Card';
-import DraggableCard from './DraggableCard';
+import * as React from "react";
+import { List, Segment, Transition } from "semantic-ui-react";
+import _ from "lodash/fp";
+import { Card, CardContainer } from "../../Card";
+import DraggableCard from "./DraggableCard";
 
 interface HandProps {
   active: boolean;

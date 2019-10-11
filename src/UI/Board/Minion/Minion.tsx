@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Label, List, Segment, Transition } from 'semantic-ui-react';
-import { Minion } from '../../../Minion';
-import { State } from '../../../Game';
-import { performAttack } from '../characterReducer';
-import CardArt from '../../CardArt';
-import { EntityContainer } from '../../../Entity';
+import * as React from "react";
+import { Label, List, Segment, Transition } from "semantic-ui-react";
+import { Minion } from "../../../Minion";
+import { State } from "../../../Game";
+import { performAttack } from "../characterReducer";
+import CardArt from "../../CardArt";
+import { EntityContainer } from "../../../Entity";
 
 export interface MinionProps {
   canDrop: boolean;
@@ -20,7 +20,8 @@ export interface MinionProps {
 
 const ZZZ: React.FunctionComponent<{}> = () => (
   <span>
-    z<sup>
+    z
+    <sup>
       z<sup>z</sup>
     </sup>
   </span>
@@ -31,7 +32,7 @@ const Minion: React.FunctionComponent<MinionProps> = ({
   canDrag,
   character: { abilities, attack, cardID, exhausted, health, maxHealth, name },
   connectDragSource,
-  connectDropTarget,
+  connectDropTarget
 }) =>
   connectDropTarget(
     connectDragSource(
@@ -51,12 +52,12 @@ const Minion: React.FunctionComponent<MinionProps> = ({
 
           <CardArt alt={name} cardID={cardID} size="tiny" />
 
-          <Label attached={'bottom left'} circular size="large">
+          <Label attached={"bottom left"} circular size="large">
             {attack}
           </Label>
           <Label
-            attached={'bottom right'}
-            color={health < maxHealth ? 'red' : undefined}
+            attached={"bottom right"}
+            color={health < maxHealth ? "red" : undefined}
             circular
             size="large"
           >
@@ -67,7 +68,7 @@ const Minion: React.FunctionComponent<MinionProps> = ({
         <List.List>
           {abilities.map((ability, i) => (
             <List.Item>
-              <Label key={i} color={'black'} horizontal>
+              <Label key={i} color={"black"} horizontal>
                 {ability}
               </Label>
             </List.Item>
