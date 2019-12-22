@@ -20,7 +20,7 @@ interface CraftPlayerProps {
   hero: number;
   maximumMana?: number;
   owner: Controller;
-  weapon: number | null;
+  weapon?: number | null;
 }
 
 export const craftPlayer = (props: CraftPlayerProps): Player => ({
@@ -28,9 +28,10 @@ export const craftPlayer = (props: CraftPlayerProps): Player => ({
   mana: 0,
   maximumMana: 10,
   playState: PlayState.Playing,
+  weapon: null,
   ...props,
   type: CardType.Player
-});
+}) as Player;
 
 export const canSpendMana = (player: Player, amount: number) =>
   player.mana - amount >= 0;

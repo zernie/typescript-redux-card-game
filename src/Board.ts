@@ -6,5 +6,5 @@ import { Minion } from "./Minion";
 
 export type MinionContainer = Container<Minion>;
 
-export const entitiesFrom = (array: Array<Character>): EntityContainer =>
+export const entitiesFrom = (array: Character[]): EntityContainer =>
   _.indexBy<Character>(_.prop("id"), array) as EntityContainer;

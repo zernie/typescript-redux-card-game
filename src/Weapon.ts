@@ -31,7 +31,9 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon => ({
   ...props,
   id: newId(),
   type: CardType.Weapon
-});
+}) as Weapon;
+
+export const craftWeapons = (props: CraftWeaponProps[]): Weapon[] => _.map(craftWeapon, props) as Weapon[];
 
 export const getWeapon = _.curry(
   (id: number, game: Game) => game.entities[id] as Weapon

@@ -2,14 +2,14 @@ import * as _ from "lodash/fp";
 import { Game } from "../Game";
 import { craftHero, Hero } from "../Hero";
 import { CardContainer, cardListFrom } from "../Card";
-import { entitiesFrom } from "../Board";
+import { entitiesFrom, MinionContainer } from '../Board';
 import { Ability, CardClass, Controller, Step, Zone } from "../enums";
 import { EntityContainer } from "../Entity";
-import { craftMinion } from "../Minion";
-import { craftWeapon } from "../Weapon";
+import { craftMinions} from '../Minion';
+import { craftWeapon, craftWeapons } from '../Weapon';
 import { craftPlayer, Player } from "../Player";
 
-const handMinions = _.map(craftMinion, [
+const handMinions = craftMinions([
   {
     abilities: [Ability.Charge],
     attack: 2,
@@ -41,7 +41,7 @@ const handMinions = _.map(craftMinion, [
   }
 ]);
 
-const handWeapons = _.map(craftWeapon, [
+const handWeapons = craftWeapons([
   {
     attack: 3,
     cardID: "CS2_106",
@@ -112,7 +112,7 @@ const rawDeck = [
   }
 ];
 
-const deck: CardContainer = cardListFrom(_.map(craftMinion, rawDeck));
+const deck: CardContainer = cardListFrom(craftMinions(rawDeck));
 
 const playerHero: Hero = craftHero({
   cardID: "HERO_02",
@@ -135,10 +135,11 @@ const player: Player = craftPlayer({
 });
 const opponent: Player = craftPlayer({
   cardClass: CardClass.Hunter,
-  owner: Controller.Opponent
+  owner: Controller.Opponent,
+  hero: opponentHero.id
 });
 
-const minions = _.map(craftMinion, [
+const minions = craftMinions([
   {
     attack: 1,
     cardID: "CS2_189",
@@ -174,8 +175,8 @@ const minions = _.map(craftMinion, [
 
 export const cards: CardContainer = { ...deck, ...hand };
 export const board: EntityContainer = entitiesFrom([
-  player,
-  opponent,
+  playerHero,
+  opponentHero,
   ...minions
 ]);
 
