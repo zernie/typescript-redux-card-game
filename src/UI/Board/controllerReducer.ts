@@ -12,9 +12,11 @@ import {
 } from "./actions";
 import { canSpendMana, Player } from "../../Player";
 
-// const destroyWeaponHandler = (state: Player) => { state.weapon = null; };
+const MAX_MANA = 10;
+
 const destroyWeaponHandler = (state: Player) => {
-  state.weapon = 0;
+  // state.weapon = 0;
+  state.weapon = null;
 };
 
 const equipWeaponHandler = (
@@ -28,9 +30,9 @@ const gainManaHandler = (
   state: Player,
   { payload: { amount = 1 } }: PayloadAction<GainManaPayload>
 ) => {
-  if (state.maximumMana < 10) {
-    state.mana += amount;
-  }
+  if (state.maximumMana >= MAX_MANA) return console.warn(`Cannot gain more than max mana (${MAX_MANA}).`);
+
+  state.mana += amount;
 };
 
 const restoreManaHandler = (state: Player) => {
@@ -41,12 +43,12 @@ const spendManaHandler = (
   state: Player,
   { payload: { amount } }: PayloadAction<SpendManaPayload>
 ) => {
-  if (canSpendMana(state, amount)) {
-    state.mana -= amount;
-  }
+  if (!canSpendMana(state, amount)) return console.warn(`Cannot spend more than current mana (${state.mana}).`);
+
+  state.mana -= amount;
 };
 
-export default createReducer<Player|null>(null, {
+export default createReducer<Player | null>(null, {
     [destroyWeapon]: destroyWeaponHandler,
     [equipWeapon]: equipWeaponHandler,
     [gainMana]: gainManaHandler,
