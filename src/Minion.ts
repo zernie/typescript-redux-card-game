@@ -28,8 +28,8 @@ export type CraftMinionProps = Readonly<{
   zone: Zone;
 }>;
 
-const selectMinions = (controller: Controller) =>
-  _.filter(_.propEq("owner", controller), _.identity);
+const selectMinions = (controller: Controller) => (container: MinionContainer) =>
+  _.filter(_.propEq("owner", controller), container);
 
 export const playerMinions = selectMinions(Controller.Player);
 export const opponentMinions = selectMinions(Controller.Opponent);
