@@ -8,13 +8,13 @@ import { checkForEndGame } from "../gameStateReducer";
 import {
   attackCharacter,
   dealDamage,
-  EntityPayload,
   exhaust,
   SourceTargetPayload
 } from "./actions";
 import minionReducer from "./Minion/minionReducer";
-import { processDeaths } from "./boardReducer";
+import { processDeaths } from "./actions";
 import heroReducer from "./Hero/heroReducer";
+import { EntityPayload } from '../../Entity';
 
 // TODO: refactor
 export const performAttack = (

@@ -1,19 +1,25 @@
-import { createAction, createReducer, PayloadAction } from "redux-starter-kit";
-import _ from "lodash/fp";
-import { Minion } from "../../Minion";
-import { board } from "../initialState";
-import { nextTurn } from "../gameStateReducer";
-import { Character } from "../../Character";
-import { CardType, Controller } from "../../enums";
-import { EntityContainer } from "../../Entity";
-import characterReducer from "./characterReducer";
-import { EntityPayload } from "./actions";
-import { EquipWeaponPayload } from "./actions";
-import { Player } from "../../Player";
-import controllerReducer from "./controllerReducer";
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import _ from 'lodash/fp';
+import { Minion } from '../../Minion';
+import { board } from '../initialState';
+import { nextTurn } from '../gameStateReducer';
+import { Character } from '../../Character';
+import { CardType } from '../../enums';
+import { EntityContainer, EntityPayload } from '../../Entity';
+import { Player } from '../../Player';
+import {
+  attackCharacter,
+  dealDamage,
+  destroyWeapon,
+  equipWeapon,
+  EquipWeaponPayload,
+  exhaust, gainMana,
+  processDeaths, restoreMana, spendMana,
+  summonMinion
+} from './actions';
+import characterReducer from './characterReducer';
+import controllerReducer from './controllerReducer';
 
-export const summonMinion = createAction<Minion>("SUMMON_MINION");
-export const processDeaths = createAction<void>("PROCESS_DEATHS");
 
 const destroyWeaponHandler = (state: EntityContainer, payload: EntityPayload) =>
   delete state[payload.id];
