@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { createReducer, PayloadAction } from 'redux-starter-kit';
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import * as _ from "lodash/fp";
 import { Character, getCharacter, shouldExhaust } from "../../Character";
 import { Game } from "../../Game";

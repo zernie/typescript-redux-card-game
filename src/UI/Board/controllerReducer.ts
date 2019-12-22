@@ -1,5 +1,5 @@
 import * as _ from "lodash/fp";
-import { createReducer, PayloadAction } from "redux-starter-kit";
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   destroyWeapon,
   equipWeapon,

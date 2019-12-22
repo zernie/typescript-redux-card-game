@@ -3,7 +3,7 @@ import { reduceHealth } from "../../../Hero";
 import { DealDamagePayload } from "../actions";
 import { Minion } from "../../../Minion";
 import { Character } from "../../../Character";
-import { createReducer } from "redux-starter-kit";
+import { createReducer } from "@reduxjs/toolkit";
 
 const damageMinionHandler = (state: Minion, payload: DealDamagePayload) => {
   const health = reduceHealth(state, payload.amount);

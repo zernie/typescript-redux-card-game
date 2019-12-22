@@ -1,6 +1,6 @@
 import * as _ from "lodash/fp";
 import { ThunkAction } from "redux-thunk";
-import { createReducer, createAction } from "redux-starter-kit";
+import { createReducer, createAction } from "@reduxjs/toolkit";
 import { Game, getDeck, State } from "../Game";
 import { activeHero } from "../Hero";
 import { PlayState, Step } from "../enums";

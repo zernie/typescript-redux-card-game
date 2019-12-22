@@ -1,6 +1,6 @@
 import { Hero, reduceArmor, reduceHealth } from "../../../Hero";
 import { dealDamage, DealDamagePayload } from "../actions";
-import { createReducer } from 'redux-starter-kit';
+import { createReducer } from '@reduxjs/toolkit';
 
 const damageHeroHandler = (state: Hero, payload: DealDamagePayload) => {
   const health = reduceHealth(state, payload.amount);

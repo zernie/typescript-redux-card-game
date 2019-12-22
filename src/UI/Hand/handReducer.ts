@@ -3,7 +3,7 @@ import * as _ from "lodash/fp";
 import {
   createAction,
   createReducer, PayloadAction
-} from 'redux-starter-kit';
+} from '@reduxjs/toolkit';
 import { Card, CardContainer } from "../../Card";
 import { Game } from "../../Game";
 import { canSpendMana, getActivePlayer } from '../../Hero';
