@@ -1,3 +1,1 @@
-export type Container<T> = {
-  [id: number]: T;
-};
+export type Container<T> = Record<number, T>;
