@@ -9533,9 +9533,9 @@ react-error-overlay@^6.0.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.4.tgz#0d165d6d27488e660bc08e57bdabaad741366f7a"
   integrity sha512-ueZzLmHltszTshDMwyfELDq8zOA803wQ1ZuzCccXa1m57k1PxSHfflPD5W9YIiTXLs0JTLzoj6o1LuM5N6zzNA==
 
-"react-hs-components@https://github.com/HearthSim/react-hs-components.git":
+"react-hs-components@https://libs.hearthsim.net/react-hs-components-v0.3.1.tgz":
   version "0.3.1"
-  resolved "https://github.com/HearthSim/react-hs-components.git#e84177ed926bf7490ade66de86fe22358b6d76a1"
+  resolved "https://libs.hearthsim.net/react-hs-components-v0.3.1.tgz#1d18a9dbdf21dfda4b48c5063d69ecafcbc114ca"
 
 react-is@^16.6.3, react-is@^16.9.0:
   version "16.10.2"
