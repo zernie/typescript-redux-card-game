@@ -14,19 +14,21 @@ import {
 import minionReducer from "./Minion/minionReducer";
 import { processDeaths } from "./actions";
 import heroReducer from "./Hero/heroReducer";
-import { EntityPayload } from '../../Entity';
+import { AppThunk } from '../../utils';
+
 
 // TODO: refactor
-export const performAttack = (
-  payload: SourceTargetPayload
-): ThunkAction<void, Game, {}> => (dispatch, getState) => {
+export const performAttack = (payload: SourceTargetPayload): AppThunk => (
+  dispatch,
+  getState
+) => {
   dispatch(attackCharacter({ id: payload.source.id }));
   dispatch(
     dealDamage({ id: payload.target.id, amount: payload.source.attack })
   );
 
-  const state = getState();
-  const attacker = getCharacter(payload.source.id, state);
+  const game = getState();
+  const attacker = getCharacter(payload.source.id, game);
 
   if (payload.target.type === CardType.Minion) {
     dispatch(

@@ -7,14 +7,16 @@ import { canSpendMana, getActivePlayer } from "../../Hero";
 import { summonMinion } from "../Board/actions";
 import { equipWeapon, spendMana } from "../Board/actions";
 import { CardType, Zone } from "../../enums";
+import { AppThunk } from '../../utils';
 
 export const removeCard = createAction<Card>("REMOVE_CARD");
 
-export const playCard = (payload: Card): ThunkAction<void, Game, {}> => (
+export const playCard = (payload: Card): AppThunk => (
   dispatch,
   getState
 ) => {
   const state = getState();
+  const hero = activeHero(state);
   if (!canSpendMana(getActivePlayer(state), payload.cost)) {
     return console.warn("Cannot spend mana");
   }
