@@ -1,9 +1,9 @@
 import * as React from "react";
 import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
-import DraggableMinion from "./DraggableMinion";
+import Minion from "./Minion";
 import { MinionContainer } from "../../../Board";
-import { Minion } from "../../../Minion";
+import { Minion as IMinion } from "../../../Minion";
 
 export interface SideProps {
   board: MinionContainer;
@@ -20,12 +20,12 @@ const Side: React.FunctionComponent<SideProps> = ({ board }) => (
       size="huge"
     >
       {_.map(
-        (minion: Minion) => (
+        (minion: IMinion) => (
           <List.Item key={minion.id}>
-            <DraggableMinion character={minion} />
+            <Minion character={minion} />
           </List.Item>
         ),
-        _.values(board)
+        board
       )}
     </Transition.Group>
   </Segment>

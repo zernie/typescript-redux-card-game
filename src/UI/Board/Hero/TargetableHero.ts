@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as DnD from "react-dnd";
 import HeroCard, { HeroProps } from "./Hero";
 import { MinionProps } from "../Minion/Minion";

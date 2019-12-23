@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as DnD from "react-dnd";
 import MinionCard, { MinionProps } from "./Minion";
 import { getMinions, isValidTarget, ownerMinions } from "../../../Minion";

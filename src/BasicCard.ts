@@ -8,4 +8,4 @@ export interface BasicCard {
   owner: Controller;
   text?: string;
   zone: Zone;
-};
+}

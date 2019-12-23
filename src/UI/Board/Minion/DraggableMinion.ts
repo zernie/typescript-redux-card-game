@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from "react";
 import * as DnD from "react-dnd";
 import { connect } from "react-redux";

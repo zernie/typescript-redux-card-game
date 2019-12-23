@@ -1,11 +1,13 @@
-import * as React from "react";
+// @ts-nocheck
+import React from "react";
 import * as DnD from "react-dnd";
 import { connect } from "react-redux";
 import * as _ from "lodash/fp";
 import { performAttack } from "../characterReducer";
 import { canAttack } from "../../../Character";
 import { CardType } from "../../../enums";
-import { HeroProps } from "./Hero";
+import Hero, { HeroProps } from "./Hero";
+import { Game } from "../../../Game";
 import TargetableHero from "./TargetableHero";
 import { Weapon } from "../../../Weapon";
 
@@ -29,9 +31,10 @@ const DraggableHero = DnD.DragSource<HeroProps>(CardType.Hero, spec, collect)(
   TargetableHero
 );
 
-const mapStateToProps = _.pick(["state"]);
+const mapStateToProps = ({state} : Game) => ({state});
+const mapStateToProps = (game: Game) => game;
 
 export default connect(
   mapStateToProps,
   { performAttack }
-)(DraggableHero) as React.ComponentClass<Partial<HeroProps>>;
+)(Hero) as React.ComponentClass<HeroProps>;

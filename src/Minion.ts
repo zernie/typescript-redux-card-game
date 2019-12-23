@@ -26,7 +26,7 @@ export interface CraftMinionProps {
   cost: number;
   text?: string;
   zone: Zone;
-};
+}
 
 const selectMinions = (controller: Controller) => (
   container: MinionContainer
@@ -47,6 +47,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     type: CardType.Minion
   } as Minion);
 
+// TODO: return container
 export const craftMinions = (minionProps: CraftMinionProps[]): Minion[] =>
   _.map(craftMinion, minionProps) as Minion[];
 

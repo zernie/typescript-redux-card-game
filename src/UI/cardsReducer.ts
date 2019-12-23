@@ -1,13 +1,13 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import reduceReducers from "reduce-reducers";
-import { AnyAction } from "redux";
 import { CardContainer } from "../Card";
 import { cards } from "./initialState";
 import deckReducer from "./Deck/deckReducer";
 import handReducer from "./Hand/handReducer";
-// import { createAction, createReducer, PayloadActionCreator} from "../../node_modules/@reduxjs/toolkit";
+import { EntityPayload } from "../Entity";
 
 export default (
   state: CardContainer = cards,
-  action: AnyAction
+  action: PayloadAction<EntityPayload>
 ): CardContainer =>
   reduceReducers<CardContainer>(deckReducer, handReducer)(state, action);

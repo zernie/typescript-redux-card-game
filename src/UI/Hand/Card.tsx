@@ -1,25 +1,26 @@
 import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
-import { Card as CardInterface } from "../../Card";
+import { Card as ICard } from "../../Card";
 import { State } from "../../Game";
-import { Hero } from "../../Hero";
+import { activeHero, Hero } from "../../Hero";
 import { CardType } from "../../enums";
 import CardArt from "../CardArt";
+import { useDrag } from "react-dnd";
+import { useGame } from "../hooks";
 
 export interface CardProps {
-  card: CardInterface;
-  connectDragSource: Function;
-  hero: Hero;
-  isDragging: boolean;
-  state: State;
+  card: ICard;
 }
 
-export const Card: React.FunctionComponent<CardProps> = ({
-  connectDragSource,
-  card
-}) =>
-  connectDragSource(
-    <div>
+export const Card: React.FunctionComponent<CardProps> = ({ card }) => {
+  const game = useGame();
+  const hero = activeHero(game);
+  const [collectedProps, drag] = useDrag({
+    item: { id: card.id, type: "Card" }
+  });
+
+  return (
+    <div ref={drag}>
       <List.Header>{card.name}</List.Header>
 
       <Segment compact size="tiny" basic vertical>
@@ -44,8 +45,8 @@ export const Card: React.FunctionComponent<CardProps> = ({
       {card.abilities.length && (
         <List verticalAlign="bottom">
           {card.abilities.map((ability, i) => (
-            <List.Item>
-              <Label key={i} color={"black"} horizontal>
+            <List.Item key={i}>
+              <Label color={"black"} horizontal>
                 {ability}
               </Label>
             </List.Item>
@@ -54,3 +55,6 @@ export const Card: React.FunctionComponent<CardProps> = ({
       )}
     </div>
   );
+};
+
+export default Card;

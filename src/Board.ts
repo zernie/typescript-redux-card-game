@@ -1,10 +1,10 @@
 import _ from "lodash/fp";
-import { Character } from "./Character";
 import { Container } from "./Container";
-import { EntityContainer } from "./Entity";
+import { Entity, EntityContainer } from "./Entity";
 import { Minion } from "./Minion";
 
 export type MinionContainer = Container<Minion>;
 
-export const entitiesFrom = (array: Character[]): EntityContainer =>
-  _.indexBy<Character>(_.prop("id"), array) as EntityContainer;
+// TODO:
+export const entitiesFrom = (array: Entity[]): EntityContainer =>
+  _.indexBy<Entity>(_.prop("id"), array) as EntityContainer;

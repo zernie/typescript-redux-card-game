@@ -9,7 +9,7 @@ import { getOpponent, getPlayer, other } from "../Player";
 import initialState from "./initialState";
 import { drawCard } from "./Deck/deckReducer";
 import { gainMana, restoreMana } from "./Board/actions";
-import { AppThunk } from '../utils';
+import { AppThunk } from "../utils";
 
 export const finishGame = createAction<void>("FINISH_GAME");
 export const nextTurn = createAction<void>("NEXT_TURN");
@@ -22,10 +22,7 @@ const nextTurnHandler = (state: State) => {
   state.activePlayer = other(state.activePlayer);
 };
 
-export const checkForEndGame = (): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const player = getPlayer(state);
   const opponent = getOpponent(state);
@@ -38,10 +35,7 @@ export const checkForEndGame = (): AppThunk => (
   }
 };
 
-export const endTurn = (): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(nextTurn());
   const state = getState();
 
@@ -51,10 +45,12 @@ export const endTurn = (): AppThunk => (
   dispatch(restoreMana({ id: player.id }));
 
   // const cards = _.values(selectCards(player.owner, getDeck(state)));
+  // FIXME
   const cards = _.values(selectCards(player.owner)(getDeck(state)));
 
   if (cards.length > 0) {
-    dispatch(drawCard(cards[0].id));
+    // dispatch(drawCard(cards[0].id));
+    dispatch(drawCard({ id: cards[0].id }));
   }
 };
 

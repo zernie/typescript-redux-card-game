@@ -1,10 +1,8 @@
-import { ThunkAction } from "redux-thunk";
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import * as _ from "lodash/fp";
+import { createReducer, PayloadAction, Action } from "@reduxjs/toolkit";
 import { Character, getCharacter, shouldExhaust } from "../../Character";
-import { Game } from "../../Game";
 import { CardType } from "../../enums";
 import { checkForEndGame } from "../gameStateReducer";
+import { EntityPayload } from "../../Entity";
 import {
   attackCharacter,
   dealDamage,
@@ -14,8 +12,7 @@ import {
 import minionReducer from "./Minion/minionReducer";
 import { processDeaths } from "./actions";
 import heroReducer from "./Hero/heroReducer";
-import { AppThunk } from '../../utils';
-
+import { AppThunk } from "../../utils";
 
 // TODO: refactor
 export const performAttack = (payload: SourceTargetPayload): AppThunk => (
@@ -62,24 +59,24 @@ const attackCharacterHandler = (
   state.attacksPerformed += action.payload;
 };
 
-const exhaustHandler = (state: Character) => {
+const exhaustHandler = (state: Character, action: Action) => {
   state.exhausted = true;
 };
 
 // TODO: refactor
 export default (
   state: Character,
-  action: PayloadAction<EntityPayload<Object>>
-) => {
-  if (
-    action.type === exhaust.type ||
-    action.type === attackCharacter.type
-  ) {
-    return createReducer<Character|null>(null, {
-        exhaust: exhaustHandler,
-        attackCharacter: attackCharacterHandler
-    })(state, action);
-  }
+  action: PayloadAction<EntityPayload>
+): Character => {
+  // if (exhaust.match(action) || attackCharacter.match(action)) {
+  //   return createReducer<Character>(null, {
+  //       [exhaust]: exhaustHandler,
+  //       [attackCharacter]: attackCharacterHandler
+  //   })(state, action);
+  // }
+
+  // if (exhaust.match(action)) return produce(exhaustHandler(state, action));
+  // if (attackCharacter.match(action)) return attackCharacterHandler(state, action);
 
   return state.type === CardType.Minion
     ? minionReducer(state, action)

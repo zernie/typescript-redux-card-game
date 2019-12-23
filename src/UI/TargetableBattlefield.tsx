@@ -1,7 +1,8 @@
-import * as React from "react";
+// @ts-nocheck
+import React from "react";
 import * as DnD from "react-dnd";
 import { connect } from "react-redux";
-import * as _ from "lodash/fp";
+import _ from "lodash/fp";
 import { Game, getBoard, getDeck, getHand } from "../Game";
 import { activeHero, getOpponentHero, getPlayerHero } from "../Hero";
 import Battlefield, { BattlefieldProps } from "./Battlefield";
@@ -19,27 +20,24 @@ const spec: DnD.DropTargetSpec<BattlefieldProps> = {
 
     return props.playCard(card);
   },
-  canDrop: (props, monitor: DnD.DropTargetMonitor) => true
+  canDrop: _.T
 };
 
 const TargetableBattlefield = DnD.DropTarget("Card", spec, collect)(
   Battlefield
 );
 
-const mapStateToProps = (game: Game) =>
-  _.merge(
-    {
-      isCurrentPlayer: activeHero(game) === getPlayerHero(game),
-      player: getPlayerHero(game),
-      opponent: getOpponentHero(game),
-      board: getBoard(game),
-      hand: getHand(game),
-      deck: getDeck(game)
-    },
-    game
-  );
+const mapStateToProps = (game: Game) => ({
+  ...game,
+  isCurrentPlayer: activeHero(game) === getPlayerHero(game),
+  player: getPlayerHero(game),
+  opponent: getOpponentHero(game),
+  board: getBoard(game),
+  hand: getHand(game),
+  deck: getDeck(game)
+});
 
 export default connect(
   mapStateToProps,
   { endTurn, playCard }
-)(TargetableBattlefield) as React.ComponentClass<Partial<BattlefieldProps>>;
+)(Battlefield); // as React.ComponentClass<Partial<BattlefieldProps>>;

@@ -1,28 +1,34 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import _ from 'lodash/fp';
-import { Minion } from '../../Minion';
-import { board } from '../initialState';
-import { nextTurn } from '../gameStateReducer';
-import { Character } from '../../Character';
-import { CardType } from '../../enums';
-import { EntityContainer, EntityPayload } from '../../Entity';
-import { Player } from '../../Player';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import _ from "lodash/fp";
+import { Minion } from "../../Minion";
+import { board } from "../initialState";
+import { nextTurn } from "../gameStateReducer";
+import { Character } from "../../Character";
+import { CardType } from "../../enums";
+import { EntityContainer, EntityPayload } from "../../Entity";
+import { Player } from "../../Player";
 import {
   attackCharacter,
   dealDamage,
   destroyWeapon,
   equipWeapon,
   EquipWeaponPayload,
-  exhaust, gainMana,
-  processDeaths, restoreMana, spendMana,
+  exhaust,
+  gainMana,
+  processDeaths,
+  restoreMana,
+  spendMana,
   summonMinion
-} from './actions';
-import characterReducer from './characterReducer';
-import controllerReducer from './controllerReducer';
+} from "./actions";
+import characterReducer from "./characterReducer";
+import controllerReducer from "./controllerReducer";
 
-
-const destroyWeaponHandler = (state: EntityContainer, payload: EntityPayload) =>
-  delete state[payload.id];
+const destroyWeaponHandler = (
+  state: EntityContainer,
+  action: PayloadAction<EntityPayload>
+) => {
+  delete state[action.payload.id];
+};
 
 const equipWeaponHandler = (
   state: EntityContainer,
@@ -31,9 +37,8 @@ const equipWeaponHandler = (
   state[action.payload.id] = action.payload.weapon;
 };
 
-const nextTurnHandler = (state: EntityContainer) => {
-  return _.map(_.merge({ attacksPerformed: 0, exhausted: false }), state);
-};
+const nextTurnHandler = (state: EntityContainer) =>
+  _.map(_.merge({ attacksPerformed: 0, exhausted: false }), state);
 
 const summonMinionHandler = (
   state: EntityContainer,
@@ -42,13 +47,14 @@ const summonMinionHandler = (
   state[action.payload.id] = action.payload;
 };
 
-const processDeathsHandler = _.reject(
-  _.whereEq({ destroyed: true, type: CardType.Minion })
-);
+const processDeathsHandler = (
+  state: EntityContainer,
+  action: PayloadAction<Minion>
+) => _.reject(_.whereEq({ destroyed: true, type: CardType.Minion }), state);
 
 const characterHandler = (
   state: EntityContainer,
-  action: PayloadAction<EntityPayload<Object>>
+  action: PayloadAction<EntityPayload>
 ) => {
   state[action.payload.id] = characterReducer(
     state[action.payload.id] as Character,
@@ -58,27 +64,26 @@ const characterHandler = (
 
 const controllerHandler = (
   state: EntityContainer,
-  action: PayloadAction<EntityPayload<Object>>
+  action: PayloadAction<EntityPayload>
 ) => {
   state[action.payload.id] = controllerReducer(
-    state[action.payload.id],
+    state[action.payload.id] as Player,
     action
-  );
+  ) as Player;
 };
 
 export default createReducer<EntityContainer>(board, {
-    destroyWeapon: destroyWeaponHandler,
-    equipWeapon: equipWeaponHandler,
-    nextTurn: nextTurnHandler,
-    summonMinion: summonMinionHandler,
-    processDeaths: processDeathsHandler,
-    attackCharacter: characterHandler,
-    dealDamage: characterHandler,
-    exhaust: characterHandler,
-    equipWeapon: characterHandler,
-    [gainMana]: characterHandler,
-    [restoreMana]: characterHandler,
-    [spendMana]: characterHandler,
-    destroyWeapon: controllerHandler
-  }
-);
+  [processDeaths.type]: processDeathsHandler,
+  [destroyWeapon.type]: destroyWeaponHandler,
+  [equipWeapon.type]: equipWeaponHandler,
+  [nextTurn.type]: nextTurnHandler,
+  [summonMinion.type]: summonMinionHandler,
+  [attackCharacter.type]: characterHandler,
+  [dealDamage.type]: characterHandler,
+  [exhaust.type]: characterHandler,
+  [equipWeapon.type]: characterHandler,
+  [gainMana.type]: characterHandler,
+  [restoreMana.type]: characterHandler,
+  [spendMana.type]: characterHandler,
+  [destroyWeapon.type]: controllerHandler
+});

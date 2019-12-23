@@ -1,28 +1,30 @@
-import * as classNames from "classnames";
-import * as React from "react";
-import { ConnectDropTarget } from "react-dnd";
+import React from "react";
+import { useDrop } from "react-dnd";
+import _ from "lodash/fp";
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
+import classNames from "classnames";
 import { MinionContainer } from "../Board";
 import { Card, CardContainer, opponentCards, playerCards } from "../Card";
-import { Step } from "../enums";
-import { Game } from "../Game";
-import { Hero } from "../Hero";
+import { CardType, Step } from "../enums";
+import { getBoard, getDeck, getHand } from "../Game";
+import { activeHero, getOpponentHero, getPlayerHero, Hero } from "../Hero";
 import { opponentMinions, playerMinions } from "../Minion";
-import DraggableHero from "./Board/Hero/DraggableHero";
 import Side from "./Board/Minion/Side";
 import NextTurn from "./Board/NextTurn";
 import Deck from "./Deck/Deck";
 import EndGameScreen from "./EndGameScreen";
-import { endTurn as endTurnFunction } from "./gameStateReducer";
-import { Hand } from "./Hand/Hand";
+import { endTurn, endTurn as endTurnFunction } from "./gameStateReducer";
+import Hand from "./Hand/Hand";
 import { playCard } from "./Hand/handReducer";
+import HeroComponent from "./Board/Hero/Hero";
+import { useGame } from "./hooks";
+import { useDispatch } from "react-redux";
+import { getOpponent, getPlayer } from "../Player";
 
 interface BattlefieldOwnProps {
   card: Card;
-  connectDropTarget: ConnectDropTarget;
   isCurrentPlayer: boolean;
   endTurn: typeof endTurnFunction;
-  isOver: boolean;
   playCard: typeof playCard;
   player: Hero;
   opponent: Hero;
@@ -31,67 +33,88 @@ interface BattlefieldOwnProps {
   deck: CardContainer;
 }
 
-export type BattlefieldProps = Game & BattlefieldOwnProps;
+export type BattlefieldProps = BattlefieldOwnProps;
 
-const Battlefield: React.FunctionComponent<BattlefieldProps> = ({
-                                                                  isCurrentPlayer,
-  board,
-  connectDropTarget,
-  deck,
-  isOver,
-  endTurn,
-  hand,
-  player,
-  opponent,
-  state: { turn, activePlayer, step }
-}) => (
-  <Segment>
-    <EndGameScreen
-      player={player}
-      opponent={opponent}
-      open={step === Step.FinalGameOver}
-      dimmer="blurring"
-    />
-    <Grid>
-      <Grid.Column computer={14} mobile={16}>
-        <Hand active={!isCurrentPlayer} hand={opponentCards(hand)} />
-        <DraggableHero character={opponent} />
+const Battlefield: React.FC = props => {
+  // TODO: Refactor
+  const dispatch = useDispatch();
+  const game = useGame();
+  const {
+    state: { turn, activePlayer, step }
+  } = game;
+  const isCurrentPlayer = activeHero(game) === getPlayerHero(game);
+  const playerHero = getPlayerHero(game);
+  const opponentHero = getOpponentHero(game);
+  const player = getPlayer(game);
+  const opponent = getOpponent(game);
+  const board = getBoard(game);
+  const hand = getHand(game);
+  const deck = getDeck(game);
 
-        {connectDropTarget(
-          <div
-            className={classNames("ui basic segment", {
-              "inverted green raised": isOver
-            })}
-          >
-            <Side board={opponentMinions(board)} />
-            <Divider section={true} />
-            <Side board={playerMinions(board)} />
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: CardType.Minion,
+    drop: (props, monitor) => {
+      console.log(monitor.getItem());
+      const { card } = monitor.getItem();
+
+      return dispatch(playCard(card));
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: _.T
+    })
+  });
+
+  return (
+    <Segment>
+      <EndGameScreen
+        player={playerHero}
+        opponent={opponentHero}
+        open={step === Step.FinalGameOver}
+        dimmer="blurring"
+      />
+      <Grid>
+        <Grid.Column computer={14} mobile={16}>
+          <Hand active={!isCurrentPlayer} hand={opponentCards(hand)} />
+          <HeroComponent hero={opponentHero} player={opponent} />
+
+          <div ref={drop}>
+            <Segment
+              basic
+              className={classNames({
+                "inverted green raised": isOver
+              })}
+            >
+              <Side board={opponentMinions(board)} />
+              <Divider section={true} />
+              <Side board={playerMinions(board)} />
+            </Segment>
           </div>
-        )}
 
-        <DraggableHero character={player} />
-        <Hand active={currentPlayer} hand={playerCards(hand)} />
-      </Grid.Column>
+          <HeroComponent hero={playerHero} player={player} />
+          <Hand active={isCurrentPlayer} hand={playerCards(hand)} />
+        </Grid.Column>
 
-      <Grid.Column
-        computer={2}
-        mobile={16}
-        verticalAlign="middle"
-        stretched={true}
-      >
-        <Deck deck={opponentCards(deck)} />
+        <Grid.Column
+          computer={2}
+          mobile={16}
+          verticalAlign="middle"
+          stretched={true}
+        >
+          <Deck deck={opponentCards(deck)} />
 
-        <Button.Group vertical={true} size="large">
-          <Button color="green" basic={true}>
-            Turn: {turn}
-          </Button>
+          <Button.Group vertical={true} size="large">
+            <Button color="green" basic={true}>
+              Turn: {turn}
+            </Button>
 
-          <NextTurn onClick={endTurn} />
-        </Button.Group>
-        <Deck deck={playerCards(deck)} />
-      </Grid.Column>
-    </Grid>
-  </Segment>
-);
+            <NextTurn onClick={endTurn} />
+          </Button.Group>
+          <Deck deck={playerCards(deck)} />
+        </Grid.Column>
+      </Grid>
+    </Segment>
+  );
+};
 
 export default Battlefield;

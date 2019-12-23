@@ -130,7 +130,8 @@ const opponentHero: Hero = craftHero({
 const player: Player = craftPlayer({
   cardClass: CardClass.Shaman,
   owner: Controller.Player,
-  hero: playerHero.id
+  hero: playerHero.id,
+  mana: 5
 });
 const opponent: Player = craftPlayer({
   cardClass: CardClass.Hunter,
@@ -174,8 +175,12 @@ const minions = craftMinions([
 
 export const cards: CardContainer = { ...deck, ...hand };
 export const board: EntityContainer = entitiesFrom([
+  player,
+  opponent,
+
   playerHero,
   opponentHero,
+
   ...minions
 ]);
 
