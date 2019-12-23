@@ -18,11 +18,11 @@ export const getCharacter = (id: number, game: Game): Character => {
   throw new Error(`Entity ${id} is not a character.`);
 };
 
-export const getCharacters = (game: Game): CharacterContainer =>
-  _.filter(
-    _.propEq("type", _.contains([CardType.Minion, CardType.Hero])),
-    game.entities
-  ) as CharacterContainer;
+// export const getCharacters = (game: Game): CharacterContainer =>
+//   _.filter(
+//     _.propEq("type", _.contains([CardType.Minion, CardType.Hero])),
+//     game.entities
+//   ) as CharacterContainer;
 
 export const canAttack = (character: Character): boolean =>
   character.attack > 0 && !character.exhausted;

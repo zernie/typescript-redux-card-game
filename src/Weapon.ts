@@ -14,7 +14,7 @@ export interface Weapon extends BasicCard {
   type: CardType.Weapon;
 }
 
-export type CraftWeaponProps = Readonly<{
+export interface CraftWeaponProps  {
   abilities?: Abilities;
   attack: number;
   cardID: string;
@@ -24,7 +24,7 @@ export type CraftWeaponProps = Readonly<{
   owner: Controller;
   text?: string;
   zone: Zone;
-}>;
+};
 
 export const craftWeapon = (props: CraftWeaponProps): Weapon =>
   ({

@@ -1,1 +1,1 @@
-export type Container<T> = Record<number, T>;
+export type Container<T> = Record<number | string, T>;

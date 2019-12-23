@@ -13,7 +13,7 @@ export interface Minion extends Playable {
   type: CardType.Minion;
 }
 
-export type CraftMinionProps = Readonly<{
+export interface CraftMinionProps {
   abilities?: Abilities;
   attack: number;
   attacksPerformed?: number;
@@ -26,11 +26,11 @@ export type CraftMinionProps = Readonly<{
   cost: number;
   text?: string;
   zone: Zone;
-}>;
+};
 
 const selectMinions = (controller: Controller) => (
   container: MinionContainer
-) => _.filter(_.propEq("owner", controller), container);
+) => _.pickBy(_.propEq("owner", controller), container) as MinionContainer;
 
 export const playerMinions = selectMinions(Controller.Player);
 export const opponentMinions = selectMinions(Controller.Opponent);
@@ -55,7 +55,7 @@ export const getMinions = (entities: EntityContainer) =>
 
 export const ownerMinions = _.curry(
   (player: Controller, minions: MinionContainer) =>
-    _.filter(_.propEq("owner", player), minions) as MinionContainer
+    _.pickBy(_.propEq("owner", player), minions) as MinionContainer
 );
 
 export const anyTaunts = (minions: MinionContainer) =>

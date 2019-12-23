@@ -9,7 +9,7 @@ export type Card = Hero | Minion | Weapon;
 export type CardContainer = Container<Card>;
 
 export const selectCards = (player: Controller) => (cards: CardContainer) =>
-  _.filter((card: Card) => card.owner === player, cards) as CardContainer;
+  _.pickBy((card: Card) => card.owner === player, cards) as CardContainer;
 
 export const playerCards = selectCards(Controller.Player);
 export const opponentCards = selectCards(Controller.Opponent);

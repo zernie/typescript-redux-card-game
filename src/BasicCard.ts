@@ -1,6 +1,6 @@
 import { Controller, Zone } from "./enums";
 
-export type BasicCard = Readonly<{
+export interface BasicCard {
   cost: number;
   cardID: string;
   id: number;
@@ -8,4 +8,4 @@ export type BasicCard = Readonly<{
   owner: Controller;
   text?: string;
   zone: Zone;
-}>;
+};
