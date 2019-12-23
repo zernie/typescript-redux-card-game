@@ -1,10 +1,10 @@
 import * as React from "react";
-import { DndProvider  } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { Container, Header } from "semantic-ui-react";
-import TargetableBattlefield from "./TargetableBattlefield";
+import TargetableBattlefield from "./Battlefield";
 
-const App: React.FunctionComponent<{}> = props => (
+const App: React.FC = props => (
   <Container textAlign="center">
     <Header as="h1">
       <Header.Content>
@@ -18,4 +18,4 @@ const App: React.FunctionComponent<{}> = props => (
   </Container>
 );
 
-export default  App;
+export default App;
