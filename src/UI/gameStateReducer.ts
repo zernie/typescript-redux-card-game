@@ -9,6 +9,7 @@ import { getOpponent, getPlayer, other } from "../Player";
 import initialState from "./initialState";
 import { drawCard } from "./Deck/deckReducer";
 import { gainMana, restoreMana } from "./Board/actions";
+import { AppThunk } from '../utils';
 
 export const finishGame = createAction<void>("FINISH_GAME");
 export const nextTurn = createAction<void>("NEXT_TURN");
@@ -21,7 +22,7 @@ const nextTurnHandler = (state: State) => {
   state.activePlayer = other(state.activePlayer);
 };
 
-export const checkForEndGame = (): ThunkAction<void, Game, {}> => (
+export const checkForEndGame = (): AppThunk => (
   dispatch,
   getState
 ) => {
@@ -37,7 +38,7 @@ export const checkForEndGame = (): ThunkAction<void, Game, {}> => (
   }
 };
 
-export const endTurn = (): ThunkAction<void, Game, {}> => (
+export const endTurn = (): AppThunk => (
   dispatch,
   getState
 ) => {
