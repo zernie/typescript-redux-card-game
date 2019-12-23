@@ -1,7 +1,7 @@
 import _ from "lodash/fp";
 import { MinionContainer } from "./Board";
 import { CardContainer } from "./Card";
-import { Entity, EntityContainer } from './Entity';
+import { Entity, EntityContainer } from "./Entity";
 import { CardType, Controller, Step, Zone } from "./enums";
 
 export type State = {
@@ -25,4 +25,7 @@ export const getDeck = (game: Game) =>
   _.pickBy(card => card.zone === Zone.Deck, game.cards) as CardContainer;
 
 export const getBoard = (game: Game) =>
-  _.pickBy<Entity>(entity => entity.type === CardType.Minion, game.entities) as MinionContainer;
+  _.pickBy<Entity>(
+    entity => entity.type === CardType.Minion,
+    game.entities
+  ) as MinionContainer;

@@ -1,12 +1,9 @@
 import { ThunkAction } from "redux-thunk";
 import * as _ from "lodash/fp";
-import {
-  createAction,
-  createReducer, PayloadAction
-} from '@reduxjs/toolkit';
+import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { Card, CardContainer } from "../../Card";
 import { Game } from "../../Game";
-import { canSpendMana, getActivePlayer } from '../../Hero';
+import { canSpendMana, getActivePlayer } from "../../Hero";
 import { summonMinion } from "../Board/actions";
 import { equipWeapon, spendMana } from "../Board/actions";
 import { CardType, Zone } from "../../enums";

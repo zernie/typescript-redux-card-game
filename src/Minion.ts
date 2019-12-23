@@ -1,7 +1,7 @@
 import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { MinionContainer } from "./Board";
-import { hasTaunt } from './Card';
+import { hasTaunt } from "./Card";
 import { Character } from "./Character";
 import { EntityContainer } from "./Entity";
 import { Ability, CardType, Controller, Zone } from "./enums";
@@ -28,24 +28,27 @@ export type CraftMinionProps = Readonly<{
   zone: Zone;
 }>;
 
-const selectMinions = (controller: Controller) => (container: MinionContainer) =>
-  _.filter(_.propEq("owner", controller), container);
+const selectMinions = (controller: Controller) => (
+  container: MinionContainer
+) => _.filter(_.propEq("owner", controller), container);
 
 export const playerMinions = selectMinions(Controller.Player);
 export const opponentMinions = selectMinions(Controller.Opponent);
 
-export const craftMinion = (props: CraftMinionProps): Minion => ({
-  abilities: [],
-  attacksPerformed: 0,
-  destroyed: false,
-  exhausted: !!props.abilities && !props.abilities.includes(Ability.Charge),
-  health: props.maxHealth,
-  ...props,
-  id: newId(),
-  type: CardType.Minion
-}) as Minion;
+export const craftMinion = (props: CraftMinionProps): Minion =>
+  ({
+    abilities: [],
+    attacksPerformed: 0,
+    destroyed: false,
+    exhausted: !!props.abilities && !props.abilities.includes(Ability.Charge),
+    health: props.maxHealth,
+    ...props,
+    id: newId(),
+    type: CardType.Minion
+  } as Minion);
 
-export const craftMinions = (minionProps: CraftMinionProps[]): Minion[] => _.map(craftMinion, minionProps) as Minion[];
+export const craftMinions = (minionProps: CraftMinionProps[]): Minion[] =>
+  _.map(craftMinion, minionProps) as Minion[];
 
 export const getMinions = (entities: EntityContainer) =>
   _.pickBy(_.propEq("type", CardType.Minion), entities) as MinionContainer;
@@ -56,10 +59,7 @@ export const ownerMinions = _.curry(
 );
 
 export const anyTaunts = (minions: MinionContainer) =>
-  _.any(
-    hasTaunt,
-    _.values(minions)
-  );
+  _.any(hasTaunt, _.values(minions));
 
 export const isValidTarget = (
   character: Character,

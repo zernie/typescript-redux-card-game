@@ -4,9 +4,9 @@ import { cards } from "./initialState";
 import deckReducer from "./Deck/deckReducer";
 import handReducer from "./Hand/handReducer";
 import { CardContainer } from "../Card";
-// import { createAction, createReducer } from "../../node_modules/redux-starter-kit";
-// import  { PayloadActionCreator}  from 'redux-starter-kit';
-// import { createReducer } from 'redux-starter-kit/src/createReducer';
+// import { createAction, createReducer } from "../../node_modules/@reduxjs/toolkit";
+// import  { PayloadActionCreator}  from '@reduxjs/toolkit';
+// import { createReducer } from '@reduxjs/toolkit/src/createReducer';
 
 export default (
   state: CardContainer = cards,

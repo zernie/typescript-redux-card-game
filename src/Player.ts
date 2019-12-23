@@ -23,15 +23,16 @@ interface CraftPlayerProps {
   weapon?: number | null;
 }
 
-export const craftPlayer = (props: CraftPlayerProps): Player => ({
-  id: newId(),
-  mana: 0,
-  maximumMana: 10,
-  playState: PlayState.Playing,
-  weapon: null,
-  ...props,
-  type: CardType.Player
-}) as Player;
+export const craftPlayer = (props: CraftPlayerProps): Player =>
+  ({
+    id: newId(),
+    mana: 0,
+    maximumMana: 10,
+    playState: PlayState.Playing,
+    weapon: null,
+    ...props,
+    type: CardType.Player
+  } as Player);
 
 export const canSpendMana = (player: Player, amount: number) =>
   player.mana - amount >= 0;
