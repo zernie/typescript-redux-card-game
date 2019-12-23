@@ -1,12 +1,11 @@
-import * as _ from "lodash/fp";
 import { Game } from "../Game";
 import { craftHero, Hero } from "../Hero";
 import { CardContainer, cardListFrom } from "../Card";
-import { entitiesFrom, MinionContainer } from "../Board";
+import { entitiesFrom } from "../Board";
 import { Ability, CardClass, Controller, Step, Zone } from "../enums";
 import { EntityContainer } from "../Entity";
 import { craftMinions } from "../Minion";
-import { craftWeapon, craftWeapons } from "../Weapon";
+import { craftWeapons } from "../Weapon";
 import { craftPlayer, Player } from "../Player";
 
 const handMinions = craftMinions([
