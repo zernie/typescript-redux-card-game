@@ -5,10 +5,11 @@ import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
 import { Hero } from "../../../Hero";
 import CardArt from "../../CardArt";
 import { playCard } from "../../Hand/handReducer";
-import { BattlefieldProps } from "../../Battlefield";
 import { CardType } from "../../../enums";
 import { useGame } from "../../hooks";
 import { Player } from "../../../Player";
+import { performAttack } from '../characterReducer';
+import { useDispatch } from 'react-redux';
 
 export interface HeroProps {
   hero: Hero;
@@ -16,18 +17,25 @@ export interface HeroProps {
 }
 
 const HeroComponent: React.FC<HeroProps> = ({
-  hero: { id, armor, cardID, exhausted, name, health, type },
+  hero,
   player: { mana, maximumMana }
 }) => {
-  const game = useGame();
+  // const game = useGame();
+  const { id, armor, cardID, exhausted, name, health, type } = hero;
+  const dispatch = useDispatch();
   // FIXME
   const weapon = { attack: 1, durability: 2 };
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [CardType.Minion, CardType.Weapon],
     drop: (props, monitor) => {
-      const { card } = monitor.getItem() as BattlefieldProps;
+      const item = monitor.getItem();
+      console.log(props, item)
 
-      return playCard(card);
+      return dispatch(performAttack({
+        id: id,
+        source: hero,
+        target: hero
+      }));
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
@@ -35,7 +43,7 @@ const HeroComponent: React.FC<HeroProps> = ({
     })
   });
   const [collectedProps, drag] = useDrag({
-    item: { id, type }
+    item: hero
   });
 
   return (

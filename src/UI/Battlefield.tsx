@@ -21,24 +21,25 @@ import { useGame } from "./hooks";
 import { useDispatch } from "react-redux";
 import { getOpponent, getPlayer } from "../Player";
 
-interface BattlefieldOwnProps {
-  card: Card;
-  isCurrentPlayer: boolean;
-  endTurn: typeof endTurnFunction;
-  playCard: typeof playCard;
-  player: Hero;
-  opponent: Hero;
-  board: MinionContainer;
-  hand: CardContainer;
-  deck: CardContainer;
-}
+// interface BattlefieldOwnProps {
+//   card: Card;
+//   isCurrentPlayer: boolean;
+//   endTurn: typeof endTurnFunction;
+//   playCard: typeof playCard;
+//   player: Hero;
+//   opponent: Hero;
+//   board: MinionContainer;
+//   hand: CardContainer;
+//   deck: CardContainer;
+// }
 
-export type BattlefieldProps = BattlefieldOwnProps;
+// export type BattlefieldProps = BattlefieldOwnProps;
 
 const Battlefield: React.FC = props => {
   // TODO: Refactor
   const dispatch = useDispatch();
   const game = useGame();
+  console.log("game", game)
   const {
     state: { turn, activePlayer, step }
   } = game;
@@ -52,16 +53,20 @@ const Battlefield: React.FC = props => {
   const deck = getDeck(game);
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: CardType.Minion,
+    accept: [CardType.Minion, CardType.Weapon],
     drop: (props, monitor) => {
-      console.log(monitor.getItem());
-      const { card } = monitor.getItem();
+      const card = monitor.getItem() as Card;
+      console.log(card);
 
       return dispatch(playCard(card));
     },
+    canDrop: (item, monitor) => {
+      console.log("canDrop", item)
+      return true
+    },
     collect: monitor => ({
       isOver: monitor.isOver(),
-      canDrop: _.T
+      canDrop: monitor.canDrop()
     })
   });
 
@@ -82,7 +87,7 @@ const Battlefield: React.FC = props => {
             <Segment
               basic
               className={classNames({
-                "inverted green raised": isOver
+                "inverted green raised": isOver && canDrop
               })}
             >
               <Side board={opponentMinions(board)} />

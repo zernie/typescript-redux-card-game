@@ -69,7 +69,7 @@ const controllerHandler = (
   state[action.payload.id] = controllerReducer(
     state[action.payload.id] as Player,
     action
-  ) as Player;
+  );
 };
 
 export default createReducer<EntityContainer>(board, {
@@ -84,6 +84,6 @@ export default createReducer<EntityContainer>(board, {
   [equipWeapon.type]: characterHandler,
   [gainMana.type]: characterHandler,
   [restoreMana.type]: characterHandler,
-  [spendMana.type]: characterHandler,
+  [spendMana.type]: controllerHandler,
   [destroyWeapon.type]: controllerHandler
 });

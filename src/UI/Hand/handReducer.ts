@@ -6,18 +6,21 @@ import { summonMinion } from "../Board/actions";
 import { equipWeapon, spendMana } from "../Board/actions";
 import { CardType, Zone } from "../../enums";
 import { AppThunk } from "../../utils";
+import { original } from "immer"
 
 export const removeCard = createAction<Card>("REMOVE_CARD");
 
 export const playCard = (payload: Card): AppThunk => (dispatch, getState) => {
   const state = getState();
   const hero = activeHero(state);
+  const player = getActivePlayer(state);
   if (!canSpendMana(getActivePlayer(state), payload.cost)) {
-    return alert("Cannot spend mana");
+    console.log(getActivePlayer(state), payload.cost);
+    return alert("Not enough mana!");
   }
 
   dispatch(removeCard(payload));
-  dispatch(spendMana({ amount: payload.cost, id: hero.id }));
+  dispatch(spendMana({ amount: payload.cost, id: player.id }));
 
   switch (payload.type) {
     case CardType.Minion:
@@ -27,7 +30,7 @@ export const playCard = (payload: Card): AppThunk => (dispatch, getState) => {
       dispatch(equipWeapon({ id: payload.id, weapon: payload }));
       return;
     default:
-      return;
+      return alert(`Unknown card type: ${payload.type}`);
   }
 };
 
@@ -35,6 +38,7 @@ export const removeCardHandler = (
   state: CardContainer,
   action: PayloadAction<Card>
 ) => {
+  console.log(action.payload.id, original(state));
   state[action.payload.id].zone = Zone.Graveyard;
 };
 

@@ -45,7 +45,6 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(restoreMana({ id: player.id }));
 
   // const cards = _.values(selectCards(player.owner, getDeck(state)));
-  // FIXME
   const cards = _.values(selectCards(player.owner)(getDeck(state)));
 
   if (cards.length > 0) {

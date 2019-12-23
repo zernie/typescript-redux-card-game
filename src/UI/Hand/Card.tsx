@@ -2,25 +2,34 @@ import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
 import { Card as ICard } from "../../Card";
 import { State } from "../../Game";
-import { activeHero, Hero } from "../../Hero";
+import { activeHero, getActivePlayer, Hero } from '../../Hero';
 import { CardType } from "../../enums";
 import CardArt from "../CardArt";
-import { useDrag } from "react-dnd";
+import { useDrag } from 'react-dnd';
 import { useGame } from "../hooks";
+import { canSpendMana } from '../../Player';
 
 export interface CardProps {
   card: ICard;
 }
 
-export const Card: React.FunctionComponent<CardProps> = ({ card }) => {
+export const Card: React.FC<CardProps> = ({ card }) => {
   const game = useGame();
-  const hero = activeHero(game);
-  const [collectedProps, drag] = useDrag({
-    item: { id: card.id, type: "Card" }
+  const player = getActivePlayer(game);
+  const [{canDrag}, drag] = useDrag({
+    item: card,
+    canDrag: (monitor) =>
+      card.owner === game.state.activePlayer &&
+      canSpendMana(player, card.cost),
+    collect: (monitor) => ({
+      canDrag: monitor.canDrag()
+    })
   });
 
   return (
     <div ref={drag}>
+      {/*<Card2 id={card.cardID}/>*/}
+
       <List.Header>{card.name}</List.Header>
 
       <Segment compact size="tiny" basic vertical>

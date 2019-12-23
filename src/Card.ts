@@ -8,6 +8,7 @@ import { Weapon } from "./Weapon";
 export type Card = Hero | Minion | Weapon;
 export type CardContainer = Container<Card>;
 
+// FIXME
 export const selectCards = (player: Controller) => (cards: CardContainer) =>
   _.pickBy((card: Card) => card.owner === player, cards) as CardContainer;
 

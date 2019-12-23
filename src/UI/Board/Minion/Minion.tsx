@@ -1,15 +1,15 @@
 import React from "react";
 import { Label, List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
-import { Minion as IMinion } from "../../../Minion";
+import { getMinions, isValidTarget, Minion as IMinion, ownerMinions } from '../../../Minion';
 import { performAttack } from "../characterReducer";
 import CardArt from "../../CardArt";
 import { useDrag, useDrop } from "react-dnd";
 import { CardType } from "../../../enums";
-import { BattlefieldProps } from "../../Battlefield";
-import { playCard } from "../../Hand/handReducer";
 import { useGame } from "../../hooks";
-import { canAttack } from "../../../Character";
+import { canAttack, Character } from '../../../Character';
+import { useDispatch } from 'react-redux';
+import { MinionContainer } from '../../../Board';
 
 export interface MinionProps {
   character: IMinion;
@@ -25,6 +25,7 @@ const ZZZ: React.FC = () => (
 );
 
 const Minion: React.FC<MinionProps> = ({ character }) => {
+  const dispatch = useDispatch();
   const {
     abilities,
     attack,
@@ -37,24 +38,40 @@ const Minion: React.FC<MinionProps> = ({ character }) => {
     type,
     owner
   } = character;
-  const { state } = useGame();
+  const { entities, state } = useGame();
   const [{ isOver, canDrop }, dropRef] = useDrop({
-    accept: [CardType.Minion, CardType.Weapon],
+    accept: [CardType.Minion],
     drop: (props, monitor) => {
-      const { card } = monitor.getItem(); // as BattlefieldProps;
+      const item = monitor.getItem() as Character;
+      console.log(props, item)
 
-      return playCard(card);
+      // TODO: fixme
+      return dispatch(performAttack({
+        id: character.id,
+        source: character,
+        target: character
+      }));
+    },
+    canDrop: (target: IMinion) => {
+      const enemyMinions = ownerMinions(
+        character.owner,
+        getMinions(entities)
+      );
+
+      return (
+        target.owner !== character.owner && isValidTarget(character, enemyMinions as MinionContainer)
+      );
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
-      canDrop: _.T
+      canDrop: monitor.canDrop()
     })
   });
   const [{ canDrag }, dragRef] = useDrag({
-    item: { id, type },
-    // canDrag: (monitor) => owner === state.activePlayer && canAttack(character),
+    item: character,
+    canDrag: (monitor) => owner === state.activePlayer && canAttack(character),
     collect: monitor => ({
-      canDrag: owner === state.activePlayer && canAttack(character)
+      canDrag: monitor.canDrag()
     })
   });
 

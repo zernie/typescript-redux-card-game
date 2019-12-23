@@ -56,7 +56,7 @@ export const getMinions = (entities: EntityContainer) =>
 
 export const ownerMinions = _.curry(
   (player: Controller, minions: MinionContainer) =>
-    _.pickBy(_.propEq("owner", player), minions) as MinionContainer
+    (_.pickBy(_.propEq("owner", player), minions)) as MinionContainer
 );
 
 export const anyTaunts = (minions: MinionContainer) =>

@@ -12,6 +12,7 @@ import {
 } from "./actions";
 import { canSpendMana, Player } from "../../Player";
 import { EntityPayload } from '../../Entity';
+import { original } from "immer"
 
 const MAX_MANA = 10;
 
@@ -46,7 +47,7 @@ const spendManaHandler = (
   { payload: { amount } }: PayloadAction<SpendManaPayload>
 ) => {
   if (!canSpendMana(state, amount))
-    return console.warn(`Cannot spend more than current mana (${state.mana}).`);
+    return alert(`Cannot spend more than current mana (${state.mana}).`);
 
   state.mana -= amount;
 };

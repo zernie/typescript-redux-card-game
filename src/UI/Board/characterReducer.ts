@@ -68,6 +68,7 @@ export default (
   state: Character,
   action: PayloadAction<EntityPayload>
 ): Character => {
+  // FIXME
   // if (exhaust.match(action) || attackCharacter.match(action)) {
   //   return createReducer<Character>(null, {
   //       [exhaust]: exhaustHandler,
