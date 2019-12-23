@@ -2,7 +2,7 @@ import * as React from "react";
 import { Segment, Statistic } from "semantic-ui-react";
 import _ from "lodash/fp";
 import { CardContainer } from "../../Card";
-import { SemanticCOLORS } from "semantic-ui-react/dist/commonjs/generic";
+import { SemanticCOLORS } from "semantic-ui-react";
 
 export interface SideProps {
   deck: CardContainer;
