@@ -1,13 +1,16 @@
 ## Roadmap: 
 
-* [x] Turns
+* [x] Battlefield 
+* [x] Hand
+* [x] Deck
+* [-] Turns
   * [ ] Turn timer
   * [ ] Fatigue 
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
 * [ ] Graveyard
-* [ ] Basic mechanics
+* [-] Basic mechanics
   * [x] Charge
   * [x] Windfury
   * [x] Taunt
