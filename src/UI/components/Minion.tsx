@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, List, Segment, Transition } from "semantic-ui-react";
+import { Label, Segment, Transition } from "semantic-ui-react";
 import Sleep from "./Sleep";
 import CardArt from "../CardArt";
 import { Minion as IMinion } from "../../Minion";
@@ -42,7 +42,7 @@ const Minion: React.FC<MinionProps> = ({
       </Label>
     </Segment>
 
-    <AbilityList list={abilities}/>
+    <AbilityList list={abilities} />
   </div>
 );
 

@@ -21,7 +21,7 @@ import {
   summonMinion
 } from "./actions";
 import characterReducer from "./characterReducer";
-import playersReducer from "./playersReducer";
+import playerReducer from "./playerReducer";
 
 const destroyWeaponHandler = (
   state: EntityContainer,
@@ -49,9 +49,8 @@ const summonMinionHandler = (
   state[action.payload.id] = action.payload;
 };
 
-const processDeathsHandler = (
-  state: EntityContainer,
-) => _.omitBy(_.whereEq({ destroyed: true, type: CardType.Minion }), state);
+const processDeathsHandler = (state: EntityContainer) =>
+  _.omitBy(_.whereEq({ destroyed: true, type: CardType.Minion }), state);
 
 const characterHandler = (
   state: EntityContainer,
@@ -63,28 +62,32 @@ const characterHandler = (
   );
 };
 
-const controllerHandler = (
+const playerHandler = (
   state: EntityContainer,
   action: PayloadAction<EntityPayload>
 ) => {
-  state[action.payload.id] = playersReducer(
+  state[action.payload.id] = playerReducer(
     state[action.payload.id] as Player,
     action
   );
 };
 
+// TODO: refactor
 export default createReducer<EntityContainer>(play, {
   [processDeaths.type]: processDeathsHandler,
   [destroyWeapon.type]: destroyWeaponHandler,
   [equipWeapon.type]: equipWeaponHandler,
   [nextTurn.type]: nextTurnHandler,
   [summonMinion.type]: summonMinionHandler,
+
   [attackCharacter.type]: characterHandler,
   [dealDamage.type]: characterHandler,
   [exhaust.type]: characterHandler,
   [equipWeapon.type]: characterHandler,
   [gainMana.type]: characterHandler,
   [restoreMana.type]: characterHandler,
-  [spendMana.type]: controllerHandler,
-  [destroyWeapon.type]: controllerHandler
+  [destroyWeapon.type]: characterHandler,
+
+  [spendMana.type]: playerHandler
+  // [dealDamage.type]: playerHandler FIXME
 });

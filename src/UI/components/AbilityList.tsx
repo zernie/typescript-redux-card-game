@@ -3,12 +3,13 @@ import React from "react";
 import { Ability } from "../../enums";
 
 interface AbilitiesProps {
-  list: Ability[]
+  list: Ability[];
 }
 
-const AbilityList: React.FC<AbilitiesProps> = ({ list }) =>
-  <div>
-    {list.length && (
+const AbilityList: React.FC<AbilitiesProps> = ({ list }) => {
+  if (!list.length) return null;
+  return (
+    <div>
       <List verticalAlign="bottom">
         {list.map((ability, i) => (
           <List.Item key={i}>
@@ -18,7 +19,8 @@ const AbilityList: React.FC<AbilitiesProps> = ({ list }) =>
           </List.Item>
         ))}
       </List>
-    )}
-  </div>;
+    </div>
+  );
+};
 
 export default AbilityList;

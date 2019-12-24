@@ -1,8 +1,7 @@
-import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
-  destroyWeapon,
-  equipWeapon,
-  EquipWeaponPayload,
+  dealDamage,
+  DealDamagePayload,
   gainMana,
   GainManaPayload,
   restoreMana,
@@ -11,20 +10,9 @@ import {
 } from "./actions";
 import { canSpendMana, Player } from "../../Player";
 import { EntityPayload } from "../../Entity";
+import { PlayState } from "../../enums";
 
 const MAX_MANA = 10;
-
-const destroyWeaponHandler = (state: Player, action: Action) => {
-  // state.weapon = 0;
-  state.weapon = null;
-};
-
-const equipWeaponHandler = (
-  state: Player,
-  action: PayloadAction<EquipWeaponPayload>
-) => {
-  state.weapon = action.payload.weapon.id;
-};
 
 const gainManaHandler = (
   state: Player,
@@ -50,12 +38,18 @@ const spendManaHandler = (
   state.mana -= amount;
 };
 
+const dealDamageHandler = (
+  state: Player,
+  action: PayloadAction<DealDamagePayload>
+) => {
+  if (action.payload.character.destroyed) state.playState = PlayState.Lost;
+};
+
 // TODO: refactor
 export default (state: Player, action: PayloadAction<EntityPayload>) =>
   createReducer<Player>(state, {
-    [destroyWeapon.type]: destroyWeaponHandler,
-    [equipWeapon.type]: equipWeaponHandler,
     [gainMana.type]: gainManaHandler,
     [restoreMana.type]: restoreManaHandler,
-    [spendMana.type]: spendManaHandler
+    [spendMana.type]: spendManaHandler,
+    [dealDamage.type]: dealDamageHandler
   })(state, action);

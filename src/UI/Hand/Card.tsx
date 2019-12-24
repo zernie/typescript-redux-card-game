@@ -15,7 +15,7 @@ export interface CardProps {
   card: ICard;
 }
 
-export const Card: React.FC<CardProps> = ({active, card }) => {
+export const Card: React.FC<CardProps> = ({ active, card }) => {
   const game = useGame();
   const player = getActivePlayer(game);
   const [{ canDrag }, drag] = useDrag({
@@ -27,13 +27,13 @@ export const Card: React.FC<CardProps> = ({active, card }) => {
     })
   });
 
-  if (!active) return <CardBack/>
+  if (!active) return <CardBack />;
 
   return (
     <div ref={drag}>
       <List.Header>{card.name}</List.Header>
 
-      <Segment compact size="tiny" basic vertical>
+      <Segment compact size="tiny" basic vertical disabled={!canDrag}>
         <CardArt alt={card.name} cardID={card.cardID} size="tiny" centered />
 
         <Label attached={"top left"} circular size="large" color="blue">
@@ -51,7 +51,7 @@ export const Card: React.FC<CardProps> = ({active, card }) => {
 
       <br />
 
-      <AbilityList list={card.abilities}/>
+      <AbilityList list={card.abilities} />
     </div>
   );
 };

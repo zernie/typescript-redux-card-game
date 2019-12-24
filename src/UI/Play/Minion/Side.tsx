@@ -28,7 +28,7 @@ const Side: React.FC<SideProps> = ({ board }) => (
         board
       )}
     </Transition.Group>
-  </Segment>
+  </div>
 );
 
 export default Side;

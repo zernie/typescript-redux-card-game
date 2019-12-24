@@ -1,20 +1,23 @@
 // import _ from "lodash/fp";
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { Card, CardContainer } from "../../Card";
-import { canSpendMana, getActivePlayer } from "../../Hero";
+import { getActivePlayer } from "../../Hero";
 import { equipWeapon, spendMana, summonMinion } from "../Play/actions";
 import { CardType } from "../../enums";
 import { AppThunk } from "../../utils";
 import { drawCard } from "../Deck/deckReducer";
+import { canSpendMana } from "../../Player";
 
 export const playCard = createAction<Card>("PLAY_CARD");
 
-export const playerUseCard = (payload: Card): AppThunk => (dispatch, getState) => {
+export const playerUseCard = (payload: Card): AppThunk => (
+  dispatch,
+  getState
+) => {
   const state = getState();
   // const hero = activeHero(state);
   const player = getActivePlayer(state);
   if (!canSpendMana(getActivePlayer(state), payload.cost)) {
-    console.log(getActivePlayer(state), payload.cost);
     return alert("Not enough mana!");
   }
 

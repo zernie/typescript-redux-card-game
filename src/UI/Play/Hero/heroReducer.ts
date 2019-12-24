@@ -1,7 +1,24 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { Hero, reduceArmor, reduceHealth } from "../../../Hero";
-import { dealDamage, DealDamagePayload } from "../actions";
+import {
+  dealDamage,
+  DealDamagePayload,
+  destroyWeapon,
+  equipWeapon,
+  EquipWeaponPayload
+} from "../actions";
 import { EntityPayload } from "../../../Entity";
+
+const destroyWeaponHandler = (state: Hero, action: Action) => {
+  state.weaponId = null;
+};
+
+const equipWeaponHandler = (
+  state: Hero,
+  action: PayloadAction<EquipWeaponPayload>
+) => {
+  state.weaponId = action.payload.weapon.id;
+};
 
 const damageHeroHandler = (
   state: Hero,
@@ -16,5 +33,7 @@ const damageHeroHandler = (
 // TODO: refactor
 export default (state: Hero, action: PayloadAction<EntityPayload>) =>
   createReducer(state, {
-    [dealDamage.type]: damageHeroHandler
+    [dealDamage.type]: damageHeroHandler,
+    [destroyWeapon.type]: destroyWeaponHandler,
+    [equipWeapon.type]: equipWeaponHandler
   })(state, action);

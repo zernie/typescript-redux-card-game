@@ -1,4 +1,4 @@
-import { Action, PayloadAction } from "@reduxjs/toolkit";
+import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { Character, getCharacter, shouldExhaust } from "../../Character";
 import { CardType } from "../../enums";
 import { checkForEndGame } from "../gameStateReducer";
@@ -21,7 +21,11 @@ export const performAttack = (payload: SourceTargetPayload): AppThunk => (
 ) => {
   dispatch(attackCharacter({ id: payload.source.id }));
   dispatch(
-    dealDamage({ id: payload.target.id, amount: payload.source.attack })
+    dealDamage({
+      id: payload.target.id,
+      amount: payload.source.attack,
+      character: payload.target
+    })
   );
 
   const game = getState();
@@ -31,7 +35,8 @@ export const performAttack = (payload: SourceTargetPayload): AppThunk => (
     dispatch(
       dealDamage({
         id: attacker.id,
-        amount: payload.target.attack
+        amount: payload.target.attack,
+        character: payload.target
       })
     );
   }
@@ -52,14 +57,12 @@ export const performAttack = (payload: SourceTargetPayload): AppThunk => (
   dispatch(checkForEndGame());
 };
 
-const attackCharacterHandler = (
-  state: Character,
-  action: PayloadAction<number>
-) => {
-  state.attacksPerformed += action.payload;
+const attackCharacterHandler = (state: Character) => {
+  state.attacksPerformed++;
 };
 
-const exhaustHandler = (state: Character, action: Action) => {
+// FIXME
+const exhaustHandler = (state: Character) => {
   state.exhausted = true;
 };
 
@@ -68,16 +71,12 @@ export default (
   state: Character,
   action: PayloadAction<EntityPayload>
 ): Character => {
-  // FIXME
-  // if (exhaust.match(action) || attackCharacter.match(action)) {
-  //   return createReducer<Character>(null, {
-  //       [exhaust]: exhaustHandler,
-  //       [attackCharacter]: attackCharacterHandler
-  //   })(state, action);
-  // }
-
-  // if (exhaust.match(action)) return produce(exhaustHandler(state, action));
-  // if (attackCharacter.match(action)) return attackCharacterHandler(state, action);
+  if (exhaust.match(action) || attackCharacter.match(action)) {
+    return createReducer<Character>(state, {
+      [exhaust.type]: exhaustHandler,
+      [attackCharacter.type]: attackCharacterHandler
+    })(state, action);
+  }
 
   return state.type === CardType.Minion
     ? minionReducer(state, action)

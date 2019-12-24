@@ -10,6 +10,7 @@ import { getOpponent, getPlayer, Player } from "./Player";
 export interface Hero extends Playable {
   armor: number;
   type: CardType.Hero;
+  weaponId: number | null;
 }
 
 interface CraftHeroProps {
@@ -42,8 +43,6 @@ export const craftHero = (props: CraftHeroProps): Hero =>
     type: CardType.Hero
   } as Hero);
 
-export const canSpendMana = (player: Player, amount: number) =>
-  player.mana - amount >= 0;
 export const reduceArmor = (hero: Hero, damage: number): number =>
   Math.max(0, hero.armor - damage);
 

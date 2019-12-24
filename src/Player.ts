@@ -12,7 +12,6 @@ export interface Player {
   maximumMana: number;
   playState: PlayState;
   owner: Controller;
-  weapon: number | null;
   type: CardType.Player;
 }
 

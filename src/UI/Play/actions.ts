@@ -14,7 +14,11 @@ export type EquipWeaponPayload = EntityPayload<{
   weapon: Weapon;
 }>;
 
-export type DealDamagePayload = EntityPayload<{ amount: number }>;
+// export type DealDamagePayload = EntityPayload<{ amount: number }>;
+export type DealDamagePayload = EntityPayload<{
+  amount: number;
+  character: Character;
+}>;
 
 export type SourceTargetPayload = EntityPayload<{
   source: Character;

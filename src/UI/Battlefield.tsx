@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
 import { Card, opponentCards, playerCards } from "../Card";
-import { CardType, Step } from "../enums";
+import { CardType, Step, Zone } from "../enums";
 import { activeHero, getOpponentHero, getPlayerHero } from "../Hero";
 import {
   minionsFromContainer,
@@ -20,10 +20,9 @@ import Hand from "./Hand/Hand";
 import { playerUseCard } from "./Hand/handReducer";
 import HeroComponent from "./Play/Hero/Hero";
 import { useGame } from "./hooks";
-import { getOpponent, getPlayer } from "../Player";
+import { canSpendMana, getOpponent, getPlayer } from "../Player";
 
 const Battlefield: React.FC = props => {
-  // TODO: Refactor
   const dispatch = useDispatch();
   const game = useGame();
   const {
@@ -32,6 +31,7 @@ const Battlefield: React.FC = props => {
     play,
     state: { turn, activePlayer, step }
   } = game;
+  // TODO: extract hooks
   const isCurrentPlayer = activeHero(game) === getPlayerHero(game);
   const playerHero = getPlayerHero(game);
   const opponentHero = getOpponentHero(game);
@@ -39,18 +39,16 @@ const Battlefield: React.FC = props => {
   const opponent = getOpponent(game);
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    // accept: [CardType.Minion, CardType.Weapon],
-    accept: "Card",
-    drop: (props, monitor) => {
-      const card = monitor.getItem() as Card;
-      console.log(card);
-
-      return dispatch(playerUseCard(card));
-    },
-    canDrop: (item, monitor) => {
-      console.log("canDrop", item);
-      return true;
-    },
+    accept: [
+      CardType.Minion,
+      CardType.Weapon,
+      CardType.Spell,
+      CardType.Hero,
+      CardType.HeroPower
+    ],
+    drop: (item: Card, monitor) => dispatch(playerUseCard(item)),
+    canDrop: (item: Card, monitor) =>
+      item.zone === Zone.Hand && canSpendMana(player, item.cost),
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
@@ -61,7 +59,7 @@ const Battlefield: React.FC = props => {
   const minions = minionsFromContainer(play);
 
   return (
-    <Segment style={{padding: '0 0.5em'}}>
+    <Segment style={{ padding: "0 0.5em" }}>
       <EndGameScreen
         player={player}
         opponent={opponent}
@@ -79,10 +77,10 @@ const Battlefield: React.FC = props => {
               className={classNames({
                 "inverted green raised": isOver && canDrop
               })}
-              style={{padding: 0}}
+              style={{ padding: 0 }}
             >
               <Side board={opponentMinions(minions)} />
-              <Divider section={true} style={{margin: 2 }}/>
+              <Divider section={true} style={{ margin: 2 }} />
               <Side board={playerMinions(minions)} />
             </Segment>
           </div>
