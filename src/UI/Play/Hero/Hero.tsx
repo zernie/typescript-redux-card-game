@@ -96,7 +96,7 @@ const HeroComponent: React.FC<HeroProps> = ({
             )}
           </Grid.Column>
           <Grid.Column computer={5} tablet={12} mobile={16}>
-            <Segment raised={isOver} tertiary={isOver}>
+            <Segment raised={isOver} tertiary={isOver} style={{padding: '4px 0'}}>
               <Header>{name}</Header>
 
               <CardArt cardID={cardID} size="tiny" centered />

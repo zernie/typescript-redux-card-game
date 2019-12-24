@@ -10,7 +10,7 @@ export interface SideProps {
 }
 
 const Side: React.FC<SideProps> = ({ board }) => (
-  <Segment basic>
+  <div>
     <Transition.Group
       as={List}
       animation="pulse"

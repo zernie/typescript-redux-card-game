@@ -61,7 +61,7 @@ const Battlefield: React.FC = props => {
   const minions = minionsFromContainer(play);
 
   return (
-    <Segment>
+    <Segment style={{padding: '0 0.5em'}}>
       <EndGameScreen
         player={player}
         opponent={opponent}
@@ -79,9 +79,10 @@ const Battlefield: React.FC = props => {
               className={classNames({
                 "inverted green raised": isOver && canDrop
               })}
+              style={{padding: 0}}
             >
               <Side board={opponentMinions(minions)} />
-              <Divider section={true} />
+              <Divider section={true} style={{margin: 2 }}/>
               <Side board={playerMinions(minions)} />
             </Segment>
           </div>
