@@ -1,22 +1,21 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import classNames from 'classnames';
 import { Card, opponentCards, playerCards } from '../Card';
 import { CardType, Step } from '../enums';
-import { getBoard, getDeck, getHand } from '../Game';
 import { activeHero, getOpponentHero, getPlayerHero } from '../Hero';
-import { opponentMinions, playerMinions } from '../Minion';
-import Side from './Board/Minion/Side';
-import NextTurn from './Board/NextTurn';
+import { minionsFromContainer, opponentMinions, playerMinions } from '../Minion';
+import Side from './Play/Minion/Side';
+import NextTurn from './Play/NextTurn';
 import Deck from './Deck/Deck';
 import EndGameScreen from './EndGameScreen';
 import { endTurn } from './gameStateReducer';
 import Hand from './Hand/Hand';
 import { playCard } from './Hand/handReducer';
-import HeroComponent from './Board/Hero/Hero';
+import HeroComponent from './Play/Hero/Hero';
 import { useGame } from './hooks';
-import { useDispatch } from 'react-redux';
 import { getOpponent, getPlayer } from '../Player';
 
 // interface BattlefieldOwnProps {
@@ -26,7 +25,7 @@ import { getOpponent, getPlayer } from '../Player';
 //   playCard: typeof playCard;
 //   player: Hero;
 //   opponent: Hero;
-//   board: MinionContainer;
+//   play: MinionContainer;
 //   hand: CardContainer;
 //   deck: CardContainer;
 // }
@@ -37,8 +36,10 @@ const Battlefield: React.FC = props => {
   // TODO: Refactor
   const dispatch = useDispatch();
   const game = useGame();
-  console.log("game", game)
   const {
+    deck,
+    hand,
+    play,
     state: { turn, activePlayer, step }
   } = game;
   const isCurrentPlayer = activeHero(game) === getPlayerHero(game);
@@ -46,9 +47,6 @@ const Battlefield: React.FC = props => {
   const opponentHero = getOpponentHero(game);
   const player = getPlayer(game);
   const opponent = getOpponent(game);
-  const board = getBoard(game);
-  const hand = getHand(game);
-  const deck = getDeck(game);
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [CardType.Minion, CardType.Weapon],
@@ -68,17 +66,20 @@ const Battlefield: React.FC = props => {
     })
   });
 
+  // TODO: extract hook
+  const minions = minionsFromContainer(play);
+
   return (
     <Segment>
       <EndGameScreen
-        player={playerHero}
-        opponent={opponentHero}
+        player={player}
+        opponent={opponent}
         open={step === Step.FinalGameOver}
         dimmer="blurring"
       />
       <Grid>
         <Grid.Column computer={14} mobile={16}>
-          <Hand active={!isCurrentPlayer} hand={opponentCards(hand)} />
+          <Hand active={!isCurrentPlayer} hand={opponentCards(game.hand)} />
           <HeroComponent hero={opponentHero} player={opponent} />
 
           <div ref={drop}>
@@ -88,9 +89,9 @@ const Battlefield: React.FC = props => {
                 "inverted green raised": isOver && canDrop
               })}
             >
-              <Side board={opponentMinions(board)} />
+              <Side board={opponentMinions(minions)} />
               <Divider section={true} />
-              <Side board={playerMinions(board)} />
+              <Side board={playerMinions(minions)} />
             </Segment>
           </div>
 
@@ -111,7 +112,7 @@ const Battlefield: React.FC = props => {
               Turn: {turn}
             </Button>
 
-            <NextTurn onClick={() => dispatch(endTurn)} />
+            <NextTurn onClick={() => dispatch(endTurn())} />
           </Button.Group>
           <Deck deck={playerCards(deck)} />
         </Grid.Column>

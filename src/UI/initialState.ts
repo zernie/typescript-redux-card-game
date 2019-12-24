@@ -1,12 +1,12 @@
-import { Game } from "../Game";
-import { craftHero, Hero } from "../Hero";
-import { CardContainer, cardListFrom } from "../Card";
-import { entitiesFrom } from "../Board";
-import { Ability, CardClass, Controller, Step, Zone } from "../enums";
-import { EntityContainer } from "../Entity";
-import { craftMinions } from "../Minion";
-import { craftWeapons } from "../Weapon";
-import { craftPlayer, Player } from "../Player";
+import { Game } from '../Game';
+import { craftHero, Hero } from '../Hero';
+import { CardContainer, cardListFrom } from '../Card';
+import { entitiesFrom } from '../Board';
+import { Ability, CardClass, Controller, Step, Zone } from '../enums';
+import { EntityContainer } from '../Entity';
+import { craftMinions } from '../Minion';
+import { craftWeapons } from '../Weapon';
+import { craftPlayer, Player } from '../Player';
 
 const handMinions = craftMinions([
   {
@@ -129,12 +129,14 @@ const opponentHero: Hero = craftHero({
 });
 const player: Player = craftPlayer({
   cardClass: CardClass.Shaman,
+  name: "Player",
   owner: Controller.Player,
   hero: playerHero.id,
   mana: 5
 });
 const opponent: Player = craftPlayer({
   cardClass: CardClass.Hunter,
+  name: "Opponent",
   owner: Controller.Opponent,
   hero: opponentHero.id
 });
@@ -173,8 +175,7 @@ const minions = craftMinions([
   }
 ]);
 
-export const cards: CardContainer = { ...deck, ...hand };
-export const board: EntityContainer = entitiesFrom([
+export const play: EntityContainer = entitiesFrom([
   player,
   opponent,
 
@@ -185,8 +186,12 @@ export const board: EntityContainer = entitiesFrom([
 ]);
 
 const initialState: Game = {
-  cards,
-  entities: board,
+  deck,
+  hand,
+  play,
+  graveyard: {},
+  secret: {},
+  setAside: {},
   state: {
     activePlayer: Controller.Player,
     step: Step.BeginFirst,

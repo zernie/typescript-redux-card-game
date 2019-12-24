@@ -1,16 +1,16 @@
-import * as _ from "lodash/fp";
-import { Container } from "./Container";
-import { Ability, Controller } from "./enums";
-import { Hero } from "./Hero";
-import { Minion } from "./Minion";
-import { Weapon } from "./Weapon";
+import * as _ from 'lodash/fp';
+import { Container } from './Container';
+import { Ability, Controller } from './enums';
+import { Hero } from './Hero';
+import { Minion } from './Minion';
+import { Weapon } from './Weapon';
 
 export type Card = Hero | Minion | Weapon;
 export type CardContainer = Container<Card>;
 
 // FIXME
-export const selectCards = (player: Controller) => (cards: CardContainer) =>
-  _.pickBy((card: Card) => card.owner === player, cards) as CardContainer;
+export const selectCards = _.curry((player: Controller, cards: CardContainer) =>
+  _.pickBy((card: Card) => card.owner === player, cards));
 
 export const playerCards = selectCards(Controller.Player);
 export const opponentCards = selectCards(Controller.Opponent);

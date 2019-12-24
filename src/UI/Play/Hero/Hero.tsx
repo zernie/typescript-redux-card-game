@@ -1,36 +1,68 @@
-import React from "react";
-import _ from "lodash/fp";
-import { useDrag, useDrop } from "react-dnd";
-import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
-import { Hero } from "../../../Hero";
-import CardArt from "../../CardArt";
-import { playCard } from "../../Hand/handReducer";
-import { CardType } from "../../../enums";
-import { useGame } from "../../hooks";
-import { Player } from "../../../Player";
+import React from 'react';
+import _ from 'lodash/fp';
+import { useDrag, useDrop } from 'react-dnd';
+import { Grid, Header, Segment, Statistic } from 'semantic-ui-react';
+import { Hero } from '../../../Hero';
+import CardArt from '../../CardArt';
+import { CardType } from '../../../enums';
+import { Player } from '../../../Player';
 import { performAttack } from '../characterReducer';
 import { useDispatch } from 'react-redux';
+import { Minion } from '../../../Minion';
 
 export interface HeroProps {
   hero: Hero;
   player: Player;
 }
+// FIXME+
+// {
+//   beginDrag: (props, monitor, component) => ({
+//     ...props,
+//     weapon:
+//       props.character.weapon &&
+//       (props.entities[props.character.weapon] as Weapon)
+//   }),
+//     canDrag: (props, monitor: DnD.DragSourceMonitor) =>
+//   props.character.owner === props.state.activePlayer &&
+//   canAttack(props.character)
+// };
+// {
+//   drop: (props, monitor: DnD.DropTargetMonitor) => {
+//     const { character } = monitor.getItem() as MinionProps;
+//
+//     return props.performAttack({
+//       id: props.character.id,
+//       source: character,
+//       target: props.character
+//     });
+//   },
+//     canDrop: (props, monitor: DnD.DropTargetMonitor) => {
+//   const { character, entities } = monitor.getItem() as MinionProps;
+//
+//   const enemyMinions = ownerMinions(
+//     props.character.owner,
+//     minionsFromContainer(entities)
+//   );
+//
+//   return (
+//     props.character.owner !== character.owner &&
+//     isValidTarget(props.character, enemyMinions)
+//   );
+// }
+// };
+
 
 const HeroComponent: React.FC<HeroProps> = ({
   hero,
   player: { mana, maximumMana }
 }) => {
-  // const game = useGame();
   const { id, armor, cardID, exhausted, name, health, type } = hero;
   const dispatch = useDispatch();
   // FIXME
   const weapon = { attack: 1, durability: 2 };
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: [CardType.Minion, CardType.Weapon],
-    drop: (props, monitor) => {
-      const item = monitor.getItem();
-      console.log(props, item)
-
+    accept: [CardType.Minion, CardType.Hero],
+    drop: (item: Minion) => {
       return dispatch(performAttack({
         id: id,
         source: hero,

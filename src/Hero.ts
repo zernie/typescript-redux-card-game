@@ -1,11 +1,11 @@
-import { Character } from "./Character";
-import { Abilities } from "./Abilities";
-import { newId } from "./utils";
-import * as _ from "lodash/fp";
-import { Game } from "./Game";
-import { Playable } from "./Playable";
-import { CardType, Controller, Zone } from "./enums";
-import { getOpponent, getPlayer, Player } from "./Player";
+import { Character } from './Character';
+import { Abilities } from './Abilities';
+import { newId } from './utils';
+import * as _ from 'lodash/fp';
+import { Game } from './Game';
+import { Playable } from './Playable';
+import { CardType, Controller, Zone } from './enums';
+import { getOpponent, getPlayer, Player } from './Player';
 
 export interface Hero extends Playable {
   armor: number;
@@ -65,13 +65,13 @@ export const getActivePlayer = (game: Game) =>
     entity =>
       entity.type === CardType.Player &&
       entity.owner === game.state.activePlayer,
-    game.entities
+    game.play
   ) as Player;
 
 export const getPlayerHero = (game: Game): Hero =>
-  game.entities[getPlayer(game).hero] as Hero;
+  game.play[getPlayer(game).hero] as Hero;
 export const getOpponentHero = (game: Game): Hero =>
-  game.entities[getOpponent(game).hero] as Hero;
+  game.play[getOpponent(game).hero] as Hero;
 // export const playerID = (player: Player, game: Game): number =>
 //   player === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
 // export const opponentID = (player: Player, game: Game): number =>

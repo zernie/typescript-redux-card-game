@@ -1,3 +1,3 @@
-import { Ability } from "./enums";
+import { Ability } from './enums';
 
-export type Abilities = Array<Ability>;
+export type Abilities = Ability[];

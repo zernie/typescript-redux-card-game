@@ -1,12 +1,12 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import _ from "lodash/fp";
-import { Minion } from "../../Minion";
-import { board } from "../initialState";
-import { nextTurn } from "../gameStateReducer";
-import { Character } from "../../Character";
-import { CardType } from "../../enums";
-import { EntityContainer, EntityPayload } from "../../Entity";
-import { Player } from "../../Player";
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import _ from 'lodash/fp';
+import { Minion, minionsFromContainer } from '../../Minion';
+import { play } from '../initialState';
+import { nextTurn } from '../gameStateReducer';
+import { Character } from '../../Character';
+import { CardType } from '../../enums';
+import { EntityContainer, EntityPayload } from '../../Entity';
+import { Player } from '../../Player';
 import {
   attackCharacter,
   dealDamage,
@@ -19,9 +19,9 @@ import {
   restoreMana,
   spendMana,
   summonMinion
-} from "./actions";
-import characterReducer from "./characterReducer";
-import controllerReducer from "./controllerReducer";
+} from './actions';
+import characterReducer from './characterReducer';
+import playersReducer from './playersReducer';
 
 const destroyWeaponHandler = (
   state: EntityContainer,
@@ -37,8 +37,10 @@ const equipWeaponHandler = (
   state[action.payload.id] = action.payload.weapon;
 };
 
-const nextTurnHandler = (state: EntityContainer) =>
-  _.map(_.merge({ attacksPerformed: 0, exhausted: false }), state);
+const nextTurnHandler = (state: EntityContainer) => {
+  const minions = minionsFromContainer(state);
+  _.forEach(_.merge({ attacksPerformed: 0, exhausted: false }), minions);
+};
 
 const summonMinionHandler = (
   state: EntityContainer,
@@ -66,13 +68,13 @@ const controllerHandler = (
   state: EntityContainer,
   action: PayloadAction<EntityPayload>
 ) => {
-  state[action.payload.id] = controllerReducer(
+  state[action.payload.id] = playersReducer(
     state[action.payload.id] as Player,
     action
   );
 };
 
-export default createReducer<EntityContainer>(board, {
+export default createReducer<EntityContainer>(play, {
   [processDeaths.type]: processDeathsHandler,
   [destroyWeapon.type]: destroyWeaponHandler,
   [equipWeapon.type]: equipWeaponHandler,

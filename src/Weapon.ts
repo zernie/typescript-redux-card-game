@@ -1,9 +1,9 @@
-import * as _ from "lodash/fp";
-import { Abilities } from "./Abilities";
-import { CardType, Controller, Zone } from "./enums";
-import { BasicCard } from "./BasicCard";
-import { newId } from "./utils";
-import { Game } from "./Game";
+import * as _ from 'lodash/fp';
+import { Abilities } from './Abilities';
+import { CardType, Controller, Zone } from './enums';
+import { BasicCard } from './BasicCard';
+import { newId } from './utils';
+import { Game } from './Game';
 
 export interface Weapon extends BasicCard {
   abilities: Abilities;
@@ -38,5 +38,5 @@ export const craftWeapons = (props: CraftWeaponProps[]): Weapon[] =>
   _.map(craftWeapon, props) as Weapon[];
 
 export const getWeapon = _.curry(
-  (id: number, game: Game) => game.entities[id] as Weapon
+  (id: number, game: Game) => game.play[id] as Weapon
 );

@@ -1,9 +1,9 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 // import * as _ from "lodash/fp";
-import { reduceHealth } from "../../../Hero";
-import { dealDamage, DealDamagePayload } from "../actions";
-import { Minion } from "../../../Minion";
-import { EntityPayload } from "../../../Entity";
+import { reduceHealth } from '../../../Hero';
+import { dealDamage, DealDamagePayload } from '../actions';
+import { Minion } from '../../../Minion';
+import { EntityPayload } from '../../../Entity';
 
 const damageMinionHandler = (
   state: Minion,

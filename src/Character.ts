@@ -1,16 +1,15 @@
-import * as _ from "lodash/fp";
-import { hasWindfury } from "./Card";
-import { Container } from "./Container";
-import { CardType } from "./enums";
-import { Game } from "./Game";
-import { Hero } from "./Hero";
-import { Minion } from "./Minion";
+import { hasWindfury } from './Card';
+import { Container } from './Container';
+import { CardType } from './enums';
+import { Game } from './Game';
+import { Hero } from './Hero';
+import { Minion } from './Minion';
 
 export type Character = Hero | Minion;
 export type CharacterContainer = Container<Character>;
 
 export const getCharacter = (id: number, game: Game): Character => {
-  const entity = game.entities[id];
+  const entity = game.play[id];
 
   if (entity.type === CardType.Hero || entity.type === CardType.Minion)
     return entity;
@@ -21,7 +20,7 @@ export const getCharacter = (id: number, game: Game): Character => {
 // export const getCharacters = (game: Game): CharacterContainer =>
 //   _.filter(
 //     _.propEq("type", _.contains([CardType.Minion, CardType.Hero])),
-//     game.entities
+//     game.play
 //   ) as CharacterContainer;
 
 export const canAttack = (character: Character): boolean =>

@@ -1,12 +1,11 @@
 // import _ from "lodash/fp";
-import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { Card, CardContainer } from "../../Card";
-import { activeHero, canSpendMana, getActivePlayer } from "../../Hero";
-import { summonMinion } from "../Board/actions";
-import { equipWeapon, spendMana } from "../Board/actions";
-import { CardType, Zone } from "../../enums";
-import { AppThunk } from "../../utils";
-import { original } from "immer"
+import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { Card, CardContainer } from '../../Card';
+import { activeHero, canSpendMana, getActivePlayer } from '../../Hero';
+import { equipWeapon, spendMana, summonMinion } from '../Play/actions';
+import { CardType, Zone } from '../../enums';
+import { AppThunk } from '../../utils';
+import { original } from 'immer';
 
 export const removeCard = createAction<Card>("REMOVE_CARD");
 

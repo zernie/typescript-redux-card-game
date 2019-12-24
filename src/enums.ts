@@ -43,9 +43,12 @@ export enum CardType {
   Weapon = "WEAPON",
   Hero = "HERO",
   Enchantment = "ENCHANTMENT",
+  Spell = "SPELL",
+  HeroPower = "HERO_POWER",
   Player = "PLAYER"
 }
 
+// TODO: deprecate
 export enum Controller {
   Player = "PLAYER",
   Opponent = "OPPONENT"
@@ -85,6 +88,7 @@ export enum Step {
   MainStartTriggers = "MAIN_START_TRIGGERS"
 }
 
+// TODO: deprecate
 export enum Zone {
   Invalid = "INVALID",
   Play = "PLAY",

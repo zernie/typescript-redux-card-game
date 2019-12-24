@@ -1,31 +1,25 @@
 import React from 'react';
 import { Modal, ModalProps, Transition } from 'semantic-ui-react';
-import { Hero } from '../Hero';
+import { PlayState } from '../enums';
+import { Player } from '../Player';
 
 export type EndGameScreenProps = ModalProps & {
-  player: Hero;
-  opponent: Hero;
+  player: Player;
+  opponent: Player;
   open: boolean;
 };
 
-// FIXME
-const endGameHeader = (player: Hero, opponent: Hero): string => {
-  return "FINISH";
-  // if (
-  //   player.playState === PlayState.Lost &&
-  //   opponent.playState === PlayState.Lost
-  // ) {
-  //   return "It's a draw!";
-  // }
-  //
-  // if (player.playState === PlayState.Lost) {
-  //   return `${opponent.name} has won!`;
-  // }
-  // if (opponent.playState === PlayState.Lost) {
-  //   return `${player.name} has won!`;
-  // }
-  //
-  // throw new Error("This shouldn't have happened");
+const endGameHeader = (player: Player, opponent: Player): string => {
+  if (player.playState === PlayState.Lost) {
+    if (
+      opponent.playState === PlayState.Lost
+    ) {
+      return "It's a draw!";
+    }
+
+    return `${opponent.name} has won!`;
+  }
+  return `${opponent.name} has won!`;
 };
 
 const EndGameScreen: React.FC<EndGameScreenProps> = ({

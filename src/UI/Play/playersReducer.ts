@@ -1,5 +1,4 @@
-import * as _ from "lodash/fp";
-import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { Action, createReducer, PayloadAction } from '@reduxjs/toolkit';
 import {
   destroyWeapon,
   equipWeapon,
@@ -9,10 +8,9 @@ import {
   restoreMana,
   spendMana,
   SpendManaPayload
-} from "./actions";
-import { canSpendMana, Player } from "../../Player";
+} from './actions';
+import { canSpendMana, Player } from '../../Player';
 import { EntityPayload } from '../../Entity';
-import { original } from "immer"
 
 const MAX_MANA = 10;
 
