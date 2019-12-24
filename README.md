@@ -28,3 +28,5 @@
  * [ ] LocalStorage
  * [ ] File system
 * [ ] Multiplayer (distant future)
+
+* [ ] Tests
