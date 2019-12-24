@@ -1,25 +1,23 @@
-import React from "react";
-import { useDrop } from "react-dnd";
-import _ from "lodash/fp";
-import { Button, Divider, Grid, Segment } from "semantic-ui-react";
-import classNames from "classnames";
-import { MinionContainer } from "../Board";
-import { Card, CardContainer, opponentCards, playerCards } from "../Card";
-import { CardType, Step } from "../enums";
-import { getBoard, getDeck, getHand } from "../Game";
-import { activeHero, getOpponentHero, getPlayerHero, Hero } from "../Hero";
-import { opponentMinions, playerMinions } from "../Minion";
-import Side from "./Board/Minion/Side";
-import NextTurn from "./Board/NextTurn";
-import Deck from "./Deck/Deck";
-import EndGameScreen from "./EndGameScreen";
-import { endTurn, endTurn as endTurnFunction } from "./gameStateReducer";
-import Hand from "./Hand/Hand";
-import { playCard } from "./Hand/handReducer";
-import HeroComponent from "./Board/Hero/Hero";
-import { useGame } from "./hooks";
-import { useDispatch } from "react-redux";
-import { getOpponent, getPlayer } from "../Player";
+import React from 'react';
+import { useDrop } from 'react-dnd';
+import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
+import classNames from 'classnames';
+import { Card, opponentCards, playerCards } from '../Card';
+import { CardType, Step } from '../enums';
+import { getBoard, getDeck, getHand } from '../Game';
+import { activeHero, getOpponentHero, getPlayerHero } from '../Hero';
+import { opponentMinions, playerMinions } from '../Minion';
+import Side from './Board/Minion/Side';
+import NextTurn from './Board/NextTurn';
+import Deck from './Deck/Deck';
+import EndGameScreen from './EndGameScreen';
+import { endTurn } from './gameStateReducer';
+import Hand from './Hand/Hand';
+import { playCard } from './Hand/handReducer';
+import HeroComponent from './Board/Hero/Hero';
+import { useGame } from './hooks';
+import { useDispatch } from 'react-redux';
+import { getOpponent, getPlayer } from '../Player';
 
 // interface BattlefieldOwnProps {
 //   card: Card;
@@ -113,7 +111,7 @@ const Battlefield: React.FC = props => {
               Turn: {turn}
             </Button>
 
-            <NextTurn onClick={endTurn} />
+            <NextTurn onClick={() => dispatch(endTurn)} />
           </Button.Group>
           <Deck deck={playerCards(deck)} />
         </Grid.Column>

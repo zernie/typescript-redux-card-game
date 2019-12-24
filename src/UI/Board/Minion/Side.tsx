@@ -1,15 +1,15 @@
-import * as React from "react";
-import { List, Segment, Transition } from "semantic-ui-react";
-import _ from "lodash/fp";
-import Minion from "./Minion";
-import { MinionContainer } from "../../../Board";
-import { Minion as IMinion } from "../../../Minion";
+import React from 'react';
+import { List, Segment, Transition } from 'semantic-ui-react';
+import _ from 'lodash/fp';
+import Minion from './Minion';
+import { MinionContainer } from '../../../Board';
+import { Minion as IMinion } from '../../../Minion';
 
 export interface SideProps {
   board: MinionContainer;
 }
 
-const Side: React.FunctionComponent<SideProps> = ({ board }) => (
+const Side: React.FC<SideProps> = ({ board }) => (
   <Segment basic>
     <Transition.Group
       as={List}

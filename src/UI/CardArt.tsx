@@ -1,12 +1,12 @@
-import * as React from "react";
-import { Image, ImageProps } from "semantic-ui-react";
+import React from 'react';
+import { Image, ImageProps } from 'semantic-ui-react';
 
 export type CardArtProps = ImageProps & {
   cardID: string;
   resolution?: 256 | 512;
 };
 
-const CardArt: React.FunctionComponent<CardArtProps> = ({
+const CardArt: React.FC<CardArtProps> = ({
   cardID,
   resolution = 512,
   ...props

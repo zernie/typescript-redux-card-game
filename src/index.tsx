@@ -1,10 +1,10 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import App from "./UI/App";
-import { Provider } from "react-redux";
-import configureStore from "./UI/configureStore";
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './UI/App';
+import { Provider } from 'react-redux';
+import configureStore from './UI/configureStore';
 // import { getPlayerHero } from "./Hero";
-import { Game, getBoard, getDeck, getHand } from "./Game";
+import { Game, getBoard, getDeck, getHand } from './Game';
 // import { gainMana, restoreMana } from './UI/Board/actions';
 // import { Game, getBoard, getDeck, getHand } from '../Game';
 

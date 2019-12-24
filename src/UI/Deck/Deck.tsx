@@ -1,8 +1,7 @@
-import * as React from "react";
-import { Segment, Statistic } from "semantic-ui-react";
-import _ from "lodash/fp";
-import { CardContainer } from "../../Card";
-import { SemanticCOLORS } from "semantic-ui-react";
+import React from 'react';
+import { Segment, SemanticCOLORS, Statistic } from 'semantic-ui-react';
+import _ from 'lodash/fp';
+import { CardContainer } from '../../Card';
 
 export interface SideProps {
   deck: CardContainer;
@@ -11,7 +10,7 @@ export interface SideProps {
 const deckColor = (deck: CardContainer): SemanticCOLORS =>
   _.size(deck) > 0 ? "blue" : "red";
 
-const Deck: React.FunctionComponent<SideProps> = ({ deck }) => (
+const Deck: React.FC<SideProps> = ({ deck }) => (
   <Segment basic>
     <Statistic color={deckColor(deck)} value={_.size(deck)} label="Cards" />
   </Segment>

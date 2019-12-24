@@ -1,13 +1,13 @@
 // @ts-nocheck
-import * as React from "react";
-import * as DnD from "react-dnd";
-import { connect } from "react-redux";
-import * as _ from "lodash/fp";
-import { canAttack } from "../../../Character";
-import { CardType } from "../../../enums";
-import { MinionProps } from "./Minion";
-import TargetableMinion from "./TargetableMinion";
-import { performAttack } from "../characterReducer";
+import React from 'react';
+import * as DnD from 'react-dnd';
+import { connect } from 'react-redux';
+import * as _ from 'lodash/fp';
+import { canAttack } from '../../../Character';
+import { CardType } from '../../../enums';
+import { MinionProps } from './Minion';
+import TargetableMinion from './TargetableMinion';
+import { performAttack } from '../characterReducer';
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource(),

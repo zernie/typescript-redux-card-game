@@ -1,8 +1,6 @@
-import React from "react";
-import { Modal, ModalProps, Transition } from "semantic-ui-react";
-import { PlayState } from "../enums";
-import { Hero } from "../Hero";
-import { Player } from "../Player";
+import React from 'react';
+import { Modal, ModalProps, Transition } from 'semantic-ui-react';
+import { Hero } from '../Hero';
 
 export type EndGameScreenProps = ModalProps & {
   player: Hero;
@@ -30,7 +28,7 @@ const endGameHeader = (player: Hero, opponent: Hero): string => {
   // throw new Error("This shouldn't have happened");
 };
 
-const EndGameScreen: React.FunctionComponent<EndGameScreenProps> = ({
+const EndGameScreen: React.FC<EndGameScreenProps> = ({
   player,
   opponent,
   open,
