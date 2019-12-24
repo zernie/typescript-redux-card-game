@@ -51,8 +51,7 @@ const summonMinionHandler = (
 
 const processDeathsHandler = (
   state: EntityContainer,
-  action: PayloadAction<Minion>
-) => _.reject(_.whereEq({ destroyed: true, type: CardType.Minion }), state);
+) => _.omitBy(_.whereEq({ destroyed: true, type: CardType.Minion }), state);
 
 const characterHandler = (
   state: EntityContainer,

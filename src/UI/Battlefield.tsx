@@ -17,24 +17,10 @@ import Deck from "./Deck/Deck";
 import EndGameScreen from "./EndGameScreen";
 import { endTurn } from "./gameStateReducer";
 import Hand from "./Hand/Hand";
-import { playCard } from "./Hand/handReducer";
+import { playerUseCard } from "./Hand/handReducer";
 import HeroComponent from "./Play/Hero/Hero";
 import { useGame } from "./hooks";
 import { getOpponent, getPlayer } from "../Player";
-
-// interface BattlefieldOwnProps {
-//   card: Card;
-//   isCurrentPlayer: boolean;
-//   endTurn: typeof endTurnFunction;
-//   playCard: typeof playCard;
-//   player: Hero;
-//   opponent: Hero;
-//   play: MinionContainer;
-//   hand: CardContainer;
-//   deck: CardContainer;
-// }
-
-// export type BattlefieldProps = BattlefieldOwnProps;
 
 const Battlefield: React.FC = props => {
   // TODO: Refactor
@@ -58,7 +44,7 @@ const Battlefield: React.FC = props => {
       const card = monitor.getItem() as Card;
       console.log(card);
 
-      return dispatch(playCard(card));
+      return dispatch(playerUseCard(card));
     },
     canDrop: (item, monitor) => {
       console.log("canDrop", item);
