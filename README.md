@@ -3,14 +3,14 @@
 * [x] Battlefield 
 * [x] Hand
 * [x] Deck
-* [-] Turns
+* [ ] Turns
   * [ ] Turn timer
   * [ ] Fatigue 
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
 * [ ] Graveyard
-* [-] Basic mechanics
+* [ ] Basic mechanics
   * [x] Charge
   * [x] Windfury
   * [x] Taunt
@@ -22,4 +22,4 @@
 * [ ] Save/Load
  * [ ] LocalStorage
  * [ ] File system
-* [ ] Multiplayer
+* [ ] Multiplayer (distant future)
