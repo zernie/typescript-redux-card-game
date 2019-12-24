@@ -6,7 +6,7 @@ import { Hero } from "./Hero";
 import { Minion } from "./Minion";
 
 export type Character = Hero | Minion;
-export type CharacterContainer = Container<Character>;
+// export type CharacterContainer = Container<Character>;
 
 export const getCharacter = (id: number, game: Game): Character => {
   const entity = game.play[id];

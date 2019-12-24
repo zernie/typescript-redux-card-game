@@ -13,7 +13,7 @@ export interface Minion extends Playable {
   type: CardType.Minion;
 }
 
-export interface CraftMinionProps {
+interface CraftMinionProps {
   abilities?: Abilities;
   attack: number;
   attacksPerformed?: number;

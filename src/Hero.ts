@@ -12,7 +12,7 @@ export interface Hero extends Playable {
   type: CardType.Hero;
 }
 
-export interface CraftHeroProps {
+interface CraftHeroProps {
   abilities?: Abilities;
   armor?: number;
   attack?: number;
