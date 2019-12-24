@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from 'semantic-ui-react';
+import React from "react";
+import { Button } from "semantic-ui-react";
 
 interface NextTurnProps {
   onClick: Function;

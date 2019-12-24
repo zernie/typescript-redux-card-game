@@ -1,11 +1,11 @@
-import { Character } from './Character';
-import { Abilities } from './Abilities';
-import { newId } from './utils';
-import * as _ from 'lodash/fp';
-import { Game } from './Game';
-import { Playable } from './Playable';
-import { CardType, Controller, Zone } from './enums';
-import { getOpponent, getPlayer, Player } from './Player';
+import { Character } from "./Character";
+import { Abilities } from "./Abilities";
+import { newId } from "./utils";
+import * as _ from "lodash/fp";
+import { Game } from "./Game";
+import { Playable } from "./Playable";
+import { CardType, Controller, Zone } from "./enums";
+import { getOpponent, getPlayer, Player } from "./Player";
 
 export interface Hero extends Playable {
   armor: number;

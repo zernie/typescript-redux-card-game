@@ -1,8 +1,8 @@
-import React from 'react';
-import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { Container, Header } from 'semantic-ui-react';
-import TargetableBattlefield from './Battlefield';
+import React from "react";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import { Container, Header } from "semantic-ui-react";
+import TargetableBattlefield from "./Battlefield";
 
 const App: React.FC = props => (
   <Container textAlign="center">

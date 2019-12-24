@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, ImageProps } from 'semantic-ui-react';
+import React from "react";
+import { Image, ImageProps } from "semantic-ui-react";
 
 export type CardArtProps = ImageProps & {
   cardID: string;

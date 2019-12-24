@@ -1,7 +1,7 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { Hero, reduceArmor, reduceHealth } from '../../../Hero';
-import { dealDamage, DealDamagePayload } from '../actions';
-import { EntityPayload } from '../../../Entity';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { Hero, reduceArmor, reduceHealth } from "../../../Hero";
+import { dealDamage, DealDamagePayload } from "../actions";
+import { EntityPayload } from "../../../Entity";
 
 const damageHeroHandler = (
   state: Hero,

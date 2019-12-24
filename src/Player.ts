@@ -1,7 +1,7 @@
-import { CardClass, CardType, Controller, PlayState } from './enums';
-import { newId } from './utils';
-import { Game } from './Game';
-import { Container } from './Container';
+import { CardClass, CardType, Controller, PlayState } from "./enums";
+import { newId } from "./utils";
+import { Game } from "./Game";
+import { Container } from "./Container";
 
 export interface Player {
   cardClass: CardClass;

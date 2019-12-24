@@ -1,9 +1,9 @@
-import * as _ from 'lodash/fp';
-import { Abilities } from './Abilities';
-import { CardType, Controller, Zone } from './enums';
-import { BasicCard } from './BasicCard';
-import { newId } from './utils';
-import { Game } from './Game';
+import * as _ from "lodash/fp";
+import { Abilities } from "./Abilities";
+import { CardType, Controller, Zone } from "./enums";
+import { BasicCard } from "./BasicCard";
+import { newId } from "./utils";
+import { Game } from "./Game";
 
 export interface Weapon extends BasicCard {
   abilities: Abilities;

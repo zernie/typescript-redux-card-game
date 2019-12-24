@@ -1,13 +1,12 @@
 import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
 import { Card as ICard } from "../../Card";
-import { State } from "../../Game";
-import { activeHero, getActivePlayer, Hero } from '../../Hero';
+import { getActivePlayer } from "../../Hero";
 import { CardType } from "../../enums";
 import CardArt from "../CardArt";
-import { useDrag } from 'react-dnd';
+import { useDrag } from "react-dnd";
 import { useGame } from "../hooks";
-import { canSpendMana } from '../../Player';
+import { canSpendMana } from "../../Player";
 
 export interface CardProps {
   card: ICard;
@@ -16,12 +15,11 @@ export interface CardProps {
 export const Card: React.FC<CardProps> = ({ card }) => {
   const game = useGame();
   const player = getActivePlayer(game);
-  const [{canDrag}, drag] = useDrag({
+  const [{ canDrag }, drag] = useDrag({
     item: card,
-    canDrag: (monitor) =>
-      card.owner === game.state.activePlayer &&
-      canSpendMana(player, card.cost),
-    collect: (monitor) => ({
+    canDrag: monitor =>
+      card.owner === game.state.activePlayer && canSpendMana(player, card.cost),
+    collect: monitor => ({
       canDrag: monitor.canDrag()
     })
   });

@@ -1,14 +1,14 @@
-import React from 'react';
-import _ from 'lodash/fp';
-import { useDrag, useDrop } from 'react-dnd';
-import { Grid, Header, Segment, Statistic } from 'semantic-ui-react';
-import { Hero } from '../../../Hero';
-import CardArt from '../../CardArt';
-import { CardType } from '../../../enums';
-import { Player } from '../../../Player';
-import { performAttack } from '../characterReducer';
-import { useDispatch } from 'react-redux';
-import { Minion } from '../../../Minion';
+import React from "react";
+import _ from "lodash/fp";
+import { useDrag, useDrop } from "react-dnd";
+import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
+import { Hero } from "../../../Hero";
+import CardArt from "../../CardArt";
+import { CardType } from "../../../enums";
+import { Player } from "../../../Player";
+import { performAttack } from "../characterReducer";
+import { useDispatch } from "react-redux";
+import { Minion } from "../../../Minion";
 
 export interface HeroProps {
   hero: Hero;
@@ -51,7 +51,6 @@ export interface HeroProps {
 // }
 // };
 
-
 const HeroComponent: React.FC<HeroProps> = ({
   hero,
   player: { mana, maximumMana }
@@ -63,11 +62,13 @@ const HeroComponent: React.FC<HeroProps> = ({
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [CardType.Minion, CardType.Hero],
     drop: (item: Minion) => {
-      return dispatch(performAttack({
-        id: id,
-        source: hero,
-        target: hero
-      }));
+      return dispatch(
+        performAttack({
+          id: id,
+          source: hero,
+          target: hero
+        })
+      );
     },
     collect: monitor => ({
       isOver: monitor.isOver(),

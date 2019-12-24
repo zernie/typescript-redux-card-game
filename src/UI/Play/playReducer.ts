@@ -1,12 +1,12 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import _ from 'lodash/fp';
-import { Minion, minionsFromContainer } from '../../Minion';
-import { play } from '../initialState';
-import { nextTurn } from '../gameStateReducer';
-import { Character } from '../../Character';
-import { CardType } from '../../enums';
-import { EntityContainer, EntityPayload } from '../../Entity';
-import { Player } from '../../Player';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import _ from "lodash/fp";
+import { Minion, minionsFromContainer } from "../../Minion";
+import { play } from "../initialState";
+import { nextTurn } from "../gameStateReducer";
+import { Character } from "../../Character";
+import { CardType } from "../../enums";
+import { EntityContainer, EntityPayload } from "../../Entity";
+import { Player } from "../../Player";
 import {
   attackCharacter,
   dealDamage,
@@ -19,9 +19,9 @@ import {
   restoreMana,
   spendMana,
   summonMinion
-} from './actions';
-import characterReducer from './characterReducer';
-import playersReducer from './playersReducer';
+} from "./actions";
+import characterReducer from "./characterReducer";
+import playersReducer from "./playersReducer";
 
 const destroyWeaponHandler = (
   state: EntityContainer,

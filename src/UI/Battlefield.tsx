@@ -1,22 +1,26 @@
-import React from 'react';
-import { useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
-import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
-import classNames from 'classnames';
-import { Card, opponentCards, playerCards } from '../Card';
-import { CardType, Step } from '../enums';
-import { activeHero, getOpponentHero, getPlayerHero } from '../Hero';
-import { minionsFromContainer, opponentMinions, playerMinions } from '../Minion';
-import Side from './Play/Minion/Side';
-import NextTurn from './Play/NextTurn';
-import Deck from './Deck/Deck';
-import EndGameScreen from './EndGameScreen';
-import { endTurn } from './gameStateReducer';
-import Hand from './Hand/Hand';
-import { playCard } from './Hand/handReducer';
-import HeroComponent from './Play/Hero/Hero';
-import { useGame } from './hooks';
-import { getOpponent, getPlayer } from '../Player';
+import React from "react";
+import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
+import { Button, Divider, Grid, Segment } from "semantic-ui-react";
+import classNames from "classnames";
+import { Card, opponentCards, playerCards } from "../Card";
+import { CardType, Step } from "../enums";
+import { activeHero, getOpponentHero, getPlayerHero } from "../Hero";
+import {
+  minionsFromContainer,
+  opponentMinions,
+  playerMinions
+} from "../Minion";
+import Side from "./Play/Minion/Side";
+import NextTurn from "./Play/NextTurn";
+import Deck from "./Deck/Deck";
+import EndGameScreen from "./EndGameScreen";
+import { endTurn } from "./gameStateReducer";
+import Hand from "./Hand/Hand";
+import { playCard } from "./Hand/handReducer";
+import HeroComponent from "./Play/Hero/Hero";
+import { useGame } from "./hooks";
+import { getOpponent, getPlayer } from "../Player";
 
 // interface BattlefieldOwnProps {
 //   card: Card;
@@ -57,8 +61,8 @@ const Battlefield: React.FC = props => {
       return dispatch(playCard(card));
     },
     canDrop: (item, monitor) => {
-      console.log("canDrop", item)
-      return true
+      console.log("canDrop", item);
+      return true;
     },
     collect: monitor => ({
       isOver: monitor.isOver(),

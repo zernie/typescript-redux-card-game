@@ -1,12 +1,12 @@
 // import _ from "lodash/fp";
-import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { Card, CardContainer } from '../../Card';
-import { canSpendMana, getActivePlayer } from '../../Hero';
-import { equipWeapon, spendMana, summonMinion } from '../Play/actions';
-import { CardType, Zone } from '../../enums';
-import { AppThunk } from '../../utils';
-import { original } from 'immer';
-import { drawCard } from '../Deck/deckReducer';
+import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { Card, CardContainer } from "../../Card";
+import { canSpendMana, getActivePlayer } from "../../Hero";
+import { equipWeapon, spendMana, summonMinion } from "../Play/actions";
+import { CardType, Zone } from "../../enums";
+import { AppThunk } from "../../utils";
+import { original } from "immer";
+import { drawCard } from "../Deck/deckReducer";
 
 export const removeCard = createAction<Card>("REMOVE_CARD");
 
@@ -42,11 +42,8 @@ export const removeCardHandler = (
   state[action.payload.id].zone = Zone.Graveyard;
 };
 
-const drawCardHandler = (
-  state: CardContainer,
-  action: PayloadAction<Card>
-) => {
-  state[action.payload.id] = action.payload
+const drawCardHandler = (state: CardContainer, action: PayloadAction<Card>) => {
+  state[action.payload.id] = action.payload;
 };
 
 export default createReducer<CardContainer>(

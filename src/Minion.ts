@@ -1,12 +1,12 @@
-import _ from 'lodash/fp';
-import { Abilities } from './Abilities';
-import { MinionContainer } from './Board';
-import { hasTaunt } from './Card';
-import { Character } from './Character';
-import { EntityContainer } from './Entity';
-import { Ability, CardType, Controller, Zone } from './enums';
-import { Playable } from './Playable';
-import { newId } from './utils';
+import _ from "lodash/fp";
+import { Abilities } from "./Abilities";
+import { MinionContainer } from "./Board";
+import { hasTaunt } from "./Card";
+import { Character } from "./Character";
+import { EntityContainer } from "./Entity";
+import { Ability, CardType, Controller, Zone } from "./enums";
+import { Playable } from "./Playable";
+import { newId } from "./utils";
 
 export interface Minion extends Playable {
   attack: number;
@@ -56,7 +56,7 @@ export const minionsFromContainer = (entities: EntityContainer) =>
 
 export const ownerMinions = _.curry(
   (player: Controller, minions: MinionContainer) =>
-    (_.pickBy(_.propEq("owner", player), minions)) as MinionContainer
+    _.pickBy(_.propEq("owner", player), minions) as MinionContainer
 );
 
 export const anyTaunts = (minions: MinionContainer) =>

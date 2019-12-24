@@ -1,14 +1,14 @@
-import * as _ from 'lodash/fp';
-import { createAction, createReducer } from '@reduxjs/toolkit';
-import { State } from '../Game';
-import { activeHero } from '../Hero';
-import { PlayState, Step } from '../enums';
-import { selectCards } from '../Card';
-import { getOpponent, getPlayer, other } from '../Player';
-import initialState from './initialState';
-import { drawCard } from './Deck/deckReducer';
-import { gainMana, restoreMana } from './Play/actions';
-import { AppThunk } from '../utils';
+import * as _ from "lodash/fp";
+import { createAction, createReducer } from "@reduxjs/toolkit";
+import { State } from "../Game";
+import { activeHero } from "../Hero";
+import { PlayState, Step } from "../enums";
+import { selectCards } from "../Card";
+import { getOpponent, getPlayer, other } from "../Player";
+import initialState from "./initialState";
+import { drawCard } from "./Deck/deckReducer";
+import { gainMana, restoreMana } from "./Play/actions";
+import { AppThunk } from "../utils";
 
 export const finishGame = createAction<void>("FINISH_GAME");
 export const nextTurn = createAction<void>("NEXT_TURN");

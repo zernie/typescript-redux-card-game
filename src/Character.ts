@@ -1,9 +1,9 @@
-import { hasWindfury } from './Card';
-import { Container } from './Container';
-import { CardType } from './enums';
-import { Game } from './Game';
-import { Hero } from './Hero';
-import { Minion } from './Minion';
+import { hasWindfury } from "./Card";
+import { Container } from "./Container";
+import { CardType } from "./enums";
+import { Game } from "./Game";
+import { Hero } from "./Hero";
+import { Minion } from "./Minion";
 
 export type Character = Hero | Minion;
 export type CharacterContainer = Container<Character>;

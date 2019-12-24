@@ -1,9 +1,5 @@
 // @ts-nocheck
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer } from "@reduxjs/toolkit";
 // TODO
 
-export default createReducer(
-  {},
-  {
-  }
-);
+export default createReducer({}, {});

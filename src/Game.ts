@@ -1,6 +1,6 @@
-import { CardContainer } from './Card';
-import { EntityContainer } from './Entity';
-import { Controller, Step } from './enums';
+import { CardContainer } from "./Card";
+import { EntityContainer } from "./Entity";
+import { Controller, Step } from "./enums";
 
 export type State = {
   activePlayer: Controller;

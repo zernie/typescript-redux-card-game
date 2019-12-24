@@ -1,12 +1,18 @@
-import { Action, PayloadAction } from '@reduxjs/toolkit';
-import { Character, getCharacter, shouldExhaust } from '../../Character';
-import { CardType } from '../../enums';
-import { checkForEndGame } from '../gameStateReducer';
-import { EntityPayload } from '../../Entity';
-import { attackCharacter, dealDamage, exhaust, processDeaths, SourceTargetPayload } from './actions';
-import minionReducer from './Minion/minionReducer';
-import heroReducer from './Hero/heroReducer';
-import { AppThunk } from '../../utils';
+import { Action, PayloadAction } from "@reduxjs/toolkit";
+import { Character, getCharacter, shouldExhaust } from "../../Character";
+import { CardType } from "../../enums";
+import { checkForEndGame } from "../gameStateReducer";
+import { EntityPayload } from "../../Entity";
+import {
+  attackCharacter,
+  dealDamage,
+  exhaust,
+  processDeaths,
+  SourceTargetPayload
+} from "./actions";
+import minionReducer from "./Minion/minionReducer";
+import heroReducer from "./Hero/heroReducer";
+import { AppThunk } from "../../utils";
 
 // TODO: refactor
 export const performAttack = (payload: SourceTargetPayload): AppThunk => (

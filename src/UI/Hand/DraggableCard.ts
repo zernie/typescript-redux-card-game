@@ -1,12 +1,12 @@
 // @ts-nocheck
-import React from 'react';
-import * as DnD from 'react-dnd';
-import { connect } from 'react-redux';
-import * as _ from 'lodash/fp';
-import { activeHero } from '../../Hero';
-import { Game } from '../../Game';
-import { Card, CardProps } from './Card';
-import { canSpendMana } from '../../Player';
+import React from "react";
+import * as DnD from "react-dnd";
+import { connect } from "react-redux";
+import * as _ from "lodash/fp";
+import { activeHero } from "../../Hero";
+import { Game } from "../../Game";
+import { Card, CardProps } from "./Card";
+import { canSpendMana } from "../../Player";
 
 const collect: DnD.DragSourceCollector = (connector, monitor) => ({
   connectDragSource: connector.dragSource()

@@ -1,12 +1,12 @@
-import { Game } from '../Game';
-import { craftHero, Hero } from '../Hero';
-import { CardContainer, cardListFrom } from '../Card';
-import { entitiesFrom } from '../Board';
-import { Ability, CardClass, Controller, Step, Zone } from '../enums';
-import { EntityContainer } from '../Entity';
-import { craftMinions } from '../Minion';
-import { craftWeapons } from '../Weapon';
-import { craftPlayer, Player } from '../Player';
+import { Game } from "../Game";
+import { craftHero, Hero } from "../Hero";
+import { CardContainer, cardListFrom } from "../Card";
+import { entitiesFrom } from "../Board";
+import { Ability, CardClass, Controller, Step, Zone } from "../enums";
+import { EntityContainer } from "../Entity";
+import { craftMinions } from "../Minion";
+import { craftWeapons } from "../Weapon";
+import { craftPlayer, Player } from "../Player";
 
 const handMinions = craftMinions([
   {
