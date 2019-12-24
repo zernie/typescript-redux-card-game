@@ -7,6 +7,7 @@ import CardArt from "../CardArt";
 import { useDrag } from "react-dnd";
 import { useGame } from "../hooks";
 import { canSpendMana } from "../../Player";
+import AbilityList from "../components/AbilityList";
 
 export interface CardProps {
   card: ICard;
@@ -48,18 +49,7 @@ export const Card: React.FC<CardProps> = ({ card }) => {
 
       <br />
 
-      {/* TODO: extract component */}
-      {card.abilities.length && (
-        <List verticalAlign="bottom">
-          {card.abilities.map((ability, i) => (
-            <List.Item key={i}>
-              <Label color={"black"} horizontal>
-                {ability}
-              </Label>
-            </List.Item>
-          ))}
-        </List>
-      )}
+      <AbilityList list={card.abilities}/>
     </div>
   );
 };

@@ -39,7 +39,8 @@ const Battlefield: React.FC = props => {
   const opponent = getOpponent(game);
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: [CardType.Minion, CardType.Weapon],
+    // accept: [CardType.Minion, CardType.Weapon],
+    accept: "Card",
     drop: (props, monitor) => {
       const card = monitor.getItem() as Card;
       console.log(card);

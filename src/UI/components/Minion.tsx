@@ -3,6 +3,7 @@ import { Label, List, Segment, Transition } from "semantic-ui-react";
 import Sleep from "./Sleep";
 import CardArt from "../CardArt";
 import { Minion as IMinion } from "../../Minion";
+import AbilityList from "./AbilityList";
 
 interface MinionProps extends IMinion {
   active: boolean;
@@ -41,16 +42,7 @@ const Minion: React.FC<MinionProps> = ({
       </Label>
     </Segment>
 
-    {/* TODO: extract component */}
-    <List.List>
-      {abilities.map((ability, i) => (
-        <List.Item key={i}>
-          <Label color={"black"} horizontal>
-            {ability}
-          </Label>
-        </List.Item>
-      ))}
-    </List.List>
+    <AbilityList list={abilities}/>
   </div>
 );
 
