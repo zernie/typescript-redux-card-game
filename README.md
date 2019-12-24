@@ -1,12 +1,12 @@
 ## Roadmap: 
 
 * [x] Turns
+  * [ ] Turn timer
+  * [ ] Fatigue 
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
-* [ ] Fatigue 
 * [ ] Graveyard
-* [ ] Turn timer
 * [ ] Basic mechanics
   * [x] Charge
   * [x] Windfury
