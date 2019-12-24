@@ -1,9 +1,9 @@
 ## Roadmap: 
-
+* [x] Card rendering (basic)
 * [x] Stats
- * [x] Armor 
- * [x] HP 
- * [x] Mana 
+  * [x] Armor 
+  * [x] HP 
+  * [x] Mana 
 * [x] Battlefield
 * [x] Hand
 * [x] Deck
