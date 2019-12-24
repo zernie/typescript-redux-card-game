@@ -1,8 +1,7 @@
-import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
 // import _ from 'lodash/fp';
-import { CardContainer } from "../../Card";
-import { Zone } from "../../enums";
-import { EntityPayload } from "../../Entity";
+import { CardContainer } from '../../Card';
+import { EntityPayload } from '../../Entity';
 
 export const drawCard = createAction<EntityPayload>("DRAW_CARD");
 
@@ -10,8 +9,7 @@ const drawCardHandler = (
   state: CardContainer,
   action: PayloadAction<EntityPayload>
 ) => {
-  // ): CardContainer => { state[action.payload].zone = Zone.Hand };
-  state[action.payload.id].zone = Zone.Hand;
+  delete state[action.payload.id]
 };
 
 export default  createReducer({}, {

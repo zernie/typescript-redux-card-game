@@ -45,8 +45,7 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   const cards = _.values(selectCards(player.owner, state.deck));
 
   if (cards.length > 0) {
-    // dispatch(drawCard(cards[0].id));
-    dispatch(drawCard({ id: cards[0].id }));
+    dispatch(drawCard(cards[0]));
   }
 };
 
