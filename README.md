@@ -1,6 +1,10 @@
 ## Roadmap: 
 
-* [x] Battlefield 
+* [x] Stats
+ * [x] Armor 
+ * [x] HP 
+ * [x] Mana 
+* [x] Battlefield
 * [x] Hand
 * [x] Deck
 * [ ] Turns
