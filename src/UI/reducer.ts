@@ -1,4 +1,3 @@
-import { combineReducers } from "redux";
 import gameStateReducer from "./gameStateReducer";
 import deckReducer from "./Deck/deckReducer";
 import handReducer from "./Hand/handReducer";
@@ -7,7 +6,7 @@ import graveyardReducer from "./Graveyard/graveyardReducer";
 import secretReducer from "./Secret/secretReducer";
 import setAsideReducer from "./SetAside/setAsideReducer";
 
-export default combineReducers({
+export default ({
   deck: deckReducer,
   graveyard: graveyardReducer,
   hand: handReducer,

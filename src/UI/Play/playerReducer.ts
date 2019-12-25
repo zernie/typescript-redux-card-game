@@ -33,7 +33,7 @@ const spendManaHandler = (
   { payload: { amount } }: PayloadAction<SpendManaPayload>
 ) => {
   if (!canSpendMana(state, amount))
-    return alert(`Cannot spend more than current mana (${state.mana}).`);
+    return alert(`Cannot spend more than current mana amount (${state.mana}).`);
 
   state.mana -= amount;
 };
@@ -46,10 +46,10 @@ const dealDamageHandler = (
 };
 
 // TODO: refactor
-export default (state: Player, action: PayloadAction<EntityPayload>) =>
-  createReducer<Player>(state, {
+// export default (state: Player, action: PayloadAction<EntityPayload>) =>
+export default createReducer(null, {
     [gainMana.type]: gainManaHandler,
     [restoreMana.type]: restoreManaHandler,
     [spendMana.type]: spendManaHandler,
     [dealDamage.type]: dealDamageHandler
-  })(state, action);
+  })

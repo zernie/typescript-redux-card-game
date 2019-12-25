@@ -22,6 +22,23 @@ export enum Ability {
   Windfury = "Windfury"
 }
 
+export enum BlockType {
+  Attack = "ATTACK",
+  Joust = "JOUST",
+  Continuous = "CONTINUOUS",
+  Power = "POWER",
+  Script = "SCRIPT",
+  Trigger = "TRIGGER",
+  Deaths = "DEATHS",
+  Play = "PLAY",
+  Fatigue = "FATIGUE",
+  Ritual = "RITUAL",
+  RevealCard ="REVEAL_CARD",
+  GameReset = "GAME_RESET",
+  MoveMinion = "MOVE_MINION",
+  Action = "ACTION",
+}
+
 export enum CardClass {
   Invalid = "INVALID",
   DeathKnight = "DEATHKNIGHT",

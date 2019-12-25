@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { Character, getCharacter, shouldExhaust } from "../../Character";
 import { CardType } from "../../enums";
@@ -13,6 +14,7 @@ import {
 import minionReducer from "./Minion/minionReducer";
 import heroReducer from "./Hero/heroReducer";
 import { AppThunk } from "../../utils";
+import reduceReducers from "reduce-reducers";
 
 // TODO: refactor
 export const performAttack = (payload: SourceTargetPayload): AppThunk => (
@@ -66,19 +68,31 @@ const exhaustHandler = (state: Character) => {
   state.exhausted = true;
 };
 
-// TODO: refactor
-export default (
+const characterReducer =  (
   state: Character,
   action: PayloadAction<EntityPayload>
 ): Character => {
-  if (exhaust.match(action) || attackCharacter.match(action)) {
-    return createReducer<Character>(state, {
-      [exhaust.type]: exhaustHandler,
-      [attackCharacter.type]: attackCharacterHandler
-    })(state, action);
-  }
-
-  return state.type === CardType.Minion
-    ? minionReducer(state, action)
-    : heroReducer(state, action);
+  return createReducer<Character>(state, {
+    [exhaust.type]: exhaustHandler,
+    [attackCharacter.type]: attackCharacterHandler
+  })(state, action);
 };
+// TODO: refactor
+
+export default reduceReducers(characterReducer, minionReducer, heroReducer);
+// export default (
+//   state: Character,
+//   action: PayloadAction<EntityPayload>
+// ): Character => {
+//   if (exhaust.match(action) || attackCharacter.match(action)) {
+//     return createReducer<Character>(state, {
+//       [exhaust.type]: exhaustHandler,
+//       [attackCharacter.type]: attackCharacterHandler
+//     })(state, action);
+//   }
+//
+//   return state.type === CardType.Minion
+//     ? minionReducer(state, action)
+//     : heroReducer(state, action);
+// };
+
