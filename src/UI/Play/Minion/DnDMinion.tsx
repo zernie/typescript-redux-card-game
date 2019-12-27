@@ -24,12 +24,12 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   const { play, state } = useGame();
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: [CardType.Minion],
-    drop: (target: Character, monitor) => {
+    drop: (source: Character, monitor) => {
       return dispatch(
         performAttack({
-          id: target.id,
-          source: character,
-          target: target
+          id: character.id,
+          source,
+          target: character
         })
       );
     },
