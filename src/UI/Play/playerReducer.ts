@@ -12,9 +12,8 @@ import { canSpendMana, Player } from "../../Player";
 import { EntityContainer, } from "../../Entity";
 import { PlayState } from "../../enums";
 import { MAX_MANA } from "../../constants";
-import { getEntity, Handler } from "./utils";
+import { getEntity, PlayerHandler } from "./utils";
 
-type PlayerHandler<T> = Handler<Player, T>;
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
