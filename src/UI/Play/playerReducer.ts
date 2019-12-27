@@ -1,4 +1,4 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction, Reducer } from "@reduxjs/toolkit";
 import {
   dealDamage,
   DealDamagePayload,
@@ -9,14 +9,16 @@ import {
   SpendManaPayload
 } from "./actions";
 import { canSpendMana, Player } from "../../Player";
-import { EntityPayload } from "../../Entity";
+import { EntityContainer, } from "../../Entity";
 import { PlayState } from "../../enums";
+import { MAX_MANA } from "../../constants";
+import { getEntity, Handler } from "./utils";
 
-const MAX_MANA = 10;
+type PlayerHandler<T> = Handler<Player, T>;
 
-const gainManaHandler = (
-  state: Player,
-  { payload: { amount = 1 } }: PayloadAction<GainManaPayload>
+const gainManaHandler: PlayerHandler<GainManaPayload> = (
+  state,
+  { amount = 1 }
 ) => {
   if (state.maximumMana >= MAX_MANA)
     return console.warn(`Cannot gain more than max mana (${MAX_MANA}).`);
@@ -24,32 +26,31 @@ const gainManaHandler = (
   state.mana += amount;
 };
 
-const restoreManaHandler = (state: Player) => {
+const restoreManaHandler: PlayerHandler<GainManaPayload> = state => {
   state.mana = state.maximumMana;
 };
 
-const spendManaHandler = (
+const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state: Player,
-  { payload: { amount } }: PayloadAction<SpendManaPayload>
+  {  amount }
 ) => {
   if (!canSpendMana(state, amount))
-    return alert(`Cannot spend more than current mana amount (${state.mana}).`);
+    return console.warn(
+      `Cannot spend more than current mana amount (${state.mana}).`
+    );
 
   state.mana -= amount;
 };
 
-const dealDamageHandler = (
-  state: Player,
-  action: PayloadAction<DealDamagePayload>
-) => {
-  if (action.payload.character.destroyed) state.playState = PlayState.Lost;
+const dealDamageHandler: PlayerHandler<DealDamagePayload> = (state, payload) => {
+  if (!payload.character.destroyed) return;
+
+  state.playState = PlayState.Lost;
 };
 
-// TODO: refactor
-// export default (state: Player, action: PayloadAction<EntityPayload>) =>
-export default createReducer(null, {
-    [gainMana.type]: gainManaHandler,
-    [restoreMana.type]: restoreManaHandler,
-    [spendMana.type]: spendManaHandler,
-    [dealDamage.type]: dealDamageHandler
-  })
+export default createReducer<EntityContainer>({}, {
+  [gainMana.type]: getEntity(gainManaHandler),
+  [restoreMana.type]: getEntity(restoreManaHandler),
+  [spendMana.type]: getEntity(spendManaHandler),
+  [dealDamage.type]: getEntity(dealDamageHandler)
+});

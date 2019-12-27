@@ -7,22 +7,26 @@ import {
   equipWeapon,
   EquipWeaponPayload
 } from "../actions";
-import { EntityPayload } from "../../../Entity";
+import { EntityContainer, EntityPayload } from "../../../Entity";
+import { getEntity, Handler } from "../utils";
 
-const destroyWeaponHandler = (state: Hero, action: Action) => {
+type HeroHandler<T = EntityPayload> = Handler<Hero, T>;
+
+const destroyWeaponHandler: HeroHandler = (state: Hero) => {
   state.weaponId = null;
 };
 
-const equipWeaponHandler = (
-  state: Hero,
-  action: PayloadAction<EquipWeaponPayload>
+const equipWeaponHandler: HeroHandler<EquipWeaponPayload> = (
+  state,
+  payload
 ) => {
-  state.weaponId = action.payload.weapon.id;
+  state.weaponId = payload.weapon.id;
 };
 
-const damageHeroHandler = (
-  state: Hero,
-  { payload }: PayloadAction<DealDamagePayload>
+//  FIXME
+const damageHeroHandler: HeroHandler<DealDamagePayload> = (
+  state,
+  payload
 ) => {
   const health = reduceHealth(state, payload.amount);
   state.armor = reduceArmor(state, payload.amount);
@@ -30,10 +34,8 @@ const damageHeroHandler = (
   state.health = health;
 };
 
-// TODO: refactor
-export default (state: Hero, action: PayloadAction<EntityPayload>) =>
-  createReducer(state, {
-    [dealDamage.type]: damageHeroHandler,
-    [destroyWeapon.type]: destroyWeaponHandler,
-    [equipWeapon.type]: equipWeaponHandler
-  })(state, action);
+export default createReducer<EntityContainer>({}, {
+    [dealDamage.type]: getEntity(damageHeroHandler),
+    [destroyWeapon.type]: getEntity(destroyWeaponHandler),
+    [equipWeapon.type]: getEntity(equipWeaponHandler)
+  });

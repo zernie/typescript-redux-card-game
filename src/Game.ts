@@ -21,10 +21,10 @@ export type Game = {
 };
 
 // export const getHand = (game: Game) =>
-//   _.pickBy(card => card.zone === Zone.Hand, game.cards) as CardContainer;
+//   _.pickBy(card => card.zone === Zone.Hand, game.cards) as EntityContainer;
 //
 // export const getDeck = (game: Game) =>
-//   _.pickBy(card => card.zone === Zone.Deck, game.cards) as CardContainer;
+//   _.pickBy(card => card.zone === Zone.Deck, game.cards) as EntityContainer;
 //
 // export const getBoard = (game: Game) =>
 //   _.pickBy<Entity>(

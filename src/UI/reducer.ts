@@ -6,7 +6,7 @@ import graveyardReducer from "./Graveyard/graveyardReducer";
 import secretReducer from "./Secret/secretReducer";
 import setAsideReducer from "./SetAside/setAsideReducer";
 
-export default ({
+export default {
   deck: deckReducer,
   graveyard: graveyardReducer,
   hand: handReducer,
@@ -14,4 +14,4 @@ export default ({
   secret: secretReducer,
   setAside: setAsideReducer,
   state: gameStateReducer
-});
+};

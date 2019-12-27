@@ -1,11 +1,11 @@
 import * as _ from "lodash/fp";
 import { Container } from "./Container";
 import { Ability, Controller } from "./enums";
-import { Hero } from "./Hero";
-import { Minion } from "./Minion";
 import { Weapon } from "./Weapon";
+import { HeroPower } from "./HeroPower";
+import { Character } from "./Character";
 
-export type Card = Hero | Minion | Weapon;
+export type Card = Character | Weapon | HeroPower;
 export type CardContainer = Container<Card>;
 
 // FIXME

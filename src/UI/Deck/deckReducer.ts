@@ -1,9 +1,9 @@
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
 // import _ from 'lodash/fp';
-import { CardContainer } from "../../Card";
+import { Card, CardContainer } from "../../Card";
 import { EntityPayload } from "../../Entity";
 
-export const drawCard = createAction<EntityPayload>("DRAW_CARD");
+export const drawCard = createAction<Card>("DRAW_CARD");
 
 const drawCardHandler = (
   state: CardContainer,

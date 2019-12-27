@@ -1,9 +1,8 @@
-// @ts-nocheck
-import { Action, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { Character, getCharacter, shouldExhaust } from "../../Character";
+import { createReducer, Reducer } from "@reduxjs/toolkit";
+import { Character, shouldExhaust } from "../../Character";
 import { CardType } from "../../enums";
 import { checkForEndGame } from "../gameStateReducer";
-import { EntityPayload } from "../../Entity";
+import { EntityContainer, EntityPayload } from "../../Entity";
 import {
   attackCharacter,
   dealDamage,
@@ -15,6 +14,9 @@ import minionReducer from "./Minion/minionReducer";
 import heroReducer from "./Hero/heroReducer";
 import { AppThunk } from "../../utils";
 import reduceReducers from "reduce-reducers";
+import { getEntity, Handler } from "./utils";
+
+type CharacterHandler<T = EntityPayload> = Handler<Character, T>;
 
 // TODO: refactor
 export const performAttack = (payload: SourceTargetPayload): AppThunk => (
@@ -31,7 +33,7 @@ export const performAttack = (payload: SourceTargetPayload): AppThunk => (
   );
 
   const game = getState();
-  const attacker = getCharacter(payload.source.id, game);
+  const attacker = game.play[payload.source.id] as Character;
 
   if (payload.target.type === CardType.Minion) {
     dispatch(
@@ -59,40 +61,17 @@ export const performAttack = (payload: SourceTargetPayload): AppThunk => (
   dispatch(checkForEndGame());
 };
 
-const attackCharacterHandler = (state: Character) => {
+const attackCharacterHandler: CharacterHandler = (state: Character) => {
   state.attacksPerformed++;
 };
 
-// FIXME
-const exhaustHandler = (state: Character) => {
+const exhaustHandler: CharacterHandler = (state: Character) => {
   state.exhausted = true;
 };
 
-const characterReducer =  (
-  state: Character,
-  action: PayloadAction<EntityPayload>
-): Character => {
-  return createReducer<Character>(state, {
-    [exhaust.type]: exhaustHandler,
-    [attackCharacter.type]: attackCharacterHandler
-  })(state, action);
-};
-// TODO: refactor
+const characterReducer =  createReducer<EntityContainer>({}, {
+    [exhaust.type]: getEntity(exhaustHandler),
+    [attackCharacter.type]: getEntity(attackCharacterHandler)
+});
 
-export default reduceReducers(characterReducer, minionReducer, heroReducer);
-// export default (
-//   state: Character,
-//   action: PayloadAction<EntityPayload>
-// ): Character => {
-//   if (exhaust.match(action) || attackCharacter.match(action)) {
-//     return createReducer<Character>(state, {
-//       [exhaust.type]: exhaustHandler,
-//       [attackCharacter.type]: attackCharacterHandler
-//     })(state, action);
-//   }
-//
-//   return state.type === CardType.Minion
-//     ? minionReducer(state, action)
-//     : heroReducer(state, action);
-// };
-
+export default reduceReducers(characterReducer, minionReducer, heroReducer) as Reducer<EntityContainer>;
