@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 // import * as _ from "lodash/fp";
 import { processDeaths, summonMinion } from "../actions";
-import { Minion, minionsFromContainer } from "../../../Minion";
+import { craftMinion, Minion, minionsFromContainer } from "../../../Minion";
 import { EntityContainer } from "../../../Entity";
 import { CardType } from "../../../enums";
 import _ from "lodash/fp";
@@ -26,5 +26,5 @@ const summonMinionHandler = (
 export default createReducer<EntityContainer>({}, {
   [summonMinion.type]: summonMinionHandler,
   [processDeaths.type]: processDeathsHandler,
-  [nextTurn.type]: nextTurnHandler,
+  [nextTurn.type]: nextTurnHandler
 });

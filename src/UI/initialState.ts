@@ -132,7 +132,8 @@ const player: Player = craftPlayer({
   name: "Player",
   owner: Controller.Player,
   hero: playerHero.id,
-  mana: 5
+  mana: 5,
+  maximumMana: 5
 });
 const opponent: Player = craftPlayer({
   cardClass: CardClass.Hunter,

@@ -31,7 +31,7 @@ export const craftPlayer = (props: CraftPlayerProps): Player =>
   ({
     id: newId(),
     mana: 0,
-    maximumMana: 10,
+    maximumMana: 1,
     playState: PlayState.Playing,
     weapon: null,
     ...props,

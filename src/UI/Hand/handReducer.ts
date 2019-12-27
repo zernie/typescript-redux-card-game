@@ -7,6 +7,7 @@ import { CardType } from "../../enums";
 import { AppThunk } from "../../utils";
 import { drawCard } from "../Deck/deckReducer";
 import { canSpendMana } from "../../Player";
+import { craftMinion } from "../../Minion";
 
 export const playCard = createAction<Card>("PLAY_CARD");
 
@@ -26,7 +27,7 @@ export const playerUseCard = (payload: Card): AppThunk => (
 
   switch (payload.type) {
     case CardType.Minion:
-      dispatch(summonMinion(payload));
+      dispatch(summonMinion(craftMinion(payload)));
       break;
     case CardType.Weapon:
       dispatch(equipWeapon({ id: payload.id, weapon: payload }));

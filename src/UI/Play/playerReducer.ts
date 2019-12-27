@@ -13,7 +13,7 @@ import { EntityContainer, } from "../../Entity";
 import { PlayState } from "../../enums";
 import { MAX_MANA } from "../../constants";
 import { getEntity, PlayerHandler } from "./utils";
-
+import {original } from 'immer';
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
@@ -22,10 +22,11 @@ const gainManaHandler: PlayerHandler<GainManaPayload> = (
   if (state.maximumMana >= MAX_MANA)
     return console.warn(`Cannot gain more than max mana (${MAX_MANA}).`);
 
-  state.mana += amount;
+  state.maximumMana += amount;
 };
 
 const restoreManaHandler: PlayerHandler<GainManaPayload> = state => {
+  console.log(original(state));
   state.mana = state.maximumMana;
 };
 

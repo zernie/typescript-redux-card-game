@@ -1,7 +1,7 @@
 import * as _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { State } from "../Game";
-import { activeHero } from "../Hero";
+import { activeHero, getActivePlayer } from "../Hero";
 import { PlayState, Step } from "../enums";
 import { selectCards } from "../Card";
 import { getOpponent, getPlayer, other } from "../Player";
@@ -37,7 +37,7 @@ export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
 export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(nextTurn());
   const state = getState();
-  const player = activeHero(state);
+  const player = getActivePlayer(state);
 
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
