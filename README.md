@@ -1,7 +1,9 @@
-## Roadmap: 
-* [x] Card rendering (basic)
-  * [ ] Use Sunwell?
-* [x] Drag and Drop cards
+# React & Redux based Hearthstone clone
+Built for educational purposes only
+
+## Roadmap:
+
+### Gameplay
 * [x] Stats
   * [x] Armor
   * [x] HP
@@ -10,10 +12,10 @@
 * [x] Hand
 * [x] Deck
 * [ ] Turns
-  * [x] Control switch
+  * [x] Player control switch
   * [ ] Turn timer 
   (https://github.com/matpaul/redux-timer-middleware/blob/master/src/index.js, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
-  * [ ] Fatigue 
+  * [ ] Fatigue damage
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
@@ -21,6 +23,7 @@
   * [x] Charge
   * [x] Windfury
   * [x] Taunt
+  * [ ] Battlecry
   * [ ] Stealth
   * [ ] Deathrattle
 * [ ] Graveyard
@@ -30,8 +33,13 @@
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
-* [ ] Multiplayer (distant future)
+* [ ] Multiplayer
 
----
+### Visual
+* [x] Card rendering (basic)
+  * [ ] Use [Sunwell](https://github.com/HearthSim/Sunwell)?
+* [x] Drag & Drop cards
 
+## Technical
+* [ ] Merge entities?
 * [ ] Tests
