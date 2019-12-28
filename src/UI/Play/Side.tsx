@@ -1,15 +1,15 @@
 import React from "react";
-import { List, Segment, Transition } from "semantic-ui-react";
+import { List, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
-import Minion from "./DnDMinion";
-import { MinionContainer, Minion as IMinion } from "../../types";
+import DnDMinion from "./DnDMinion";
+import { MinionContainer, Minion } from "../../types";
 
 export interface SideProps {
   board: MinionContainer;
 }
 
 const Side: React.FC<SideProps> = ({ board }) => (
-  <div>
+  <div style={{ minHeight: 120 }}>
     <Transition.Group
       as={List}
       animation="pulse"
@@ -19,9 +19,9 @@ const Side: React.FC<SideProps> = ({ board }) => (
       size="huge"
     >
       {_.map(
-        (minion: IMinion) => (
+        (minion: Minion) => (
           <List.Item key={minion.id}>
-            <Minion character={minion} />
+            <DnDMinion character={minion} />
           </List.Item>
         ),
         board
