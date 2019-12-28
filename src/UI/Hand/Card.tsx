@@ -1,12 +1,12 @@
 import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
-import { Card as ICard } from "../../Card";
-import { getActivePlayer } from "../../Hero";
-import { CardType } from "../../enums";
-import CardArt from "../CardArt";
+import { Card as ICard } from "../../types/Card";
+import { getActivePlayer } from "../../types/Hero";
+import { CardType } from "../../types/enums";
+import CardArt from "../components/CardArt";
 import { useDrag } from "react-dnd";
 import { useGame } from "../hooks";
-import { canSpendMana } from "../../Player";
+import { canSpendMana } from "../../types/Player";
 import AbilityList from "../components/AbilityList";
 import CardBack from "../components/CardBack";
 

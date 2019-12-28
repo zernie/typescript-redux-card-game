@@ -4,15 +4,15 @@ import {
   Minion as IMinion,
   minionsFromContainer,
   ownerMinions
-} from "../../../Minion";
-import { performAttack } from "../characterReducer";
+} from "../../types/Minion";
+import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useDrag, useDrop } from "react-dnd";
-import { CardType } from "../../../enums";
-import { useGame } from "../../hooks";
-import { canAttack, Character } from "../../../Character";
+import { CardType } from "../../types/enums";
+import { useGame } from "../hooks";
+import { canAttack, Character } from "../../types/Character";
 import { useDispatch } from "react-redux";
-import { MinionContainer } from "../../../Board";
-import Minion from "../../components/Minion";
+import { MinionContainer } from "../../types/Board";
+import Minion from "../components/Minion";
 
 export interface MinionProps {
   character: IMinion;

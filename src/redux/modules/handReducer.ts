@@ -1,13 +1,13 @@
 // import _ from "lodash/fp";
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { Card, CardContainer } from "../../Card";
-import { getActivePlayer } from "../../Hero";
-import { equipWeapon, spendMana, summonMinion } from "../Play/actions";
-import { CardType } from "../../enums";
-import { AppThunk } from "../../utils";
-import { drawCard } from "../Deck/deckReducer";
-import { canSpendMana } from "../../Player";
-import { craftMinion } from "../../Minion";
+import { Card, CardContainer } from "../../types/Card";
+import { getActivePlayer } from "../../types/Hero";
+import { equipWeapon, spendMana, summonMinion } from "./play/actions";
+import { CardType } from "../../types/enums";
+import { AppThunk } from "../../types/utils";
+import { drawCard } from "./deckReducer";
+import { canSpendMana } from "../../types/Player";
+import { craftMinion } from "../../types/Minion";
 
 export const playCard = createAction<Card>("PLAY_CARD");
 

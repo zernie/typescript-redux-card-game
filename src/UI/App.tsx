@@ -8,7 +8,7 @@ import {
   GridRow,
   GridColumn
 } from "semantic-ui-react";
-import TargetableBattlefield from "./Battlefield";
+import TargetableBattlefield from "./Play/Battlefield";
 
 const App: React.FC = props => (
   <Grid>

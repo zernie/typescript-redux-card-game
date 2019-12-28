@@ -3,24 +3,24 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
-import { Card, opponentCards, playerCards } from "../Card";
-import { CardType, Step, Zone } from "../enums";
-import { activeHero, getOpponentHero, getPlayerHero } from "../Hero";
+import { Card, opponentCards, playerCards } from "../../types/Card";
+import { CardType, Step, Zone } from "../../types/enums";
+import { activeHero, getOpponentHero, getPlayerHero } from "../../types/Hero";
 import {
   minionsFromContainer,
   opponentMinions,
   playerMinions
-} from "../Minion";
-import Side from "./Play/Minion/Side";
-import NextTurn from "./Play/NextTurn";
-import Deck from "./Deck/Deck";
-import EndGameScreen from "./EndGameScreen";
-import { endTurn } from "./gameStateReducer";
-import Hand from "./Hand/Hand";
-import { playerUseCard } from "./Hand/handReducer";
-import HeroComponent from "./Play/Hero/Hero";
-import { useGame } from "./hooks";
-import { canSpendMana, getOpponent, getPlayer } from "../Player";
+} from "../../types/Minion";
+import Side from "./Side";
+import NextTurn from "./NextTurn";
+import Deck from "../Deck/Deck";
+import EndGameScreen from "../EndGameScreen";
+import { endTurn } from "../../redux/modules/gameStateReducer";
+import Hand from "../Hand/Hand";
+import { playerUseCard } from "../../redux/modules/handReducer";
+import HeroComponent from "./DnDHero";
+import { useGame } from "../hooks";
+import { canSpendMana, getOpponent, getPlayer } from "../../types/Player";
 
 const Battlefield: React.FC = props => {
   const dispatch = useDispatch();

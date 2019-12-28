@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
-import { Card as ICard, CardContainer } from "../../Card";
+import { Card as ICard, CardContainer } from "../../types/Card";
 import Card from "./Card";
 
 interface HandProps {

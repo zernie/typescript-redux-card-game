@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, ModalProps, Transition } from "semantic-ui-react";
-import { PlayState } from "../enums";
-import { Player } from "../Player";
+import { PlayState } from "../types/enums";
+import { Player } from "../types/Player";
 
 export type EndGameScreenProps = ModalProps & {
   player: Player;

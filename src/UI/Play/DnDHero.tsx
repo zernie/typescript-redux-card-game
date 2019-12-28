@@ -1,21 +1,21 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
-import { Hero } from "../../../Hero";
-import CardArt from "../../CardArt";
-import { CardType } from "../../../enums";
-import { Player } from "../../../Player";
-import { performAttack } from "../characterReducer";
+import { Hero } from "../../types/Hero";
+import CardArt from "../components/CardArt";
+import { CardType } from "../../types/enums";
+import { Player } from "../../types/Player";
+import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useDispatch } from "react-redux";
 import {
   isValidTarget,
   Minion,
   minionsFromContainer,
   ownerMinions
-} from "../../../Minion";
-import { useGame } from "../../hooks";
-import { getWeapon, Weapon } from "../../../Weapon";
-import { canAttack, Character } from "../../../Character";
+} from "../../types/Minion";
+import { useGame } from "../hooks";
+import { getWeapon, Weapon } from "../../types/Weapon";
+import { canAttack, Character } from "../../types/Character";
 
 export interface HeroProps {
   hero: Hero;

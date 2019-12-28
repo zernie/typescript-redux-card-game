@@ -8,11 +8,11 @@ import {
   spendMana,
   SpendManaPayload
 } from "./actions";
-import { canSpendMana, Player } from "../../Player";
-import { EntityContainer, } from "../../Entity";
-import { PlayState } from "../../enums";
-import { MAX_MANA } from "../../constants";
-import { getEntity, PlayerHandler } from "./utils";
+import { canSpendMana, Player } from "../../../types/Player";
+import { EntityContainer, } from "../../../types/Entity";
+import { PlayState } from "../../../types/enums";
+import { MAX_MANA } from "../../../types/constants";
+import { getEntity, PlayerHandler } from "../../utils";
 import {original } from 'immer';
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (

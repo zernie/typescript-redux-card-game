@@ -1,5 +1,5 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { EntityContainer, EntityPayload } from "../../Entity";
+import { EntityContainer, EntityPayload } from "../../../types/Entity";
 import { destroyWeapon, equipWeapon, EquipWeaponPayload } from "./actions";
 
 const equipWeaponHandler = (

@@ -1,8 +1,8 @@
 import { createReducer, Reducer } from "@reduxjs/toolkit";
-import { Character, isHero, shouldExhaust } from "../../Character";
-import { CardType } from "../../enums";
+import { Character, isHero, shouldExhaust } from "../../../types/Character";
+import { CardType } from "../../../types/enums";
 import { checkForEndGame } from "../gameStateReducer";
-import { EntityContainer } from "../../Entity";
+import { EntityContainer } from "../../../types/Entity";
 import {
   attackCharacter,
   dealDamage,
@@ -12,13 +12,13 @@ import {
   processDeaths,
   SourceTargetPayload
 } from "./actions";
-import minionReducer from "./Minion/minionReducer";
-import heroReducer from "./Hero/heroReducer";
-import { AppThunk } from "../../utils";
+import minionReducer from "./minionReducer";
+import heroReducer from "./heroReducer";
+import { AppThunk } from "../../../types/utils";
 import reduceReducers from "reduce-reducers";
-import { CharacterHandler, getEntity, Handler, HeroHandler, MinionHandler } from "./utils";
-import { reduceArmor, reduceHealth } from "../../Hero";
-import { getWeapon } from "../../Weapon";
+import { CharacterHandler, getEntity, Handler, HeroHandler, MinionHandler } from "../../utils";
+import { reduceArmor, reduceHealth } from "../../../types/Hero";
+import { getWeapon } from "../../../types/Weapon";
 
 
 // TODO: refactor

@@ -1,12 +1,12 @@
 import { createReducer} from "@reduxjs/toolkit";
-import { Hero } from "../../../Hero";
+import { Hero } from "../../../types/Hero";
 import {
   destroyWeapon,
   equipWeapon,
   EquipWeaponPayload
-} from "../actions";
-import { EntityContainer } from "../../../Entity";
-import { getEntity,  HeroHandler } from "../utils";
+} from "./actions";
+import { EntityContainer } from "../../../types/Entity";
+import { getEntity,  HeroHandler } from "../../utils";
 
 const destroyWeaponHandler: HeroHandler = (state: Hero) => {
   state.weaponId = null;
