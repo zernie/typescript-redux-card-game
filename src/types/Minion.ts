@@ -60,7 +60,7 @@ export const ownerMinions = _.curry(
 );
 
 export const anyTaunts = (minions: MinionContainer) =>
-  _.any(hasTaunt, _.values(minions));
+  _.any(hasTaunt, minions);
 
 export const isValidTarget = (
   character: Character,

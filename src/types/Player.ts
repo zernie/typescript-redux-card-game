@@ -4,7 +4,6 @@ import { Game } from "./Game";
 import { Container } from "./Container";
 
 export interface Player {
-  cardClass: CardClass;
   id: number;
   hero: number;
   mana: number;
