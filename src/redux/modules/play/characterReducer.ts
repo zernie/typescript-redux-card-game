@@ -16,10 +16,15 @@ import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
 import { AppThunk } from "../../../types/utils";
 import reduceReducers from "reduce-reducers";
-import { CharacterHandler, getEntity, Handler, HeroHandler, MinionHandler } from "../../utils";
+import {
+  CharacterHandler,
+  getEntity,
+  Handler,
+  HeroHandler,
+  MinionHandler
+} from "../../utils";
 import { reduceArmor, reduceHealth } from "../../../types/Hero";
 import { getWeapon } from "../../../types/Weapon";
-
 
 // TODO: refactor
 export const performAttack = (payload: SourceTargetPayload): AppThunk => (
@@ -71,10 +76,7 @@ const exhaustHandler: CharacterHandler = (state: Character) => {
   state.exhausted = true;
 };
 
-const damageHeroHandler: HeroHandler<DealDamagePayload> = (
-  state,
-  payload
-) => {
+const damageHeroHandler: HeroHandler<DealDamagePayload> = (state, payload) => {
   const health = reduceHealth(state, payload.amount);
   state.armor = reduceArmor(state, payload.amount);
   state.destroyed = health <= 0;
@@ -91,15 +93,25 @@ const damageMinionHandler: MinionHandler<DealDamagePayload> = (
   state.health = health;
 };
 
-const dealDamageHandler: Handler<Character, DealDamagePayload> = (character, payload) => {
+const dealDamageHandler: Handler<Character, DealDamagePayload> = (
+  character,
+  payload
+) => {
   if (isHero(character)) return damageHeroHandler(character, payload);
   return damageMinionHandler(character, payload);
 };
 
-const characterReducer = createReducer<EntityContainer>({}, {
-  [exhaust.type]: getEntity(exhaustHandler),
-  [attackCharacter.type]: getEntity(attackCharacterHandler),
-  [dealDamage.type]: getEntity(dealDamageHandler)
-});
+const characterReducer = createReducer<EntityContainer>(
+  {},
+  {
+    [exhaust.type]: getEntity(exhaustHandler),
+    [attackCharacter.type]: getEntity(attackCharacterHandler),
+    [dealDamage.type]: getEntity(dealDamageHandler)
+  }
+);
 
-export default reduceReducers(characterReducer, minionReducer, heroReducer) as Reducer<EntityContainer>;
+export default reduceReducers(
+  characterReducer,
+  minionReducer,
+  heroReducer
+) as Reducer<EntityContainer>;

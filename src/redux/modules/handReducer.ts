@@ -1,6 +1,15 @@
 // import _ from "lodash/fp";
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk, Card, CardContainer, canSpendMana, getActivePlayer, CardType, Zone, craftMinion } from "../../types";
+import {
+  AppThunk,
+  Card,
+  CardContainer,
+  canSpendMana,
+  getActivePlayer,
+  CardType,
+  Zone,
+  craftMinion
+} from "../../types";
 import { equipWeapon, spendMana, summonMinion } from "./play/actions";
 import { drawCard } from "./deckReducer";
 

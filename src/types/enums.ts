@@ -683,7 +683,7 @@ export enum SequenceType {
   Summon,
   DamageDealt,
   Attack,
-  Target,
+  Target
 }
 
 export enum PlayType {

@@ -5,4 +5,8 @@ import characterReducer from "./characterReducer";
 import playerReducer from "./playerReducer";
 import weaponReducer from "./weaponReducer";
 
-export default reduceReducers(playerReducer, characterReducer, weaponReducer) as Reducer<EntityContainer>;
+export default reduceReducers(
+  playerReducer,
+  characterReducer,
+  weaponReducer
+) as Reducer<EntityContainer>;

@@ -2,7 +2,7 @@ import React from "react";
 import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
 import Minion from "./DnDMinion";
-import { MinionContainer,Minion as IMinion  } from "../../types";
+import { MinionContainer, Minion as IMinion } from "../../types";
 
 export interface SideProps {
   board: MinionContainer;

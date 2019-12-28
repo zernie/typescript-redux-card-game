@@ -16,7 +16,10 @@ const destroyWeaponHandler = (
   delete state[action.payload.id];
 };
 
-export default createReducer({}, {
-  [destroyWeapon.type]: destroyWeaponHandler,
-  [equipWeapon.type]: equipWeaponHandler
-});
+export default createReducer(
+  {},
+  {
+    [destroyWeapon.type]: destroyWeaponHandler,
+    [equipWeapon.type]: equipWeaponHandler
+  }
+);

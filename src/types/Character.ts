@@ -16,8 +16,10 @@ export const getCharacter = (id: number, game: Game): Character => {
   throw new Error(`Entity ${id} is not a character.`);
 };
 
-export const isHero = (char: Character): char is Hero => char.type === CardType.Hero;
-export const isMinion = (char: Character): char is Minion => char.type === CardType.Minion;
+export const isHero = (char: Character): char is Hero =>
+  char.type === CardType.Hero;
+export const isMinion = (char: Character): char is Minion =>
+  char.type === CardType.Minion;
 
 // export const getCharacters = (game: Game): CharacterContainer =>
 //   _.filter(

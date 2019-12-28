@@ -3,10 +3,23 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
-import {  minionsFromContainer,
+import {
+  minionsFromContainer,
   opponentMinions,
   playerMinions,
-  Card, opponentCards, playerCards, CardType, Step, Zone, canSpendMana, getOpponent, getPlayer, activeHero, getOpponentHero, getPlayerHero } from "../../types";
+  Card,
+  opponentCards,
+  playerCards,
+  CardType,
+  Step,
+  Zone,
+  canSpendMana,
+  getOpponent,
+  getPlayer,
+  activeHero,
+  getOpponentHero,
+  getPlayerHero
+} from "../../types";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
 import Deck from "../Deck/Deck";

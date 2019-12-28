@@ -9,11 +9,11 @@ import {
   SpendManaPayload
 } from "./actions";
 import { canSpendMana, Player } from "../../../types/Player";
-import { EntityContainer, } from "../../../types/Entity";
+import { EntityContainer } from "../../../types/Entity";
 import { PlayState } from "../../../types/enums";
 import { MAX_MANA } from "../../../types/constants";
 import { getEntity, PlayerHandler } from "../../utils";
-import {original } from 'immer';
+import { original } from "immer";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
@@ -32,7 +32,7 @@ const restoreManaHandler: PlayerHandler<GainManaPayload> = state => {
 
 const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state: Player,
-  {  amount }
+  { amount }
 ) => {
   if (!canSpendMana(state, amount))
     return console.warn(
@@ -42,15 +42,21 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state.mana -= amount;
 };
 
-const dealDamageHandler: PlayerHandler<DealDamagePayload> = (state, payload) => {
+const dealDamageHandler: PlayerHandler<DealDamagePayload> = (
+  state,
+  payload
+) => {
   if (!payload.character.destroyed) return;
 
   state.playState = PlayState.Lost;
 };
 
-export default createReducer<EntityContainer>({}, {
-  [gainMana.type]: getEntity(gainManaHandler),
-  [restoreMana.type]: getEntity(restoreManaHandler),
-  [spendMana.type]: getEntity(spendManaHandler),
-  [dealDamage.type]: getEntity(dealDamageHandler)
-});
+export default createReducer<EntityContainer>(
+  {},
+  {
+    [gainMana.type]: getEntity(gainManaHandler),
+    [restoreMana.type]: getEntity(restoreManaHandler),
+    [spendMana.type]: getEntity(spendManaHandler),
+    [dealDamage.type]: getEntity(dealDamageHandler)
+  }
+);

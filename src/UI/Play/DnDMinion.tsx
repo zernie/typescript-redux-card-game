@@ -2,14 +2,18 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import {
+  canAttack,
+  CardType,
+  Character,
   isValidTarget,
   Minion as IMinion,
+  MinionContainer,
   minionsFromContainer,
-  ownerMinions,CardType,canAttack, Character, MinionContainer
+  ownerMinions
 } from "../../types";
 import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useGame } from "../hooks";
-import {Minion} from "../components/";
+import { Minion } from "../components/";
 
 export interface MinionProps {
   character: IMinion;
@@ -20,16 +24,15 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   const { owner } = character;
   const { play, state } = useGame();
   const [{ isOver, canDrop }, dropRef] = useDrop({
-    accept: [CardType.Minion],
-    drop: (source: Character, monitor) => {
-      return dispatch(
+    accept: [CardType.Minion, CardType.Hero],
+    drop: (source: Character, monitor) =>
+      dispatch(
         performAttack({
           id: character.id,
           source,
           target: character
         })
-      );
-    },
+      ),
     canDrop: (target: IMinion) => {
       const enemyMinions = ownerMinions(
         character.owner,
@@ -57,7 +60,7 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   return (
     <div ref={dropRef}>
       <div ref={dragRef}>
-        <Minion {...character} active={canDrop || canDrag} isOver={isOver}/>
+        <Minion {...character} active={canDrop || canDrag} isOver={isOver} />
       </div>
     </div>
   );
