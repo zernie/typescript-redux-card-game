@@ -18,7 +18,8 @@
     "react-scripts": "^3.3.0",
     "reduce-reducers": "^1.0.4",
     "semantic-ui-react": "^0.88.2",
-    "styled-components": "^3.1.4"
+    "styled-components": "^3.1.4",
+    "sunwell": "^0.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
