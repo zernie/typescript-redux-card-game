@@ -1,4 +1,4 @@
-import { createReducer, PayloadAction, Reducer } from "@reduxjs/toolkit";
+import { createReducer } from "@reduxjs/toolkit";
 import {
   dealDamage,
   DealDamagePayload,
@@ -8,12 +8,8 @@ import {
   spendMana,
   SpendManaPayload
 } from "./actions";
-import { canSpendMana, Player } from "../../../types/Player";
-import { EntityContainer } from "../../../types/Entity";
-import { PlayState } from "../../../types/enums";
-import { MAX_MANA } from "../../../types/constants";
-import { getEntity, PlayerHandler } from "../../utils";
-import { original } from "immer";
+import { Player, EntityContainer,PlayState, MAX_MANA, canSpendMana  } from "../../../types";
+import {getEntity, PlayerHandler} from "../../utils";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
@@ -26,7 +22,6 @@ const gainManaHandler: PlayerHandler<GainManaPayload> = (
 };
 
 const restoreManaHandler: PlayerHandler<GainManaPayload> = state => {
-  console.log(original(state));
   state.mana = state.maximumMana;
 };
 
