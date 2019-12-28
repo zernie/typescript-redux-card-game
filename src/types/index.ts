@@ -1,6 +1,5 @@
 export * from "./Abilities";
 export * from "./BasicCard";
-export * from "./Board";
 export * from "./Card";
 export * from "./Character";
 export * from "./constants";

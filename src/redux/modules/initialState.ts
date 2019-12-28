@@ -1,12 +1,21 @@
 import { Game } from "../../types/Game";
-import { craftHero, Hero } from "../../types/Hero";
-import { CardContainer, cardListFrom } from "../../types/Card";
-import { entitiesFrom } from "../../types/Board";
-import { Ability, CardClass, Controller, Step, Zone } from "../../types/enums";
-import { EntityContainer } from "../../types/Entity";
-import { craftMinions } from "../../types/Minion";
-import { craftWeapons } from "../../types/Weapon";
-import { craftPlayer, Player } from "../../types/Player";
+import {
+  EntityContainer,
+  Player,
+  CardContainer,
+  Hero,
+  Ability,
+  CardClass,
+  Controller,
+  Step,
+  Zone,
+  craftMinions,
+  craftWeapons,
+  entitiesFrom,
+  craftPlayer,
+  cardListFrom,
+  craftHero
+} from "../../types";
 
 const handMinions = craftMinions([
   {
@@ -52,7 +61,7 @@ const handWeapons = craftWeapons([
   }
 ]);
 
-const hand: CardContainer = cardListFrom([...handMinions, ...handWeapons]);
+const hand: CardContainer = { ...handMinions, ...handWeapons };
 const rawDeck = [
   {
     attack: 3,
@@ -111,7 +120,7 @@ const rawDeck = [
   }
 ];
 
-const deck: CardContainer = cardListFrom(craftMinions(rawDeck));
+const deck: CardContainer = craftMinions(rawDeck);
 
 const playerHero: Hero = craftHero({
   cardID: "HERO_02",
@@ -176,15 +185,11 @@ const minions = craftMinions([
   }
 ]);
 
-export const play: EntityContainer = entitiesFrom([
-  player,
-  opponent,
-
-  playerHero,
-  opponentHero,
-
+// TODO: refactor
+export const play: EntityContainer = {
+  ...entitiesFrom([player, opponent, playerHero, opponentHero]),
   ...minions
-]);
+};
 
 const initialState: Game = {
   deck,

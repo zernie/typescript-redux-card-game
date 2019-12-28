@@ -14,7 +14,7 @@ export interface Player {
   type: CardType.Player;
 }
 
-// export type PlayerContainer = Container<Player>;
+export type PlayerContainer = Container<Player>;
 
 interface CraftPlayerProps {
   cardClass: CardClass;

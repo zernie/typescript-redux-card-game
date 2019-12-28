@@ -3,24 +3,25 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { State } from "../../types/Game";
 import {
   AppThunk,
-  PlayState,
   Step,
-  activeHero,
   getActivePlayer,
   selectCards,
   getOpponent,
   getPlayer,
-  other
+  other,
+  hasLost
 } from "../../types";
 import { drawCard } from "./deckReducer";
 import { gainMana, restoreMana } from "./play/actions";
+import initialState from "./initialState";
 
-export const finishGame = createAction<void>("FINISH_GAME");
-export const nextTurn = createAction<void>("NEXT_TURN");
+export const finishGame = createAction("FINISH_GAME");
+export const nextTurn = createAction("NEXT_TURN");
 
 const finishGameHandler = (state: State) => {
   state.step = Step.FinalGameOver;
 };
+
 const nextTurnHandler = (state: State) => {
   state.turn++;
   state.activePlayer = other(state.activePlayer);
@@ -51,11 +52,10 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   }
 };
 
-const reducer = createReducer(
-  {},
+export default createReducer(
+  initialState.state, // TODO: remove
   {
     [nextTurn.type]: nextTurnHandler,
     [finishGame.type]: finishGameHandler
   }
 );
-export default reducer;
