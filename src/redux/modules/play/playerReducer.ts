@@ -8,8 +8,14 @@ import {
   spendMana,
   SpendManaPayload
 } from "./actions";
-import { Player, EntityContainer,PlayState, MAX_MANA, canSpendMana  } from "../../../types";
-import {getEntity, PlayerHandler} from "../../utils";
+import {
+  Player,
+  EntityContainer,
+  PlayState,
+  MAX_MANA,
+  canSpendMana
+} from "../../../types";
+import { getEntity, PlayerHandler } from "../../utils";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,

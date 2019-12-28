@@ -6,11 +6,7 @@ interface CardArtProps extends ImageProps {
   resolution?: 256 | 512;
 }
 
-const CardArt: React.FC<CardArtProps> = ({
-  cardID,
-  resolution,
-  ...props
-}) => (
+const CardArt: React.FC<CardArtProps> = ({ cardID, resolution, ...props }) => (
   <Image
     // alt={name}
     circular={true}

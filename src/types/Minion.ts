@@ -59,8 +59,7 @@ export const ownerMinions = _.curry(
     _.pickBy(_.propEq("owner", player), minions) as MinionContainer
 );
 
-export const anyTaunts = (minions: MinionContainer) =>
-  _.any(hasTaunt, minions);
+export const anyTaunts = (minions: MinionContainer) => _.any(hasTaunt, minions);
 
 export const isValidTarget = (
   character: Character,

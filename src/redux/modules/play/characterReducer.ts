@@ -9,7 +9,7 @@ import {
   shouldExhaust,
   reduceArmor,
   reduceHealth,
-  getWeapon,
+  getWeapon
 } from "../../../types";
 import {
   DealDamagePayload,
@@ -29,13 +29,13 @@ import {
   MinionHandler,
   getEntity
 } from "../../utils";
-import {checkForEndGame} from "../gameStateReducer";
+import { checkForEndGame } from "../gameStateReducer";
 
 // TODO: refactor
-export const performAttack = ({target, source}: SourceTargetPayload): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const performAttack = ({
+  target,
+  source
+}: SourceTargetPayload): AppThunk => (dispatch, getState) => {
   dispatch(attackCharacter({ id: source.id }));
   dispatch(
     dealDamage({

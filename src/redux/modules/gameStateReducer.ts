@@ -1,14 +1,19 @@
 import * as _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { State } from "../../types/Game";
-import { activeHero, getActivePlayer } from "../../types/Hero";
-import { PlayState, Step } from "../../types/enums";
-import { selectCards } from "../../types/Card";
-import { getOpponent, getPlayer, other } from "../../types/Player";
-import initialState from "./initialState";
+import {
+  AppThunk,
+  PlayState,
+  Step,
+  activeHero,
+  getActivePlayer,
+  selectCards,
+  getOpponent,
+  getPlayer,
+  other
+} from "../../types";
 import { drawCard } from "./deckReducer";
 import { gainMana, restoreMana } from "./play/actions";
-import { AppThunk } from "../../types/utils";
 
 export const finishGame = createAction<void>("FINISH_GAME");
 export const nextTurn = createAction<void>("NEXT_TURN");
@@ -49,8 +54,11 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   }
 };
 
-const reducer = createReducer<State>(initialState.state, {
-  [nextTurn.type]: nextTurnHandler,
-  [finishGame.type]: finishGameHandler
-});
+const reducer = createReducer(
+  {},
+  {
+    [nextTurn.type]: nextTurnHandler,
+    [finishGame.type]: finishGameHandler
+  }
+);
 export default reducer;

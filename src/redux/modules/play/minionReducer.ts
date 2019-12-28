@@ -11,7 +11,7 @@ import { nextTurn } from "../gameStateReducer";
 
 const nextTurnHandler = (state: EntityContainer) => {
   const minions = minionsFromContainer(state);
-  console.log(minions)
+  console.log(minions);
   _.forEach(_.merge({ attacksPerformed: 0, exhausted: false }), minions);
 };
 
