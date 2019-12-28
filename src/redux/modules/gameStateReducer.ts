@@ -31,10 +31,7 @@ export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const player = getPlayer(state);
   const opponent = getOpponent(state);
 
-  if (
-    player.playState === PlayState.Lost ||
-    opponent.playState === PlayState.Lost
-  ) {
+  if (hasLost(player) || hasLost(opponent)) {
     dispatch(finishGame());
   }
 };

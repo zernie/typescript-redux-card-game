@@ -47,3 +47,5 @@ export const getPlayer = (game: Game): Player =>
   game.play[game.state.playerID] as Player;
 export const getOpponent = (game: Game): Player =>
   game.play[game.state.opponentID] as Player;
+
+export const hasLost = (player: Player) => player.playState === PlayState.Lost;
