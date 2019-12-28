@@ -42,5 +42,3 @@ export const craftWeapons = (props: CraftWeaponProps[]): WeaponContainer =>
 export const getWeapon = _.curry(
   (id: number, game: Game) => game.play[id] as Weapon
 );
-export const isWeapon = (entity: Entity): entity is Weapon =>
-  entity.type === CardType.Weapon;
