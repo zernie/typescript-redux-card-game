@@ -3,24 +3,19 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Button, Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
-import { Card, opponentCards, playerCards } from "../../types/Card";
-import { CardType, Step, Zone } from "../../types/enums";
-import { activeHero, getOpponentHero, getPlayerHero } from "../../types/Hero";
-import {
-  minionsFromContainer,
+import {  minionsFromContainer,
   opponentMinions,
-  playerMinions
-} from "../../types/Minion";
+  playerMinions,
+  Card, opponentCards, playerCards, CardType, Step, Zone, canSpendMana, getOpponent, getPlayer, activeHero, getOpponentHero, getPlayerHero } from "../../types";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
 import Deck from "../Deck/Deck";
 import EndGameScreen from "../EndGameScreen";
 import { endTurn } from "../../redux/modules/gameStateReducer";
-import Hand from "../Hand/Hand";
 import { playerUseCard } from "../../redux/modules/handReducer";
-import HeroComponent from "./DnDHero";
+import Hand from "../Hand/Hand";
+import DnDHero from "./DnDHero";
 import { useGame } from "../hooks";
-import { canSpendMana, getOpponent, getPlayer } from "../../types/Player";
 
 const Battlefield: React.FC = props => {
   const dispatch = useDispatch();
@@ -70,7 +65,7 @@ const Battlefield: React.FC = props => {
       <Grid>
         <Grid.Column computer={14} mobile={16}>
           <Hand active={!isCurrentPlayer} hand={opponentCards(game.hand)} />
-          <HeroComponent hero={opponentHero} player={opponent} />
+          <DnDHero hero={opponentHero} player={opponent} />
 
           <div ref={drop}>
             <Segment
@@ -86,7 +81,7 @@ const Battlefield: React.FC = props => {
             </Segment>
           </div>
 
-          <HeroComponent hero={playerHero} player={player} />
+          <DnDHero hero={playerHero} player={player} />
           <Hand active={isCurrentPlayer} hand={playerCards(hand)} />
         </Grid.Column>
 

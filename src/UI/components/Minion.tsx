@@ -2,11 +2,12 @@ import React from "react";
 import { Label, Segment, Transition } from "semantic-ui-react";
 import Sleep from "./Sleep";
 import CardArt from "./CardArt";
-import { Minion as IMinion } from "../../types/Minion";
+import { Minion as IMinion } from "../../types";
 import AbilityList from "./AbilityList";
 
 interface MinionProps extends IMinion {
   active: boolean;
+  isOver: boolean;
 }
 
 const Minion: React.FC<MinionProps> = ({
@@ -15,6 +16,7 @@ const Minion: React.FC<MinionProps> = ({
   attack,
   cardID,
   exhausted,
+  isOver,
   health,
   maxHealth,
   name

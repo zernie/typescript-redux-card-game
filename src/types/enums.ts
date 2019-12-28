@@ -685,3 +685,29 @@ export enum SequenceType {
   Attack,
   Target,
 }
+
+export enum PlayType {
+  PlayerPlay,
+  PlayerDraw,
+  PlayerGet,
+  PlayerMulligan,
+  PlayerHandDiscard,
+  PlayerDeckDiscard,
+  PlayerBackToHand,
+  PlayerSecretPlayed,
+  PlayerHeroPower,
+  PlayerPlayToDeck,
+  PlayerGetToDeck,
+  OpponentPlay,
+  OpponentDraw,
+  OpponentGet,
+  OpponentMulligan,
+  OpponentHandDiscard,
+  OpponentDeckDiscard,
+  OpponentPlayToDeck,
+  OpponentBackToHand,
+  OpponentSecretPlayed,
+  OpponentSecretTriggered,
+  OpponentHeroPower,
+  OpponentGetToDeck
+}

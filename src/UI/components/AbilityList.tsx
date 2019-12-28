@@ -1,6 +1,6 @@
 import { Label, List } from "semantic-ui-react";
 import React from "react";
-import { Ability } from "../../types/enums";
+import { Ability } from "../../types";
 
 interface AbilitiesProps {
   list: Ability[];
