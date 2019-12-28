@@ -27,7 +27,9 @@ export const playerUseCard = (payload: Card): AppThunk => (
 
   switch (payload.type) {
     case CardType.Minion:
-      dispatch(summonMinion(craftMinion(payload)));
+      const minion = craftMinion(payload);
+      minion.zone = Zone.Play;
+      dispatch(summonMinion(minion));
       break;
     case CardType.Weapon:
       dispatch(equipWeapon({ id: payload.id, weapon: payload }));

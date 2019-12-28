@@ -43,8 +43,7 @@ const Battlefield: React.FC = props => {
     ],
     drop: (item: Card, monitor) => dispatch(playerUseCard(item)),
     canDrop: (item: Card, monitor) =>
-      canSpendMana(player, item.cost),
-      // item.zone === Zone.Hand && canSpendMana(player, item.cost),
+      item.zone === Zone.Hand && canSpendMana(player, item.cost),
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
