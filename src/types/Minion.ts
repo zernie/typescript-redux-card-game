@@ -3,13 +3,14 @@ import { Abilities } from "./Abilities";
 import { hasTaunt } from "./Card";
 import { Character } from "./Character";
 import { EntityContainer, entitiesFrom } from "./Entity";
-import { Ability, CardType, Controller, Zone } from "./enums";
+import { CardType, Controller, Race, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
 import { MinionContainer } from "./Container";
 
 export interface Minion extends Playable {
   attack: number;
+  race: Race;
   type: CardType.Minion;
 }
 
@@ -23,6 +24,7 @@ interface CraftMinionProps {
   maxHealth: number;
   name: string;
   owner: Controller;
+  race: Race;
   cost: number;
   text?: string;
   zone: Zone;
@@ -42,6 +44,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     destroyed: false,
     exhausted: true,
     health: props.maxHealth,
+    race: Race.Blank,
     ...props,
     id: newId(),
     type: CardType.Minion
