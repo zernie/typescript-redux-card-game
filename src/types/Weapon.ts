@@ -5,7 +5,9 @@ import { BasicCard } from "./BasicCard";
 import { newId } from "./utils";
 import { Game } from "./Game";
 import { Container } from "./Container";
-import { entitiesFrom } from "./Entity";
+import { entitiesFrom, Entity } from "./Entity";
+import { Minion } from "./Minion";
+import { Character } from "./Character";
 
 type WeaponContainer = Container<Weapon>;
 
@@ -44,3 +46,5 @@ export const craftWeapons = (props: CraftWeaponProps[]): WeaponContainer =>
 export const getWeapon = _.curry(
   (id: number, game: Game) => game.play[id] as Weapon
 );
+export const isWeapon = (entity: Entity): entity is Weapon =>
+  entity.type === CardType.Weapon;

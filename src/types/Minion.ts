@@ -31,7 +31,7 @@ interface CraftMinionProps {
 
 const selectMinions = (controller: Controller) => (
   container: MinionContainer
-) => _.pickBy(_.propEq("owner", controller), container) as MinionContainer;
+) => _.pickBy(_.whereEq({ owner: controller }), container) as MinionContainer;
 
 export const playerMinions = selectMinions(Controller.Player);
 export const opponentMinions = selectMinions(Controller.Opponent);

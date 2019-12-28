@@ -3,6 +3,7 @@ import { CardType } from "./enums";
 import { Game } from "./Game";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
+import { Entity } from "./Entity";
 
 export type Character = Hero | Minion;
 // export type CharacterContainer = Container<Character>;
@@ -16,10 +17,10 @@ export const getCharacter = (id: number, game: Game): Character => {
   throw new Error(`Entity ${id} is not a character.`);
 };
 
-export const isHero = (char: Character): char is Hero =>
-  char.type === CardType.Hero;
-export const isMinion = (char: Character): char is Minion =>
-  char.type === CardType.Minion;
+export const isHero = (entity: Entity): entity is Hero =>
+  entity.type === CardType.Hero;
+export const isMinion = (entity: Entity): entity is Minion =>
+  entity.type === CardType.Minion;
 
 // export const getCharacters = (game: Game): CharacterContainer =>
 //   _.filter(

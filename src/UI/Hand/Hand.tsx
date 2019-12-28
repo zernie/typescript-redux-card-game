@@ -2,7 +2,7 @@ import React from "react";
 import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
 import { Card as ICard, CardContainer } from "../../types/Card";
-import Card from "./Card";
+import DnDCard from "./DnDCard";
 
 interface HandProps {
   active?: boolean;
@@ -16,7 +16,7 @@ export const Hand: React.FC<HandProps> = ({ active = true, hand }) => (
         (card: ICard) => (
           <List.Item key={card.id}>
             <List.Content>
-              <Card key={card.id} card={card} active={active} />
+              <DnDCard key={card.id} card={card} active={active} />
             </List.Content>
           </List.Item>
         ),
