@@ -42,6 +42,7 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state.mana -= amount;
 };
 
+// FIXME
 const dealDamageHandler: PlayerHandler<DealDamagePayload> = (
   state,
   payload

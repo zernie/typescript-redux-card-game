@@ -1,65 +1,68 @@
 import { createReducer, Reducer } from "@reduxjs/toolkit";
-import { Character, isHero, shouldExhaust } from "../../../types/Character";
-import { CardType } from "../../../types/enums";
-import { checkForEndGame } from "../gameStateReducer";
-import { EntityContainer } from "../../../types/Entity";
+import reduceReducers from "reduce-reducers";
 import {
+  AppThunk,
+  Character,
+  EntityContainer,
+  isHero,
+  isMinion,
+  shouldExhaust,
+  reduceArmor,
+  reduceHealth,
+  getWeapon,
+} from "../../../types";
+import {
+  DealDamagePayload,
+  SourceTargetPayload,
   attackCharacter,
   dealDamage,
-  DealDamagePayload,
   destroyWeapon,
   exhaust,
-  processDeaths,
-  SourceTargetPayload
+  processDeaths
 } from "./actions";
 import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
-import { AppThunk } from "../../../types/utils";
-import reduceReducers from "reduce-reducers";
 import {
   CharacterHandler,
-  getEntity,
   Handler,
   HeroHandler,
-  MinionHandler
+  MinionHandler,
+  getEntity
 } from "../../utils";
-import { reduceArmor, reduceHealth } from "../../../types/Hero";
-import { getWeapon } from "../../../types/Weapon";
+import {checkForEndGame} from "../gameStateReducer";
 
 // TODO: refactor
-export const performAttack = (payload: SourceTargetPayload): AppThunk => (
+export const performAttack = ({target, source}: SourceTargetPayload): AppThunk => (
   dispatch,
   getState
 ) => {
-  dispatch(attackCharacter({ id: payload.source.id }));
+  dispatch(attackCharacter({ id: source.id }));
   dispatch(
     dealDamage({
-      id: payload.target.id,
-      amount: payload.source.attack,
-      character: payload.target
+      id: target.id,
+      amount: source.attack,
+      character: target
     })
   );
-
   const game = getState();
-  const attacker = game.play[payload.source.id] as Character;
 
-  if (payload.target.type === CardType.Minion) {
+  if (isMinion(target)) {
     dispatch(
       dealDamage({
-        id: attacker.id,
-        amount: payload.target.attack,
-        character: payload.target
+        id: source.id,
+        amount: target.attack,
+        character: source
       })
     );
   }
-
-  if (isHero(attacker) && attacker.weaponId) {
-    const weapon = getWeapon(attacker.weaponId, game);
+  if (isHero(source) && source.weaponId) {
+    const weapon = getWeapon(source.weaponId, game);
     if (weapon.durability <= 0) {
       dispatch(destroyWeapon({ id: weapon.id }));
     }
   }
 
+  const attacker = game.play[source.id] as Character;
   if (shouldExhaust(attacker)) {
     dispatch(exhaust({ id: attacker.id }));
   }
