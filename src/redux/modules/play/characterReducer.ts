@@ -22,8 +22,6 @@ import {
   exhaust,
   processDeaths
 } from "./actions";
-import minionReducer from "./minionReducer";
-import heroReducer from "./heroReducer";
 import {
   CharacterHandler,
   Handler,
@@ -31,8 +29,9 @@ import {
   MinionHandler,
   getEntity
 } from "../../utils";
+import minionReducer from "./minionReducer";
+import heroReducer from "./heroReducer";
 import { checkForEndGame, nextTurn } from "../gameStateReducer";
-import { original } from "immer";
 
 // TODO: refactor
 export const performAttack = ({

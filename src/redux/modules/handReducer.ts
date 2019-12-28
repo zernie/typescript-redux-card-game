@@ -8,7 +8,7 @@ import {
   getActivePlayer,
   CardType,
   Zone,
-  craftMinion
+  hasCharge
 } from "../../types";
 import { equipWeapon, spendMana, summonMinion } from "./play/actions";
 import { drawCard } from "./deckReducer";
@@ -31,8 +31,11 @@ export const playerUseCard = (payload: Card): AppThunk => (
 
   switch (payload.type) {
     case CardType.Minion:
-      const minion = craftMinion(payload);
-      minion.zone = Zone.Play;
+      const minion = {
+        ...payload,
+        zone: Zone.Play,
+        exhausted: !hasCharge(payload)
+      };
       dispatch(summonMinion(minion));
       break;
     case CardType.Weapon:

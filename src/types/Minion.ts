@@ -40,7 +40,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     abilities: [],
     attacksPerformed: 0,
     destroyed: false,
-    exhausted: !!props.abilities && !props.abilities.includes(Ability.Charge),
+    exhausted: true,
     health: props.maxHealth,
     ...props,
     id: newId(),

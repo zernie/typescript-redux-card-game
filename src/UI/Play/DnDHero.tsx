@@ -41,15 +41,15 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
       return hero.owner === activePlayer && canAttack(hero);
     }
   });
-  // FIXME
+
   const [{ isOver }, drop] = useDrop({
     accept: [CardType.Minion, CardType.Hero],
-    drop: (item: Minion) => {
+    drop: (char: Character) => {
       return dispatch(
         performAttack({
-          id: item.id,
-          source: hero,
-          target: item
+          id: hero.id,
+          source: char,
+          target: hero
         })
       );
     },
