@@ -16,7 +16,7 @@ import {
   canSpendMana,
   getOpponent,
   getPlayer,
-  activeHero,
+  // activeHero,
   getOpponentHero,
   getPlayerHero
 } from "../../types";
@@ -37,10 +37,10 @@ const Battlefield: React.FC = props => {
     deck,
     hand,
     play,
-    state: { turn, activePlayer, step }
+    state: { turn, activePlayer, step, playerID }
   } = game;
   // TODO: extract hooks
-  const isCurrentPlayer = activeHero(game) === getPlayerHero(game);
+  const isCurrentPlayer = activePlayer === playerID;
   const playerHero = getPlayerHero(game);
   const opponentHero = getOpponentHero(game);
   const player = getPlayer(game);
@@ -76,7 +76,7 @@ const Battlefield: React.FC = props => {
       />
       <Grid>
         <Grid.Column computer={14} mobile={16}>
-          <Hand active={!isCurrentPlayer} hand={opponentCards(game.hand)} />
+          <Hand active={!isCurrentPlayer} hand={opponentCards(game)} />
           <DnDHero hero={opponentHero} player={opponent} />
 
           <div ref={drop}>
@@ -87,14 +87,14 @@ const Battlefield: React.FC = props => {
               })}
               style={{ padding: 0 }}
             >
-              <Side board={opponentMinions(minions)} />
+              <Side board={opponentMinions(game)} />
               <Divider section={true} style={{ margin: 2 }} />
-              <Side board={playerMinions(minions)} />
+              <Side board={playerMinions(game)} />
             </Segment>
           </div>
 
           <DnDHero hero={playerHero} player={player} />
-          <Hand active={isCurrentPlayer} hand={playerCards(hand)} />
+          <Hand active={isCurrentPlayer} hand={playerCards(game)} />
         </Grid.Column>
 
         <Grid.Column
@@ -103,7 +103,7 @@ const Battlefield: React.FC = props => {
           verticalAlign="middle"
           stretched={true}
         >
-          <Deck deck={opponentCards(deck)} />
+          <Deck deck={opponentCards(game)} />
 
           <Button.Group vertical={true} size="large">
             <Button color="green" basic={true}>
@@ -112,7 +112,7 @@ const Battlefield: React.FC = props => {
 
             <NextTurn onClick={() => dispatch(endTurn())} />
           </Button.Group>
-          <Deck deck={playerCards(deck)} />
+          <Deck deck={playerCards(game)} />
         </Grid.Column>
       </Grid>
     </Segment>

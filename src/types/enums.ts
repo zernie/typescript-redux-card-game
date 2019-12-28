@@ -65,11 +65,12 @@ export enum CardType {
   Player = "PLAYER"
 }
 
-// TODO: deprecate
-export enum Controller {
+export type Controller = number;
+
+/* export enum Controller {
   Player = "PLAYER",
   Opponent = "OPPONENT"
-}
+}*/
 
 export enum PlayState {
   Invalid = "INVALID",
@@ -105,7 +106,6 @@ export enum Step {
   MainStartTriggers = "MAIN_START_TRIGGERS"
 }
 
-// TODO: deprecate
 export enum Zone {
   Invalid = "INVALID",
   Play = "PLAY",
@@ -136,17 +136,17 @@ export enum EntityType {
   Source = "SOURCE",
 
   /**
-   Player's hero
+   Player's heroID
    */
   Hero = "HERO",
 
   /**
-   Player's hero power
+   Player's heroID power
    */
   HeroPower = "HERO_POWER",
 
   /**
-   Opponent's hero power
+   Opponent's heroID power
    */
   OpHeroPower = "OP_HERO_POWER",
 
@@ -162,22 +162,22 @@ export enum EntityType {
   EventSource = "EVENT_SOURCE",
 
   /**
-   The top card from the player's deck
+   The top card from the playerID's deck
    */
   TopCardFromDeck = "TOPCARDFROMDECK",
 
   /**
-   The top card from the opponent's deck
+   The top card from the opponentID's deck
    */
   OpTopDeck = "OP_TOPDECK",
 
   /**
-   All cards in the player's hand
+   All cards in the playerID's hand
    */
   Hand = "HAND",
 
   /**
-   All cards in the player's deck
+   All cards in the playerID's deck
    */
   Deck = "DECK",
 
@@ -207,32 +207,32 @@ export enum EntityType {
   OpHero = "OP_HERO",
 
   /**
-   All cards in the opponent's hand
+   All cards in the opponentID's hand
    */
   OpHand = "OP_HAND",
 
   /**
-   All cards in the opponent's deck
+   All cards in the opponentID's deck
    */
   OpDeck = "OP_DECK",
 
   /**
-   All opponent secret
+   All opponentID secret
    */
   OpSecrets = "OP_SECRETS",
 
   /**
-   All opponent minion
+   All opponentID minion
    */
   OpMinions = "OP_MINIONS",
 
   /**
-   All opponent character
+   All opponentID character
    */
   Enemies = "ENEMIES",
 
   /**
-   All opponent character except the source
+   All opponentID character except the source
    */
   EnemiesNoTarget = "ENEMIES_NOTARGET",
 
@@ -277,17 +277,17 @@ export enum EntityType {
   Heroes = "HEROES",
 
   /**
-   The Controller entity of the player
+   The Controller entity of the playerID
    */
   Controller = "CONTROLLER",
 
   /**
-   The Controller entity of the opponent.
+   The Controller entity of the opponentID.
    */
   OpController = "OP_CONTROLLER",
 
   /**
-   The cards have been discarded from the player's hand.
+   The cards have been discarded from the playerID's hand.
    */
   Discarded = "DISCARDED"
 }
@@ -446,22 +446,22 @@ export enum PowerArea {
   NONE,
 
   /**
-   The effect will be triggered by the selected target (target chosen by player).
+   The effect will be triggered by the selected target (target chosen by playerID).
    */
   TARGET,
 
   /**
-   The effect will be triggered by the hero of the controller.
+   The effect will be triggered by the heroID of the controller.
    */
   HERO,
 
   /**
-   The effect will be triggered by the hero of the opponent controller.
+   The effect will be triggered by the heroID of the opponentID controller.
    */
   OP_HERO,
 
   /**
-   The effect will be triggered by the hero of all controllers.
+   The effect will be triggered by the heroID of all controllers.
    */
   HEROES,
 
@@ -471,7 +471,7 @@ export enum PowerArea {
   BOARD,
 
   /**
-   The effect will be triggered by the board of the opponent controller.
+   The effect will be triggered by the board of the opponentID controller.
    */
   OP_BOARD,
 
@@ -486,7 +486,7 @@ export enum PowerArea {
   HAND,
 
   /**
-   The effect will be triggered by the hand of the opponent controller.
+   The effect will be triggered by the hand of the opponentID controller.
    */
   OP_HAND,
 
@@ -511,7 +511,7 @@ export enum PowerArea {
   CONTROLLER,
 
   /**
-   The effect will be triggered by the opponent controller entity.
+   The effect will be triggered by the opponentID controller entity.
    */
   OP_CONTROLLER,
 
@@ -536,7 +536,7 @@ export enum PowerArea {
   HAND_AND_BOARD,
 
   /**
-   The effect will be triggered by the HAND and BOARD of the opponent controller.
+   The effect will be triggered by the HAND and BOARD of the opponentID controller.
    */
   OP_BOARD_AND_OP_HERO,
 
@@ -556,12 +556,12 @@ export enum PowerArea {
   GRAVEYARD_AND_SECRET,
 
   /**
-   This effect will be triggered by the GRAVEYARD of the opponent controller.
+   This effect will be triggered by the GRAVEYARD of the opponentID controller.
    */
   OP_GRAVEYARD,
 
   /**
-   This effect will be triggered by the GRAVEYARD and SECRET of the opponent controller.
+   This effect will be triggered by the GRAVEYARD and SECRET of the opponentID controller.
    */
   OP_GRAVEYARD_AND_OP_SECRET
 }
@@ -589,7 +589,7 @@ export enum TriggerType {
   TURN_START,
   /* The effect will be triggered when a minion dies.*/
   DEATH,
-  /* The effect will be triggered after a player uses Hero Power.*/
+  /* The effect will be triggered after a playerID uses Hero Power.*/
   INSPIRE,
   /* The effect will be triggered when a character is damaged.*/
   DEAL_DAMAGE,
@@ -613,15 +613,15 @@ export enum TriggerType {
   SUMMON,
   /* The effect will be triggered after a minion is summoned.*/
   AFTER_SUMMON,
-  /* The effect will be triggered when a player plays a card.*/
+  /* The effect will be triggered when a playerID plays a card.*/
   PLAY_CARD,
-  /* The effect will be triggered after a player plays a card.*/
+  /* The effect will be triggered after a playerID plays a card.*/
   AFTER_PLAY_CARD,
-  /* The effect will be triggered when a player plays a Minion card.*/
+  /* The effect will be triggered when a playerID plays a Minion card.*/
   PLAY_MINION,
   /* The effect will be triggered after a minion is played.*/
   AFTER_PLAY_MINION,
-  /* The effect will be triggered when a player plays a Spell card.*/
+  /* The effect will be triggered when a playerID plays a Spell card.*/
   CAST_SPELL,
   /* The effect will be triggered after a spell is played.*/
   AFTER_CAST,
@@ -639,9 +639,9 @@ export enum TriggerType {
   TARGET,
   /* The effect will be triggered when a entity is frozen.*/
   FROZEN,
-  /* The effect will be triggered when a hero gains armor.*/
+  /* The effect will be triggered when a heroID gains armor.*/
   ARMOR,
-  /* The effect will be triggered when a hero equips a weapon.*/
+  /* The effect will be triggered when a heroID equips a weapon.*/
   EQUIP_WEAPON,
   /* The effect will be triggered when a card is shuffled into a deck.*/
   SHUFFLE_INTO_DECK,

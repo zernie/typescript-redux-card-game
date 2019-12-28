@@ -4,7 +4,7 @@ import { CardType } from "./enums";
 import { Game } from "./Game";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
-import { Entity, EntityContainer } from "./Entity";
+import { EntityContainer, isCharacter } from "./Entity";
 import { CharacterContainer } from "./Container";
 
 export type Character = Hero | Minion;

@@ -10,7 +10,6 @@ import {
   canAttack,
   Character,
   isValidTarget,
-  Minion,
   minionsFromContainer,
   ownerMinions
 } from "../../types";
@@ -33,7 +32,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
     state: { activePlayer }
   } = game;
   const { mana, maximumMana } = player;
-  const { weaponId } = hero;
+  const { weaponID } = hero;
   const [collectedProps, drag] = useDrag({
     item: hero,
     canDrag: monitor => {
@@ -59,13 +58,13 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
         minionsFromContainer(game.play)
       );
 
-      return item.owner !== player.owner && isValidTarget(item, enemyMinions);
+      return item.owner !== player.id && isValidTarget(item, enemyMinions);
     },
     collect: monitor => ({
       isOver: monitor.isOver()
     })
   });
-  const weapon = (weaponId && getWeapon(weaponId, game)) as Weapon | null;
+  const weapon = (weaponID && getWeapon(weaponID, game)) as Weapon | null;
 
   return (
     <div ref={drop}>

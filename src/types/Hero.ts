@@ -1,31 +1,35 @@
+import _ from "lodash/fp";
 import { Character } from "./Character";
 import { Abilities } from "./Abilities";
 import { newId } from "./utils";
-import * as _ from "lodash/fp";
 import { Game } from "./Game";
 import { Playable } from "./Playable";
 import { CardClass, CardType, Controller, Zone } from "./enums";
 import { getOpponent, getPlayer, Player } from "./Player";
+import { isHero } from "./Entity";
+import { MAX_HEALTH } from "./constants";
 
 export interface Hero extends Playable {
   armor: number;
-  cardClass: CardClass;
   type: CardType.Hero;
-  weaponId: number | null;
+  weaponID: number | null;
 }
 
 interface CraftHeroProps {
+  cardID: string;
+  name: string;
+  owner: Controller;
+
+  cardClass?: CardClass;
   abilities?: Abilities;
   armor?: number;
   attack?: number;
   attacksPerformed?: number;
-  cardID: string;
   exhausted?: boolean;
   health?: number;
   maxHealth?: number;
-  name: string;
-  owner: Controller;
-  zone: Zone;
+  weaponId?: number;
+  zone?: Zone;
 }
 
 export const craftHero = (props: CraftHeroProps): Hero =>
@@ -37,9 +41,12 @@ export const craftHero = (props: CraftHeroProps): Hero =>
     cost: 0,
     destroyed: false,
     exhausted: false,
-    health: props.maxHealth || 30,
+    health: props.maxHealth || MAX_HEALTH,
     id: newId(),
     maxHealth: 30,
+    zone: Zone.Play,
+    cardClass: CardClass.Neutral,
+    weaponID: null,
     ...props,
     type: CardType.Hero
   } as Hero);
@@ -50,29 +57,31 @@ export const reduceArmor = (hero: Hero, damage: number): number =>
 export const reduceHealth = (character: Character, damage: number): number =>
   Math.min(
     character.health,
-    character.type === CardType.Hero
+    isHero(character)
       ? character.health + character.armor - damage
       : character.health - damage
   );
 
-export const activeHero = (game: Game): Hero =>
-  game.state.activePlayer === Controller.Player
-    ? getPlayerHero(game)
-    : getOpponentHero(game);
-
-export const getActivePlayer = (game: Game) =>
-  _.find(
-    entity =>
-      entity.type === CardType.Player &&
-      entity.owner === game.state.activePlayer,
-    game.play
-  ) as Player;
+/* export const activeHero = (game: Game) => (game.play[getActivePlayer(game).heroID] as Hero); */
+// export const activeHero = (game: Game): Hero =>
+//   game.state.activePlayer === Controller.Player
+//     ? getPlayerHero(game)
+//     : getOpponentHero(game);
+//
+// export const getActivePlayer = (game: Game) =>
+//   _.find(
+//     entity =>
+//       entity.type === CardType.Player &&
+//       entity.owner === game.state.activePlayer,
+//     game.play
+//   ) as Player;
+//
 
 export const getPlayerHero = (game: Game): Hero =>
-  game.play[getPlayer(game).hero] as Hero;
+  game.play[getPlayer(game).heroID as number] as Hero;
 export const getOpponentHero = (game: Game): Hero =>
-  game.play[getOpponent(game).hero] as Hero;
-// export const playerID = (player: Player, game: Game): number =>
-//   player === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
-// export const opponentID = (player: Player, game: Game): number =>
-//   player === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
+  game.play[getOpponent(game).heroID as number] as Hero;
+// export const playerID = (playerID: Player, game: Game): number =>
+//   playerID === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
+// export const opponentID = (playerID: Player, game: Game): number =>
+//   playerID === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;

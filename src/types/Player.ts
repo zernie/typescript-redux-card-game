@@ -1,29 +1,25 @@
-import { CardClass, CardType, Controller, PlayState } from "./enums";
+import { CardType, Controller, PlayState, Zone } from "./enums";
 import { newId } from "./utils";
-import { Game } from "./Game";
-import { Container } from "./Container";
+import { Game, State } from "./Game";
 
 export interface Player {
   id: number;
-  hero: number;
+  heroID: number | null;
   mana: number;
   name: string;
   maximumMana: number;
   playState: PlayState;
-  owner: Controller;
   type: CardType.Player;
+  zone: Zone;
 }
 
-export type PlayerContainer = Container<Player>;
-
 interface CraftPlayerProps {
-  cardClass: CardClass;
-  mana?: number;
-  hero: number;
-  maximumMana?: number;
   name: string;
-  owner: Controller;
-  weapon?: number | null;
+
+  mana?: number;
+  heroID?: number;
+  maximumMana?: number;
+  zone?: Zone;
 }
 
 export const craftPlayer = (props: CraftPlayerProps): Player =>
@@ -32,7 +28,7 @@ export const craftPlayer = (props: CraftPlayerProps): Player =>
     mana: 0,
     maximumMana: 0,
     playState: PlayState.Playing,
-    weapon: null,
+    zone: Zone.Play,
     ...props,
     type: CardType.Player
   } as Player);
@@ -40,12 +36,19 @@ export const craftPlayer = (props: CraftPlayerProps): Player =>
 export const canSpendMana = (player: Player, amount: number) =>
   player.mana - amount >= 0;
 
-export const other = (player: Controller): Controller =>
-  player === Controller.Player ? Controller.Opponent : Controller.Player;
+export const other = (state: State): Controller =>
+  state.activePlayer === state.playerID ? state.opponentID : state.playerID;
+// export const other = (playerID: Controller): Controller =>
+//   playerID === Controller.Player ? Controller.Opponent : Controller.Player;
 
-export const getPlayer = (game: Game): Player =>
+export const getActivePlayer = (game: Game) =>
+  game.play[game.state.activePlayer] as Player;
+
+export const getPlayer = (game: Game) =>
   game.play[game.state.playerID] as Player;
-export const getOpponent = (game: Game): Player =>
+
+export const getOpponent = (game: Game) =>
   game.play[game.state.opponentID] as Player;
 
 export const hasLost = (player: Player) => player.playState === PlayState.Lost;
+export const hasWon = (player: Player) => player.playState === PlayState.Won;

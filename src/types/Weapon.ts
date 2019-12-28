@@ -1,18 +1,16 @@
 import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
-import { CardType, Controller, Zone } from "./enums";
-import { BasicCard } from "./BasicCard";
+import { CardClass, CardType, Controller, Zone } from "./enums";
 import { newId } from "./utils";
 import { Game } from "./Game";
-import { entitiesFrom, Entity } from "./Entity";
+import { entitiesFrom } from "./Entity";
 import { WeaponContainer } from "./Container";
+import { Playable } from "./Playable";
 
-export interface Weapon extends BasicCard {
-  abilities: Abilities;
+export interface Weapon extends Playable {
   attack: number;
   durability: number;
   name: string;
-  owner: Controller;
   type: CardType.Weapon;
 }
 
@@ -31,12 +29,13 @@ interface CraftWeaponProps {
 export const craftWeapon = (props: CraftWeaponProps): Weapon =>
   ({
     abilities: [],
+    cardClass: CardClass.Neutral,
     ...props,
     id: newId(),
     type: CardType.Weapon
   } as Weapon);
 
-export const craftWeapons = (props: CraftWeaponProps[]): WeaponContainer =>
+export const craftWeapons = (...props: CraftWeaponProps[]): WeaponContainer =>
   entitiesFrom(_.map(craftWeapon, props) as Weapon[]) as WeaponContainer;
 
 export const getWeapon = _.curry(

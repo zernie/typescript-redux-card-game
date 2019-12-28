@@ -6,6 +6,7 @@ export * from "./constants";
 export * from "./Container";
 export * from "./Entity";
 export * from "./enums";
+export * from "./Game";
 export * from "./Hero";
 export * from "./HeroPower";
 export * from "./Minion";

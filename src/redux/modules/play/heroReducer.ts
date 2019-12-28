@@ -4,14 +4,14 @@ import { destroyWeapon, equipWeapon, EquipWeaponPayload } from "./actions";
 import { getEntity, HeroHandler } from "../../utils";
 
 const destroyWeaponHandler: HeroHandler = (state: Hero) => {
-  state.weaponId = null;
+  state.weaponID = null;
 };
 
 const equipWeaponHandler: HeroHandler<EquipWeaponPayload> = (
   state,
   payload
 ) => {
-  state.weaponId = payload.weapon.id;
+  state.weaponID = payload.weapon.id;
 };
 
 export default createReducer<EntityContainer>(

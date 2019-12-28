@@ -7,6 +7,7 @@ import { CardType, Controller, Race, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
 import { MinionContainer } from "./Container";
+import { Game } from "./Game";
 
 export interface Minion extends Playable {
   attack: number;
@@ -15,27 +16,39 @@ export interface Minion extends Playable {
 }
 
 interface CraftMinionProps {
-  abilities?: Abilities;
   attack: number;
-  attacksPerformed?: number;
   cardID: string;
-  exhausted?: boolean;
   health?: number;
   maxHealth: number;
   name: string;
   owner: Controller;
-  race: Race;
   cost: number;
-  text?: string;
   zone: Zone;
+  abilities?: Abilities;
+  attacksPerformed?: number;
+  exhausted?: boolean;
+  race?: Race;
+  text?: string;
 }
 
-const selectMinions = (controller: Controller) => (
-  container: MinionContainer
-) => _.pickBy(_.whereEq({ owner: controller }), container) as MinionContainer;
+const selectMinions = _.curry(
+  (controller: Controller, container: EntityContainer) =>
+    _.pickBy(
+      _.whereEq({ owner: controller, type: CardType.Minion }),
+      container
+    ) as MinionContainer
+);
+export const playerMinions = (game: Game) =>
+  selectMinions(game.state.playerID, game.play);
+export const opponentMinions = (game: Game) =>
+  selectMinions(game.state.opponentID, game.play);
 
-export const playerMinions = selectMinions(Controller.Player);
-export const opponentMinions = selectMinions(Controller.Opponent);
+// const selectMinions = (controller: Controller) => (
+//   container: MinionContainer
+// ) => _.pickBy(_.whereEq({ owner: controller }), container) as MinionContainer;
+
+// export const playerMinions = selectMinions(Controller.Player);
+// export const opponentMinions = selectMinions(Controller.Opponent);
 
 export const craftMinion = (props: CraftMinionProps): Minion =>
   ({
@@ -50,7 +63,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     type: CardType.Minion
   } as Minion);
 
-export const craftMinions = (props: CraftMinionProps[]) =>
+export const craftMinions = (...props: CraftMinionProps[]) =>
   entitiesFrom(_.map(craftMinion, props) as Minion[]) as MinionContainer;
 
 export const minionsFromContainer = (entities: EntityContainer) =>

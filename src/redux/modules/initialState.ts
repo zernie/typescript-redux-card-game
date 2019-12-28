@@ -1,4 +1,5 @@
-import { Game } from "../../types/Game";
+import { Game } from "../../types";
+import _ from "lodash/fp";
 import {
   EntityContainer,
   Player,
@@ -6,18 +7,46 @@ import {
   Hero,
   Ability,
   CardClass,
-  Controller,
   Step,
   Zone,
   craftMinions,
   craftWeapons,
   entitiesFrom,
   craftPlayer,
-  cardListFrom,
   craftHero
 } from "../../types";
 
-const handMinions = craftMinions([
+// PLAYERS
+const player: Player = craftPlayer({
+  name: "Player",
+  mana: 5,
+  maximumMana: 5
+});
+const opponent: Player = craftPlayer({
+  name: "Opponent"
+});
+
+// HEROES
+const playerHero: Hero = craftHero({
+  cardClass: CardClass.Shaman,
+  cardID: "HERO_02",
+  name: "Thrall",
+  owner: player.id
+});
+
+const opponentHero: Hero = craftHero({
+  cardClass: CardClass.Hunter,
+  cardID: "HERO_01",
+  armor: 3,
+  name: "Garrosh",
+  owner: opponent.id
+});
+
+player.heroID = playerHero.id;
+opponent.heroID = opponentHero.id;
+
+// MINIONS
+const handMinions = craftMinions(
   {
     abilities: [Ability.Charge],
     attack: 2,
@@ -25,7 +54,7 @@ const handMinions = craftMinions([
     cost: 2,
     maxHealth: 1,
     name: "Bluegill Warrior",
-    owner: Controller.Player,
+    owner: player.id,
     zone: Zone.Hand
   },
   {
@@ -35,7 +64,7 @@ const handMinions = craftMinions([
     cost: 4,
     maxHealth: 4,
     name: "Windspeaker",
-    owner: Controller.Player,
+    owner: player.id,
     zone: Zone.Hand
   },
   {
@@ -44,114 +73,12 @@ const handMinions = craftMinions([
     cost: 6,
     maxHealth: 7,
     name: "Boulderfist Ogre",
-    owner: Controller.Opponent,
+    owner: opponent.id,
     zone: Zone.Hand
   }
-]);
+);
 
-const handWeapons = craftWeapons([
-  {
-    attack: 3,
-    cardID: "CS2_106",
-    cost: 3,
-    durability: 2,
-    name: "Fiery War Axe",
-    owner: Controller.Opponent,
-    zone: Zone.Hand
-  }
-]);
-
-const hand: CardContainer = { ...handMinions, ...handWeapons };
-
-const deck = craftMinions([
-  {
-    attack: 3,
-    cardID: "CS2_172",
-    cost: 2,
-    maxHealth: 2,
-    name: "Bloodfen Raptor",
-    owner: Controller.Player,
-    zone: Zone.Deck
-  },
-  {
-    abilities: [Ability.Taunt],
-    attack: 5,
-    cardID: "CS2_187",
-    cost: 5,
-    maxHealth: 4,
-    name: "Booty Bay Bodyguard",
-    owner: Controller.Opponent,
-    zone: Zone.Deck
-  },
-  {
-    attack: 3,
-    cardID: "CS2_182",
-    cost: 4,
-    maxHealth: 4,
-    name: "Chillwind Yeti",
-    owner: Controller.Player,
-    zone: Zone.Deck
-  },
-  {
-    abilities: [Ability.Taunt],
-    attack: 2,
-    cardID: "CS2_121",
-    cost: 2,
-    maxHealth: 2,
-    name: "Frostwolf Grunt",
-    owner: Controller.Opponent,
-    zone: Zone.Deck
-  },
-  {
-    attack: 2,
-    cardID: "CS2_141",
-    cost: 3,
-    maxHealth: 2,
-    name: "Ironforge Rifleman",
-    owner: Controller.Player,
-    zone: Zone.Deck
-  },
-  {
-    attack: 3,
-    cardID: "CS2_125",
-    cost: 3,
-    maxHealth: 3,
-    name: "Ironfur Grizzly",
-    owner: Controller.Player,
-    zone: Zone.Deck
-  }
-]);
-
-const playerHero: Hero = craftHero({
-  cardID: "HERO_02",
-  name: "Thrall",
-  owner: Controller.Player,
-  zone: Zone.Play
-});
-
-const opponentHero: Hero = craftHero({
-  cardID: "HERO_01",
-  armor: 3,
-  name: "Garrosh",
-  owner: Controller.Opponent,
-  zone: Zone.Play
-});
-const player: Player = craftPlayer({
-  cardClass: CardClass.Shaman,
-  name: "Player",
-  owner: Controller.Player,
-  hero: playerHero.id,
-  mana: 5,
-  maximumMana: 5
-});
-const opponent: Player = craftPlayer({
-  cardClass: CardClass.Hunter,
-  name: "Opponent",
-  owner: Controller.Opponent,
-  hero: opponentHero.id
-});
-
-const minions = craftMinions([
+const minions = craftMinions(
   {
     attack: 1,
     cardID: "CS2_189",
@@ -159,7 +86,7 @@ const minions = craftMinions([
     exhausted: false,
     maxHealth: 1,
     name: "Elven archer",
-    owner: Controller.Opponent,
+    owner: opponent.id,
     zone: Zone.Play
   },
   {
@@ -170,7 +97,7 @@ const minions = craftMinions([
     exhausted: false,
     maxHealth: 2,
     name: "Frostwolf Grunt",
-    owner: Controller.Opponent,
+    owner: opponent.id,
     zone: Zone.Play
   },
   {
@@ -180,16 +107,91 @@ const minions = craftMinions([
     exhausted: false,
     maxHealth: 4,
     name: "Gnomish Inventor",
-    owner: Controller.Player,
+    owner: player.id,
     zone: Zone.Play
   }
-]);
+);
+
+// WEAPONS
+const handWeapons = craftWeapons({
+  attack: 3,
+  cardID: "CS2_106",
+  cost: 3,
+  durability: 2,
+  name: "Fiery War Axe",
+  owner: opponent.id,
+  zone: Zone.Hand
+});
+
+// CARDS
+const hand: CardContainer = { ...handMinions, ...handWeapons };
+
+const deck = craftMinions(
+  {
+    attack: 3,
+    cardID: "CS2_172",
+    cost: 2,
+    maxHealth: 2,
+    name: "Bloodfen Raptor",
+    owner: player.id,
+    zone: Zone.Deck
+  },
+  {
+    abilities: [Ability.Taunt],
+    attack: 5,
+    cardID: "CS2_187",
+    cost: 5,
+    maxHealth: 4,
+    name: "Booty Bay Bodyguard",
+    owner: opponent.id,
+    zone: Zone.Deck
+  },
+  {
+    attack: 3,
+    cardID: "CS2_182",
+    cost: 4,
+    maxHealth: 4,
+    name: "Chillwind Yeti",
+    owner: player.id,
+    zone: Zone.Deck
+  },
+  {
+    abilities: [Ability.Taunt],
+    attack: 2,
+    cardID: "CS2_121",
+    cost: 2,
+    maxHealth: 2,
+    name: "Frostwolf Grunt",
+    owner: opponent.id,
+    zone: Zone.Deck
+  },
+  {
+    attack: 2,
+    cardID: "CS2_141",
+    cost: 3,
+    maxHealth: 2,
+    name: "Ironforge Rifleman",
+    owner: player.id,
+    zone: Zone.Deck
+  },
+  {
+    attack: 3,
+    cardID: "CS2_125",
+    cost: 3,
+    maxHealth: 3,
+    name: "Ironfur Grizzly",
+    owner: player.id,
+    zone: Zone.Deck
+  }
+);
 
 // TODO: refactor
 export const play: EntityContainer = {
   ...entitiesFrom([player, opponent, playerHero, opponentHero]),
   ...minions
 };
+
+const firstPlayer = _.sample([player.id, opponent.id]) as number; // TODO: add a coin toss action
 
 const initialState: Game = {
   deck,
@@ -199,7 +201,7 @@ const initialState: Game = {
   secret: {},
   setAside: {},
   state: {
-    activePlayer: Controller.Player,
+    activePlayer: firstPlayer,
     step: Step.BeginFirst,
     playerID: player.id,
     opponentID: opponent.id,

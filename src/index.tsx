@@ -9,9 +9,9 @@ import configureStore from "./redux/configureStore";
 
 const store = configureStore();
 // TODO: refactor
-// const player = getPlayerHero(store.getState() as Game);
-// store.dispatch(gainMana({ id: player.id }));
-// store.dispatch(restoreMana({ id: player.id }));
+// const playerID = getPlayerHero(store.getState() as Game);
+// store.dispatch(gainMana({ id: playerID.id }));
+// store.dispatch(restoreMana({ id: playerID.id }));
 
 ReactDOM.render(
   <Provider store={store}>

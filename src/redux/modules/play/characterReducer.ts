@@ -57,8 +57,8 @@ export const performAttack = ({
       })
     );
   }
-  if (isHero(source) && source.weaponId) {
-    const weapon = getWeapon(source.weaponId, game);
+  if (isHero(source) && source.weaponID) {
+    const weapon = getWeapon(source.weaponID, game);
     if (weapon.durability <= 0) {
       dispatch(destroyWeapon({ id: weapon.id }));
     }

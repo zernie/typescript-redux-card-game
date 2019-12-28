@@ -20,7 +20,7 @@ export const playerUseCard = (payload: Card): AppThunk => (
   getState
 ) => {
   const state = getState();
-  // const hero = activeHero(state);
+  // const heroID = activeHero(state);
   const player = getActivePlayer(state);
   if (!canSpendMana(getActivePlayer(state), payload.cost)) {
     return console.warn("Not enough mana!");

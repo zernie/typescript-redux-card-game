@@ -1,6 +1,6 @@
 import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { State } from "../../types/Game";
+import { State } from "../../types";
 import {
   AppThunk,
   Step,
@@ -24,13 +24,15 @@ const finishGameHandler = (state: State) => {
 
 const nextTurnHandler = (state: State) => {
   state.turn++;
-  state.activePlayer = other(state.activePlayer);
+  state.activePlayer = other(state);
+  // state.activePlayer = other(state.activePlayer);
 };
 
 export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const player = getPlayer(state);
   const opponent = getOpponent(state);
+  console.log(player, opponent);
 
   if (hasLost(player) || hasLost(opponent)) {
     dispatch(finishGame());
@@ -45,7 +47,7 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(gainMana({ id: player.id }));
   dispatch(restoreMana({ id: player.id }));
 
-  const cards = _.values(selectCards(player.owner, state.deck));
+  const cards = _.values(selectCards(player.id, state.deck));
 
   if (cards.length > 0) {
     dispatch(drawCard(cards[0]));

@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   dealDamage,
   DealDamagePayload,
@@ -13,7 +13,10 @@ import {
   EntityContainer,
   PlayState,
   MAX_MANA,
-  canSpendMana
+  canSpendMana,
+  Character,
+  getPlayer,
+  Hero
 } from "../../../types";
 import { getEntity, PlayerHandler } from "../../utils";
 
@@ -44,14 +47,25 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
 };
 
 // FIXME
-const dealDamageHandler: PlayerHandler<DealDamagePayload> = (
-  state,
-  payload
+const dealDamageHandler = (
+  state: EntityContainer,
+  action: PayloadAction<DealDamagePayload>
 ) => {
-  if (!payload.character.destroyed) return;
-
-  state.playState = PlayState.Lost;
+  const hero = state[action.payload.id] as Hero;
+  if (!hero.destroyed) return;
+  const player = state[hero.id] as Player;
+  player.playState = PlayState.Lost;
 };
+
+// FIXME
+// const dealDamageHandler: PlayerHandler<DealDamagePayload> = (
+//   state,
+//   payload
+// ) => {
+//   if (!payload.character.destroyed) return;
+//
+//   state.playState = PlayState.Lost;
+// };
 
 export default createReducer<EntityContainer>(
   {},
@@ -59,6 +73,6 @@ export default createReducer<EntityContainer>(
     [gainMana.type]: getEntity(gainManaHandler),
     [restoreMana.type]: getEntity(restoreManaHandler),
     [spendMana.type]: getEntity(spendManaHandler),
-    [dealDamage.type]: getEntity(dealDamageHandler)
+    [dealDamage.type]: dealDamageHandler
   }
 );
