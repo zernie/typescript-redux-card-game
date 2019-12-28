@@ -62,7 +62,8 @@ const handWeapons = craftWeapons([
 ]);
 
 const hand: CardContainer = { ...handMinions, ...handWeapons };
-const rawDeck = [
+
+const deck = craftMinions([
   {
     attack: 3,
     cardID: "CS2_172",
@@ -92,6 +93,7 @@ const rawDeck = [
     zone: Zone.Deck
   },
   {
+    abilities: [Ability.Taunt],
     attack: 2,
     cardID: "CS2_121",
     cost: 2,
@@ -118,9 +120,7 @@ const rawDeck = [
     owner: Controller.Player,
     zone: Zone.Deck
   }
-];
-
-const deck: CardContainer = craftMinions(rawDeck);
+]);
 
 const playerHero: Hero = craftHero({
   cardID: "HERO_02",

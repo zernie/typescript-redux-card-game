@@ -47,8 +47,8 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     type: CardType.Minion
   } as Minion);
 
-export const craftMinions = (minionProps: CraftMinionProps[]) =>
-  entitiesFrom(_.map(craftMinion, minionProps) as Minion[]) as MinionContainer;
+export const craftMinions = (props: CraftMinionProps[]) =>
+  entitiesFrom(_.map(craftMinion, props) as Minion[]) as MinionContainer;
 
 export const minionsFromContainer = (entities: EntityContainer) =>
   _.pickBy(_.whereEq({ type: CardType.Minion }), entities) as MinionContainer;
