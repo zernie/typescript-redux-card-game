@@ -1,5 +1,6 @@
 import { createReducer, Reducer } from "@reduxjs/toolkit";
 import reduceReducers from "reduce-reducers";
+import _ from "lodash/fp";
 import {
   AppThunk,
   Character,
@@ -9,7 +10,8 @@ import {
   shouldExhaust,
   reduceArmor,
   reduceHealth,
-  getWeapon
+  getWeapon,
+  charsFromContainer
 } from "../../../types";
 import {
   DealDamagePayload,
@@ -29,7 +31,8 @@ import {
   MinionHandler,
   getEntity
 } from "../../utils";
-import { checkForEndGame } from "../gameStateReducer";
+import { checkForEndGame, nextTurn } from "../gameStateReducer";
+import { original } from "immer";
 
 // TODO: refactor
 export const performAttack = ({
@@ -71,37 +74,50 @@ export const performAttack = ({
   dispatch(checkForEndGame());
 };
 
-const attackCharacterHandler: CharacterHandler = (state: Character) => {
-  state.attacksPerformed++;
+const nextTurnHandler = (state: EntityContainer) => {
+  const chars = charsFromContainer(state);
+  // _.forEach(_.assign({ attacksPerformed: 0, exhausted: false }), chars);
+  // TODO: refactor
+  _.forEach(char => {
+    char.attacksPerformed = 0;
+    char.exhausted = false;
+  }, chars);
 };
 
-const exhaustHandler: CharacterHandler = (state: Character) => {
-  state.exhausted = true;
+const attackCharacterHandler: CharacterHandler = (char: Character) => {
+  char.attacksPerformed++;
 };
 
-const damageHeroHandler: HeroHandler<DealDamagePayload> = (state, payload) => {
-  const health = reduceHealth(state, payload.amount);
-  state.armor = reduceArmor(state, payload.amount);
-  state.destroyed = health <= 0;
-  state.health = health;
+const exhaustHandler: CharacterHandler = (char: Character) => {
+  char.exhausted = true;
+};
+
+const damageHeroHandler: HeroHandler<DealDamagePayload> = (
+  char,
+  { amount }
+) => {
+  const health = reduceHealth(char, amount);
+  char.armor = reduceArmor(char, amount);
+  char.destroyed = health <= 0;
+  char.health = health;
 };
 
 const damageMinionHandler: MinionHandler<DealDamagePayload> = (
-  state,
+  char,
   payload
 ) => {
-  const health = reduceHealth(state, payload.amount);
+  const health = reduceHealth(char, payload.amount);
 
-  state.destroyed = health <= 0;
-  state.health = health;
+  char.destroyed = health <= 0;
+  char.health = health;
 };
 
 const dealDamageHandler: Handler<Character, DealDamagePayload> = (
-  character,
+  char,
   payload
 ) => {
-  if (isHero(character)) return damageHeroHandler(character, payload);
-  return damageMinionHandler(character, payload);
+  if (isHero(char)) return damageHeroHandler(char, payload);
+  return damageMinionHandler(char, payload);
 };
 
 const characterReducer = createReducer<EntityContainer>(
@@ -109,7 +125,8 @@ const characterReducer = createReducer<EntityContainer>(
   {
     [exhaust.type]: getEntity(exhaustHandler),
     [attackCharacter.type]: getEntity(attackCharacterHandler),
-    [dealDamage.type]: getEntity(dealDamageHandler)
+    [dealDamage.type]: getEntity(dealDamageHandler),
+    [nextTurn.type]: nextTurnHandler
   }
 );
 

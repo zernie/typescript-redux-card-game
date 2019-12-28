@@ -1,19 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash/fp";
 import { processDeaths, summonMinion } from "./actions";
-import {
-  Minion,
-  minionsFromContainer,
-  EntityContainer,
-  CardType
-} from "../../../types";
-import { nextTurn } from "../gameStateReducer";
-
-const nextTurnHandler = (state: EntityContainer) => {
-  const minions = minionsFromContainer(state);
-  console.log(minions);
-  _.forEach(_.merge({ attacksPerformed: 0, exhausted: false }), minions);
-};
+import { Minion, EntityContainer, CardType } from "../../../types";
 
 const processDeathsHandler = (state: EntityContainer) =>
   _.omitBy(
@@ -32,7 +20,6 @@ export default createReducer<EntityContainer>(
   {},
   {
     [summonMinion.type]: summonMinionHandler,
-    [processDeaths.type]: processDeathsHandler,
-    [nextTurn.type]: nextTurnHandler
+    [processDeaths.type]: processDeathsHandler
   }
 );

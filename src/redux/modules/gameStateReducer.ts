@@ -1,4 +1,4 @@
-import * as _ from "lodash/fp";
+import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { State } from "../../types/Game";
 import {

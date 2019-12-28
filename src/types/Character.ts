@@ -5,7 +5,7 @@ import { Game } from "./Game";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
 import { Entity, EntityContainer } from "./Entity";
-import { CharacterContainer, } from "./Container";
+import { CharacterContainer } from "./Container";
 
 export type Character = Hero | Minion;
 
@@ -24,7 +24,6 @@ export const isMinion = (entity: Entity): entity is Minion =>
   entity.type === CardType.Minion;
 export const isCharacter = (entity: Entity): entity is Character =>
   isMinion(entity) || isHero(entity);
-
 
 // export const getCharacters = (game: Game): CharacterContainer =>
 //   _.filter(
