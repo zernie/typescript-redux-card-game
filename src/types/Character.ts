@@ -3,10 +3,10 @@ import { CardType } from "./enums";
 import { Game } from "./Game";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
-import { Entity } from "./Entity";
+import { Entity, EntityContainer } from "./Entity";
+import { MinionContainer } from "./Container";
 
 export type Character = Hero | Minion;
-// export type CharacterContainer = Container<Character>;
 
 export const getCharacter = (id: number, game: Game): Character => {
   const entity = game.play[id];

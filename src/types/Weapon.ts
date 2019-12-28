@@ -4,12 +4,8 @@ import { CardType, Controller, Zone } from "./enums";
 import { BasicCard } from "./BasicCard";
 import { newId } from "./utils";
 import { Game } from "./Game";
-import { Container } from "./Container";
 import { entitiesFrom, Entity } from "./Entity";
-import { Minion } from "./Minion";
-import { Character } from "./Character";
-
-type WeaponContainer = Container<Weapon>;
+import { WeaponContainer } from "./Container";
 
 export interface Weapon extends BasicCard {
   abilities: Abilities;

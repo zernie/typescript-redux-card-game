@@ -6,13 +6,12 @@ import { EntityContainer, entitiesFrom } from "./Entity";
 import { Ability, CardType, Controller, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
-import { Container } from "./Container";
+import { MinionContainer } from "./Container";
 
 export interface Minion extends Playable {
   attack: number;
   type: CardType.Minion;
 }
-export type MinionContainer = Container<Minion>;
 
 interface CraftMinionProps {
   abilities?: Abilities;
