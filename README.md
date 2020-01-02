@@ -13,9 +13,10 @@ Built for educational purposes only
 * [x] Deck
 * [ ] Turns
   * [x] Player control switch
-  * [ ] Turn timer 
+  * [ ] Turn timer
   (https://github.com/matpaul/redux-timer-middleware/blob/master/src/index.js, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
   * [ ] Fatigue damage
+  * [ ] Card overdraw
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
@@ -25,7 +26,9 @@ Built for educational purposes only
   * [x] Taunt
   * [ ] Battlecry
   * [ ] Stealth
-  * [ ] Deathrattle
+  * [ ] Poisonous
+  * [ ] Divine shield
+* [ ] Load cards from https://hearthstonejson.com/
 * [ ] Graveyard
 * [ ] Basic spells
 * [ ] Hero powers
@@ -41,5 +44,5 @@ Built for educational purposes only
 * [x] Drag & Drop cards
 
 ## Technical
-* [ ] Merge entities?
+* [ ] Merge game entities?
 * [ ] Tests
