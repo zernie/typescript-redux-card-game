@@ -1,5 +1,5 @@
 # React & Redux based Hearthstone clone
-Built for educational purposes only
+Built for educational purposes only.
 
 ## Roadmap:
 
@@ -14,9 +14,9 @@ Built for educational purposes only
 * [ ] Turns
   * [x] Player control switch
   * [ ] Turn timer
-  (https://github.com/matpaul/redux-timer-middleware/blob/master/src/index.js, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
+  (https://github.com/matpaul/redux-timer-middleware, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
   * [ ] Fatigue damage
-  * [ ] Card overdraw
+  * [ ] Card overdraw damage
 * [x] Weapons
 * [x] Minions
 * [x] Heroes
@@ -28,11 +28,13 @@ Built for educational purposes only
   * [ ] Stealth
   * [ ] Poisonous
   * [ ] Divine shield
-* [ ] Load cards from https://hearthstonejson.com/
 * [ ] Graveyard
-* [ ] Basic spells
+* [ ] Spells
+*    [ ] Secrets
 * [ ] Hero powers
+* [ ] Triggers
 * [ ] [Sequences](https://hearthstone.gamepedia.com/Advanced_rulebook#Advanced_mechanics_101_.28READ_THIS_FIRST.29) (will require major refactoring)
+* [ ] Load cards from https://hearthstonejson.com/
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
