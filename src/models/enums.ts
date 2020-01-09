@@ -579,76 +579,98 @@ export enum TargetingType {
 
 /* Events in Hearthstone.*/
 export enum TriggerType {
-  NONE,
+  None = "NONE",
 
-  MULTITRIGGER,
+  MultiTrigger  = "MULTITRIGGER",
 
   /* The effect will be triggered at the end of turn.*/
-  TURN_END,
+  TurnEnd = "TURN_END",
+
   /* The effect will be triggered at the start of turn.*/
-  TURN_START,
+  TurnStart = "TURN_START",
+
   /* The effect will be triggered when a minion dies.*/
-  DEATH,
+  Death = "DEATH",
+
   /* The effect will be triggered after a playerID uses Hero Power.*/
-  INSPIRE,
+  Inspire = "INSPIRE",
+
   /* The effect will be triggered when a character is damaged.*/
-  DEAL_DAMAGE,
+  DealDamage = "DEAL_DAMAGE",
+
   /* The effect will be triggered when a spell or a character deals damages.*/
-  TAKE_DAMAGE,
+  TakeDamage = "TAKE_DAMAGE",
   /* 
   effect will be triggered when a character gets Predamage. 
   This event happens just before the character is actually damaged.
   */
-  PREDAMAGE,
+  PreDamage = "PREDAMAGE",
 
   /* The effect will be triggered when characters are healed.*/
-  HEAL,
+  Heal = "HEAL",
+
   /* The effect will be triggered when a minion loses its Divine Shield*/
-  LOSE_DIVINE_SHIELD,
+  LoseDivineShield = "LOSE_DIVINE_SHIELD",
+
   /* The effect will be triggered when characters attack.*/
-  ATTACK,
+  Attack = "ATTACK",
+
   /* The effect will be triggered after an attack action is ended.*/
-  AFTER_ATTACK,
+  AfterAttack ="AFTER_ATTACK",
+
   /* The effect will be triggered whenever a minion is summoned*/
-  SUMMON,
+  Summon = "SUMMON",
   /* The effect will be triggered after a minion is summoned.*/
-  AFTER_SUMMON,
+  AfterSummon = "AFTER_SUMMON",
+
   /* The effect will be triggered when a playerID plays a card.*/
-  PLAY_CARD,
+  PlayCard = "PLAY_CARD",
+
   /* The effect will be triggered after a playerID plays a card.*/
-  AFTER_PLAY_CARD,
+  AfterPlayCard = "AFTER_PLAY_CARD",
   /* The effect will be triggered when a playerID plays a Minion card.*/
-  PLAY_MINION,
+  PlayMinion = "PLAY_MINION",
+
   /* The effect will be triggered after a minion is played.*/
-  AFTER_PLAY_MINION,
+  AfterPlayMinion = "AFTER_PLAY_MINION",
+
   /* The effect will be triggered when a playerID plays a Spell card.*/
-  CAST_SPELL,
+  CastSpell = "CAST_SPELL",
+
   /* The effect will be triggered after a spell is played.*/
-  AFTER_CAST,
+  AfterCast = "AFTER_CAST",
+
   /* The effect will be triggered when a secret is activated.*/
-  SECRET_REVEALED,
+  SecretRevealed = "SECRET_REVEALED",
   /* The effect will be triggered when an entity enters any types of zone.*/
-  ZONE,
+  Zone = "ZONE",
+
   /* The effect will be triggered when a card is discarded from hand.*/
-  DISCARD,
+  Discard = "DISCARD",
+
   /* The effect will be triggered when a game begins.*/
-  GAME_START,
+  GameStart = "GAME_START",
   /* The effect will be triggered when a card is drawed.*/
-  DRAW,
+  Draw = "DRAW",
+
   /* The effect will be triggered when a card is targeted by an attacking minion or a played card.*/
-  TARGET,
+  Target = "TARGET",
+
   /* The effect will be triggered when a entity is frozen.*/
-  FROZEN,
+  Frozen = "FROZEN",
+
   /* The effect will be triggered when a heroID gains armor.*/
-  ARMOR,
+  Armor = "ARMOR",
+
   /* The effect will be triggered when a heroID equips a weapon.*/
-  EQUIP_WEAPON,
+  EquipWeapon = "EQUIP_WEAPON",
+
   /* The effect will be triggered when a card is shuffled into a deck.*/
-  SHUFFLE_INTO_DECK,
+  ShuffleIntoDeck = "SHUFFLE_INTO_DECK",
 
-  OVERLOAD,
+  Overload = "OVERLOAD",
 
-  WORGEN_TRANSFORM
+  // "WORGEN_TRANSFORM"
 }
 
 /*
