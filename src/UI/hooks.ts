@@ -7,9 +7,11 @@ import {
   getPlayerHero,
   isGameOver,
   minionsFromContainer,
-  opponentCards,
+  opponentDeck,
+  opponentHand,
   opponentMinions,
-  playerCards,
+  playerDeck,
+  playerHand,
   playerMinions
 } from "../models";
 
@@ -39,10 +41,15 @@ export const usePlayerMinions = () =>
 export const useOpponentMinions = () =>
   useSelector((game: Game) => opponentMinions(game));
 
-export const usePlayerCards = () =>
-  useSelector((game: Game) => playerCards(game));
-export const useOpponentCards = () =>
-  useSelector((game: Game) => opponentCards(game));
+export const usePlayerHand = () =>
+  useSelector((game: Game) => playerHand(game));
+export const useOpponentHand = () =>
+  useSelector((game: Game) => opponentHand(game));
+
+export const usePlayerDeck = () =>
+  useSelector((game: Game) => playerDeck(game));
+export const useOpponentDeck = () =>
+  useSelector((game: Game) => opponentDeck(game));
 
 export const useIsGameOver = () =>
   useSelector((game: Game) => isGameOver(game.state));

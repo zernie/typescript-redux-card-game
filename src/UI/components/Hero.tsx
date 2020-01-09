@@ -5,6 +5,7 @@ import CardArt from "./CardArt";
 import Weapon from "./Weapon";
 
 type HeroProps = IHero & {
+  active: boolean;
   isOver: boolean;
   weapon: IWeapon | null;
   mana: number;
@@ -12,6 +13,7 @@ type HeroProps = IHero & {
 };
 
 const Hero: React.FC<HeroProps> = ({
+  active,
   exhausted,
   isOver,
   name,
@@ -22,13 +24,18 @@ const Hero: React.FC<HeroProps> = ({
   maximumMana,
   weapon
 }) => (
-  <div className="ui grid">
+  <Grid>
     <Grid.Column width={4} />
     <Grid.Column width={2} verticalAlign="middle">
       {weapon && <Weapon {...weapon} disabled={exhausted} />}
     </Grid.Column>
     <Grid.Column computer={5} tablet={12} mobile={16}>
-      <Segment raised={isOver} tertiary={isOver} style={{ padding: "4px 0" }}>
+      <Segment
+        raised={isOver}
+        tertiary={isOver}
+        style={{ padding: "4px 0" }}
+        color={active ? "green" : undefined}
+      >
         <Header>{name}</Header>
 
         <CardArt cardID={cardID} size="tiny" centered />
@@ -46,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({
         </Statistic.Group>
       </Segment>
     </Grid.Column>
-  </div>
+  </Grid>
 );
 
 export default Hero;

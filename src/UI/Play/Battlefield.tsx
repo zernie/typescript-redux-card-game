@@ -15,13 +15,16 @@ import DnDHero from "./DnDHero";
 import {
   useGameState,
   useIsGameOver,
+  useIsOpponentActive,
   useIsPlayerActive,
   useOpponent,
-  useOpponentCards,
+  useOpponentDeck,
+  useOpponentHand,
   useOpponentHero,
   useOpponentMinions,
   usePlayer,
-  usePlayerCards,
+  usePlayerDeck,
+  usePlayerHand,
   usePlayerHero,
   usePlayerMinions
 } from "../hooks";
@@ -30,15 +33,18 @@ import {
 const Battlefield: React.FC = props => {
   const dispatch = useDispatch();
   const { turn } = useGameState();
-  const isCurrentPlayer = useIsPlayerActive();
+  const isPlayer = useIsPlayerActive();
+  const isOpponent = useIsOpponentActive();
   const playerHero = usePlayerHero();
   const opponentHero = useOpponentHero();
   const player = usePlayer();
   const opponent = useOpponent();
   const playerMinions = usePlayerMinions();
   const opponentMinions = useOpponentMinions();
-  const playerCards = usePlayerCards();
-  const opponentCards = useOpponentCards();
+  const playerDeck = usePlayerDeck();
+  const opponentDeck = useOpponentDeck();
+  const playerHand = usePlayerHand();
+  const opponentHand = useOpponentHand();
   const isGameOver = useIsGameOver();
 
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -62,8 +68,8 @@ const Battlefield: React.FC = props => {
       />
       <Grid>
         <Grid.Column computer={14} mobile={16}>
-          <Hand active={!isCurrentPlayer} hand={opponentCards} />
-          <DnDHero hero={opponentHero} player={opponent} />
+          <Hand active={isOpponent} hand={opponentHand} />
+          <DnDHero hero={opponentHero} player={opponent} active={isOpponent} />
 
           <div ref={drop}>
             <Segment
@@ -73,14 +79,14 @@ const Battlefield: React.FC = props => {
               })}
               style={{ padding: 0 }}
             >
-              <Side board={opponentMinions} active={!isCurrentPlayer} />
+              <Side board={opponentMinions} active={isOpponent} />
               <Divider section={true} style={{ margin: 2 }} />
-              <Side board={playerMinions} active={isCurrentPlayer} />
+              <Side board={playerMinions} active={isPlayer} />
             </Segment>
           </div>
 
-          <DnDHero hero={playerHero} player={player} />
-          <Hand active={isCurrentPlayer} hand={playerCards} />
+          <DnDHero hero={playerHero} player={player} active={isPlayer} />
+          <Hand active={isPlayer} hand={playerHand} />
         </Grid.Column>
 
         <Grid.Column
@@ -89,9 +95,9 @@ const Battlefield: React.FC = props => {
           verticalAlign="middle"
           stretched={true}
         >
-          <Deck deck={opponentCards} />
+          <Deck deck={opponentDeck} />
           <NextTurn onClick={nextTurnHandler} turn={turn} />
-          <Deck deck={playerCards} />
+          <Deck deck={playerDeck} />
         </Grid.Column>
       </Grid>
     </Segment>

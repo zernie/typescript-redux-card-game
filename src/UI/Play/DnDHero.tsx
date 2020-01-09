@@ -18,6 +18,7 @@ import { useGame } from "../hooks";
 import { Hero } from "../components";
 
 interface DnDHeroProps {
+  active: boolean;
   hero: IHero;
   player: Player;
 }
@@ -25,7 +26,7 @@ interface DnDHeroProps {
 /**
  * Drag & Drop Hero component
  */
-const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
+const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
   const game = useGame();
   const dispatch = useDispatch();
   const {
@@ -43,14 +44,13 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: [CardType.Minion, CardType.Hero],
-    drop: (char: Character) => {
-      return dispatch(
+    drop: (char: Character) =>
+      dispatch(
         performAttack({
           source: char,
           target: hero
         })
-      );
-    },
+      ),
     canDrop: (item: Character, monitor) => {
       const enemyMinions = ownerMinions(
         hero.owner,
@@ -70,6 +70,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
       <div ref={drag}>
         <Hero
           {...hero}
+          active={active}
           isOver={isOver}
           weapon={weapon}
           mana={mana}

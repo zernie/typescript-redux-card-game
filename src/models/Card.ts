@@ -15,18 +15,23 @@ export type Card = Character | Weapon | HeroPower;
 //   _.pickBy((card: Card) => card.owner === playerID, cards)
 // );
 //
-// export const playerCards = selectCards(Controller.Player);
-// export const opponentCards = selectCards(Controller.Opponent);
+// export const playerHand = selectCards(Controller.Player);
+// export const opponentHand = selectCards(Controller.Opponent);
 
 export const selectCards = _.curry(
   (player: Controller, cards: CardContainer) =>
     _.pickBy((card: Card) => card.owner === player, cards) as CardContainer
 );
 
-export const playerCards = (game: Game) =>
+export const playerHand = (game: Game) =>
   selectCards(game.state.playerID, game.hand);
-export const opponentCards = (game: Game) =>
+export const opponentHand = (game: Game) =>
   selectCards(game.state.opponentID, game.hand);
+
+export const playerDeck = (game: Game) =>
+  selectCards(game.state.playerID, game.deck);
+export const opponentDeck = (game: Game) =>
+  selectCards(game.state.opponentID, game.deck);
 
 export const cardListFrom = (array: Card[]) =>
   _.indexBy<Card>(_.prop("id"), array) as CardContainer;
