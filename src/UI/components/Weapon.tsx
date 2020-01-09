@@ -18,7 +18,7 @@ const Weapon: React.FC<WeaponProps> = ({
       header={name}
       content={
         <div>
-          <CardArt cardID={cardID}/>
+          <CardArt cardID={cardID} />
 
           <p>{text}</p>
         </div>

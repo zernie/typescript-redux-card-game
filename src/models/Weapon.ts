@@ -41,6 +41,8 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon =>
 export const craftWeapons = (...props: CraftWeaponProps[]): WeaponContainer =>
   entitiesFrom(_.map(craftWeapon, props) as Weapon[]) as WeaponContainer;
 
-export const getWeapon = _.curry(
-  (id: number, game: Game) => game.play[id] as Weapon
-);
+export const getWeapon = (id: number | null, game: Game) =>
+  (id ? game.play[id] : null) as Weapon | null;
+// export const getWeapon = _.curry(
+//   (id: number, game: Game) => game.play[id] as Weapon
+// );

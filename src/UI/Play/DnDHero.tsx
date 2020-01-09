@@ -60,7 +60,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
       isOver: monitor.isOver()
     })
   });
-  const weapon = (weaponID && getWeapon(weaponID, game)) as Weapon | null;
+  const weapon = getWeapon(weaponID, game);
 
   return (
     <div ref={drop}>

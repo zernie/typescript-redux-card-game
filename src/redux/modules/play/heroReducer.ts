@@ -1,5 +1,5 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { EntityContainer, Hero, Player } from "../../../models";
+import { EntityContainer, Hero, Player, Weapon } from "../../../models";
 import {
   destroyWeapon,
   equipWeapon,
@@ -7,10 +7,15 @@ import {
   fatigueDamage,
   FatigueDamagePayload
 } from "./actions";
-import { getEntity, HeroHandler } from "../../utils";
+import { getEntity } from "../../utils";
 
-const destroyWeaponHandler: HeroHandler = (state: Hero) => {
-  state.weaponID = null;
+const destroyWeaponHandler = (
+  state: EntityContainer,
+  { payload: { heroId, attack } }: PayloadAction<Weapon>
+) => {
+  const hero = state[heroId] as Hero;
+  hero.weaponID = null;
+  hero.attack = Math.min(hero.attack - attack, 0);
 };
 
 const equipWeaponHandler = (
@@ -18,6 +23,7 @@ const equipWeaponHandler = (
   { payload: { weapon } }: PayloadAction<EquipWeaponPayload>
 ) => {
   const hero = state[weapon.heroId] as Hero;
+  hero.attack += weapon.attack;
   hero.weaponID = weapon.id;
 };
 
@@ -34,7 +40,7 @@ const fatigueDamageHandler = (
 export default createReducer<EntityContainer>(
   {},
   {
-    [destroyWeapon.type]: getEntity(destroyWeaponHandler),
+    [destroyWeapon.type]: destroyWeaponHandler,
     [equipWeapon.type]: equipWeaponHandler,
     [fatigueDamage.type]: fatigueDamageHandler
   }
