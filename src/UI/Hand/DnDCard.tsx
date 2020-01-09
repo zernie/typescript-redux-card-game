@@ -25,7 +25,7 @@ export const DnDCard: React.FC<CardProps> = ({ active, card }) => {
 
   return (
     <div ref={drag}>
-      <Card card={card} disabled={!canDrag} />
+      <Card card={card} active={canDrag} />
     </div>
   );
 };
