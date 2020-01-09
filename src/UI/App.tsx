@@ -9,6 +9,10 @@ import {
   GridColumn
 } from "semantic-ui-react";
 import TargetableBattlefield from "./Play/Battlefield";
+import * as Toastr from "toastr";
+import "toastr/build/toastr.css";
+
+Toastr.options.timeOut = 3000; //Change the settings
 
 const App: React.FC = props => (
   <Grid>

@@ -2,16 +2,20 @@ import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import {
   AppThunk,
-  Step,
   getActivePlayer,
-  selectCards,
+  getOpponent,
   getPlayer,
+  hasLost,
+  MAX_CARDS_IN_HAND,
   otherId,
-  hasLost, State, getOpponent
+  selectCards,
+  State,
+  Step
 } from "../../models";
-import { drawCard } from "./deckReducer";
-import { gainMana, restoreMana } from "./play/actions";
+import { burnCard, drawCard } from "./deckReducer";
+import { fatigueDamage, gainMana, restoreMana } from "./play/actions";
 import initialState from "./initialState";
+import Toastr from "toastr";
 
 export const finishGame = createAction("FINISH_GAME");
 export const nextTurn = createAction("NEXT_TURN");
@@ -38,29 +42,31 @@ export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
 
 export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(nextTurn());
-  const state = getState();
-  const player = getActivePlayer(state);
+  const game = getState();
+  const player = getActivePlayer(game);
+  const { id } = player;
 
-  dispatch(gainMana({ id: player.id }));
-  dispatch(restoreMana({ id: player.id }));
+  dispatch(gainMana({ id }));
+  dispatch(restoreMana({ id }));
 
-  const cards = _.values(selectCards(player.id, state.deck));
+  const deck = _.values(selectCards(id, game.deck));
+  const hand = _.values(selectCards(id, game.hand));
 
-  if (cards.length > 0) {
-    // if (deck.length === 0) {
-    //   dispatch({
-    //     type: FATIGUE,
-    //     heroId,
-    //   });
-    // } else if (hand.length === 10) {
-    //   dispatch({
-    //     type: BURN_CARD,
-    //     playerId,
-    //   });
-    // } else {
-    dispatch(drawCard(cards[0]));
-    // }
+  if (deck.length > 0) {
+    const topCard = deck[0];
+    if (hand.length === MAX_CARDS_IN_HAND) {
+      Toastr.error(`Cant draw more cards from  the deck for ${player.name}!`);
+      dispatch(burnCard({ id: topCard.id }));
+    } else {
+      dispatch(drawCard(topCard));
+    }
+  } else {
+    Toastr.error(`No more cards in the deck for ${player.name}!`);
+
+    dispatch(fatigueDamage({ id: player.id, heroId: player.heroID as number }));
   }
+
+  dispatch(checkForEndGame());
 };
 
 export default createReducer(

@@ -134,35 +134,6 @@ const deck = craftMinions(
     zone: Zone.Deck
   },
   {
-    abilities: [Ability.Taunt],
-    attack: 5,
-    cardID: "CS2_187",
-    cost: 5,
-    maxHealth: 4,
-    name: "Booty Bay Bodyguard",
-    owner: opponent.id,
-    zone: Zone.Deck
-  },
-  {
-    attack: 3,
-    cardID: "CS2_182",
-    cost: 4,
-    maxHealth: 4,
-    name: "Chillwind Yeti",
-    owner: player.id,
-    zone: Zone.Deck
-  },
-  {
-    abilities: [Ability.Taunt],
-    attack: 2,
-    cardID: "CS2_121",
-    cost: 2,
-    maxHealth: 2,
-    name: "Frostwolf Grunt",
-    owner: opponent.id,
-    zone: Zone.Deck
-  },
-  {
     attack: 2,
     cardID: "CS2_141",
     cost: 3,
@@ -178,6 +149,36 @@ const deck = craftMinions(
     maxHealth: 3,
     name: "Ironfur Grizzly",
     owner: player.id,
+    zone: Zone.Deck
+  },
+  {
+    attack: 3,
+    cardID: "CS2_182",
+    cost: 4,
+    maxHealth: 4,
+    name: "Chillwind Yeti",
+    owner: player.id,
+    zone: Zone.Deck
+  },
+
+  {
+    abilities: [Ability.Taunt],
+    attack: 5,
+    cardID: "CS2_187",
+    cost: 5,
+    maxHealth: 4,
+    name: "Booty Bay Bodyguard",
+    owner: opponent.id,
+    zone: Zone.Deck
+  },
+  {
+    abilities: [Ability.Taunt],
+    attack: 2,
+    cardID: "CS2_121",
+    cost: 2,
+    maxHealth: 2,
+    name: "Frostwolf Grunt",
+    owner: opponent.id,
     zone: Zone.Deck
   }
 );

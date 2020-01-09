@@ -5,6 +5,7 @@
   "homepage": "https://zernie.github.io/typescript-redux-card-game",
   "dependencies": {
     "@reduxjs/toolkit": "^1.1.0",
+    "@types/toastr": "^2.1.37",
     "babel-plugin-styled-components": "^1.10.6",
     "classnames": "^2.2.6",
     "hearthstone-parser": "^4.2.1",

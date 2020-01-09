@@ -3,6 +3,7 @@ import { Game, State } from "./Game";
 
 export interface Player {
   id: number;
+  fatigue: number;
   heroID: number | null;
   mana: number;
   name: string;
@@ -23,6 +24,7 @@ interface CraftPlayerProps {
 export const craftPlayer = (props: CraftPlayerProps = {}): Player =>
   ({
     id: 0,
+    fatigue: 0,
     mana: 0,
     maximumMana: 0,
     name: "Player",
@@ -35,6 +37,7 @@ export const craftPlayer = (props: CraftPlayerProps = {}): Player =>
 export const craftOpponent = (props: CraftPlayerProps = {}): Player =>
   ({
     id: 1,
+    fatigue: 0,
     mana: 0,
     name: "Opponent",
     maximumMana: 0,

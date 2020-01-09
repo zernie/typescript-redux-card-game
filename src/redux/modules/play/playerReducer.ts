@@ -1,16 +1,27 @@
 import { createReducer } from "@reduxjs/toolkit";
 import _ from "lodash/fp";
-import { gainMana, GainManaPayload, processDeaths, restoreMana, spendMana, SpendManaPayload } from "./actions";
 import {
+  fatigueDamage,
+  FatigueDamagePayload,
+  gainMana,
+  GainManaPayload,
+  processDeaths,
+  restoreMana,
+  spendMana,
+  SpendManaPayload
+} from "./actions";
+import {
+  AppThunk,
   canSpendMana,
   CardType,
   EntityContainer,
   Hero,
   MAX_MANA,
   Player,
-  PlayState, Zone
+  PlayState,
+  Zone
 } from "../../../models";
-import { getEntity, PlayerHandler } from "../../utils";
+import { getEntity, HeroHandler, PlayerHandler } from "../../utils";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
@@ -39,14 +50,11 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
 };
 
 // TODO: refactor
-const processDeathsHandler = (
-  state: EntityContainer
-) => {
-  const destroyedHeroes =
-    _.filter(
-      _.whereEq({ destroyed: true, type: CardType.Hero, zone: Zone.Play }),
-      state
-    ) as Hero[];
+const processDeathsHandler = (state: EntityContainer) => {
+  const destroyedHeroes = _.filter(
+    _.whereEq({ destroyed: true, type: CardType.Hero, zone: Zone.Play }),
+    state
+  ) as Hero[];
 
   _.forEach((hero: Hero) => {
     const player = state[hero.owner] as Player;
@@ -56,12 +64,17 @@ const processDeathsHandler = (
   }, destroyedHeroes);
 };
 
+const fatigueDamageHandler: PlayerHandler<FatigueDamagePayload> = player => {
+  player.fatigue++;
+};
+
 export default createReducer<EntityContainer>(
   {},
   {
     [gainMana.type]: getEntity(gainManaHandler),
     [restoreMana.type]: getEntity(restoreManaHandler),
     [spendMana.type]: getEntity(spendManaHandler),
-    [processDeaths.type]: processDeathsHandler
+    [processDeaths.type]: processDeathsHandler,
+    [fatigueDamage.type]: getEntity(fatigueDamageHandler)
   }
 );

@@ -15,8 +15,8 @@ Built for educational purposes only.
   * [x] Player control switch
   * [ ] Turn timer
   (https://github.com/matpaul/redux-timer-middleware, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
-  * [ ] Fatigue damage
-  * [ ] Card overdraw damage
+  * [x] Fatigue damage
+  * [x] Card overdraw damage
 * [x] Weapons
 * [x] Minions
 * [x] Heroes

@@ -5,7 +5,6 @@ import { newId } from "./utils";
 import { Game } from "./Game";
 import { Playable } from "./Playable";
 import { CardClass, CardType, Controller, Zone } from "./enums";
-import { getOpponent, getPlayer } from "./Player";
 import { isHero } from "./Entity";
 import { MAX_HEALTH } from "./constants";
 
