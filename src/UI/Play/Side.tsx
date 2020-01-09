@@ -1,15 +1,16 @@
 import React from "react";
-import { List, Transition } from "semantic-ui-react";
+import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
 import DnDMinion from "./DnDMinion";
-import { MinionContainer, Minion } from "../../models";
+import { Minion, MinionContainer } from "../../models";
 
 export interface SideProps {
+  active?: boolean;
   board: MinionContainer;
 }
 
-const Side: React.FC<SideProps> = ({ board }) => (
-  <div style={{ minHeight: 120 }}>
+const Side: React.FC<SideProps> = ({ active, board }) => (
+  <Segment basic style={{ minHeight: 120 }} disabled={!active}>
     <Transition.Group
       as={List}
       animation="pulse"
@@ -27,7 +28,7 @@ const Side: React.FC<SideProps> = ({ board }) => (
         board
       )}
     </Transition.Group>
-  </div>
+  </Segment>
 );
 
 export default Side;

@@ -73,9 +73,9 @@ const Battlefield: React.FC = props => {
               })}
               style={{ padding: 0 }}
             >
-              <Side board={opponentMinions} />
+              <Side board={opponentMinions} active={!isCurrentPlayer} />
               <Divider section={true} style={{ margin: 2 }} />
-              <Side board={playerMinions} />
+              <Side board={playerMinions} active={isCurrentPlayer} />
             </Segment>
           </div>
 

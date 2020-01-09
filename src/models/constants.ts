@@ -6,5 +6,5 @@ export const PLAYABLE_CARDS = [
   CardType.Minion,
   CardType.Weapon,
   CardType.Hero,
-  CardType.Spell,
+  CardType.Spell
 ];
