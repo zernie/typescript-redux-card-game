@@ -1,6 +1,8 @@
 # React & Redux based Hearthstone clone
 Built for educational purposes only. Your contributions are welcome.
 
+## [PLAY DEMO](https://zergetaev.ru/typescript-redux-card-game/)
+
 ## Roadmap:
 
 ### Gameplay
