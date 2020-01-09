@@ -11,11 +11,10 @@ import {
   reduceArmor,
   reduceHealth,
   getWeapon,
-  charsFromContainer
+  charsFromContainer,
 } from "../../../models";
 import {
   DealDamagePayload,
-  SourceTargetPayload,
   attackCharacter,
   dealDamage,
   destroyWeapon,
@@ -32,6 +31,11 @@ import {
 import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
 import { checkForEndGame, nextTurn } from "../gameStateReducer";
+
+export interface SourceTargetPayload {
+  source: Character;
+  target: Character;
+}
 
 // TODO: refactor
 export const performAttack = ({

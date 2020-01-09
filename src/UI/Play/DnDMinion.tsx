@@ -28,7 +28,6 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
     drop: (source: Character, monitor) =>
       dispatch(
         performAttack({
-          id: character.id,
           source,
           target: character
         })

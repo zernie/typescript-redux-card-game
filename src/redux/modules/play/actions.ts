@@ -1,8 +1,5 @@
-import { Character } from "../../../models/Character";
-import { Weapon } from "../../../models/Weapon";
 import { createAction } from "@reduxjs/toolkit";
-import { EntityPayload } from "../../../models/Entity";
-import { Minion } from "../../../models/Minion";
+import { Character, Weapon, EntityPayload, Minion } from "../../../models";
 
 export type GainManaPayload = EntityPayload<{
   amount?: number;
@@ -18,11 +15,6 @@ export type EquipWeaponPayload = EntityPayload<{
 export type DealDamagePayload = EntityPayload<{
   amount: number;
   character: Character;
-}>;
-
-export type SourceTargetPayload = EntityPayload<{
-  source: Character;
-  target: Character;
 }>;
 
 export const attackCharacter = createAction<EntityPayload>("ATTACK_CHARACTER");

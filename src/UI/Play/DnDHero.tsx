@@ -46,7 +46,6 @@ const DnDHero: React.FC<DnDHeroProps> = ({ hero, player }) => {
     drop: (char: Character) => {
       return dispatch(
         performAttack({
-          id: hero.id,
           source: char,
           target: hero
         })

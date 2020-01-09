@@ -581,7 +581,7 @@ export enum TargetingType {
 export enum TriggerType {
   None = "NONE",
 
-  MultiTrigger  = "MULTITRIGGER",
+  MultiTrigger = "MULTITRIGGER",
 
   /* The effect will be triggered at the end of turn.*/
   TurnEnd = "TURN_END",
@@ -616,7 +616,7 @@ export enum TriggerType {
   Attack = "ATTACK",
 
   /* The effect will be triggered after an attack action is ended.*/
-  AfterAttack ="AFTER_ATTACK",
+  AfterAttack = "AFTER_ATTACK",
 
   /* The effect will be triggered whenever a minion is summoned*/
   Summon = "SUMMON",
@@ -668,7 +668,7 @@ export enum TriggerType {
   /* The effect will be triggered when a card is shuffled into a deck.*/
   ShuffleIntoDeck = "SHUFFLE_INTO_DECK",
 
-  Overload = "OVERLOAD",
+  Overload = "OVERLOAD"
 
   // "WORGEN_TRANSFORM"
 }
