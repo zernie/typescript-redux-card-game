@@ -12,10 +12,10 @@ export type EquipWeaponPayload = EntityPayload<{
 }>;
 
 // export type DealDamagePayload = EntityPayload<{ amount: number }>;
-export type DealDamagePayload = EntityPayload<{
+export interface DealDamagePayload {
   amount: number;
-  character: Character;
-}>;
+  ids: number[];
+}
 
 export const attackCharacter = createAction<EntityPayload>("ATTACK_CHARACTER");
 export const dealDamage = createAction<DealDamagePayload>("DEAL_DAMAGE");

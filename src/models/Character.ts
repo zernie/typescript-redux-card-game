@@ -1,7 +1,5 @@
 import _ from "lodash/fp";
 import { hasWindfury } from "./Card";
-import { CardType } from "./enums";
-import { Game } from "./Game";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
 import { EntityContainer, isCharacter } from "./Entity";
@@ -9,20 +7,17 @@ import { CharacterContainer } from "./Container";
 
 export type Character = Hero | Minion;
 
-export const getCharacter = (id: number, game: Game): Character => {
-  const entity = game.play[id];
+// export const getCharacter = (id: number, game: Game): Character => {
+//   const entity = game.play[id];
+//
+//   if (entity.type === CardType.Hero || entity.type === CardType.Minion)
+//     return entity;
+//
+//   throw new Error(`Entity ${id} is not a character.`);
+// };
 
-  if (entity.type === CardType.Hero || entity.type === CardType.Minion)
-    return entity;
-
-  throw new Error(`Entity ${id} is not a character.`);
-};
-
-// export const getCharacters = (game: Game): CharacterContainer =>
-//   _.filter(
-//     _.propEq("type", _.contains([CardType.Minion, CardType.Hero])),
-//     game.play
-//   ) as CharacterContainer;
+export const getCharactersById = (container: EntityContainer, ids: number[]) =>
+  _.pick<EntityContainer>(ids, container) as CharacterContainer;
 
 export const canAttack = (character: Character): boolean =>
   character.attack > 0 && !character.exhausted;

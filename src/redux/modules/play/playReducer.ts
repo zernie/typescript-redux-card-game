@@ -6,7 +6,7 @@ import playerReducer from "./playerReducer";
 import weaponReducer from "./weaponReducer";
 
 export default reduceReducers(
-  playerReducer,
   characterReducer,
-  weaponReducer
+  weaponReducer,
+  playerReducer
 ) as Reducer<EntityContainer>;

@@ -1,4 +1,5 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import _ from "lodash/fp";
 import {
   dealDamage,
   DealDamagePayload,
@@ -14,9 +15,8 @@ import {
   PlayState,
   MAX_MANA,
   canSpendMana,
-  Character,
-  getPlayer,
-  Hero
+  isHero,
+  getCharactersById
 } from "../../../models";
 import { getEntity, PlayerHandler } from "../../utils";
 
@@ -25,7 +25,7 @@ const gainManaHandler: PlayerHandler<GainManaPayload> = (
   { amount = 1 }
 ) => {
   if (state.maximumMana >= MAX_MANA)
-    return console.warn(`Cannot gain more than max mana (${MAX_MANA}).`);
+    return console.warn(`Cannot gain more than max mana amount (${MAX_MANA}).`);
 
   state.maximumMana += amount;
 };
@@ -46,26 +46,20 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state.mana -= amount;
 };
 
-// FIXME
 const dealDamageHandler = (
   state: EntityContainer,
   action: PayloadAction<DealDamagePayload>
 ) => {
-  const hero = state[action.payload.id] as Hero;
-  if (!hero.destroyed) return;
-  const player = state[hero.id] as Player;
-  player.playState = PlayState.Lost;
-};
+  const chars = getCharactersById(state, action.payload.ids);
 
-// FIXME
-// const dealDamageHandler: PlayerHandler<DealDamagePayload> = (
-//   state,
-//   payload
-// ) => {
-//   if (!payload.character.destroyed) return;
-//
-//   state.playState = PlayState.Lost;
-// };
+  _.forEach(char => {
+    if (!(isHero(char) && char.destroyed)) return;
+
+    const player = state[char.owner] as Player;
+    // const opponent = state[char.owner] as Player;
+    player.playState = PlayState.Lost;
+  }, chars);
+};
 
 export default createReducer<EntityContainer>(
   {},

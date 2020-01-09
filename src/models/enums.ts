@@ -75,14 +75,14 @@ export type Controller = number;
 export enum PlayState {
   Invalid = "INVALID",
   Playing = "PLAYING",
-  Winning = "WINNING",
-  Losing = "LOSING",
+  // Winning = "WINNING",
+  // Losing = "LOSING",
   Won = "WON",
   Lost = "LOST",
-  Tied = "TIED",
-  Disconnected = "DISCONNECTED",
-  Conceded = "CONCEDED",
-  Quit = "QUIT"
+  Tied = "TIED" // TODO
+  // Disconnected = "DISCONNECTED",
+  // Conceded = "CONCEDED",
+  // Quit = "QUIT"
 }
 
 export enum Step {

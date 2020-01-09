@@ -1,12 +1,11 @@
 import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { State } from "../../models";
+import { hasWon, State } from "../../models";
 import {
   AppThunk,
   Step,
   getActivePlayer,
   selectCards,
-  getOpponent,
   getPlayer,
   other,
   hasLost
@@ -30,9 +29,9 @@ const nextTurnHandler = (state: State) => {
 export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const player = getPlayer(state);
-  const opponent = getOpponent(state);
+  // const opponent = getOpponent(state);
 
-  if (hasLost(player) || hasLost(opponent)) {
+  if (hasLost(player) || hasWon(player)) {
     dispatch(finishGame());
   }
 };
@@ -48,7 +47,19 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   const cards = _.values(selectCards(player.id, state.deck));
 
   if (cards.length > 0) {
+    // if (deck.length === 0) {
+    //   dispatch({
+    //     type: FATIGUE,
+    //     heroId,
+    //   });
+    // } else if (hand.length === 10) {
+    //   dispatch({
+    //     type: BURN_CARD,
+    //     playerId,
+    //   });
+    // } else {
     dispatch(drawCard(cards[0]));
+    // }
   }
 };
 

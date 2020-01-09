@@ -6,7 +6,7 @@ import { EntityContainer, entitiesFrom } from "./Entity";
 import { CardType, Controller, Race, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
-import { MinionContainer } from "./Container";
+import { CharacterContainer, MinionContainer } from "./Container";
 import { Game } from "./Game";
 
 export interface Minion extends Playable {
@@ -18,15 +18,16 @@ export interface Minion extends Playable {
 interface CraftMinionProps {
   attack: number;
   cardID: string;
-  health?: number;
   maxHealth: number;
   name: string;
   owner: Controller;
   cost: number;
   zone: Zone;
+
   abilities?: Abilities;
   attacksPerformed?: number;
   exhausted?: boolean;
+  health?: number;
   race?: Race;
   text?: string;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, ModalProps, Transition } from "semantic-ui-react";
-import { PlayState } from "../models/enums";
-import { Player } from "../models/Player";
+import { hasLost, Player } from "../models";
 
 export type EndGameScreenProps = ModalProps & {
   player: Player;
@@ -10,8 +9,8 @@ export type EndGameScreenProps = ModalProps & {
 };
 
 const endGameHeader = (player: Player, opponent: Player): string => {
-  if (player.playState === PlayState.Lost) {
-    if (opponent.playState === PlayState.Lost) {
+  if (hasLost(player)) {
+    if (hasLost(opponent)) {
       return "It's a draw!";
     }
 

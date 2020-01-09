@@ -1,5 +1,4 @@
 import { CardType, Controller, PlayState, Zone } from "./enums";
-import { newId } from "./utils";
 import { Game, State } from "./Game";
 
 export interface Player {
@@ -14,18 +13,30 @@ export interface Player {
 }
 
 interface CraftPlayerProps {
-  name: string;
-
+  name?: string;
   mana?: number;
   heroID?: number;
   maximumMana?: number;
   zone?: Zone;
 }
 
-export const craftPlayer = (props: CraftPlayerProps): Player =>
+export const craftPlayer = (props: CraftPlayerProps = {}): Player =>
   ({
-    id: newId(),
+    id: 0,
     mana: 0,
+    maximumMana: 0,
+    name: "Player",
+    playState: PlayState.Playing,
+    zone: Zone.Play,
+    ...props,
+    type: CardType.Player
+  } as Player);
+
+export const craftOpponent = (props: CraftPlayerProps = {}): Player =>
+  ({
+    id: 1,
+    mana: 0,
+    name: "Opponent",
     maximumMana: 0,
     playState: PlayState.Playing,
     zone: Zone.Play,

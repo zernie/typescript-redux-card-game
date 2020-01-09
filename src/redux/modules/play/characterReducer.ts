@@ -1,4 +1,4 @@
-import { createReducer, Reducer } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction, Reducer } from "@reduxjs/toolkit";
 import reduceReducers from "reduce-reducers";
 import _ from "lodash/fp";
 import {
@@ -11,7 +11,8 @@ import {
   reduceArmor,
   reduceHealth,
   getWeapon,
-  charsFromContainer
+  charsFromContainer,
+  getCharactersById
 } from "../../../models";
 import {
   DealDamagePayload,
@@ -23,7 +24,6 @@ import {
 } from "./actions";
 import {
   CharacterHandler,
-  Handler,
   HeroHandler,
   MinionHandler,
   getEntity
@@ -47,7 +47,7 @@ export const performAttack = ({
     dealDamage({
       id: target.id,
       amount: source.attack,
-      character: target
+      ids: [target.id]
     })
   );
   const game = getState();
@@ -57,7 +57,7 @@ export const performAttack = ({
       dealDamage({
         id: source.id,
         amount: target.attack,
-        character: source
+        ids: [source.id]
       })
     );
   }
@@ -75,16 +75,6 @@ export const performAttack = ({
 
   dispatch(processDeaths());
   dispatch(checkForEndGame());
-};
-
-const nextTurnHandler = (state: EntityContainer) => {
-  const chars = charsFromContainer(state);
-  // _.forEach(_.assign({ attacksPerformed: 0, exhausted: false }), chars);
-  // TODO: refactor
-  _.forEach(char => {
-    char.attacksPerformed = 0;
-    char.exhausted = false;
-  }, chars);
 };
 
 const attackCharacterHandler: CharacterHandler = (char: Character) => {
@@ -115,12 +105,29 @@ const damageMinionHandler: MinionHandler<DealDamagePayload> = (
   char.health = health;
 };
 
-const dealDamageHandler: Handler<Character, DealDamagePayload> = (
-  char,
-  payload
+const dealDamageHandler = (
+  state: EntityContainer,
+  { payload }: PayloadAction<DealDamagePayload>
 ) => {
-  if (isHero(char)) return damageHeroHandler(char, payload);
-  return damageMinionHandler(char, payload);
+  const chars = getCharactersById(state, payload.ids);
+
+  _.forEach(
+    char =>
+      isHero(char)
+        ? damageHeroHandler(char, payload)
+        : damageMinionHandler(char, payload),
+    chars
+  );
+};
+
+const nextTurnHandler = (state: EntityContainer) => {
+  const chars = charsFromContainer(state);
+  // _.forEach(_.assign({ attacksPerformed: 0, exhausted: false }), chars);
+  // TODO: refactor
+  _.forEach(char => {
+    char.attacksPerformed = 0;
+    char.exhausted = false;
+  }, chars);
 };
 
 const characterReducer = createReducer<EntityContainer>(
@@ -128,7 +135,7 @@ const characterReducer = createReducer<EntityContainer>(
   {
     [exhaust.type]: getEntity(exhaustHandler),
     [attackCharacter.type]: getEntity(attackCharacterHandler),
-    [dealDamage.type]: getEntity(dealDamageHandler),
+    [dealDamage.type]: dealDamageHandler,
     [nextTurn.type]: nextTurnHandler
   }
 );

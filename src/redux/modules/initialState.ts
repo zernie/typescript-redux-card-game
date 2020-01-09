@@ -1,4 +1,4 @@
-import { Game } from "../../models";
+import { craftOpponent, Game } from "../../models";
 import _ from "lodash/fp";
 import {
   EntityContainer,
@@ -18,13 +18,10 @@ import {
 
 // PLAYERS
 const player: Player = craftPlayer({
-  name: "Player",
   mana: 5,
   maximumMana: 5
 });
-const opponent: Player = craftPlayer({
-  name: "Opponent"
-});
+const opponent: Player = craftOpponent();
 
 // HEROES
 const playerHero: Hero = craftHero({
@@ -83,12 +80,12 @@ const minions = craftMinions(
     attack: 1,
     cardID: "CS2_189",
     cost: 1,
-    exhausted: false,
     maxHealth: 1,
     name: "Elven archer",
     owner: opponent.id,
     zone: Zone.Play
   },
+
   {
     abilities: [Ability.Taunt],
     attack: 2,
@@ -97,7 +94,7 @@ const minions = craftMinions(
     exhausted: false,
     maxHealth: 2,
     name: "Frostwolf Grunt",
-    owner: opponent.id,
+    owner: player.id,
     zone: Zone.Play
   },
   {
@@ -191,7 +188,7 @@ export const play: EntityContainer = {
   ...minions
 };
 
-const firstPlayer = _.sample([player.id, opponent.id]) as number; // TODO: add a coin toss action
+const firstPlayerId = _.sample([player.id, opponent.id]) as number; // TODO: add a coin toss action
 
 const initialState: Game = {
   deck,
@@ -201,7 +198,7 @@ const initialState: Game = {
   secret: {},
   setAside: {},
   state: {
-    activePlayer: firstPlayer,
+    activePlayer: firstPlayerId,
     step: Step.BeginFirst,
     playerID: player.id,
     opponentID: opponent.id,
