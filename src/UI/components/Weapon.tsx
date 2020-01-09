@@ -1,18 +1,28 @@
 import React from "react";
 import { Segment, Statistic, Popup } from "semantic-ui-react";
 import { Weapon as IWeapon } from "../../models";
+import CardArt from "./CardArt";
 
 type WeaponProps = IWeapon & { disabled: boolean };
 
 const Weapon: React.FC<WeaponProps> = ({
   attack,
+  cardID,
   disabled,
   durability,
-  name
+  name,
+  text
 }) => (
   <Segment circular tertiary={disabled}>
     <Popup
-      content={name}
+      header={name}
+      content={
+        <div>
+          <CardArt cardID={cardID}/>
+
+          <p>{text}</p>
+        </div>
+      }
       trigger={
         <Statistic color="red" value={`${attack}/${durability}`} size="tiny" />
       }
