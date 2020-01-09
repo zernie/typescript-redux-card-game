@@ -80,6 +80,7 @@ const minions = craftMinions(
     attack: 1,
     cardID: "CS2_189",
     cost: 1,
+    exhausted: false,
     maxHealth: 1,
     name: "Elven archer",
     owner: opponent.id,

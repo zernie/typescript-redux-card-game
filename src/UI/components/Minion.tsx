@@ -28,7 +28,7 @@ const Minion: React.FC<MinionProps> = ({
     trigger={
       <div>
         <Segment disabled={!active} compact size="tiny" basic vertical>
-          <Transition visible={exhausted} animation="fade up" duration="800">
+          <Transition visible={exhausted} animation="fade up" duration="1500">
             <Label floating circular size="large" color="green">
               <Sleep />
             </Label>

@@ -1,8 +1,8 @@
 import React from "react";
 import { List, Segment, Transition } from "semantic-ui-react";
 import _ from "lodash/fp";
-import DnDMinion from "./DnDMinion";
 import { Minion, MinionContainer } from "../../models";
+import DnDMinion from "./DnDMinion";
 
 export interface SideProps {
   active?: boolean;

@@ -21,7 +21,6 @@ export interface MinionProps {
 
 const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   const dispatch = useDispatch();
-  const { owner } = character;
   const { play, state } = useGame();
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: [CardType.Minion, CardType.Hero],
@@ -50,7 +49,7 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   });
   const [{ canDrag }, dragRef] = useDrag({
     item: character,
-    canDrag: monitor => owner === state.activePlayer && canAttack(character),
+    canDrag: monitor => character.owner === state.activePlayer && canAttack(character),
     collect: monitor => ({
       canDrag: monitor.canDrag()
     })
