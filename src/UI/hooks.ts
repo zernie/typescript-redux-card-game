@@ -5,6 +5,7 @@ import {
   getOpponentHero,
   getPlayer,
   getPlayerHero,
+  isGameOver,
   minionsFromContainer,
   opponentCards,
   opponentMinions,
@@ -42,3 +43,6 @@ export const usePlayerCards = () =>
   useSelector((game: Game) => playerCards(game));
 export const useOpponentCards = () =>
   useSelector((game: Game) => opponentCards(game));
+
+export const useIsGameOver = () =>
+  useSelector((game: Game) => isGameOver(game.state));

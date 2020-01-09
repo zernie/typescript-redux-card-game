@@ -31,3 +31,5 @@ export type Game = {
 //     entity => entity.type === CardType.Minion,
 //     game.entities
 //   ) as MinionContainer;
+
+export const isGameOver = ({ step }: State) => step === Step.FinalGameOver;

@@ -3,13 +3,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
-import {
-  Card,
-  CardType,
-  Step,
-  Zone,
-  canSpendMana
-} from "../../models";
+import { Card, canUseCard, PLAYABLE_CARDS } from "../../models";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
 import Deck from "../Deck/Deck";
@@ -20,6 +14,7 @@ import Hand from "../Hand/Hand";
 import DnDHero from "./DnDHero";
 import {
   useGameState,
+  useIsGameOver,
   useIsPlayerActive,
   useOpponent,
   useOpponentCards,
@@ -28,13 +23,13 @@ import {
   usePlayer,
   usePlayerCards,
   usePlayerHero,
-  usePlayerMinions,
+  usePlayerMinions
 } from "../hooks";
 
 // TODO: split up
 const Battlefield: React.FC = props => {
   const dispatch = useDispatch();
-  const { turn, step } = useGameState();
+  const { turn } = useGameState();
   const isCurrentPlayer = useIsPlayerActive();
   const playerHero = usePlayerHero();
   const opponentHero = useOpponentHero();
@@ -44,18 +39,12 @@ const Battlefield: React.FC = props => {
   const opponentMinions = useOpponentMinions();
   const playerCards = usePlayerCards();
   const opponentCards = useOpponentCards();
+  const isGameOver = useIsGameOver();
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: [
-      CardType.Minion,
-      CardType.Weapon,
-      CardType.Spell,
-      CardType.Hero,
-      CardType.HeroPower
-    ],
+    accept: PLAYABLE_CARDS,
     drop: (item: Card, monitor) => dispatch(playerUseCard(item)),
-    canDrop: (item: Card, monitor) =>
-      item.zone === Zone.Hand && canSpendMana(player, item.cost),
+    canDrop: (item: Card, monitor) => canUseCard(item, player),
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
@@ -68,7 +57,7 @@ const Battlefield: React.FC = props => {
       <EndGameScreen
         player={player}
         opponent={opponent}
-        open={step === Step.FinalGameOver}
+        open={isGameOver}
         dimmer="blurring"
       />
       <Grid>

@@ -1,10 +1,11 @@
 import _ from "lodash/fp";
-import { Ability, Controller } from "./enums";
+import { Ability, Controller, Zone } from "./enums";
 import { Weapon } from "./Weapon";
 import { HeroPower } from "./HeroPower";
 import { Character } from "./Character";
 import { CardContainer } from "./Container";
 import { Game } from "./Game";
+import { canSpendMana, Player } from "./Player";
 
 // TODO: deprecate in favor of Entity?
 export type Card = Character | Weapon | HeroPower;
@@ -36,3 +37,6 @@ export const hasAbility = (ability: Ability) => (entity: Card): boolean =>
 export const hasTaunt = hasAbility(Ability.Taunt);
 export const hasCharge = hasAbility(Ability.Charge);
 export const hasWindfury = hasAbility(Ability.Windfury);
+
+export const canUseCard = (card: Card, player: Player) =>
+  card.zone === Zone.Hand && canSpendMana(player, card.cost);
