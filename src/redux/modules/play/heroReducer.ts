@@ -35,6 +35,7 @@ const fatigueDamageHandler = (
   const player = state[payload.id] as Player;
   const dmg = player.fatigue == 0 ? 1 : player.fatigue + 1;
   hero.health -= dmg;
+  hero.destroyed = hero.health <= 0;
 };
 
 export default createReducer<EntityContainer>(
