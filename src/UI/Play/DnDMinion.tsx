@@ -10,7 +10,7 @@ import {
   MinionContainer,
   minionsFromContainer,
   ownerMinions
-} from "../../types";
+} from "../../models";
 import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useGame } from "../hooks";
 import { Minion } from "../components/";

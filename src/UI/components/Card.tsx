@@ -1,7 +1,7 @@
 import React from "react";
 import { Label, List, Segment } from "semantic-ui-react";
 import { AbilityList, CardArt } from "./index";
-import { Card as ICard, isMinion, isWeapon } from "../../types";
+import { Card as ICard, isMinion, isWeapon } from "../../models";
 
 type CardProps = {
   card: ICard;

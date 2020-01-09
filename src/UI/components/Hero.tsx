@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Header, Segment, Statistic } from "semantic-ui-react";
-import { Hero as IHero, Weapon as IWeapon } from "../../types";
+import { Hero as IHero, Weapon as IWeapon } from "../../models";
 import CardArt from "./CardArt";
 import Weapon from "./Weapon";
 

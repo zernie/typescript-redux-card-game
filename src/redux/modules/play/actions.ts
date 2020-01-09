@@ -1,8 +1,8 @@
-import { Character } from "../../../types/Character";
-import { Weapon } from "../../../types/Weapon";
+import { Character } from "../../../models/Character";
+import { Weapon } from "../../../models/Weapon";
 import { createAction } from "@reduxjs/toolkit";
-import { EntityPayload } from "../../../types/Entity";
-import { Minion } from "../../../types/Minion";
+import { EntityPayload } from "../../../models/Entity";
+import { Minion } from "../../../models/Minion";
 
 export type GainManaPayload = EntityPayload<{
   amount?: number;

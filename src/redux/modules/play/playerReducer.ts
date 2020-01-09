@@ -17,7 +17,7 @@ import {
   Character,
   getPlayer,
   Hero
-} from "../../../types";
+} from "../../../models";
 import { getEntity, PlayerHandler } from "../../utils";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (

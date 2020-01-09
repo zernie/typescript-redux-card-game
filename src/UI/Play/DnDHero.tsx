@@ -12,7 +12,7 @@ import {
   isValidTarget,
   minionsFromContainer,
   ownerMinions
-} from "../../types";
+} from "../../models";
 import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useGame } from "../hooks";
 import { Hero } from "../components";

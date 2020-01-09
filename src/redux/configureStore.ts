@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules/rootReducer";
 import initialState from "./modules/initialState";
-import { Game } from "../types/Game";
+import { Game } from "../models/Game";
 
 export default () =>
   configureStore<Game>({

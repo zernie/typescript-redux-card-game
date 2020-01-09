@@ -1,6 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import { Card as ICard, getActivePlayer, canSpendMana } from "../../types";
+import { Card as ICard, getActivePlayer, canSpendMana } from "../../models";
 import { useGame } from "../hooks";
 import { Card, CardBack } from "../components";
 

@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { Hero, EntityContainer } from "../../../types";
+import { Hero, EntityContainer } from "../../../models";
 import { destroyWeapon, equipWeapon, EquipWeaponPayload } from "./actions";
 import { getEntity, HeroHandler } from "../../utils";
 

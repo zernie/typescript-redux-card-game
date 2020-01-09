@@ -2,7 +2,7 @@ import React from "react";
 import { Label, Segment, Transition } from "semantic-ui-react";
 import Sleep from "./Sleep";
 import CardArt from "./CardArt";
-import { Minion as IMinion } from "../../types";
+import { Minion as IMinion } from "../../models";
 import AbilityList from "./AbilityList";
 
 interface MinionProps extends IMinion {

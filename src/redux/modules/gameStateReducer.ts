@@ -1,6 +1,6 @@
 import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { State } from "../../types";
+import { State } from "../../models";
 import {
   AppThunk,
   Step,
@@ -10,7 +10,7 @@ import {
   getPlayer,
   other,
   hasLost
-} from "../../types";
+} from "../../models";
 import { drawCard } from "./deckReducer";
 import { gainMana, restoreMana } from "./play/actions";
 import initialState from "./initialState";

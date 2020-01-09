@@ -19,7 +19,7 @@ import {
   // activeHero,
   getOpponentHero,
   getPlayerHero
-} from "../../types";
+} from "../../models";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
 import Deck from "../Deck/Deck";

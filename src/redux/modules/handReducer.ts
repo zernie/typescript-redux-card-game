@@ -9,7 +9,7 @@ import {
   CardType,
   Zone,
   hasCharge
-} from "../../types";
+} from "../../models";
 import { equipWeapon, spendMana, summonMinion } from "./play/actions";
 import { drawCard } from "./deckReducer";
 

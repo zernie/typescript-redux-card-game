@@ -1,9 +1,9 @@
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
-import { Entity, EntityContainer, EntityPayload } from "../../types/Entity";
-import { Hero } from "../../types/Hero";
-import { Character } from "../../types/Character";
-import { Player } from "../../types/Player";
-import { Minion } from "../../types/Minion";
+import { Entity, EntityContainer, EntityPayload } from "../../models/Entity";
+import { Hero } from "../../models/Hero";
+import { Character } from "../../models/Character";
+import { Player } from "../../models/Player";
+import { Minion } from "../../models/Minion";
 
 // TODO: refactor
 

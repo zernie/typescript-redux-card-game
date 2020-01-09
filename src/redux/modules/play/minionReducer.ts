@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash/fp";
 import { processDeaths, summonMinion } from "./actions";
-import { Minion, EntityContainer, CardType } from "../../../types";
+import { Minion, EntityContainer, CardType } from "../../../models";
 
 const processDeathsHandler = (state: EntityContainer) =>
   _.omitBy(

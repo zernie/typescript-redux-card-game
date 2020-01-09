@@ -1,6 +1,6 @@
 import React from "react";
 import { Segment, Statistic } from "semantic-ui-react";
-import { Weapon as IWeapon } from "../../types";
+import { Weapon as IWeapon } from "../../models";
 
 type WeaponProps = IWeapon & { disabled: boolean };
 

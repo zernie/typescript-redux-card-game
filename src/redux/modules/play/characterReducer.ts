@@ -12,7 +12,7 @@ import {
   reduceHealth,
   getWeapon,
   charsFromContainer
-} from "../../../types";
+} from "../../../models";
 import {
   DealDamagePayload,
   SourceTargetPayload,

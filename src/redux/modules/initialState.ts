@@ -1,4 +1,4 @@
-import { Game } from "../../types";
+import { Game } from "../../models";
 import _ from "lodash/fp";
 import {
   EntityContainer,
@@ -14,7 +14,7 @@ import {
   entitiesFrom,
   craftPlayer,
   craftHero
-} from "../../types";
+} from "../../models";
 
 // PLAYERS
 const player: Player = craftPlayer({
