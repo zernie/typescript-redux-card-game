@@ -1,42 +1,36 @@
-import * as React from 'react';
-import { ModalProps, Modal, Transition } from 'semantic-ui-react';
-import { Hero } from '../Hero';
-import { PlayState } from '../enums';
+import React from "react";
+import { Modal, ModalProps, Transition } from "semantic-ui-react";
+import { hasLost, Player } from "../models";
 
 export type EndGameScreenProps = ModalProps & {
-  player: Hero;
-  opponent: Hero;
+  player: Player;
+  opponent: Player;
   open: boolean;
 };
 
-const endGameHeader = (player: Hero, opponent: Hero): string => {
-  if (
-    player.playState === PlayState.Lost &&
-    opponent.playState === PlayState.Lost
-  ) {
-    return 'It\'s a draw!';
-  }
+const endGameHeader = (player: Player, opponent: Player): string => {
+  if (hasLost(player)) {
+    if (hasLost(opponent)) {
+      return "It's a draw!";
+    }
 
-  if (player.playState === PlayState.Lost) {
     return `${opponent.name} has won!`;
   }
-  if (opponent.playState === PlayState.Lost) {
-    return `${player.name} has won!`;
-  }
-
-  return 'This shouldn\'t have happened';
+  return `${player.name} has won!`;
 };
 
-const EndGameScreen: React.StatelessComponent<EndGameScreenProps> = ({
+const EndGameScreen: React.FC<EndGameScreenProps> = ({
   player,
   opponent,
   open,
-  ...props,
+  ...props
 }) => (
-  <Transition animation={'fade up'} duration={500} visible={open}>
+  <Transition animation={"fly up"} duration={1500} visible={open}>
     <Modal {...props} open={open}>
-      <Modal.Header>{endGameHeader(player, opponent)}</Modal.Header>
-      <Modal.Content />
+      <Modal.Header align={"center"}>
+        {endGameHeader(player, opponent)}
+      </Modal.Header>
+      {/*<Modal.Content />*/}
     </Modal>
   </Transition>
 );

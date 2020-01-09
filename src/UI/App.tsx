@@ -1,18 +1,41 @@
-import * as React from 'react';
-import { Container, Header } from 'semantic-ui-react';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
-import TargetableBattlefield from './TargetableBattlefield';
+import React from "react";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import {
+  Container,
+  Grid,
+  Header,
+  GridRow,
+  GridColumn
+} from "semantic-ui-react";
+import TargetableBattlefield from "./Play/Battlefield";
+import * as Toastr from "toastr";
+import "toastr/build/toastr.css";
 
-const App: React.StatelessComponent<{}> = props =>
-  <Container textAlign="center">
-    <Header as="h1">
-      <Header.Content>
-        Hearthstone-like card game written using React and Redux.
-      </Header.Content>
-    </Header>
+Toastr.options.timeOut = 3000; //Change the settings
 
-    <TargetableBattlefield />
-  </Container>;
+const App: React.FC = props => (
+  <Grid>
+    <GridRow>
+      <GridColumn>
+        <Container textAlign="center">
+          <Header as="h1" attached={true}>
+            <Header.Content
+              as={"a"}
+              href={"https://github.com/zernie/typescript-redux-card-game"}
+              target="_blank"
+            >
+              Hearthstone clone written using React and Redux.
+            </Header.Content>
+          </Header>
 
-export default DragDropContext(HTML5Backend)(App);
+          <DndProvider backend={HTML5Backend}>
+            <TargetableBattlefield />
+          </DndProvider>
+        </Container>
+      </GridColumn>
+    </GridRow>
+  </Grid>
+);
+
+export default App;
