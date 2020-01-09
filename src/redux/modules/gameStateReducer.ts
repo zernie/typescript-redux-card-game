@@ -25,14 +25,12 @@ const finishGameHandler = (state: State) => {
 const nextTurnHandler = (state: State) => {
   state.turn++;
   state.activePlayer = other(state);
-  // state.activePlayer = other(state.activePlayer);
 };
 
 export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const player = getPlayer(state);
   const opponent = getOpponent(state);
-  console.log(player, opponent);
 
   if (hasLost(player) || hasLost(opponent)) {
     dispatch(finishGame());

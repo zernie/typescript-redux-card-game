@@ -11,7 +11,7 @@ import {
   reduceArmor,
   reduceHealth,
   getWeapon,
-  charsFromContainer,
+  charsFromContainer
 } from "../../../models";
 import {
   DealDamagePayload,

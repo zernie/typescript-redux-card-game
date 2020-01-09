@@ -1,24 +1,14 @@
 import React from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { Button, Divider, Grid, Segment } from "semantic-ui-react";
+import { Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
 import {
-  minionsFromContainer,
-  opponentMinions,
-  playerMinions,
   Card,
-  opponentCards,
-  playerCards,
   CardType,
   Step,
   Zone,
-  canSpendMana,
-  getOpponent,
-  getPlayer,
-  // activeHero,
-  getOpponentHero,
-  getPlayerHero
+  canSpendMana
 } from "../../models";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
@@ -28,23 +18,32 @@ import { endTurn } from "../../redux/modules/gameStateReducer";
 import { playerUseCard } from "../../redux/modules/handReducer";
 import Hand from "../Hand/Hand";
 import DnDHero from "./DnDHero";
-import { useGame } from "../hooks";
+import {
+  useGameState,
+  useIsPlayerActive,
+  useOpponent,
+  useOpponentCards,
+  useOpponentHero,
+  useOpponentMinions,
+  usePlayer,
+  usePlayerCards,
+  usePlayerHero,
+  usePlayerMinions,
+} from "../hooks";
 
+// TODO: split up
 const Battlefield: React.FC = props => {
   const dispatch = useDispatch();
-  const game = useGame();
-  const {
-    deck,
-    hand,
-    play,
-    state: { turn, activePlayer, step, playerID }
-  } = game;
-  // TODO: extract hooks
-  const isCurrentPlayer = activePlayer === playerID;
-  const playerHero = getPlayerHero(game);
-  const opponentHero = getOpponentHero(game);
-  const player = getPlayer(game);
-  const opponent = getOpponent(game);
+  const { turn, step } = useGameState();
+  const isCurrentPlayer = useIsPlayerActive();
+  const playerHero = usePlayerHero();
+  const opponentHero = useOpponentHero();
+  const player = usePlayer();
+  const opponent = useOpponent();
+  const playerMinions = usePlayerMinions();
+  const opponentMinions = useOpponentMinions();
+  const playerCards = usePlayerCards();
+  const opponentCards = useOpponentCards();
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [
@@ -62,9 +61,7 @@ const Battlefield: React.FC = props => {
       canDrop: monitor.canDrop()
     })
   });
-
-  // TODO: extract hook
-  const minions = minionsFromContainer(play);
+  const nextTurnHandler = () => dispatch(endTurn());
 
   return (
     <Segment style={{ padding: "0 0.5em" }}>
@@ -76,7 +73,7 @@ const Battlefield: React.FC = props => {
       />
       <Grid>
         <Grid.Column computer={14} mobile={16}>
-          <Hand active={!isCurrentPlayer} hand={opponentCards(game)} />
+          <Hand active={!isCurrentPlayer} hand={opponentCards} />
           <DnDHero hero={opponentHero} player={opponent} />
 
           <div ref={drop}>
@@ -87,14 +84,14 @@ const Battlefield: React.FC = props => {
               })}
               style={{ padding: 0 }}
             >
-              <Side board={opponentMinions(game)} />
+              <Side board={opponentMinions} />
               <Divider section={true} style={{ margin: 2 }} />
-              <Side board={playerMinions(game)} />
+              <Side board={playerMinions} />
             </Segment>
           </div>
 
           <DnDHero hero={playerHero} player={player} />
-          <Hand active={isCurrentPlayer} hand={playerCards(game)} />
+          <Hand active={isCurrentPlayer} hand={playerCards} />
         </Grid.Column>
 
         <Grid.Column
@@ -103,16 +100,9 @@ const Battlefield: React.FC = props => {
           verticalAlign="middle"
           stretched={true}
         >
-          <Deck deck={opponentCards(game)} />
-
-          <Button.Group vertical={true} size="large">
-            <Button color="green" basic={true}>
-              Turn: {turn}
-            </Button>
-
-            <NextTurn onClick={() => dispatch(endTurn())} />
-          </Button.Group>
-          <Deck deck={playerCards(game)} />
+          <Deck deck={opponentCards} />
+          <NextTurn onClick={nextTurnHandler} turn={turn} />
+          <Deck deck={playerCards} />
         </Grid.Column>
       </Grid>
     </Segment>

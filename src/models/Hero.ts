@@ -79,6 +79,7 @@ export const reduceHealth = (character: Character, damage: number): number =>
 
 export const getPlayerHero = (game: Game): Hero =>
   game.play[getPlayer(game).heroID as number] as Hero;
+
 export const getOpponentHero = (game: Game): Hero =>
   game.play[getOpponent(game).heroID as number] as Hero;
 // export const playerID = (playerID: Player, game: Game): number =>

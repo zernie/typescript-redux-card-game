@@ -1,4 +1,44 @@
 import { useSelector } from "react-redux";
-import { Game } from "../models/Game";
+import {
+  Game,
+  getOpponent,
+  getOpponentHero,
+  getPlayer,
+  getPlayerHero,
+  minionsFromContainer,
+  opponentCards,
+  opponentMinions,
+  playerCards,
+  playerMinions
+} from "../models";
 
-export const useGame = () => useSelector(state => state) as Game;
+export const useGame = () => useSelector((game: Game) => game);
+export const useGameState = () => useSelector((game: Game) => game.state);
+// export const useActiveHand = () => useSelector(state => state.hand) as EntityContainer;
+
+export const useIsPlayerActive = () =>
+  useSelector((game: Game) => game.state.activePlayer === game.state.playerID);
+export const useIsOpponentActive = () =>
+  useSelector(
+    (game: Game) => game.state.activePlayer === game.state.opponentID
+  );
+
+export const usePlayer = () => useSelector((game: Game) => getPlayer(game));
+export const useOpponent = () => useSelector((game: Game) => getOpponent(game));
+
+export const usePlayerHero = () =>
+  useSelector((game: Game) => getPlayerHero(game));
+export const useOpponentHero = () =>
+  useSelector((game: Game) => getOpponentHero(game));
+
+export const usePlayMinions = () =>
+  useSelector((game: Game) => minionsFromContainer(game.play));
+export const usePlayerMinions = () =>
+  useSelector((game: Game) => playerMinions(game));
+export const useOpponentMinions = () =>
+  useSelector((game: Game) => opponentMinions(game));
+
+export const usePlayerCards = () =>
+  useSelector((game: Game) => playerCards(game));
+export const useOpponentCards = () =>
+  useSelector((game: Game) => opponentCards(game));
