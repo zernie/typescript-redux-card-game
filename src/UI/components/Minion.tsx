@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, Segment, Transition } from "semantic-ui-react";
+import { Label, Popup, Segment, Transition } from "semantic-ui-react";
 import Sleep from "./Sleep";
 import CardArt from "./CardArt";
 import { Minion as IMinion } from "../../models";
@@ -19,33 +19,40 @@ const Minion: React.FC<MinionProps> = ({
   isOver,
   health,
   maxHealth,
-  name
+  name,
+  text
 }) => (
-  <div>
-    <Segment disabled={!active} compact size="tiny" basic vertical>
-      <Transition visible={exhausted} animation="fade up" duration="800">
-        <Label floating circular size="large" color="green">
-          <Sleep />
-        </Label>
-      </Transition>
+  <Popup
+    header={name}
+    content={text}
+    trigger={
+      <div>
+        <Segment disabled={!active} compact size="tiny" basic vertical>
+          <Transition visible={exhausted} animation="fade up" duration="800">
+            <Label floating circular size="large" color="green">
+              <Sleep />
+            </Label>
+          </Transition>
 
-      <CardArt alt={name} cardID={cardID} size="tiny" />
+          <CardArt alt={name} cardID={cardID} size="tiny" />
 
-      <Label attached={"bottom left"} circular size="large">
-        {attack}
-      </Label>
-      <Label
-        attached={"bottom right"}
-        color={health < maxHealth ? "red" : undefined}
-        circular
-        size="large"
-      >
-        {health}
-      </Label>
-    </Segment>
+          <Label attached={"bottom left"} circular size="large">
+            {attack}
+          </Label>
+          <Label
+            attached={"bottom right"}
+            color={health < maxHealth ? "red" : undefined}
+            circular
+            size="large"
+          >
+            {health}
+          </Label>
+        </Segment>
 
-    <AbilityList list={abilities} />
-  </div>
+        <AbilityList list={abilities} />
+      </div>
+    }
+  />
 );
 
 export default Minion;
