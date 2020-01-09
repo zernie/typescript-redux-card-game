@@ -13,7 +13,7 @@ import {
   Step
 } from "../../models";
 import { burnCard, drawCard } from "./deckReducer";
-import { fatigueDamage, gainMana, restoreMana } from "./play/actions";
+import { fatigueDamage, gainMana, processDeaths, restoreMana } from "./play/actions";
 import initialState from "./initialState";
 import Toastr from "toastr";
 
@@ -66,6 +66,7 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
     dispatch(fatigueDamage({ id: player.id, heroId: player.heroID as number }));
   }
 
+  dispatch(processDeaths());
   dispatch(checkForEndGame());
 };
 
