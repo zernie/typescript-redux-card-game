@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/typescript-redux-card-game/static/js/main.f5707c2b.chunk.js",
-    "main.js.map": "/typescript-redux-card-game/static/js/main.f5707c2b.chunk.js.map",
+    "main.js": "/typescript-redux-card-game/static/js/main.6d9d6584.chunk.js",
+    "main.js.map": "/typescript-redux-card-game/static/js/main.6d9d6584.chunk.js.map",
     "runtime-main.js": "/typescript-redux-card-game/static/js/runtime-main.7e1f53e9.js",
     "runtime-main.js.map": "/typescript-redux-card-game/static/js/runtime-main.7e1f53e9.js.map",
     "static/css/2.b7633113.chunk.css": "/typescript-redux-card-game/static/css/2.b7633113.chunk.css",
     "static/js/2.56a7d0cf.chunk.js": "/typescript-redux-card-game/static/js/2.56a7d0cf.chunk.js",
     "static/js/2.56a7d0cf.chunk.js.map": "/typescript-redux-card-game/static/js/2.56a7d0cf.chunk.js.map",
     "index.html": "/typescript-redux-card-game/index.html",
-    "precache-manifest.bc3a6a46c77b2890e66d526c45094ccd.js": "/typescript-redux-card-game/precache-manifest.bc3a6a46c77b2890e66d526c45094ccd.js",
+    "precache-manifest.7f03532826fa2ceaccd0ff1ec34fc1d8.js": "/typescript-redux-card-game/precache-manifest.7f03532826fa2ceaccd0ff1ec34fc1d8.js",
     "service-worker.js": "/typescript-redux-card-game/service-worker.js",
     "static/css/2.b7633113.chunk.css.map": "/typescript-redux-card-game/static/css/2.b7633113.chunk.css.map",
     "static/js/2.56a7d0cf.chunk.js.LICENSE": "/typescript-redux-card-game/static/js/2.56a7d0cf.chunk.js.LICENSE",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.7e1f53e9.js",
     "static/css/2.b7633113.chunk.css",
     "static/js/2.56a7d0cf.chunk.js",
-    "static/js/main.f5707c2b.chunk.js"
+    "static/js/main.6d9d6584.chunk.js"
   ]
 }
