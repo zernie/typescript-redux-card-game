@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "25b2ed96914ac0896e0d2affe7fdac16",
+    "revision": "37a05b8eef0538504ae270dbdb81c2ea",
     "url": "/typescript-redux-card-game/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/typescript-redux-card-game/static/js/2.56a7d0cf.chunk.js.LICENSE"
   },
   {
-    "revision": "1979fa3c4dd918ff33ce",
-    "url": "/typescript-redux-card-game/static/js/main.837683ec.chunk.js"
+    "revision": "be540f784b67e444d48f",
+    "url": "/typescript-redux-card-game/static/js/main.f5707c2b.chunk.js"
   },
   {
     "revision": "6fbc49ec452591ce518b",
