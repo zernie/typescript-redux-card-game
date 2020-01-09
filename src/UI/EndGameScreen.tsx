@@ -16,7 +16,7 @@ const endGameHeader = (player: Player, opponent: Player): string => {
 
     return `${opponent.name} has won!`;
   }
-  return `${opponent.name} has won!`;
+  return `${player.name} has won!`;
 };
 
 const EndGameScreen: React.FC<EndGameScreenProps> = ({
@@ -25,10 +25,10 @@ const EndGameScreen: React.FC<EndGameScreenProps> = ({
   open,
   ...props
 }) => (
-  <Transition animation={"fade up"} duration={1500} visible={open}>
+  <Transition animation={"fly up"} duration={1500} visible={open}>
     <Modal {...props} open={open}>
-      <Modal.Header>{endGameHeader(player, opponent)}</Modal.Header>
-      <Modal.Content />
+      <Modal.Header align={"center"}>{endGameHeader(player, opponent)}</Modal.Header>
+      {/*<Modal.Content />*/}
     </Modal>
   </Transition>
 );
