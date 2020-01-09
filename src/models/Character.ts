@@ -16,16 +16,16 @@ export type Character = Hero | Minion;
 //   throw new Error(`Entity ${id} is not a character.`);
 // };
 
+export const getCharacters = (entities: EntityContainer) =>
+  _.pickBy(isCharacter, entities) as CharacterContainer;
 export const getCharactersById = (container: EntityContainer, ids: number[]) =>
   _.pick<EntityContainer>(ids, container) as CharacterContainer;
 
 export const canAttack = (character: Character): boolean =>
   character.attack > 0 && !character.exhausted;
 
-export const shouldExhaust = (character: Character): boolean =>
-  hasWindfury(character)
-    ? character.attacksPerformed >= 2
-    : character.attacksPerformed >= 1;
+export const shouldExhaust = (character: Character): boolean => {
+  const maxAttacks = hasWindfury(character) ? 2 : 1;
 
-export const charsFromContainer = (entities: EntityContainer) =>
-  _.pickBy(isCharacter, entities) as CharacterContainer;
+  return character.attacksPerformed >= maxAttacks;
+};

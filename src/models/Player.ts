@@ -47,7 +47,7 @@ export const craftOpponent = (props: CraftPlayerProps = {}): Player =>
 export const canSpendMana = (player: Player, amount: number) =>
   player.mana - amount >= 0;
 
-export const other = (state: State): Controller =>
+export const otherId = (state: State): Controller =>
   state.activePlayer === state.playerID ? state.opponentID : state.playerID;
 // export const other = (playerID: Controller): Controller =>
 //   playerID === Controller.Player ? Controller.Opponent : Controller.Player;

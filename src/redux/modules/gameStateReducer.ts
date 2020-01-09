@@ -1,14 +1,13 @@
 import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { hasWon, State } from "../../models";
 import {
   AppThunk,
   Step,
   getActivePlayer,
   selectCards,
   getPlayer,
-  other,
-  hasLost
+  otherId,
+  hasLost, State, getOpponent
 } from "../../models";
 import { drawCard } from "./deckReducer";
 import { gainMana, restoreMana } from "./play/actions";
@@ -23,15 +22,16 @@ const finishGameHandler = (state: State) => {
 
 const nextTurnHandler = (state: State) => {
   state.turn++;
-  state.activePlayer = other(state);
+  state.activePlayer = otherId(state);
 };
 
 export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const player = getPlayer(state);
-  // const opponent = getOpponent(state);
+  const opponent = getOpponent(state);
 
-  if (hasLost(player) || hasWon(player)) {
+  // if (hasLost(player) || hasWon(player)) {
+  if (hasLost(player) || hasLost(opponent)) {
     dispatch(finishGame());
   }
 };

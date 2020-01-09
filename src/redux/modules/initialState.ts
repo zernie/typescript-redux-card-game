@@ -202,6 +202,8 @@ const initialState: Game = {
     step: Step.BeginFirst,
     playerID: player.id,
     opponentID: opponent.id,
+    playerHeroID: playerHero.id,
+    opponentHeroID: opponentHero.id,
     turn: 1
   }
 };

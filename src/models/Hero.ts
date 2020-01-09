@@ -5,7 +5,7 @@ import { newId } from "./utils";
 import { Game } from "./Game";
 import { Playable } from "./Playable";
 import { CardClass, CardType, Controller, Zone } from "./enums";
-import { getOpponent, getPlayer, Player } from "./Player";
+import { getOpponent, getPlayer } from "./Player";
 import { isHero } from "./Entity";
 import { MAX_HEALTH } from "./constants";
 
@@ -62,27 +62,8 @@ export const reduceHealth = (character: Character, damage: number): number =>
       : character.health - damage
   );
 
-/* export const activeHero = (game: Game) => (game.play[getActivePlayer(game).heroID] as Hero); */
-// export const activeHero = (game: Game): Hero =>
-//   game.state.activePlayer === Controller.Player
-//     ? getPlayerHero(game)
-//     : getOpponentHero(game);
-//
-// export const getActivePlayer = (game: Game) =>
-//   _.find(
-//     entity =>
-//       entity.type === CardType.Player &&
-//       entity.owner === game.state.activePlayer,
-//     game.play
-//   ) as Player;
-//
-
 export const getPlayerHero = (game: Game): Hero =>
-  game.play[getPlayer(game).heroID as number] as Hero;
+  game.play[game.state.playerHeroID] as Hero;
 
 export const getOpponentHero = (game: Game): Hero =>
-  game.play[getOpponent(game).heroID as number] as Hero;
-// export const playerID = (playerID: Player, game: Game): number =>
-//   playerID === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
-// export const opponentID = (playerID: Player, game: Game): number =>
-//   playerID === Player.Player ? getPlayerHero(game).id : getOpponentHero(game).id;
+  game.play[game.state.opponentHeroID] as Hero;

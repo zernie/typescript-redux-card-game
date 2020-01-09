@@ -11,7 +11,7 @@ import {
   reduceArmor,
   reduceHealth,
   getWeapon,
-  charsFromContainer,
+  getCharacters,
   getCharactersById
 } from "../../../models";
 import {
@@ -121,7 +121,7 @@ const dealDamageHandler = (
 };
 
 const nextTurnHandler = (state: EntityContainer) => {
-  const chars = charsFromContainer(state);
+  const chars = getCharacters(state);
   // _.forEach(_.assign({ attacksPerformed: 0, exhausted: false }), chars);
   // TODO: refactor
   _.forEach(char => {

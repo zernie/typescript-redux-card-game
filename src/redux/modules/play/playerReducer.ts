@@ -1,22 +1,14 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createReducer } from "@reduxjs/toolkit";
 import _ from "lodash/fp";
+import { gainMana, GainManaPayload, processDeaths, restoreMana, spendMana, SpendManaPayload } from "./actions";
 import {
-  dealDamage,
-  DealDamagePayload,
-  gainMana,
-  GainManaPayload,
-  restoreMana,
-  spendMana,
-  SpendManaPayload
-} from "./actions";
-import {
-  Player,
-  EntityContainer,
-  PlayState,
-  MAX_MANA,
   canSpendMana,
-  isHero,
-  getCharactersById
+  CardType,
+  EntityContainer,
+  Hero,
+  MAX_MANA,
+  Player,
+  PlayState, Zone
 } from "../../../models";
 import { getEntity, PlayerHandler } from "../../utils";
 
@@ -46,19 +38,22 @@ const spendManaHandler: PlayerHandler<SpendManaPayload> = (
   state.mana -= amount;
 };
 
-const dealDamageHandler = (
-  state: EntityContainer,
-  action: PayloadAction<DealDamagePayload>
+// TODO: refactor
+const processDeathsHandler = (
+  state: EntityContainer
 ) => {
-  const chars = getCharactersById(state, action.payload.ids);
+  const destroyedHeroes =
+    _.filter(
+      _.whereEq({ destroyed: true, type: CardType.Hero, zone: Zone.Play }),
+      state
+    ) as Hero[];
 
-  _.forEach(char => {
-    if (!(isHero(char) && char.destroyed)) return;
-
-    const player = state[char.owner] as Player;
-    // const opponent = state[char.owner] as Player;
-    player.playState = PlayState.Lost;
-  }, chars);
+  _.forEach((hero: Hero) => {
+    const player = state[hero.owner] as Player;
+    if (hero.destroyed) {
+      player.playState = PlayState.Lost;
+    }
+  }, destroyedHeroes);
 };
 
 export default createReducer<EntityContainer>(
@@ -67,6 +62,6 @@ export default createReducer<EntityContainer>(
     [gainMana.type]: getEntity(gainManaHandler),
     [restoreMana.type]: getEntity(restoreManaHandler),
     [spendMana.type]: getEntity(spendManaHandler),
-    [dealDamage.type]: dealDamageHandler
+    [processDeaths.type]: processDeathsHandler
   }
 );

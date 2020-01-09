@@ -7,6 +7,8 @@ export type State = {
   step: Step;
   playerID: Controller;
   opponentID: Controller;
+  playerHeroID: number;
+  opponentHeroID: number;
   turn: number;
 };
 
