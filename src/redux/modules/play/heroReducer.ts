@@ -13,11 +13,12 @@ const destroyWeaponHandler: HeroHandler = (state: Hero) => {
   state.weaponID = null;
 };
 
-const equipWeaponHandler: HeroHandler<EquipWeaponPayload> = (
-  state,
-  payload
+const equipWeaponHandler = (
+  state: EntityContainer,
+  { payload: { weapon} }: PayloadAction<EquipWeaponPayload>
 ) => {
-  state.weaponID = payload.weapon.id;
+  const hero = state[weapon.owner] as Hero;
+  hero.weaponID = weapon.id;
 };
 
 const fatigueDamageHandler = (
@@ -34,7 +35,7 @@ export default createReducer<EntityContainer>(
   {},
   {
     [destroyWeapon.type]: getEntity(destroyWeaponHandler),
-    [equipWeapon.type]: getEntity(equipWeaponHandler),
+    [equipWeapon.type]: equipWeaponHandler,
     [fatigueDamage.type]: fatigueDamageHandler
   }
 );

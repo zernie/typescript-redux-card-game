@@ -1,11 +1,12 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { EntityContainer, EntityPayload } from "../../../models/Entity";
+import { EntityContainer, EntityPayload } from "../../../models";
 import { destroyWeapon, equipWeapon, EquipWeaponPayload } from "./actions";
 
 const equipWeaponHandler = (
   state: EntityContainer,
   action: PayloadAction<EquipWeaponPayload>
 ) => {
+  console.log(action.payload);
   state[action.payload.id] = action.payload.weapon;
 };
 
