@@ -1,3 +1,5 @@
+// NOTE: some of these enums have been copied from https://github.com/HearthSim/SabberStone
+
 export enum Ability {
   Adapt = "Adapt",
   Battlecry = "Battlecry",
