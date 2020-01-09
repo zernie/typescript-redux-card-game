@@ -2,7 +2,7 @@
   "name": "typescript-redux-card-game",
   "version": "0.4.0",
   "private": true,
-  "homepage": "https://zernie.github.io/typescript-redux-card-game",
+  "homepage": "https://zergetaev.ru/typescript-redux-card-game/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.1.0",
     "@types/toastr": "^2.1.37",
