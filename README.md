@@ -1,5 +1,5 @@
 # React & Redux based Hearthstone clone
-Built for educational purposes only.
+Built for educational purposes only. Your contributions are welcome.
 
 ## Roadmap:
 
@@ -24,13 +24,13 @@ Built for educational purposes only.
   * [x] Charge
   * [x] Windfury
   * [x] Taunt
-  * [ ] Battlecry
-  * [ ] Stealth
+  * [ ] Battlecry (needs triggers)
+  * [ ] Stealth (needs targeting improvements)
   * [ ] Poisonous
   * [ ] Divine shield
 * [ ] Graveyard
 * [ ] Spells
-*    [ ] Secrets
+    * [ ] Secrets
 * [ ] Hero powers
 * [ ] Triggers
 * [ ] [Sequences](https://hearthstone.gamepedia.com/Advanced_rulebook#Advanced_mechanics_101_.28READ_THIS_FIRST.29) (will require major refactoring)
@@ -38,7 +38,7 @@ Built for educational purposes only.
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
-* [ ] Multiplayer
+* [ ] ~~Multiplayer~~
 
 ### Visual
 * [x] Card rendering (basic)
