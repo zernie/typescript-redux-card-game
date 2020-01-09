@@ -1,12 +1,22 @@
 import React from "react";
-import { Segment, Statistic } from "semantic-ui-react";
+import { Segment, Statistic, Popup } from "semantic-ui-react";
 import { Weapon as IWeapon } from "../../models";
 
 type WeaponProps = IWeapon & { disabled: boolean };
 
-const Weapon: React.FC<WeaponProps> = ({ attack, disabled, durability }) => (
+const Weapon: React.FC<WeaponProps> = ({
+  attack,
+  disabled,
+  durability,
+  name
+}) => (
   <Segment circular tertiary={disabled}>
-    <Statistic color="red" value={`${attack}/${durability}`} size="tiny" />
+    <Popup
+      content={name}
+      trigger={
+        <Statistic color="red" value={`${attack}/${durability}`} size="tiny" />
+      }
+    />
   </Segment>
 );
 

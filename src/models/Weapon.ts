@@ -11,6 +11,7 @@ export interface Weapon extends Playable {
   attack: number;
   durability: number;
   name: string;
+  heroId: number;
   type: CardType.Weapon;
 }
 
@@ -20,10 +21,12 @@ interface CraftWeaponProps {
   cardID: string;
   cost: number;
   durability: number;
+  heroId: number;
   name: string;
   owner: Controller;
-  text?: string;
   zone: Zone;
+
+  text?: string;
 }
 
 export const craftWeapon = (props: CraftWeaponProps): Weapon =>

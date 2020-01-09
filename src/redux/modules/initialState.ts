@@ -117,7 +117,8 @@ const handWeapons = craftWeapons({
   durability: 2,
   name: "Fiery War Axe",
   owner: opponent.id,
-  zone: Zone.Hand
+  zone: Zone.Hand,
+  heroId: opponentHero.id
 });
 
 // CARDS

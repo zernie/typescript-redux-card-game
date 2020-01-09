@@ -27,7 +27,9 @@ const EndGameScreen: React.FC<EndGameScreenProps> = ({
 }) => (
   <Transition animation={"fly up"} duration={1500} visible={open}>
     <Modal {...props} open={open}>
-      <Modal.Header align={"center"}>{endGameHeader(player, opponent)}</Modal.Header>
+      <Modal.Header align={"center"}>
+        {endGameHeader(player, opponent)}
+      </Modal.Header>
       {/*<Modal.Content />*/}
     </Modal>
   </Transition>

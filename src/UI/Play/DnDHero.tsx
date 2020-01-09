@@ -36,10 +36,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
   const { weaponID } = hero;
   const [collectedProps, drag] = useDrag({
     item: hero,
-    canDrag: monitor => {
-      const item = monitor.getItem() as Character;
-      return hero.owner === activePlayer && canAttack(hero);
-    }
+    canDrag: monitor => hero.owner === activePlayer && canAttack(hero)
   });
 
   const [{ isOver }, drop] = useDrop({

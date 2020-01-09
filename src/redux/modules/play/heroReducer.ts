@@ -15,9 +15,9 @@ const destroyWeaponHandler: HeroHandler = (state: Hero) => {
 
 const equipWeaponHandler = (
   state: EntityContainer,
-  { payload: { weapon} }: PayloadAction<EquipWeaponPayload>
+  { payload: { weapon } }: PayloadAction<EquipWeaponPayload>
 ) => {
-  const hero = state[weapon.owner] as Hero;
+  const hero = state[weapon.heroId] as Hero;
   hero.weaponID = weapon.id;
 };
 

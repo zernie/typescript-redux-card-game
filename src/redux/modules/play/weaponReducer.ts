@@ -6,7 +6,6 @@ const equipWeaponHandler = (
   state: EntityContainer,
   action: PayloadAction<EquipWeaponPayload>
 ) => {
-  console.log(action.payload);
   state[action.payload.id] = action.payload.weapon;
 };
 
