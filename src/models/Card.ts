@@ -7,7 +7,6 @@ import { CardContainer } from "./Container";
 import { Game } from "./Game";
 import { canSpendMana, Player } from "./Player";
 
-// TODO: deprecate in favor of Entity?
 export type Card = Character | Weapon | HeroPower;
 
 // FIXME

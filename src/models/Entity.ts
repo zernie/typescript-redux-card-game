@@ -7,8 +7,9 @@ import { HeroPower } from "./HeroPower";
 import { Hero } from "./Hero";
 import { CardType } from "./enums";
 import { Minion } from "./Minion";
+import { Card } from "./Card";
 
-export type Entity = Player | Character | Weapon | HeroPower;
+export type Entity = Player | Card;
 export type EntityContainer = Container<Entity>;
 export type EntityPayload<T extends Record<string, any> = {}> = T & {
   id: number;

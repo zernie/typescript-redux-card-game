@@ -21,6 +21,8 @@ Built for educational purposes only. Your contributions are welcome 😉
         * [ ] Secret
         * [ ] Quest
             * [ ] Sidequest
+    * [ ] Enchantment
+        * [ ] Aura       
 * [x] Zones
     * [x] Play
     * [x] Hand
@@ -43,31 +45,33 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [ ] Stealth (needs targeting improvements)
   * [ ] Poisonous
   * [ ] Divine shield
+* [ ] Choosing a deck
 * [ ] Card targeting requirements
 
 ### Visual
-* [x] Card rendering (basic)
+* [x] Card rendering
+  * [x] Basic
   * [ ] Use [Sunwell](https://github.com/HearthSim/Sunwell)?
-* [x] Drag & Drop cards(react-dnd)
-    * [x] Touch screens support
+* [x] Drag & Drop cards (`react-dnd`)
+    * [x] Touch screen support
 * [ ] Fix minion death animation bug (#10)
 
 ### Technical
 * [ ] Merge all game entities into `game.entities` (?)
 * [ ] Tests
 * [ ] [Sequences](https://hearthstone.gamepedia.com/Advanced_rulebook#Advanced_mechanics_101_.28READ_THIS_FIRST.29) (will require major refactoring)
-* [ ] Load cards from https://hearthstonejson.com/
+* [ ] Load cards from https://hearthstonejson.com
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
-* [ ] ~~Multiplayer~~
 * [ ] Triggers
+* [ ] ~~Multiplayer~~
 
 ## Project structure
 * `src/models` contains game models' type declarations and some helper functions.
-* `src/redux` contains contains actual game logic, using Redux and decoupled from UI rendering. 
-   It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) for debugging.
-* `src/UI` is a React implementation of Game UI.
+* `src/redux` contains the actual game logic, using **Redux** and decoupled from UI rendering. 
+   It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) Chrome extension for debugging.
+* `src/UI` is a **React**-based implementation of Game's UI.
 
 ## Development
     $ yarn && yarn start
