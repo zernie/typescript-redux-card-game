@@ -55,7 +55,6 @@ Built for educational purposes only. Your contributions are welcome 😉
 ### Technical
 * [ ] Merge all game entities into `game.entities` (?)
 * [ ] Tests
-
 * [ ] [Sequences](https://hearthstone.gamepedia.com/Advanced_rulebook#Advanced_mechanics_101_.28READ_THIS_FIRST.29) (will require major refactoring)
 * [ ] Load cards from https://hearthstonejson.com/
 * [ ] Save/Load
@@ -63,6 +62,12 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [ ] File system
 * [ ] ~~Multiplayer~~
 * [ ] Triggers
+
+## Project structure
+* `src/models` contains game models' type declarations and some helper functions.
+* `src/redux` contains contains actual game logic, using Redux and decoupled from UI rendering. 
+   It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) for debugging.
+* `src/UI` is a React implementation of Game UI.
 
 ## Development
     $ yarn && yarn start
