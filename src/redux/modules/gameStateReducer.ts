@@ -13,7 +13,12 @@ import {
   Step
 } from "../../models";
 import { burnCard, drawCard } from "./deckReducer";
-import { fatigueDamage, gainMana, processDeaths, restoreMana } from "./play/actions";
+import {
+  fatigueDamage,
+  gainMana,
+  processDeaths,
+  restoreMana
+} from "./play/actions";
 import initialState from "./initialState";
 import Toastr from "toastr";
 

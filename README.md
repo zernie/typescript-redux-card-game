@@ -1,7 +1,7 @@
 # React & Redux based Hearthstone clone
-Built for educational purposes only. Your contributions are welcome.
+Built for educational purposes only. Your contributions are welcome 😉
 
-## [PLAY DEMO](https://zergetaev.ru/typescript-redux-card-game/)
+### [PLAY DEMO](https://zergetaev.ru/typescript-redux-card-game/)
 
 ## Roadmap:
 
@@ -10,18 +10,31 @@ Built for educational purposes only. Your contributions are welcome.
   * [x] Armor
   * [x] HP
   * [x] Mana
-* [x] Battlefield
-* [x] Hand
-* [x] Deck
-* [ ] Turns
+    * [ ] Overload
+* [x] Entities
+    * [x] Player
+    * [x] Hero
+    * [x] Minion
+    * [x] Weapon
+    * [ ] Hero power
+    * [ ] Spell
+        * [ ] Secret
+        * [ ] Quest
+            * [ ] Sidequest
+* [x] Zones
+    * [x] Play
+    * [x] Hand
+    * [x] Deck
+    * [ ] Graveyard
+    * [ ] Set aside
+    * [ ] Secret
+    * [ ] Removed from game            
+* [x] Turns
   * [x] Player control switch
-  * [ ] Turn timer
-  (https://github.com/matpaul/redux-timer-middleware, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
   * [x] Fatigue damage
   * [x] Card overdraw damage
-* [x] Weapons
-* [x] Minions
-* [x] Heroes
+  * [ ] 🕡 Turn timer 
+    (https://github.com/matpaul/redux-timer-middleware, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
 * [x] Basic mechanics
   * [x] Charge
   * [x] Windfury
@@ -30,23 +43,28 @@ Built for educational purposes only. Your contributions are welcome.
   * [ ] Stealth (needs targeting improvements)
   * [ ] Poisonous
   * [ ] Divine shield
-* [ ] Graveyard
-* [ ] Spells
-    * [ ] Secrets
-* [ ] Hero powers
-* [ ] Triggers
+* [ ] Card targeting requirements
+
+### Visual
+* [x] Card rendering (basic)
+  * [ ] Use [Sunwell](https://github.com/HearthSim/Sunwell)?
+* [x] Drag & Drop cards(react-dnd)
+    * [x] Touch screens support
+* [ ] Fix minion death animation bug (#10)
+
+### Technical
+* [ ] Merge all game entities into `game.entities` (?)
+* [ ] Tests
+
 * [ ] [Sequences](https://hearthstone.gamepedia.com/Advanced_rulebook#Advanced_mechanics_101_.28READ_THIS_FIRST.29) (will require major refactoring)
 * [ ] Load cards from https://hearthstonejson.com/
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
 * [ ] ~~Multiplayer~~
+* [ ] Triggers
 
-### Visual
-* [x] Card rendering (basic)
-  * [ ] Use [Sunwell](https://github.com/HearthSim/Sunwell)?
-* [x] Drag & Drop cards
+## Development
+    $ yarn && yarn start
 
-## Technical
-* [ ] Merge game entities?
-* [ ] Tests
+Open `localhost:3000` in your web browser :tada:

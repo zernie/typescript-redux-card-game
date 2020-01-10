@@ -1,6 +1,7 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
+import TouchBackend from "react-dnd-touch-backend";
 import {
   Container,
   Grid,
@@ -9,10 +10,13 @@ import {
   GridColumn
 } from "semantic-ui-react";
 import TargetableBattlefield from "./Play/Battlefield";
-import * as Toastr from "toastr";
+import Toastr from "toastr";
 import "toastr/build/toastr.css";
+import { isTouch } from "./utils";
 
-Toastr.options.timeOut = 3000; //Change the settings
+Toastr.options.timeOut = 3000;
+
+const DnDBackend = isTouch() ? TouchBackend : HTML5Backend;
 
 const App: React.FC = props => (
   <Grid>
@@ -29,7 +33,7 @@ const App: React.FC = props => (
             </Header.Content>
           </Header>
 
-          <DndProvider backend={HTML5Backend}>
+          <DndProvider backend={DnDBackend}>
             <TargetableBattlefield />
           </DndProvider>
         </Container>

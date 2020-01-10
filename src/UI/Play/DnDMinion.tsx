@@ -49,7 +49,8 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   });
   const [{ canDrag }, dragRef] = useDrag({
     item: character,
-    canDrag: monitor => character.owner === state.activePlayer && canAttack(character),
+    canDrag: monitor =>
+      character.owner === state.activePlayer && canAttack(character),
     collect: monitor => ({
       canDrag: monitor.canDrag()
     })
