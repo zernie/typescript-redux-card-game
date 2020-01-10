@@ -2,15 +2,15 @@ import _ from "lodash/fp";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import {
   AppThunk,
+  selectCards,
+  State,
+  Step,
+  MAX_CARDS_IN_HAND,
   getActivePlayer,
   getOpponent,
   getPlayer,
   hasLost,
-  MAX_CARDS_IN_HAND,
   otherId,
-  selectCards,
-  State,
-  Step
 } from "../../models";
 import { burnCard, drawCard } from "./deckReducer";
 import {
@@ -49,6 +49,7 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(nextTurn());
   const game = getState();
   const player = getActivePlayer(game);
+  Toastr.info(`${player.name}'s turn!`);
   const { id } = player;
 
   dispatch(gainMana({ id }));
@@ -60,13 +61,13 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   if (deck.length > 0) {
     const topCard = deck[0];
     if (hand.length === MAX_CARDS_IN_HAND) {
-      Toastr.error(`Cant draw more cards from  the deck for ${player.name}!`);
+      Toastr.error(`Cant draw more cards in the ${player.name}'s deck!`);
       dispatch(burnCard({ id: topCard.id }));
     } else {
       dispatch(drawCard(topCard));
     }
   } else {
-    Toastr.error(`No more cards in the deck for ${player.name}!`);
+    Toastr.error(`No more cards in the ${player.name}'s deck!`);
 
     dispatch(fatigueDamage({ id: player.id, heroId: player.heroID as number }));
   }
