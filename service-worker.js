@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/typescript-redux-card-game/precache-manifest.7f03532826fa2ceaccd0ff1ec34fc1d8.js"
+  "/typescript-redux-card-game/precache-manifest.7f27ef1924761867b6e8db38c0e1a625.js"
 );
 
 self.addEventListener('message', (event) => {
