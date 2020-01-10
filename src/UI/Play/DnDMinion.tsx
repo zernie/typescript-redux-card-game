@@ -19,6 +19,9 @@ export interface MinionProps {
   character: IMinion;
 }
 
+/**
+ * Drag & Drop Minion component
+ */
 const DnDMinion: React.FC<MinionProps> = ({ character }) => {
   const dispatch = useDispatch();
   const { play, state } = useGame();

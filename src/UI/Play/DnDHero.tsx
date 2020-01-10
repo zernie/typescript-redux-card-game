@@ -5,10 +5,9 @@ import {
   Hero as IHero,
   CardType,
   Player,
-  getWeapon,
-  Weapon,
-  canAttack,
   Character,
+  getWeapon,
+  canAttack,
   isValidTarget,
   minionsFromContainer,
   ownerMinions

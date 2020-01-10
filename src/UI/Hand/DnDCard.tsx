@@ -9,6 +9,9 @@ export interface CardProps {
   card: ICard;
 }
 
+/**
+ * Drag & Drop Card component
+ */
 export const DnDCard: React.FC<CardProps> = ({ active, card }) => {
   const game = useGame();
   const player = getActivePlayer(game);

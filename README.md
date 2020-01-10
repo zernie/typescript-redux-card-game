@@ -20,9 +20,9 @@ Built for educational purposes only. Your contributions are welcome 😉
     * [ ] Spell
         * [ ] Secret
         * [ ] Quest
-            * [ ] Sidequest
+        * [ ] Sidequest
     * [ ] Enchantment
-        * [ ] Aura       
+        * [ ] Aura
 * [x] Zones
     * [x] Play
     * [x] Hand
@@ -35,7 +35,7 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [x] Player control switch
   * [x] Fatigue damage
   * [x] Card overdraw damage
-  * [ ] 🕡 Turn timer 
+  * [ ] 🕡 Turn timer
     (https://github.com/matpaul/redux-timer-middleware, https://stackoverflow.com/questions/3969475/javascript-pause-settimeout)
 * [x] Basic mechanics
   * [x] Charge
@@ -45,6 +45,7 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [ ] Stealth (needs targeting improvements)
   * [ ] Poisonous
   * [ ] Divine shield
+* [ ] Mulligan (needs spells)
 * [ ] Choosing a deck
 * [ ] Card targeting requirements
 
@@ -64,16 +65,16 @@ Built for educational purposes only. Your contributions are welcome 😉
 * [ ] Save/Load
   * [ ] LocalStorage
   * [ ] File system
-* [ ] Triggers
+* [ ] [Triggers](https://hearthstone.gamepedia.com/Triggered_effect)
 * [ ] ~~Multiplayer~~
 
 ## Project structure
 * `src/models` contains game models' type declarations and some helper functions.
-* `src/redux` contains the actual game logic, using **Redux** and decoupled from UI rendering. 
+* `src/redux` contains the actual game logic, decoupled from the UI rendering. It uses **Redux** state library.
    It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) Chrome extension for debugging.
 * `src/UI` is a **React**-based implementation of Game's UI.
 
 ## Development
     $ yarn && yarn start
 
-Open `localhost:3000` in your web browser :tada:
+Now open [localhost:3000](http://localhost:3000) in your web browser :tada:
