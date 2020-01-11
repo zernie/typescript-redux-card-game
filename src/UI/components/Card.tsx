@@ -3,10 +3,10 @@ import { Label, List, Popup, Segment } from "semantic-ui-react";
 import { AbilityList, CardArt } from "./index";
 import { Card as ICard, isMinion, isWeapon } from "../../models";
 
-type CardProps = {
+interface CardProps  {
   active?: boolean;
   card: ICard;
-};
+}
 
 const Card: React.FC<CardProps> = ({ card, active = true }) => {
   const { attack, cardID, cost, name, text } = card;
