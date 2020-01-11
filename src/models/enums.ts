@@ -548,7 +548,7 @@ export enum TargetingType {
   Heroes
 }
 
-/* Events in Hearthstone.*/
+/** Events in Hearthstone. */
 export enum TriggerType {
   None = "NONE",
 

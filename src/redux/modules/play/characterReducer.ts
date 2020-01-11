@@ -5,18 +5,17 @@ import {
   AppThunk,
   Character,
   EntityContainer,
-  Weapon,
   getCharacters,
   getCharactersById,
-  getWeapon,
+  getEntity,
   isHero,
   isMinion,
   reduceArmor,
   reduceHealth,
   shouldBeDestroyed,
   shouldExhaust,
-  getEntity,
-  TriggerType
+  TriggerType,
+  Weapon
 } from "../../../models";
 import {
   attackCharacter,
@@ -28,12 +27,7 @@ import {
   SourceTargetPayload,
   triggerEvent
 } from "./actions";
-import {
-  CharacterHandler,
-  extractEntity,
-  HeroHandler,
-  MinionHandler
-} from "../../utils";
+import { CharacterHandler, extractEntity } from "../../utils";
 import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
 import { checkForEndGame, nextTurn } from "../gameStateReducer";
@@ -47,13 +41,20 @@ export const attackBlock = ({
   dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
 };
 
-export const dealDamageBlock = ({
-  amount,
-  ids
-}: DealDamagePayload): AppThunk => (dispatch, getState) => {
-  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.Attack }));
-  // dispatch(attackCharacter({ id: source.id }));
-  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
+export const dealDamageBlock = (
+  source: number,
+  target: number | number[],
+  amount: number
+): AppThunk => (dispatch, getState) => {
+  dispatch(triggerEvent({ id: source, trigger: TriggerType.PreDamage }));
+  dispatch(
+    dealDamage({
+      amount,
+      id: target
+    })
+  );
+  dispatch(triggerEvent({ id: source, trigger: TriggerType.DealDamage }));
+  dispatch(triggerEvent({ id: target, trigger: TriggerType.TakeDamage }));
 };
 
 // TODO: refactor
@@ -62,21 +63,15 @@ export const performAttack = ({
   source
 }: SourceTargetPayload): AppThunk => (dispatch, getState) => {
   dispatch(attackBlock({ source, target }));
-  dispatch(
-    dealDamageBlock({
-      amount: source.attack,
-      ids: [target.id]
-    })
-  );
+  dispatch(dealDamageBlock(source.id, target.id, source.attack));
   const game = getState();
 
+  // Hitting back if target is a a minion
   if (isMinion(target)) {
     dispatch(
-      dealDamage({
-        amount: target.attack,
-        ids: [source.id]
-      })
-    );
+      dealDamageBlock(
+        target.id, source.id, target.attack
+    ));
   }
   if (isHero(source) && source.weaponID) {
     const weapon = getEntity(game.play, source.weaponID) as Weapon;
@@ -102,37 +97,18 @@ const exhaustHandler: CharacterHandler = (char: Character) => {
   char.exhausted = true;
 };
 
-const damageHeroHandler: HeroHandler<DealDamagePayload> = (
-  char,
-  { amount }
-) => {
-  const health = reduceHealth(char, amount);
-  char.armor = reduceArmor(char, amount);
-  char.health = health;
-  char.destroyed = shouldBeDestroyed(char);
-};
-
-const damageMinionHandler: MinionHandler<DealDamagePayload> = (
-  char,
-  { amount }
-) => {
-  char.health = reduceHealth(char, amount);
-  char.destroyed = shouldBeDestroyed(char);
-};
-
 const dealDamageHandler = (
   state: EntityContainer,
-  { payload }: PayloadAction<DealDamagePayload>
+  { payload: { amount, id } }: PayloadAction<DealDamagePayload>
 ) => {
-  const chars = getCharactersById(state, payload.ids);
+  const chars = getCharactersById(state, _.castArray(id));
 
-  _.forEach(
-    char =>
-      isHero(char)
-        ? damageHeroHandler(char, payload)
-        : damageMinionHandler(char, payload),
-    chars
-  );
+  _.forEach(char => {
+    char.health = reduceHealth(char, amount);
+    // TODO: refactor
+    if (isHero(char)) char.armor = reduceArmor(char, amount);
+    char.destroyed = shouldBeDestroyed(char);
+  }, chars);
 };
 
 const nextTurnHandler = (state: EntityContainer) => {
