@@ -47,7 +47,7 @@ export const craftOpponent = (props: CraftPlayerProps = {}): Player =>
     type: CardType.Player
   } as Player);
 
-export const canSpendMana = (player: Player, amount: number) =>
+export const canSpendMana = (player: Player, amount: number): boolean =>
   player.mana - amount >= 0;
 
 export const otherId = (state: GameState): Controller =>
@@ -66,6 +66,9 @@ export const getOpponent = (game: Game) =>
 
 export const hasLost = (player: Player) => player.playState === PlayState.Lost;
 export const hasWon = (player: Player) => player.playState === PlayState.Won;
+export const isPlaying = (player: Player) =>
+  player.playState === PlayState.Playing;
+export const isTied = (player: Player) => player.playState === PlayState.Tied;
 
 export const calculateFatigueDmg = (player: Player) =>
   player.fatigue === 0 ? 1 : player.fatigue + 1;

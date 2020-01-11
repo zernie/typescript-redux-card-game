@@ -4,6 +4,7 @@ export * from "./Card";
 export * from "./Character";
 export * from "./constants";
 export * from "./Container";
+export * from "./containers";
 export * from "./Entity";
 export * from "./enums";
 export * from "./Game";

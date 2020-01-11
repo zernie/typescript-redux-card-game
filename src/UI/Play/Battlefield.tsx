@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Divider, Grid, Segment } from "semantic-ui-react";
 import classNames from "classnames";
-import { Card, canUseCard, PLAYABLE_CARDS } from "../../models";
+import { Card, canPlayCard, PLAYABLE_CARDS } from "../../models";
 import Side from "./Side";
 import NextTurn from "./NextTurn";
 import Deck from "../Deck/Deck";
@@ -50,7 +50,7 @@ const Battlefield: React.FC = props => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: PLAYABLE_CARDS,
     drop: (item: Card, monitor) => dispatch(playerUseCard(item)),
-    canDrop: (item: Card, monitor) => canUseCard(item, player),
+    canDrop: (item: Card, monitor) => canPlayCard(item, player),
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()

@@ -1,5 +1,5 @@
 import _ from "lodash/fp";
-import { EntityContainer } from "./Container";
+import { EntityContainer } from "./containers";
 import { CardType } from "./enums";
 import { Character } from "./Character";
 import { Weapon } from "./Weapon";
@@ -11,8 +11,9 @@ import { Card } from "./Card";
 
 export type Entity = Player | Card;
 
-export const entitiesFrom = (array: Entity[]): EntityContainer =>
-  _.indexBy<Entity>(_.prop("id"), array) as EntityContainer;
+export const entitiesFrom = <T extends EntityContainer = EntityContainer>(
+  entities: Entity[]
+): T => _.indexBy<Entity>(_.prop("id"), entities) as T;
 
 export const isHero = (entity: Entity): entity is Hero =>
   entity.type === CardType.Hero;

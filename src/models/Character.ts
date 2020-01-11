@@ -2,24 +2,9 @@ import _ from "lodash/fp";
 import { hasWindfury } from "./Card";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
-import { isCharacter, isHero } from "./Entity";
-import { CharacterContainer, EntityContainer } from "./Container";
+import { isHero } from "./Entity";
 
 export type Character = Hero | Minion;
-
-// export const getCharacter = (id: number, game: Game): Character => {
-//   const entity = game.play[id];
-//
-//   if (entity.type === CardType.Hero || entity.type === CardType.Minion)
-//     return entity;
-//
-//   throw new Error(`Entity ${id} is not a character.`);
-// };
-
-export const getCharacters = (entities: EntityContainer) =>
-  _.pickBy(isCharacter, entities) as CharacterContainer;
-export const getCharactersById = (container: EntityContainer, ids: number[]) =>
-  _.pick<EntityContainer>(ids, container) as CharacterContainer;
 
 export const isExhausted = (char: Character) => char.exhausted;
 

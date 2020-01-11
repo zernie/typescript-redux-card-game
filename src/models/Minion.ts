@@ -1,13 +1,8 @@
 import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
-import { hasTaunt } from "./Card";
-import { Character } from "./Character";
-import { entitiesFrom } from "./Entity";
 import { CardType, Controller, Race, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
-import { EntityContainer, MinionContainer } from "./Container";
-import { Game } from "./Game";
 
 export interface Minion extends Playable {
   attack: number;
@@ -16,7 +11,7 @@ export interface Minion extends Playable {
   readonly type: CardType.Minion;
 }
 
-interface CraftMinionProps {
+export interface CraftMinionProps {
   attack: number;
   cardID: string;
   maxHealth: number;
@@ -33,25 +28,6 @@ interface CraftMinionProps {
   text?: string;
 }
 
-const selectMinions = _.curry(
-  (controller: Controller, container: EntityContainer) =>
-    _.pickBy(
-      _.whereEq({ owner: controller, type: CardType.Minion }),
-      container
-    ) as MinionContainer
-);
-export const playerMinions = (game: Game) =>
-  selectMinions(game.state.playerID, game.play);
-export const opponentMinions = (game: Game) =>
-  selectMinions(game.state.opponentID, game.play);
-
-// const selectMinions = (controller: Controller) => (
-//   container: MinionContainer
-// ) => _.pickBy(_.whereEq({ owner: controller }), container) as MinionContainer;
-
-// export const playerMinions = selectMinions(Controller.Player);
-// export const opponentMinions = selectMinions(Controller.Opponent);
-
 export const craftMinion = (props: CraftMinionProps): Minion =>
   ({
     abilities: [],
@@ -65,24 +41,3 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     id: newId(),
     type: CardType.Minion
   } as Minion);
-
-export const craftMinions = (...props: CraftMinionProps[]) =>
-  entitiesFrom(_.map(craftMinion, props) as Minion[]) as MinionContainer;
-
-export const minionsFromContainer = (entities: EntityContainer) =>
-  _.pickBy(_.whereEq({ type: CardType.Minion }), entities) as MinionContainer;
-
-export const ownerMinions = _.curry(
-  (player: Controller, minions: EntityContainer) =>
-    _.pickBy(
-      _.whereEq({ owner: player, type: CardType.Minion }),
-      minions
-    ) as MinionContainer
-);
-
-export const anyTaunts = (minions: CharacterContainer) => _.any(hasTaunt, minions);
-
-export const isValidTarget = (
-  character: Character,
-  characters: CharacterContainer
-) => (anyTaunts(characters) ? hasTaunt(character) : true);

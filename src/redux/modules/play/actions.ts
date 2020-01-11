@@ -1,5 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
-import {Weapon, Minion, Card, TriggerType, Entity, Character} from "../../../models";
+import {
+  Weapon,
+  Minion,
+  TriggerType,
+  Character
+} from "../../../models";
 import { EntityPayload } from "../../utils";
 
 export type GainManaPayload = EntityPayload<{
@@ -19,7 +24,7 @@ export interface DealDamagePayload {
 }
 
 export type FatigueDamagePayload = EntityPayload<{ heroId: number }>;
-export interface TriggerEventPayload extends EntityPayload{
+export interface TriggerEventPayload extends EntityPayload {
   trigger: TriggerType;
 }
 export interface SourceTargetPayload {

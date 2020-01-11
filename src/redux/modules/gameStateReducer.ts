@@ -1,20 +1,26 @@
 import _ from "lodash/fp";
-import {createAction, createReducer} from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 import {
   AppThunk,
   GameState,
   Step,
+  TriggerType,
   getActivePlayer,
   getOpponent,
   getPlayer,
   hasLost,
   MAX_CARDS_IN_HAND,
   otherId,
-  selectCards,
-  TriggerType
+  ownerCards
 } from "../../models";
-import {burnCard, drawCard} from "./deckReducer";
-import {fatigueDamage, gainMana, processDeaths, restoreMana, triggerEvent} from "./play/actions";
+import { burnCard, drawCard } from "./deckReducer";
+import {
+  fatigueDamage,
+  gainMana,
+  processDeaths,
+  restoreMana,
+  triggerEvent
+} from "./play/actions";
 import initialState from "./initialState";
 import Toastr from "toastr";
 
@@ -52,8 +58,8 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
   dispatch(gainMana({ id }));
   dispatch(restoreMana({ id }));
 
-  const deck = _.values(selectCards(id, game.deck));
-  const hand = _.values(selectCards(id, game.hand));
+  const deck = _.values(ownerCards(id, game.deck));
+  const hand = _.values(ownerCards(id, game.hand));
 
   if (deck.length > 0) {
     const topCard = deck[0];

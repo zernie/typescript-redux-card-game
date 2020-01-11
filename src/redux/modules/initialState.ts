@@ -9,8 +9,8 @@ import {
   CardClass,
   Step,
   Zone,
-  craftMinions,
-  craftWeapons,
+  craftMinionContainer,
+  craftWeaponContainer,
   entitiesFrom,
   craftPlayer,
   craftHero
@@ -43,7 +43,7 @@ player.heroID = playerHero.id;
 opponent.heroID = opponentHero.id;
 
 // MINIONS
-const handMinions = craftMinions(
+const handMinions = craftMinionContainer(
   {
     abilities: [Ability.Charge],
     attack: 2,
@@ -75,7 +75,7 @@ const handMinions = craftMinions(
   }
 );
 
-const minions = craftMinions(
+const minions = craftMinionContainer(
   {
     attack: 1,
     cardID: "CS2_189",
@@ -111,7 +111,7 @@ const minions = craftMinions(
 );
 
 // WEAPONS
-const handWeapons = craftWeapons({
+const handWeapons = craftWeaponContainer({
   attack: 3,
   cardID: "CS2_106",
   cost: 3,
@@ -125,7 +125,7 @@ const handWeapons = craftWeapons({
 // CARDS
 const hand: CardContainer = { ...handMinions, ...handWeapons };
 
-const deck = craftMinions(
+const deck = craftMinionContainer(
   {
     attack: 3,
     cardID: "CS2_172",

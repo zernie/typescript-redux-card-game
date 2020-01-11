@@ -1,5 +1,5 @@
 import { Controller, Step } from "./enums";
-import { CardContainer, EntityContainer } from "./Container";
+import { CardContainer, EntityContainer } from "./containers";
 
 export interface GameState {
   activePlayer: Controller;
