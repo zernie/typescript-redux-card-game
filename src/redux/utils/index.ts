@@ -2,7 +2,6 @@ import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   Entity,
   EntityContainer,
-  EntityPayload,
   Hero,
   Character,
   Player,
@@ -12,6 +11,11 @@ import {
 } from "../../models";
 
 // TODO: refactor
+
+export type EntityPayload<T extends Record<string, any> = {}> = T & {
+  id: number;
+};
+export type EntityPayloadAction = PayloadAction<EntityPayload>;
 
 export type Handler<S = Entity, P = EntityPayload> = (
   state: S,
@@ -25,7 +29,7 @@ export type MinionHandler<T = EntityPayload> = Handler<Minion, T>;
 export type HeroPowerHandler<T = EntityPayload> = Handler<HeroPower, T>;
 export type WeaponHandler<T = EntityPayload> = Handler<Weapon, T>;
 
-export const getEntity = <
+export const extractEntity = <
   E extends Entity = Entity,
   P extends EntityPayload = EntityPayload
 >(

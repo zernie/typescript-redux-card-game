@@ -5,47 +5,63 @@ import {
   AppThunk,
   Character,
   EntityContainer,
+  Weapon,
+  getCharacters,
+  getCharactersById,
+  getWeapon,
   isHero,
   isMinion,
-  shouldExhaust,
   reduceArmor,
   reduceHealth,
-  getWeapon,
-  getCharacters,
-  getCharactersById
+  shouldBeDestroyed,
+  shouldExhaust,
+  getEntity, TriggerType
 } from "../../../models";
 import {
-  DealDamagePayload,
   attackCharacter,
   dealDamage,
+  DealDamagePayload,
   destroyWeapon,
   exhaust,
-  processDeaths
+  processDeaths, SourceTargetPayload, triggerEvent
 } from "./actions";
 import {
   CharacterHandler,
+  extractEntity,
   HeroHandler,
-  MinionHandler,
-  getEntity
+  MinionHandler
 } from "../../utils";
 import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
 import { checkForEndGame, nextTurn } from "../gameStateReducer";
 
-export interface SourceTargetPayload {
-  source: Character;
-  target: Character;
-}
+
+export const attackBlock = ({
+                                  target,
+                                  source
+                                }: SourceTargetPayload): AppThunk => (dispatch, getState) => {
+  dispatch(triggerEvent({ id: source.id, trigger: TriggerType.Attack }));
+  dispatch(attackCharacter({ id: source.id }));
+  dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
+};
+
+export const dealDamageBlock = ({
+                                  amount,
+                              ids
+                            }: DealDamagePayload): AppThunk => (dispatch, getState) => {
+  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.Attack }));
+  // dispatch(attackCharacter({ id: source.id }));
+  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
+};
 
 // TODO: refactor
 export const performAttack = ({
   target,
   source
 }: SourceTargetPayload): AppThunk => (dispatch, getState) => {
-  dispatch(attackCharacter({ id: source.id }));
+  dispatch(attackBlock({ source, target }));
   dispatch(
-    dealDamage({
-      id: target.id,
+    dealDamageBlock({
       amount: source.attack,
       ids: [target.id]
     })
@@ -55,15 +71,14 @@ export const performAttack = ({
   if (isMinion(target)) {
     dispatch(
       dealDamage({
-        id: source.id,
         amount: target.attack,
         ids: [source.id]
       })
     );
   }
   if (isHero(source) && source.weaponID) {
-    const weapon = getWeapon(source.weaponID, game);
-    if (weapon && weapon.durability <= 0) {
+    const weapon = getEntity(game.play, source.weaponID) as Weapon;
+    if (weapon && weapon.health <= 0) {
       dispatch(destroyWeapon(weapon));
     }
   }
@@ -91,18 +106,16 @@ const damageHeroHandler: HeroHandler<DealDamagePayload> = (
 ) => {
   const health = reduceHealth(char, amount);
   char.armor = reduceArmor(char, amount);
-  char.destroyed = health <= 0;
   char.health = health;
+  char.destroyed = shouldBeDestroyed(char);
 };
 
 const damageMinionHandler: MinionHandler<DealDamagePayload> = (
   char,
-  payload
+  { amount }
 ) => {
-  const health = reduceHealth(char, payload.amount);
-
-  char.destroyed = health <= 0;
-  char.health = health;
+  char.health = reduceHealth(char, amount);
+  char.destroyed = shouldBeDestroyed(char);
 };
 
 const dealDamageHandler = (
@@ -122,8 +135,6 @@ const dealDamageHandler = (
 
 const nextTurnHandler = (state: EntityContainer) => {
   const chars = getCharacters(state);
-  // _.forEach(_.assign({ attacksPerformed: 0, exhausted: false }), chars);
-  // TODO: refactor
   _.forEach(char => {
     char.attacksPerformed = 0;
     char.exhausted = false;
@@ -133,8 +144,8 @@ const nextTurnHandler = (state: EntityContainer) => {
 const characterReducer = createReducer<EntityContainer>(
   {},
   {
-    [exhaust.type]: getEntity(exhaustHandler),
-    [attackCharacter.type]: getEntity(attackCharacterHandler),
+    [exhaust.type]: extractEntity(exhaustHandler),
+    [attackCharacter.type]: extractEntity(attackCharacterHandler),
     [dealDamage.type]: dealDamageHandler,
     [nextTurn.type]: nextTurnHandler
   }

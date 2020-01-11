@@ -10,7 +10,8 @@ import { MAX_HEALTH } from "./constants";
 
 export interface Hero extends Playable {
   armor: number;
-  type: CardType.Hero;
+  maxHealth: number;
+  readonly type: CardType.Hero;
   weaponID: number | null;
 }
 
@@ -46,6 +47,7 @@ export const craftHero = (props: CraftHeroProps): Hero =>
     zone: Zone.Play,
     cardClass: CardClass.Neutral,
     weaponID: null,
+    text: null,
     ...props,
     type: CardType.Hero
   } as Hero);

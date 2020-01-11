@@ -1,35 +1,31 @@
 import _ from "lodash/fp";
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import {createAction, createReducer} from "@reduxjs/toolkit";
 import {
   AppThunk,
-  selectCards,
-  State,
+  GameState,
   Step,
-  MAX_CARDS_IN_HAND,
   getActivePlayer,
   getOpponent,
   getPlayer,
   hasLost,
+  MAX_CARDS_IN_HAND,
   otherId,
+  selectCards,
+  TriggerType
 } from "../../models";
-import { burnCard, drawCard } from "./deckReducer";
-import {
-  fatigueDamage,
-  gainMana,
-  processDeaths,
-  restoreMana
-} from "./play/actions";
+import {burnCard, drawCard} from "./deckReducer";
+import {fatigueDamage, gainMana, processDeaths, restoreMana, triggerEvent} from "./play/actions";
 import initialState from "./initialState";
 import Toastr from "toastr";
 
 export const finishGame = createAction("FINISH_GAME");
 export const nextTurn = createAction("NEXT_TURN");
 
-const finishGameHandler = (state: State) => {
+const finishGameHandler = (state: GameState) => {
   state.step = Step.FinalGameOver;
 };
 
-const nextTurnHandler = (state: State) => {
+const nextTurnHandler = (state: GameState) => {
   state.turn++;
   state.activePlayer = otherId(state);
 };
@@ -46,6 +42,7 @@ export const checkForEndGame = (): AppThunk => (dispatch, getState) => {
 };
 
 export const endTurn = (): AppThunk => (dispatch, getState) => {
+  // dispatch(triggerEvent({trigger: TriggerType.TurnEnd, id: }));
   dispatch(nextTurn());
   const game = getState();
   const player = getActivePlayer(game);

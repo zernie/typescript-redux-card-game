@@ -9,7 +9,7 @@ const Weapon: React.FC<WeaponProps> = ({
   attack,
   cardID,
   disabled,
-  durability,
+  health,
   name,
   text
 }) => (
@@ -24,7 +24,7 @@ const Weapon: React.FC<WeaponProps> = ({
         </div>
       }
       trigger={
-        <Statistic color="red" value={`${attack}/${durability}`} size="tiny" />
+        <Statistic color="red" value={`${attack}/${health}`} size="tiny" />
       }
     />
   </Segment>

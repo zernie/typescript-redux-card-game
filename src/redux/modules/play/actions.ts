@@ -1,5 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
-import { Weapon, EntityPayload, Minion, Card } from "../../../models";
+import {Weapon, Minion, Card, TriggerType, Entity, Character} from "../../../models";
+import { EntityPayload } from "../../utils";
 
 export type GainManaPayload = EntityPayload<{
   amount?: number;
@@ -18,6 +19,13 @@ export interface DealDamagePayload {
 }
 
 export type FatigueDamagePayload = EntityPayload<{ heroId: number }>;
+export interface TriggerEventPayload extends EntityPayload{
+  trigger: TriggerType;
+}
+export interface SourceTargetPayload {
+  source: Character;
+  target: Character;
+}
 
 export const attackCharacter = createAction<EntityPayload>("ATTACK_CHARACTER");
 export const dealDamage = createAction<DealDamagePayload>("DEAL_DAMAGE");
@@ -29,6 +37,7 @@ export const restoreMana = createAction<EntityPayload>("RESTORE_MANA");
 export const spendMana = createAction<SpendManaPayload>("SPEND_MANA");
 export const summonMinion = createAction<Minion>("SUMMON_MINION");
 export const processDeaths = createAction("PROCESS_DEATHS");
+export const triggerEvent = createAction<TriggerEventPayload>("TRIGGER_EVENT");
 export const fatigueDamage = createAction<FatigueDamagePayload>(
   "FATIGUE_DAMAGE"
 );

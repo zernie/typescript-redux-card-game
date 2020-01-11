@@ -2,17 +2,18 @@ import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { hasTaunt } from "./Card";
 import { Character } from "./Character";
-import { EntityContainer, entitiesFrom } from "./Entity";
+import { entitiesFrom } from "./Entity";
 import { CardType, Controller, Race, Zone } from "./enums";
 import { Playable } from "./Playable";
 import { newId } from "./utils";
-import { CharacterContainer, MinionContainer } from "./Container";
+import { EntityContainer, MinionContainer } from "./Container";
 import { Game } from "./Game";
 
 export interface Minion extends Playable {
   attack: number;
-  race: Race;
-  type: CardType.Minion;
+  maxHealth: number;
+  readonly race: Race;
+  readonly type: CardType.Minion;
 }
 
 interface CraftMinionProps {
@@ -59,6 +60,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     exhausted: true,
     health: props.maxHealth,
     race: Race.Blank,
+    text: null,
     ...props,
     id: newId(),
     type: CardType.Minion
@@ -71,8 +73,11 @@ export const minionsFromContainer = (entities: EntityContainer) =>
   _.pickBy(_.whereEq({ type: CardType.Minion }), entities) as MinionContainer;
 
 export const ownerMinions = _.curry(
-  (player: Controller, minions: MinionContainer) =>
-    _.pickBy(_.whereEq({ owner: player }), minions) as MinionContainer
+  (player: Controller, minions: EntityContainer) =>
+    _.pickBy(
+      _.whereEq({ owner: player, type: CardType.Minion }),
+      minions
+    ) as MinionContainer
 );
 
 export const anyTaunts = (minions: CharacterContainer) => _.any(hasTaunt, minions);

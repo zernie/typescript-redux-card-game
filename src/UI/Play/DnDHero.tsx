@@ -10,7 +10,8 @@ import {
   canAttack,
   isValidTarget,
   minionsFromContainer,
-  ownerMinions
+  ownerMinions,
+  Weapon
 } from "../../models";
 import { performAttack } from "../../redux/modules/play/characterReducer";
 import { useGame } from "../hooks";
@@ -59,7 +60,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
       isOver: monitor.isOver()
     })
   });
-  const weapon = getWeapon(weaponID, game);
+  const weapon = getWeapon(game.play, weaponID) as Weapon;
 
   return (
     <div ref={drop}>

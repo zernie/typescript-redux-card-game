@@ -1,19 +1,15 @@
 import _ from "lodash/fp";
+import { EntityContainer } from "./Container";
+import { CardType } from "./enums";
 import { Character } from "./Character";
 import { Weapon } from "./Weapon";
-import { Container } from "./Container";
 import { Player } from "./Player";
 import { HeroPower } from "./HeroPower";
 import { Hero } from "./Hero";
-import { CardType } from "./enums";
 import { Minion } from "./Minion";
 import { Card } from "./Card";
 
 export type Entity = Player | Card;
-export type EntityContainer = Container<Entity>;
-export type EntityPayload<T extends Record<string, any> = {}> = T & {
-  id: number;
-};
 
 export const entitiesFrom = (array: Entity[]): EntityContainer =>
   _.indexBy<Entity>(_.prop("id"), array) as EntityContainer;

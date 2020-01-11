@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import {
+  Controller,
   Game,
   getOpponent,
   getOpponentHero,
@@ -10,6 +11,7 @@ import {
   opponentDeck,
   opponentHand,
   opponentMinions,
+  ownerMinions,
   playerDeck,
   playerHand,
   playerMinions
@@ -40,6 +42,8 @@ export const usePlayerMinions = () =>
   useSelector((game: Game) => playerMinions(game));
 export const useOpponentMinions = () =>
   useSelector((game: Game) => opponentMinions(game));
+export const useOwnerMinions = (owner: Controller) =>
+  useSelector((game: Game) => ownerMinions(owner, game.play));
 
 export const usePlayerHand = () =>
   useSelector((game: Game) => playerHand(game));
