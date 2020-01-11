@@ -2,37 +2,38 @@ import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { CardClass, CardType, Controller, Zone } from "./enums";
 import { newId } from "./utils";
-import { Game } from "./Game";
 import { entitiesFrom } from "./Entity";
-import { WeaponContainer } from "./Container";
+import { getEntity, WeaponContainer } from "./Container";
 import { Playable } from "./Playable";
 
 export interface Weapon extends Playable {
   attack: number;
-  durability: number;
-  name: string;
+  readonly name: string;
   heroId: number;
-  type: CardType.Weapon;
+  readonly type: CardType.Weapon;
 }
 
 interface CraftWeaponProps {
-  abilities?: Abilities;
   attack: number;
   cardID: string;
   cost: number;
-  durability: number;
+  health: number;
   heroId: number;
   name: string;
   owner: Controller;
   zone: Zone;
 
+  abilities?: Abilities;
   text?: string;
 }
+
+// ### HELPERS
 
 export const craftWeapon = (props: CraftWeaponProps): Weapon =>
   ({
     abilities: [],
     cardClass: CardClass.Neutral,
+    text: null,
     ...props,
     id: newId(),
     type: CardType.Weapon
@@ -41,8 +42,11 @@ export const craftWeapon = (props: CraftWeaponProps): Weapon =>
 export const craftWeapons = (...props: CraftWeaponProps[]): WeaponContainer =>
   entitiesFrom(_.map(craftWeapon, props) as Weapon[]) as WeaponContainer;
 
-export const getWeapon = (id: number | null, game: Game) =>
-  (id ? game.play[id] : null) as Weapon | null;
+// FIXME
+// export const getWeapon = (...args: Parameters<typeof getEntity>) => getEntity<Weapon>(...args);
+export const getWeapon = getEntity;
+// export const getWeapon = <T extends number|null>(id: T, game: Game): (T extends null ? null : Weapon) =>
+//     (id ? game.play[id] : null);
 // export const getWeapon = _.curry(
 //   (id: number, game: Game) => game.play[id] as Weapon
 // );

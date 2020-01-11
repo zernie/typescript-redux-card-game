@@ -1,15 +1,15 @@
 import { CardType, Controller, PlayState, Zone } from "./enums";
-import { Game, State } from "./Game";
+import { Game, GameState } from "./Game";
 
 export interface Player {
-  id: number;
+  readonly id: number;
   fatigue: number;
   heroID: number | null;
   mana: number;
-  name: string;
+  readonly name: string;
   maximumMana: number;
   playState: PlayState;
-  type: CardType.Player;
+  readonly type: CardType.Player;
   zone: Zone;
 }
 
@@ -50,7 +50,7 @@ export const craftOpponent = (props: CraftPlayerProps = {}): Player =>
 export const canSpendMana = (player: Player, amount: number) =>
   player.mana - amount >= 0;
 
-export const otherId = (state: State): Controller =>
+export const otherId = (state: GameState): Controller =>
   state.activePlayer === state.playerID ? state.opponentID : state.playerID;
 // export const other = (playerID: Controller): Controller =>
 //   playerID === Controller.Player ? Controller.Opponent : Controller.Player;
@@ -66,3 +66,6 @@ export const getOpponent = (game: Game) =>
 
 export const hasLost = (player: Player) => player.playState === PlayState.Lost;
 export const hasWon = (player: Player) => player.playState === PlayState.Won;
+
+export const calculateFatigueDmg = (player: Player) =>
+  player.fatigue == 0 ? 1 : player.fatigue + 1;

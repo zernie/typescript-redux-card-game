@@ -3,14 +3,14 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import {
   AppThunk,
   selectCards,
-  State,
+  GameState,
   Step,
   MAX_CARDS_IN_HAND,
   getActivePlayer,
   getOpponent,
   getPlayer,
   hasLost,
-  otherId,
+  otherId
 } from "../../models";
 import { burnCard, drawCard } from "./deckReducer";
 import {
@@ -25,11 +25,11 @@ import Toastr from "toastr";
 export const finishGame = createAction("FINISH_GAME");
 export const nextTurn = createAction("NEXT_TURN");
 
-const finishGameHandler = (state: State) => {
+const finishGameHandler = (state: GameState) => {
   state.step = Step.FinalGameOver;
 };
 
-const nextTurnHandler = (state: State) => {
+const nextTurnHandler = (state: GameState) => {
   state.turn++;
   state.activePlayer = otherId(state);
 };

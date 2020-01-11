@@ -1,5 +1,12 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { EntityContainer, Hero, Player, Weapon } from "../../../models";
+import {
+  calculateFatigueDmg,
+  EntityContainer,
+  Hero,
+  Player,
+  shouldBeDestroyed,
+  Weapon
+} from "../../../models";
 import {
   destroyWeapon,
   equipWeapon,
@@ -7,7 +14,7 @@ import {
   fatigueDamage,
   FatigueDamagePayload
 } from "./actions";
-import { getEntity } from "../../utils";
+import { extractEntity } from "../../utils";
 
 const destroyWeaponHandler = (
   state: EntityContainer,
@@ -27,15 +34,16 @@ const equipWeaponHandler = (
   hero.weaponID = weapon.id;
 };
 
+// TODO: use simple DEAL_DAMAGE action?
 const fatigueDamageHandler = (
   state: EntityContainer,
   { payload }: PayloadAction<FatigueDamagePayload>
 ) => {
   const hero = state[payload.heroId] as Hero;
   const player = state[payload.id] as Player;
-  const dmg = player.fatigue == 0 ? 1 : player.fatigue + 1;
-  hero.health -= dmg;
-  hero.destroyed = hero.health <= 0;
+
+  hero.health -= calculateFatigueDmg(player);
+  hero.destroyed = shouldBeDestroyed(hero);
 };
 
 export default createReducer<EntityContainer>(

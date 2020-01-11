@@ -2,8 +2,8 @@ import _ from "lodash/fp";
 import { hasWindfury } from "./Card";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
-import { EntityContainer, isCharacter, isHero } from "./Entity";
-import { CharacterContainer } from "./Container";
+import { isCharacter, isHero } from "./Entity";
+import { CharacterContainer, EntityContainer } from "./Container";
 
 export type Character = Hero | Minion;
 
@@ -34,3 +34,5 @@ export const shouldExhaust = (character: Character): boolean => {
 
   return character.attacksPerformed >= maxAttacks;
 };
+
+export const shouldBeDestroyed = (char: Character) => char.health <= 0;

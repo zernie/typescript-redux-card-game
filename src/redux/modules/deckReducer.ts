@@ -1,21 +1,23 @@
-import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 // import _ from 'lodash/fp';
-import { Card, CardContainer, EntityPayload } from "../../models";
+import { Card, CardContainer } from "../../models";
+import { EntityPayload, EntityPayloadAction } from "../utils";
 
 export const drawCard = createAction<Card>("DRAW_CARD");
 export const burnCard = createAction<EntityPayload>("BURN_CARD");
 
 const drawCardHandler = (
   state: CardContainer,
-  action: PayloadAction<EntityPayload>
+  { payload }: EntityPayloadAction
 ) => {
-  delete state[action.payload.id];
+  delete state[payload.id];
 };
+
 const burnCardHandler = (
   state: CardContainer,
-  action: PayloadAction<EntityPayload>
+  { payload }: EntityPayloadAction
 ) => {
-  delete state[action.payload.id];
+  delete state[payload.id];
 };
 
 export default createReducer(

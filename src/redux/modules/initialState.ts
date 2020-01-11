@@ -115,7 +115,7 @@ const handWeapons = craftWeapons({
   attack: 3,
   cardID: "CS2_106",
   cost: 3,
-  durability: 2,
+  health: 2,
   name: "Fiery War Axe",
   owner: opponent.id,
   zone: Zone.Hand,

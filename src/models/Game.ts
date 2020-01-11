@@ -1,8 +1,7 @@
-import { EntityContainer } from "./Entity";
 import { Controller, Step } from "./enums";
-import { CardContainer } from "./Container";
+import { CardContainer, EntityContainer } from "./Container";
 
-export type State = {
+export interface GameState {
   activePlayer: Controller;
   step: Step;
   playerID: Controller;
@@ -10,16 +9,18 @@ export type State = {
   playerHeroID: number;
   opponentHeroID: number;
   turn: number;
-};
+}
 
 export type Game = {
+  // TODO: merge into entities field?
   deck: CardContainer;
   graveyard: EntityContainer;
   hand: CardContainer;
   play: EntityContainer;
   secret: EntityContainer;
   setAside: EntityContainer;
-  state: State;
+
+  state: GameState;
 };
 
 // export const getHand = (game: Game) =>
@@ -34,4 +35,4 @@ export type Game = {
 //     game.entities
 //   ) as MinionContainer;
 
-export const isGameOver = ({ step }: State) => step === Step.FinalGameOver;
+export const isGameOver = ({ step }: GameState) => step === Step.FinalGameOver;

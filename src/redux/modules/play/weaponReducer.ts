@@ -2,9 +2,10 @@ import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   Character,
   EntityContainer,
-  EntityPayload,
+  Weapon,
   isMinion,
-  Weapon
+  getWeapon,
+  getEntity
 } from "../../../models";
 import {
   attackCharacter,
@@ -12,6 +13,7 @@ import {
   equipWeapon,
   EquipWeaponPayload
 } from "./actions";
+import { EntityPayloadAction } from "../../utils";
 
 const equipWeaponHandler = (
   state: EntityContainer,
@@ -22,22 +24,23 @@ const equipWeaponHandler = (
 
 const destroyWeaponHandler = (
   state: EntityContainer,
-  action: PayloadAction<EntityPayload>
+  action: EntityPayloadAction
 ) => {
   delete state[action.payload.id];
 };
 
 const attackCharacterHandler = (
   state: EntityContainer,
-  { payload }: PayloadAction<EntityPayload>
+  { payload }: EntityPayloadAction
 ) => {
-  const char = state[payload.id] as Character;
+  const attacker = state[payload.id] as Character;
 
-  if (isMinion(char)) return;
+  if (isMinion(attacker)) return;
 
-  const weapon = char.weaponID && (state[char.weaponID] as Weapon);
-  if (!weapon) return;
-  weapon.durability--;
+  if (attacker.weaponID) {
+    const weapon = getEntity(state, attacker.weaponID) as Weapon;
+    weapon.health--;
+  }
 };
 
 export default createReducer(

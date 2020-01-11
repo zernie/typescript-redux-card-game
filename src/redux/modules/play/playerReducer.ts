@@ -21,7 +21,7 @@ import {
   PlayState,
   Zone
 } from "../../../models";
-import { getEntity, HeroHandler, PlayerHandler } from "../../utils";
+import { extractEntity, HeroHandler, PlayerHandler } from "../../utils";
 
 const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state,
@@ -71,10 +71,10 @@ const fatigueDamageHandler: PlayerHandler<FatigueDamagePayload> = player => {
 export default createReducer<EntityContainer>(
   {},
   {
-    [gainMana.type]: getEntity(gainManaHandler),
-    [restoreMana.type]: getEntity(restoreManaHandler),
-    [spendMana.type]: getEntity(spendManaHandler),
+    [gainMana.type]: extractEntity(gainManaHandler),
+    [restoreMana.type]: extractEntity(restoreManaHandler),
+    [spendMana.type]: extractEntity(spendManaHandler),
     [processDeaths.type]: processDeathsHandler,
-    [fatigueDamage.type]: getEntity(fatigueDamageHandler)
+    [fatigueDamage.type]: extractEntity(fatigueDamageHandler)
   }
 );

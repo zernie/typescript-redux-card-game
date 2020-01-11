@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({ card, active = true }) => {
             </Label>
             <Label attached={"bottom right"} circular size="large">
               {isMinion(card) && card.maxHealth}
-              {isWeapon(card) && card.durability}
+              {isWeapon(card) && card.health}
             </Label>
           </Segment>
         </div>

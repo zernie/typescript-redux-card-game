@@ -29,7 +29,7 @@ const App: React.FC = props => (
               href={"https://github.com/zernie/typescript-redux-card-game"}
               target="_blank"
             >
-              Hearthstone clone written using React and Redux.
+              Hearthstone simulator written using React & Redux.
             </Header.Content>
           </Header>
 
