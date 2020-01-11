@@ -15,7 +15,7 @@ import {
   reduceHealth,
   shouldBeDestroyed,
   shouldExhaust,
-  getEntity
+  getEntity, TriggerType
 } from "../../../models";
 import {
   attackCharacter,
@@ -23,7 +23,7 @@ import {
   DealDamagePayload,
   destroyWeapon,
   exhaust,
-  processDeaths
+  processDeaths, SourceTargetPayload, triggerEvent
 } from "./actions";
 import {
   CharacterHandler,
@@ -35,19 +35,33 @@ import minionReducer from "./minionReducer";
 import heroReducer from "./heroReducer";
 import { checkForEndGame, nextTurn } from "../gameStateReducer";
 
-export interface SourceTargetPayload {
-  source: Character;
-  target: Character;
-}
+
+export const attackBlock = ({
+                                  target,
+                                  source
+                                }: SourceTargetPayload): AppThunk => (dispatch, getState) => {
+  dispatch(triggerEvent({ id: source.id, trigger: TriggerType.Attack }));
+  dispatch(attackCharacter({ id: source.id }));
+  dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
+};
+
+export const dealDamageBlock = ({
+                                  amount,
+                              ids
+                            }: DealDamagePayload): AppThunk => (dispatch, getState) => {
+  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.Attack }));
+  // dispatch(attackCharacter({ id: source.id }));
+  // dispatch(triggerEvent({ id: source.id, trigger: TriggerType.AfterAttack }));
+};
 
 // TODO: refactor
 export const performAttack = ({
   target,
   source
 }: SourceTargetPayload): AppThunk => (dispatch, getState) => {
-  dispatch(attackCharacter({ id: source.id }));
+  dispatch(attackBlock({ source, target }));
   dispatch(
-    dealDamage({
+    dealDamageBlock({
       amount: source.attack,
       ids: [target.id]
     })

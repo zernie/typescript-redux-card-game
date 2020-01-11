@@ -68,4 +68,4 @@ export const hasLost = (player: Player) => player.playState === PlayState.Lost;
 export const hasWon = (player: Player) => player.playState === PlayState.Won;
 
 export const calculateFatigueDmg = (player: Player) =>
-  player.fatigue == 0 ? 1 : player.fatigue + 1;
+  player.fatigue === 0 ? 1 : player.fatigue + 1;
