@@ -1,8 +1,7 @@
 import _ from "lodash/fp";
-import { CharacterContainer, EntityContainer } from "./index";
+import { CharacterContainer, EntityContainer, makeEntityContainer } from "./index";
 import { CardType, Controller } from "../enums";
 import { Game } from "../Game";
-import { entitiesFrom } from "../Entity";
 import { craftMinion, CraftMinionProps, Minion } from "../Minion";
 import { hasTaunt } from "../Card";
 import { Character } from "../Character";
@@ -25,7 +24,7 @@ export const opponentMinions = (game: Game) =>
 export const craftMinions = (...props: CraftMinionProps[]) =>
   _.map(craftMinion, props) as Minion[];
 export const craftMinionContainer = (...props: CraftMinionProps[]) =>
-  entitiesFrom(craftMinions(...props)) as MinionContainer;
+  makeEntityContainer(craftMinions(...props)) as MinionContainer;
 
 export const minionsFromContainer = (entities: EntityContainer) =>
   _.pickBy(_.whereEq({ type: CardType.Minion }), entities) as MinionContainer;

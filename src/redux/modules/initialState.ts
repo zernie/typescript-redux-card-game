@@ -11,7 +11,7 @@ import {
   Zone,
   craftMinionContainer,
   craftWeaponContainer,
-  entitiesFrom,
+  makeEntityContainer,
   craftPlayer,
   craftHero
 } from "../../models";
@@ -187,7 +187,7 @@ const deck = craftMinionContainer(
 
 // TODO: refactor
 export const play: EntityContainer = {
-  ...entitiesFrom([player, opponent, playerHero, opponentHero]),
+  ...makeEntityContainer([player, opponent, playerHero, opponentHero]),
   ...minions
 };
 

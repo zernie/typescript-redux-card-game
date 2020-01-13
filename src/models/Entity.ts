@@ -11,10 +11,6 @@ import { Card } from "./Card";
 
 export type Entity = Player | Card;
 
-export const entitiesFrom = <T extends EntityContainer = EntityContainer>(
-  entities: Entity[]
-): T => _.indexBy<Entity>(_.prop("id"), entities) as T;
-
 export const isHero = (entity: Entity): entity is Hero =>
   entity.type === CardType.Hero;
 

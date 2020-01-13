@@ -1,8 +1,7 @@
 import _ from "lodash/fp";
 import { craftWeapon, CraftWeaponProps, Weapon } from "../Weapon";
 import { Container } from "../Container";
-import { entitiesFrom } from "../Entity";
-import { getEntity } from "./EntityContainer";
+import { getEntity, makeEntityContainer } from "./EntityContainer";
 
 export type WeaponContainer = Container<Weapon>;
 
@@ -11,7 +10,7 @@ export const craftWeapons = (...props: CraftWeaponProps[]) =>
 
 export const craftWeaponContainer = (
   ...props: CraftWeaponProps[]
-): WeaponContainer => entitiesFrom(craftWeapons(...props)) as WeaponContainer;
+) => makeEntityContainer(craftWeapons(...props)) as WeaponContainer;
 
 // FIXME
 // export const getWeapon = (...args: Parameters<typeof getEntity>) => getEntity<Weapon>(...args);
