@@ -3,6 +3,17 @@ Built for educational purposes only. Your contributions are welcome 😉
 
 ### [PLAY DEMO](https://zergetaev.ru/typescript-redux-card-game/)
 
+## Project structure
+* `src/models` contains game models' type declarations and some helper functions.
+* `src/redux` contains the actual game logic, decoupled from the UI rendering. It uses **Redux** state library.
+   It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) Chrome extension for debugging.
+* `src/UI` is a **React**-based implementation of Game's UI.
+
+## Development
+    $ yarn && yarn start
+
+Now open [localhost:3000](http://localhost:3000) in your web browser :tada:
+
 ## Roadmap:
 
 ### Gameplay
@@ -47,7 +58,9 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [ ] Divine shield
 * [ ] Mulligan (needs spells)
 * [ ] Choosing a deck
-* [ ] Card targeting requirements
+* [ ] Card targeting
+* [ ] Play requirements
+* [ ] Deck import/export
 
 ### Visual
 * [x] Card rendering
@@ -67,14 +80,3 @@ Built for educational purposes only. Your contributions are welcome 😉
   * [ ] File system
 * [ ] [Triggers](https://hearthstone.gamepedia.com/Triggered_effect)
 * [ ] ~~Multiplayer~~
-
-## Project structure
-* `src/models` contains game models' type declarations and some helper functions.
-* `src/redux` contains the actual game logic, decoupled from the UI rendering. It uses **Redux** state library.
-   It is highly recommended to use [redux-devtools](https://github.com/reduxjs/redux-devtools) Chrome extension for debugging.
-* `src/UI` is a **React**-based implementation of Game's UI.
-
-## Development
-    $ yarn && yarn start
-
-Now open [localhost:3000](http://localhost:3000) in your web browser :tada:

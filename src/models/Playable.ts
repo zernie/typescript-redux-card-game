@@ -3,7 +3,7 @@ import { BasicCard } from "./BasicCard";
 import { CardClass } from "./enums";
 
 /**
- * Interface for an entity which can be played from Zone.Hand (Hero, Minion, Spell, Weapon), in other words: the entity can be 'played'.
+ * Entity which can be played from Zone.Hand (Hero, Minion, Spell, Weapon).
  */
 export interface Playable extends BasicCard {
   abilities: Abilities;

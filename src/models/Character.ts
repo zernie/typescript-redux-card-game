@@ -3,6 +3,14 @@ import { hasWindfury } from "./Card";
 import { Hero } from "./Hero";
 import { Minion } from "./Minion";
 import { isHero } from "./Entity";
+import { Playable } from "./Playable";
+
+export interface ICharacter extends Playable {
+  attacking: boolean;
+  defending: boolean;
+  armor: number;
+  maxHealth: number;
+}
 
 export type Character = Hero | Minion;
 

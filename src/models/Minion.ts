@@ -1,12 +1,10 @@
 import _ from "lodash/fp";
 import { Abilities } from "./Abilities";
 import { CardType, Controller, Race, Zone } from "./enums";
-import { Playable } from "./Playable";
 import { newId } from "./utils";
+import { ICharacter } from "./Character";
 
-export interface Minion extends Playable {
-  attack: number;
-  maxHealth: number;
+export interface Minion extends ICharacter {
   readonly race: Race;
   readonly type: CardType.Minion;
 }
@@ -22,6 +20,8 @@ export interface CraftMinionProps {
 
   abilities?: Abilities;
   attacksPerformed?: number;
+  attacking?: boolean,
+  defending?: boolean,
   exhausted?: boolean;
   health?: number;
   race?: Race;
@@ -32,6 +32,8 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
   ({
     abilities: [],
     attacksPerformed: 0,
+    attacking: false,
+    defending: false,
     destroyed: false,
     exhausted: true,
     health: props.maxHealth,

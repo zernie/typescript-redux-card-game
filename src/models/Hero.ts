@@ -1,16 +1,13 @@
 import _ from "lodash/fp";
-import { Character } from "./Character";
+import { Character, ICharacter } from "./Character";
 import { Abilities } from "./Abilities";
 import { newId } from "./utils";
 import { Game } from "./Game";
-import { Playable } from "./Playable";
 import { CardClass, CardType, Controller, Zone } from "./enums";
 import { isHero } from "./Entity";
 import { MAX_HEALTH } from "./constants";
 
-export interface Hero extends Playable {
-  armor: number;
-  maxHealth: number;
+export interface Hero extends ICharacter {
   readonly type: CardType.Hero;
   weaponID: number | null;
 }
@@ -38,6 +35,8 @@ export const craftHero = (props: CraftHeroProps): Hero =>
     armor: 0,
     attack: 0,
     attacksPerformed: 0,
+    attacking: false,
+    defending: false,
     cost: 0,
     destroyed: false,
     exhausted: false,

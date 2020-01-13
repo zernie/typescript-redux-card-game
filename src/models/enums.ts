@@ -74,6 +74,7 @@ export type Controller = number;
   Opponent = "OPPONENT"
 }*/
 
+/** Player state */
 export enum PlayState {
   Invalid = "INVALID",
   Playing = "PLAYING",
@@ -87,6 +88,7 @@ export enum PlayState {
   // Quit = "QUIT"
 }
 
+/** Game step */
 export enum Step {
   Invalid = "INVALID",
   BeginFirst = "BEGIN_FIRST",
@@ -108,6 +110,7 @@ export enum Step {
   MainStartTriggers = "MAIN_START_TRIGGERS"
 }
 
+/** Entity zone */
 export enum Zone {
   Invalid = "INVALID",
   Play = "PLAY",
