@@ -4,6 +4,7 @@ import { Weapon } from "./Weapon";
 import { HeroPower } from "./HeroPower";
 import { Character } from "./Character";
 import { canSpendMana, Player } from "./Player";
+// import { CardData } from "hearthstonejson-client";
 
 // TODO: add Spell, Enchantment
 export type Card = Character | Weapon | HeroPower;
@@ -27,3 +28,6 @@ export const hasWindfury = hasAbility(Ability.Windfury);
 
 export const canPlayCard = (card: Card, player: Player) =>
   card.zone === Zone.Hand && canSpendMana(player, card.cost);
+
+/** Import a card from hearthstonejson.com */
+// export const importCard = ({}: CardData): Card => ({})

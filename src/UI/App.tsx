@@ -1,7 +1,7 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-import TouchBackend from "react-dnd-touch-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import {
   Container,
   Grid,
@@ -12,11 +12,11 @@ import {
 import TargetableBattlefield from "./Play/Battlefield";
 import Toastr from "toastr";
 import "toastr/build/toastr.css";
-import { isTouch } from "./utils";
+import { isTouchDevice } from "./utils";
 
 Toastr.options.timeOut = 3000;
 
-const DnDBackend = isTouch() ? TouchBackend : HTML5Backend;
+const DnDBackend = isTouchDevice() ? TouchBackend : HTML5Backend;
 
 const App: React.FC = props => (
   <Grid>
