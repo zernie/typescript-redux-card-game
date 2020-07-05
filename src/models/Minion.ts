@@ -35,7 +35,7 @@ export const craftMinion = (props: CraftMinionProps): Minion =>
     attacking: false,
     defending: false,
     destroyed: false,
-    exhausted: true,
+    exhausted: false,
     health: props.maxHealth,
     race: Race.Blank,
     text: null,

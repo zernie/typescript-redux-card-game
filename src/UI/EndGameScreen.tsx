@@ -34,7 +34,8 @@ const EndGameScreen: React.FC<EndGameScreenProps> = ({
         <Button
           positive={true}
           onClick={() => window.location.reload()}
-          attached={"top"}>
+          attached={"top"}
+        >
           Restart
         </Button>
       </Modal.Content>

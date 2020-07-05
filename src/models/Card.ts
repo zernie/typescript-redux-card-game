@@ -27,4 +27,3 @@ export const hasWindfury = hasAbility(Ability.Windfury);
 
 export const canPlayCard = (card: Card, player: Player) =>
   card.zone === Zone.Hand && canSpendMana(player, card.cost);
-

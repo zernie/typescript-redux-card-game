@@ -4,6 +4,9 @@ import { Game } from "./Game";
 import { Action } from "redux";
 import { CardData, CardType, Controller, Zone } from "./enums";
 import { craftMinion, Minion } from "./Minion";
+import { craftWeapon, Weapon } from "./Weapon";
+import { Card } from "./Card";
+import { craftHero, Hero } from "./Hero";
 
 let _lastId = 0;
 export const newId = (): number => new Date().getTime() + _lastId++;
@@ -11,12 +14,22 @@ export const newId = (): number => new Date().getTime() + _lastId++;
 export type AppThunk = ThunkAction<void, Game, null, Action<string>>;
 
 /** Import a card from hearthstonejson.com */
-export const importCard = (
+export function importCard(
   data: CardData,
   zone: Zone,
   owner: Controller
-) => {
+): Card {
   switch (data.type) {
+    case CardType.Hero:
+      return craftHero({
+        cardID: data.id,
+        health: data.health || 0,
+        abilities: data.mechanics || [],
+        attack: data.attack || 0,
+        name: data.name,
+        zone,
+        owner
+      });
     case CardType.Minion:
       return craftMinion({
         cardID: data.id,
@@ -24,11 +37,23 @@ export const importCard = (
         abilities: data.mechanics || [],
         attack: data.attack || 0,
         cost: data.cost || 0,
-        zone,
         name: data.name,
+        zone,
         owner
-      }) as Minion;
+      });
+    case CardType.Weapon:
+      return craftWeapon({
+        cardID: data.id,
+        health: data.health || 0,
+        abilities: data.mechanics || [],
+        attack: data.attack || 0,
+        heroId: 0, // FIXME
+        cost: data.cost || 0,
+        name: data.name,
+        zone,
+        owner
+      });
     default:
       throw new Error(`CardType ${data.type} is not implemented.`);
   }
-};
+}

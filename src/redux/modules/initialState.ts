@@ -1,20 +1,19 @@
 import { craftOpponent, Game } from "../../models";
 import _ from "lodash/fp";
+import { craftOpponent, Game, importCard, Minion, Weapon } from "../../models";
 import {
   EntityContainer,
   Player,
   CardContainer,
   Hero,
-  Ability,
   CardClass,
   Step,
   Zone,
-  craftMinionContainer,
-  craftWeaponContainer,
   makeEntityContainer,
   craftPlayer,
   craftHero
 } from "../../models";
+import { cards } from "../../cards";
 
 // PLAYERS
 const player: Player = craftPlayer({
@@ -24,166 +23,42 @@ const player: Player = craftPlayer({
 const opponent: Player = craftOpponent();
 
 // HEROES
-const playerHero: Hero = craftHero({
-  cardClass: CardClass.Shaman,
-  cardID: "HERO_02",
-  name: "Thrall",
-  owner: player.id
-});
-
-const opponentHero: Hero = craftHero({
-  cardClass: CardClass.Hunter,
-  cardID: "HERO_01",
-  armor: 3,
-  name: "Garrosh",
-  owner: opponent.id
-});
+const playerHero: Hero = importCard(cards["HERO_02"], Zone.Hand, player.id) as Hero;
+const opponentHero: Hero = importCard(cards["HERO_01"], Zone.Hand, opponent.id) as Hero;
 
 player.heroID = playerHero.id;
 opponent.heroID = opponentHero.id;
 
 // MINIONS
-const handMinions = craftMinionContainer(
-  {
-    abilities: [Ability.Charge],
-    attack: 2,
-    cardID: "CS2_173",
-    cost: 2,
-    maxHealth: 1,
-    name: "Bluegill Warrior",
-    owner: player.id,
-    zone: Zone.Hand
-  },
-  {
-    abilities: [Ability.Windfury],
-    attack: 3,
-    cardID: "EX1_587",
-    cost: 4,
-    maxHealth: 4,
-    name: "Windspeaker",
-    owner: player.id,
-    zone: Zone.Hand
-  },
-  {
-    attack: 6,
-    cardID: "CS2_200",
-    cost: 6,
-    maxHealth: 7,
-    name: "Boulderfist Ogre",
-    owner: opponent.id,
-    zone: Zone.Hand
-  }
-);
+const handMinions = makeEntityContainer<Minion>([
+  importCard(cards["CS2_173"], Zone.Hand, player.id) as Minion,
+  importCard(cards["EX1_587"], Zone.Hand, player.id) as Minion,
+  importCard(cards["CS2_200"], Zone.Hand, opponent.id) as Minion
+]);
 
-const minions = craftMinionContainer(
-  {
-    attack: 1,
-    cardID: "CS2_189",
-    cost: 1,
-    exhausted: false,
-    maxHealth: 1,
-    name: "Elven archer",
-    owner: opponent.id,
-    zone: Zone.Play
-  },
-
-  {
-    abilities: [Ability.Taunt],
-    attack: 2,
-    cardID: "CS2_121",
-    cost: 2,
-    exhausted: false,
-    maxHealth: 2,
-    name: "Frostwolf Grunt",
-    owner: player.id,
-    zone: Zone.Play
-  },
-  {
-    attack: 200,
-    cardID: "CS2_147",
-    cost: 4,
-    exhausted: false,
-    maxHealth: 4,
-    name: "Gnomish Inventor",
-    owner: player.id,
-    zone: Zone.Play
-  }
-);
+const minions = makeEntityContainer<Minion>([
+  importCard(cards["CS2_189"], Zone.Play, opponent.id) as Minion,
+  importCard(cards["CS2_121"], Zone.Play, player.id) as Minion,
+  importCard(cards["CS2_147"], Zone.Play, opponent.id) as Minion
+]);
 
 // WEAPONS
-const handWeapons = craftWeaponContainer({
-  attack: 3,
-  cardID: "CS2_106",
-  cost: 3,
-  health: 2,
-  name: "Fiery War Axe",
-  owner: opponent.id,
-  zone: Zone.Hand,
-  heroId: opponentHero.id
-});
+const handWeapons = makeEntityContainer<Weapon>([
+  importCard(cards["CS2_106"], Zone.Hand, opponent.id) as Weapon
+]);
 
 // CARDS
 const hand: CardContainer = { ...handMinions, ...handWeapons };
 
-const deck = craftMinionContainer(
-  {
-    attack: 3,
-    cardID: "CS2_172",
-    cost: 2,
-    maxHealth: 2,
-    name: "Bloodfen Raptor",
-    owner: player.id,
-    zone: Zone.Deck
-  },
-  {
-    attack: 2,
-    cardID: "CS2_141",
-    cost: 3,
-    maxHealth: 2,
-    name: "Ironforge Rifleman",
-    owner: player.id,
-    zone: Zone.Deck
-  },
-  {
-    attack: 3,
-    cardID: "CS2_125",
-    cost: 3,
-    maxHealth: 3,
-    name: "Ironfur Grizzly",
-    owner: player.id,
-    zone: Zone.Deck
-  },
-  {
-    attack: 3,
-    cardID: "CS2_182",
-    cost: 4,
-    maxHealth: 4,
-    name: "Chillwind Yeti",
-    owner: player.id,
-    zone: Zone.Deck
-  },
+const deck = makeEntityContainer<Minion>([
+  importCard(cards["CS2_172"], Zone.Deck, player.id) as Minion,
+  importCard(cards["CS2_141"], Zone.Deck, player.id) as Minion,
+  importCard(cards["CS2_125"], Zone.Deck, player.id) as Minion,
+  importCard(cards["CS2_182"], Zone.Deck, player.id) as Minion,
 
-  {
-    abilities: [Ability.Taunt],
-    attack: 5,
-    cardID: "CS2_187",
-    cost: 5,
-    maxHealth: 4,
-    name: "Booty Bay Bodyguard",
-    owner: opponent.id,
-    zone: Zone.Deck
-  },
-  {
-    abilities: [Ability.Taunt],
-    attack: 2,
-    cardID: "CS2_121",
-    cost: 2,
-    maxHealth: 2,
-    name: "Frostwolf Grunt",
-    owner: opponent.id,
-    zone: Zone.Deck
-  }
-);
+  importCard(cards["CS2_187"], Zone.Deck, opponent.id) as Minion,
+  importCard(cards["CS2_121"], Zone.Deck, opponent.id) as Minion
+]);
 
 // TODO: refactor
 export const play: EntityContainer = {

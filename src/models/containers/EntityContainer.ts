@@ -4,11 +4,8 @@ import { Entity } from "../Entity";
 
 export type EntityContainer<T = Entity> = Container<T>;
 
-export const makeEntityContainer = <
-  T extends Entity
->(
-  entities: T[]
-)=> _.indexBy<Entity>(_.prop("id"), entities) as EntityContainer<T>;
+export const makeEntityContainer = <T extends Entity>(entities: T[]) =>
+  _.indexBy<Entity>(_.prop("id"), entities) as EntityContainer<T>;
 
 // FIXME
 // type IGetEntityOverload<T extends Entity = Entity> = {

@@ -36,7 +36,7 @@ export enum Locale {
   Polish = "plPL",
   Portuguese = "ptPT",
   Japanese = "jaJP",
-  Thai = "thTH",
+  Thai = "thTH"
 }
 
 export enum CardClass {
@@ -51,7 +51,7 @@ export enum CardClass {
   Warlock = "WARLOCK",
   Warrior = "WARRIOR",
   Dream = "DREAM ",
-  Neutral = "NEUTRAL",
+  Neutral = "NEUTRAL"
 }
 
 export enum CardSet {
@@ -95,7 +95,7 @@ export enum CardSet {
   /** https://hearthstone.gamepedia.com/Wild_Event */
   WildEvent = "WILD_EVENT",
   /** https://hearthstone.gamepedia.com/The_Taverns_of_Time*/
-  TavernsOfTime = "TAVERNS_OF_TIME",
+  TavernsOfTime = "TAVERNS_OF_TIME"
 }
 
 export enum CardType {
@@ -105,18 +105,18 @@ export enum CardType {
   Enchantment = "ENCHANTMENT",
   Spell = "SPELL",
   HeroPower = "HERO_POWER",
-  Player = "PLAYER",
+  Player = "PLAYER"
 }
 
 export enum Faction {
   Horde = "HORDE",
-  Alliance = "ALLIANCE",
+  Alliance = "ALLIANCE"
 }
 
 export enum MultiClassGroup {
   GrimyGoons = "GRIMY_GOONS",
   JadeLotus = "JADE_LOTUS",
-  Kabal = "KABAL",
+  Kabal = "KABAL"
 }
 
 export enum Ability {
@@ -157,7 +157,7 @@ export enum Ability {
   Untouchable = "UNTOUCHABLE",
   Windfury = "WINDFURY",
   ImmuneToSpellpower = "ImmuneToSpellpower",
-  InvisibleDeathrattle = "InvisibleDeathrattle",
+  InvisibleDeathrattle = "InvisibleDeathrattle"
 }
 
 export enum Race {
@@ -170,7 +170,7 @@ export enum Race {
   Murloc = "MURLOC",
   Pirate = "PIRATE",
   Totem = "TOTEM",
-  Elemental = "ELEMENTAL",
+  Elemental = "ELEMENTAL"
 }
 
 export enum Rarity {
@@ -178,7 +178,7 @@ export enum Rarity {
   Free = "FREE",
   Rare = "RARE",
   Epic = "EPIC",
-  Legendary = "LEGENDARY",
+  Legendary = "LEGENDARY"
 }
 
 export interface CardData {
