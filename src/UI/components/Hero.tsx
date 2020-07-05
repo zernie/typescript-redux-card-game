@@ -32,9 +32,8 @@ const Hero: React.FC<HeroProps> = ({
     <Grid.Column computer={5} tablet={12} mobile={16}>
       <Segment
         raised={isOver}
-        tertiary={isOver}
+        tertiary={isOver || !active}
         style={{ padding: "4px 0" }}
-        color={active ? "green" : undefined}
       >
         <Header>{name}</Header>
 
