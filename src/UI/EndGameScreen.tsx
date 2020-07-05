@@ -1,12 +1,12 @@
 import React from "react";
-import { Modal, ModalProps, Transition } from "semantic-ui-react";
+import { Modal, ModalProps, Transition, Button } from "semantic-ui-react";
 import { hasLost, Player } from "../models";
 
-export type EndGameScreenProps = ModalProps & {
+export interface EndGameScreenProps extends ModalProps {
   player: Player;
   opponent: Player;
   open: boolean;
-};
+}
 
 const endGameHeader = (player: Player, opponent: Player): string => {
   if (hasLost(player)) {
@@ -29,6 +29,7 @@ const EndGameScreen: React.FC<EndGameScreenProps> = ({
     <Modal {...props} open={open}>
       <Modal.Header align={"center"}>
         {endGameHeader(player, opponent)}
+        <Button onClick={() => window.location.reload()}>Restart</Button>
       </Modal.Header>
       {/*<Modal.Content />*/}
     </Modal>

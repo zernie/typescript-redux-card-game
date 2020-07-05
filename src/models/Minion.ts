@@ -20,8 +20,8 @@ export interface CraftMinionProps {
 
   abilities?: Abilities;
   attacksPerformed?: number;
-  attacking?: boolean,
-  defending?: boolean,
+  attacking?: boolean;
+  defending?: boolean;
   exhausted?: boolean;
   health?: number;
   race?: Race;

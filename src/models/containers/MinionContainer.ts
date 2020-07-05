@@ -1,5 +1,9 @@
 import _ from "lodash/fp";
-import { CharacterContainer, EntityContainer, makeEntityContainer } from "./index";
+import {
+  CharacterContainer,
+  EntityContainer,
+  makeEntityContainer
+} from "./index";
 import { CardType, Controller } from "../enums";
 import { Game } from "../Game";
 import { craftMinion, CraftMinionProps, Minion } from "../Minion";

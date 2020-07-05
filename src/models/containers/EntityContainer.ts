@@ -4,7 +4,9 @@ import { Entity } from "../Entity";
 
 export type EntityContainer = Container<Entity>;
 
-export const makeEntityContainer = <T extends EntityContainer = EntityContainer>(
+export const makeEntityContainer = <
+  T extends EntityContainer = EntityContainer
+>(
   entities: Entity[]
 ): T => _.indexBy<Entity>(_.prop("id"), entities) as T;
 

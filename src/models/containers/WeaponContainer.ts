@@ -8,9 +8,8 @@ export type WeaponContainer = Container<Weapon>;
 export const craftWeapons = (...props: CraftWeaponProps[]) =>
   _.map(craftWeapon, props) as Weapon[];
 
-export const craftWeaponContainer = (
-  ...props: CraftWeaponProps[]
-) => makeEntityContainer(craftWeapons(...props)) as WeaponContainer;
+export const craftWeaponContainer = (...props: CraftWeaponProps[]) =>
+  makeEntityContainer(craftWeapons(...props)) as WeaponContainer;
 
 // FIXME
 // export const getWeapon = (...args: Parameters<typeof getEntity>) => getEntity<Weapon>(...args);

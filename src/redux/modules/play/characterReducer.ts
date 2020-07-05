@@ -66,12 +66,9 @@ export const performAttack = ({
   dispatch(dealDamageBlock(source.id, target.id, source.attack));
   const game = getState();
 
-  // Hitting back if target is a a minion
+  // Hit back if target is a minion
   if (isMinion(target)) {
-    dispatch(
-      dealDamageBlock(
-        target.id, source.id, target.attack
-    ));
+    dispatch(dealDamageBlock(target.id, source.id, target.attack));
   }
   if (isHero(source) && source.weaponID) {
     const weapon = getEntity(game.play, source.weaponID) as Weapon;
