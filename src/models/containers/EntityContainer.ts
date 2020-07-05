@@ -2,7 +2,7 @@ import _ from "lodash/fp";
 import { Container } from "../Container";
 import { Entity } from "../Entity";
 
-export type EntityContainer<T extends Entity = Entity> = Container<T>;
+export type EntityContainer<T = Entity> = Container<T>;
 
 export const makeEntityContainer = <
   T extends Entity
