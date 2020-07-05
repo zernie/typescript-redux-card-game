@@ -1,28 +1,11 @@
 // NOTE: some of these enums have been copied from https://github.com/HearthSim/SabberStone
 
-export enum Ability {
-  Adapt = "Adapt",
-  Battlecry = "Battlecry",
-  Charge = "Charge",
-  ChooseOne = "Choose one",
-  Combo = "Combo",
-  Counter = "Counter",
-  DeathRattle = "Deathrattle",
-  Discover = "Discover",
-  DivineShield = "Divine shield",
-  Enrage = "Enrage",
-  Freeze = "Freeze",
-  Immune = "Immune",
-  Inspire = "Inspire",
-  Overload = "Overload",
-  Poisonous = "Poisonous",
-  Quest = "Quest",
-  Secret = "Secret",
-  Silence = "Silence",
-  Stealth = "Stealth",
-  Taunt = "Taunt",
-  Windfury = "Windfury"
-}
+export {
+  Mechanics as Ability,
+  CardClass,
+  CardType,
+  Race
+} from "hearthstonejson-client";
 
 export enum BlockType {
   Attack = "ATTACK",
@@ -41,31 +24,31 @@ export enum BlockType {
   Action = "ACTION"
 }
 
-export enum CardClass {
-  Invalid = "INVALID",
-  DeathKnight = "DEATHKNIGHT",
-  Druid = "DRUID",
-  Hunter = "HUNTER",
-  Mage = "MAGE",
-  Paladin = "PALADIN",
-  Priest = "PRIEST",
-  Rogue = "ROGUE",
-  Shaman = "SHAMAN",
-  Warlock = "WARLOCK",
-  Warrior = "WARRIOR",
-  Dream = "DREAM ",
-  Neutral = "NEUTRAL"
-}
-
-export enum CardType {
-  Minion = "MINION",
-  Weapon = "WEAPON",
-  Hero = "HERO",
-  Enchantment = "ENCHANTMENT",
-  Spell = "SPELL",
-  HeroPower = "HERO_POWER",
-  Player = "PLAYER"
-}
+// export enum CardClass {
+//   Invalid = "INVALID",
+//   DeathKnight = "DEATHKNIGHT",
+//   Druid = "DRUID",
+//   Hunter = "HUNTER",
+//   Mage = "MAGE",
+//   Paladin = "PALADIN",
+//   Priest = "PRIEST",
+//   Rogue = "ROGUE",
+//   Shaman = "SHAMAN",
+//   Warlock = "WARLOCK",
+//   Warrior = "WARRIOR",
+//   Dream = "DREAM ",
+//   Neutral = "NEUTRAL"
+// }
+//
+// export enum CardType {
+//   Minion = "MINION",
+//   Weapon = "WEAPON",
+//   Hero = "HERO",
+//   Enchantment = "ENCHANTMENT",
+//   Spell = "SPELL",
+//   HeroPower = "HERO_POWER",
+//   Player = "PLAYER"
+// }
 
 export type Controller = number;
 
@@ -397,18 +380,18 @@ export enum PlayReq {
  * The most used value is DRAGON, since a lot of cards interact with
  * dragons in hand.
  */
-export enum Race {
-  Blank = "BLANK",
-  All = "ALL",
-  Beast = "BEAST",
-  Demon = "DEMON",
-  DRAGON = "DRAGON",
-  Mechanical = "MECHANICAL",
-  Murloc = "MURLOC",
-  Pirate = "PIRATE",
-  Totem = "TOTEM",
-  Elemental = "ELEMENTAL"
-}
+// export enum Race {
+//   Blank = "BLANK",
+//   All = "ALL",
+//   Beast = "BEAST",
+//   Demon = "DEMON",
+//   DRAGON = "DRAGON",
+//   Mechanical = "MECHANICAL",
+//   Murloc = "MURLOC",
+//   Pirate = "PIRATE",
+//   Totem = "TOTEM",
+//   Elemental = "ELEMENTAL"
+// }
 
 /**
  Indicates which (group of) entities the effect will influence.
@@ -574,8 +557,8 @@ export enum TriggerType {
 
   /* The effect will be triggered when a spell or a character deals damages.*/
   TakeDamage = "TAKE_DAMAGE",
-  /* 
-  effect will be triggered when a character gets Predamage. 
+  /*
+  effect will be triggered when a character gets Predamage.
   This event happens just before the character is actually damaged.
   */
   PreDamage = "PREDAMAGE",
