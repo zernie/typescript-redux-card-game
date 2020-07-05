@@ -56,7 +56,7 @@ export const playCardHandler = (
 };
 
 const drawCardHandler = (state: CardContainer, action: PayloadAction<Card>) => {
-  const card = { ...action.payload, zone: Zone.Hand };
+  const card = { ...action.payload, zone: Zone.Hand } as Card;
   state[action.payload.id] = card;
 };
 

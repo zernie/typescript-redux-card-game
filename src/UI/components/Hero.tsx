@@ -4,13 +4,13 @@ import { Hero as IHero, Weapon as IWeapon } from "../../models";
 import CardArt from "./CardArt";
 import Weapon from "./Weapon";
 
-type HeroProps = IHero & {
+interface HeroProps extends IHero {
   active: boolean;
   isOver: boolean;
   weapon: IWeapon | null;
   mana: number;
   maximumMana: number;
-};
+}
 
 const Hero: React.FC<HeroProps> = ({
   active,

@@ -2,13 +2,13 @@ import _ from "lodash/fp";
 import { Container } from "../Container";
 import { Entity } from "../Entity";
 
-export type EntityContainer = Container<Entity>;
+export type EntityContainer<T extends Entity = Entity> = Container<T>;
 
 export const makeEntityContainer = <
-  T extends EntityContainer = EntityContainer
+  T extends Entity
 >(
-  entities: Entity[]
-): T => _.indexBy<Entity>(_.prop("id"), entities) as T;
+  entities: T[]
+)=> _.indexBy<Entity>(_.prop("id"), entities) as EntityContainer<T>;
 
 // FIXME
 // type IGetEntityOverload<T extends Entity = Entity> = {
