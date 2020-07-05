@@ -29,9 +29,15 @@ const EndGameScreen: React.FC<EndGameScreenProps> = ({
     <Modal {...props} open={open}>
       <Modal.Header align={"center"}>
         {endGameHeader(player, opponent)}
-        <Button onClick={() => window.location.reload()}>Restart</Button>
       </Modal.Header>
-      {/*<Modal.Content />*/}
+      <Modal.Content>
+        <Button
+          positive={true}
+          onClick={() => window.location.reload()}
+          attached={"top"}>
+          Restart
+        </Button>
+      </Modal.Content>
     </Modal>
   </Transition>
 );
