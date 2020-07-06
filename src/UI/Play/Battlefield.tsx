@@ -30,7 +30,7 @@ import {
 } from "../hooks";
 
 // TODO: split up
-const Battlefield: React.FC = props => {
+const Battlefield: React.FC = (props) => {
   const dispatch = useDispatch();
   const { turn } = useGameState();
   const isPlayer = useIsPlayerActive();
@@ -51,7 +51,7 @@ const Battlefield: React.FC = props => {
     accept: PLAYABLE_CARDS,
     drop: (item: Card, monitor) => dispatch(playerUseCard(item)),
     canDrop: (item: Card, monitor) => canPlayCard(item, player),
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
     })

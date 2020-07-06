@@ -33,7 +33,7 @@ const gainManaHandler: PlayerHandler<GainManaPayload> = (
   state.maximumMana += amount;
 };
 
-const restoreManaHandler: PlayerHandler<GainManaPayload> = state => {
+const restoreManaHandler: PlayerHandler<GainManaPayload> = (state) => {
   state.mana = state.maximumMana;
 };
 
@@ -64,7 +64,7 @@ const processDeathsHandler = (state: EntityContainer) => {
   }, destroyedHeroes);
 };
 
-const fatigueDamageHandler: PlayerHandler<FatigueDamagePayload> = player => {
+const fatigueDamageHandler: PlayerHandler<FatigueDamagePayload> = (player) => {
   player.fatigue++;
 };
 

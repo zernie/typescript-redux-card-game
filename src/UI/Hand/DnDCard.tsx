@@ -17,9 +17,9 @@ export const DnDCard: React.FC<CardProps> = ({ active, card }) => {
   const player = getActivePlayer(game);
   const [{ canDrag }, drag] = useDrag({
     item: card,
-    canDrag: monitor =>
+    canDrag: (monitor) =>
       card.owner === game.state.activePlayer && canSpendMana(player, card.cost),
-    collect: monitor => ({
+    collect: (monitor) => ({
       canDrag: monitor.canDrag()
     })
   });

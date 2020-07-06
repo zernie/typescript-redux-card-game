@@ -45,16 +45,16 @@ const DnDMinion: React.FC<MinionProps> = ({ character }) => {
         isValidTarget(character, enemyMinions)
       );
     },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
     })
   });
   const [{ canDrag }, dragRef] = useDrag({
     item: character,
-    canDrag: monitor =>
+    canDrag: (monitor) =>
       character.owner === state.activePlayer && canAttack(character),
-    collect: monitor => ({
+    collect: (monitor) => ({
       canDrag: monitor.canDrag()
     })
   });

@@ -23,8 +23,16 @@ const player: Player = craftPlayer({
 const opponent: Player = craftOpponent();
 
 // HEROES
-const playerHero: Hero = importCard(cards["HERO_02"], Zone.Hand, player.id) as Hero;
-const opponentHero: Hero = importCard(cards["HERO_01"], Zone.Hand, opponent.id) as Hero;
+const playerHero: Hero = importCard(
+  cards["HERO_02"],
+  Zone.Hand,
+  player.id
+) as Hero;
+const opponentHero: Hero = importCard(
+  cards["HERO_01"],
+  Zone.Hand,
+  opponent.id
+) as Hero;
 
 player.heroID = playerHero.id;
 opponent.heroID = opponentHero.id;

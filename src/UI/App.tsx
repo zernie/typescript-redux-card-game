@@ -18,7 +18,7 @@ Toastr.options.timeOut = 3000;
 
 const DnDBackend = isTouchDevice() ? TouchBackend : HTML5Backend;
 
-const App: React.FC = props => (
+const App: React.FC = (props) => (
   <Grid>
     <GridRow>
       <GridColumn>

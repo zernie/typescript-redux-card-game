@@ -100,7 +100,7 @@ const dealDamageHandler = (
 ) => {
   const chars = getCharactersById(state, _.castArray(id));
 
-  _.forEach(char => {
+  _.forEach((char) => {
     char.health = reduceHealth(char, amount);
     // TODO: refactor
     if (isHero(char)) char.armor = reduceArmor(char, amount);
@@ -110,7 +110,7 @@ const dealDamageHandler = (
 
 const nextTurnHandler = (state: EntityContainer) => {
   const chars = getCharacters(state);
-  _.forEach(char => {
+  _.forEach((char) => {
     char.attacksPerformed = 0;
     char.exhausted = false;
   }, chars);

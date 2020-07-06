@@ -36,7 +36,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
   const { weaponID } = hero;
   const [collectedProps, drag] = useDrag({
     item: hero,
-    canDrag: monitor => hero.owner === activePlayer && canAttack(hero)
+    canDrag: (monitor) => hero.owner === activePlayer && canAttack(hero)
   });
 
   const [{ isOver }, drop] = useDrop({
@@ -56,7 +56,7 @@ const DnDHero: React.FC<DnDHeroProps> = ({ active, hero, player }) => {
 
       return item.owner !== player.id && isValidTarget(item, enemyMinions);
     },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: monitor.isOver()
     })
   });

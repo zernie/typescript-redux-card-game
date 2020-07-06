@@ -13,7 +13,7 @@ describe("characterReducer", () => {
     const minion = importCard(cards["CS2_173"], Zone.Play, 0);
     const state: EntityContainer = makeEntityContainer([minion]);
 
-    const result = characterReducer(state, exhaust({ id: minion.id}));
+    const result = characterReducer(state, exhaust({ id: minion.id }));
     expect(result[minion.id].exhausted).toBeTruthy();
   });
 
@@ -31,7 +31,10 @@ describe("characterReducer", () => {
     hero.armor = 1;
     const state: EntityContainer = makeEntityContainer([minion, hero]);
 
-    const result = characterReducer(state, dealDamage({ amount: 5, id: [minion.id, hero.id] }));
+    const result = characterReducer(
+      state,
+      dealDamage({ amount: 5, id: [minion.id, hero.id] })
+    );
     expect(result[minion.id].health).toEqual(-4);
     expect(result[minion.id].destroyed).toBeTruthy();
 
