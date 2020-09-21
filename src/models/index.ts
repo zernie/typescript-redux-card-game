@@ -1,3 +1,6 @@
+// import { Model, ORM } from "redux-orm";
+// import { Hero } from "./Hero";
+
 export * from "./Abilities";
 export * from "./BasicCard";
 export * from "./Card";
@@ -15,3 +18,5 @@ export * from "./Playable";
 export * from "./Player";
 export * from "./Weapon";
 export * from "./utils";
+
+// ORM.register(Hero)

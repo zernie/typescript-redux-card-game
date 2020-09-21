@@ -22,7 +22,7 @@
     "react-redux": "^7.2.0",
     "react-scripts": "^3.4.1",
     "reduce-reducers": "^1.0.4",
-    "redux-orm": "^0.16.1",
+    "redux-orm": "^0.16.2",
     "semantic-ui-react": "^0.88.2",
     "sunwell": "^0.10.0",
     "toastr": "^2.1.4"

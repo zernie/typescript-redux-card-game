@@ -6,6 +6,7 @@ import { Game } from "./Game";
 import { CardClass, CardType, Controller, Zone } from "./enums";
 import { isHero } from "./Entity";
 import { MAX_HEALTH } from "./constants";
+// import { Model } from "redux-orm";
 
 export interface Hero extends ICharacter {
   readonly type: CardType.Hero;
@@ -67,3 +68,7 @@ export const getPlayerHero = (game: Game): Hero =>
 
 export const getOpponentHero = (game: Game): Hero =>
   game.play[game.state.opponentHeroID] as Hero;
+
+// export class Hero extends Model {
+//   static modelName = "Hero";
+// }

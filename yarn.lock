@@ -1069,10 +1069,17 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.0", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.4.tgz#a6724f1a6b8d2f6ea5236dbfe58c7d7ea9c5eb99"
   integrity sha512-UpTN5yUJr9b4EX2CnGNWIvER7Ab83ibv0pcvvHc4UOdrBI5jb8bj+32cCwPX6xu0mt2daFNjYhoi+X7beH0RSw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.11.2":
+  version "7.11.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
+  integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -9393,12 +9400,12 @@ reduce-reducers@^1.0.4:
   resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-1.0.4.tgz#fb77e751a9eb0201760ac5a605ca8c9c2d0537f8"
   integrity sha512-Mb2WZ2bJF597exiqX7owBzrqJ74DHLK3yOQjCyPAaNifRncE8OD0wFIuoMhXxTnHK07+8zZ2SJEKy/qtiyR7vw==
 
-redux-orm@^0.16.1:
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/redux-orm/-/redux-orm-0.16.1.tgz#2d6f30a942ef45e485f90613555db3d34a754bec"
-  integrity sha512-bXzGW10g67LVO5YXaVpF3GMLwMRYyXfspsZmIBNZrwhzaQM0nmTb5cGrWTj5VUv9TkHihMyFk2kJQCLtiQDRlg==
+redux-orm@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/redux-orm/-/redux-orm-0.16.2.tgz#7ba50f4cfa6180487da984cb91bc6916bcec17a9"
+  integrity sha512-bUFBZSaswbZxNi5c4o4rs5JNEllb8IiY5UDrdOutLI4u3Mc3EwfQQGMD7lQZcSrfeqy/msSAWGbjYHfXKa71pQ==
   dependencies:
-    "@babel/runtime" "^7.8.0"
+    "@babel/runtime" "^7.11.2"
     immutable-ops "^0.7.0"
     lodash "^4.17.15"
     re-reselect "^3.4.0"
