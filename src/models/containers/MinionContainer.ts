@@ -37,6 +37,6 @@ export const anyTaunts = (minions: CharacterContainer) =>
   _.any(hasTaunt, minions);
 
 export const isValidTarget = (
-  character: Character,
+  target: Character,
   characters: CharacterContainer
-) => (anyTaunts(characters) ? hasTaunt(character) : true);
+) => (anyTaunts(characters) ? hasTaunt(target) : true);

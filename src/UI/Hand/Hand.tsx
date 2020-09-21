@@ -16,7 +16,7 @@ export const Hand: React.FC<HandProps> = ({ active = true, hand }) => (
         (card: ICard) => (
           <List.Item key={card.id}>
             <List.Content>
-              <DnDCard key={card.id} card={card} active={active} />
+              <DnDCard card={card} active={active} />
             </List.Content>
           </List.Item>
         ),

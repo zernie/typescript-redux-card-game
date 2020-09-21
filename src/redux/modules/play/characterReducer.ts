@@ -103,7 +103,9 @@ const dealDamageHandler = (
   _.forEach((char) => {
     char.health = reduceHealth(char, amount);
     // TODO: refactor
-    if (isHero(char)) char.armor = reduceArmor(char, amount);
+    if (isHero(char)) {
+      char.armor = reduceArmor(char, amount);
+    }
     char.destroyed = shouldBeDestroyed(char);
   }, chars);
 };

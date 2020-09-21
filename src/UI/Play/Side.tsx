@@ -22,7 +22,9 @@ const Side: React.FC<SideProps> = ({ active, board }) => (
       {_.map(
         (minion: Minion) => (
           <List.Item key={minion.id}>
-            <DnDMinion character={minion} />
+            <List.Content>
+              <DnDMinion character={minion} />
+            </List.Content>
           </List.Item>
         ),
         board

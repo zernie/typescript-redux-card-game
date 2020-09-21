@@ -3,10 +3,10 @@ import { ThunkAction } from "redux-thunk";
 import { Game } from "./Game";
 import { Action } from "redux";
 import { CardData, CardType, Controller, Zone } from "./enums";
-import { craftMinion, Minion } from "./Minion";
-import { craftWeapon, Weapon } from "./Weapon";
+import { craftMinion } from "./Minion";
+import { craftWeapon } from "./Weapon";
 import { Card } from "./Card";
-import { craftHero, Hero } from "./Hero";
+import { craftHero } from "./Hero";
 
 let _lastId = 0;
 export const newId = (): number => new Date().getTime() + _lastId++;
@@ -54,6 +54,6 @@ export function importCard(
         owner
       });
     default:
-      throw new Error(`CardType ${data.type} is not implemented.`);
+      throw new Error(`Import of CardType "${data.type}" is not implemented yet.`);
   }
 }

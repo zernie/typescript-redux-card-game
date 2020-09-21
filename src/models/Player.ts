@@ -70,5 +70,4 @@ export const isPlaying = (player: Player) =>
   player.playState === PlayState.Playing;
 export const isTied = (player: Player) => player.playState === PlayState.Tied;
 
-export const calculateFatigueDmg = (player: Player) =>
-  player.fatigue === 0 ? 1 : player.fatigue + 1;
+export const calculateFatigueDmg = (player: Player) => player.fatigue + 1;

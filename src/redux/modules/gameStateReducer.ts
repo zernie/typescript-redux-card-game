@@ -63,7 +63,7 @@ export const endTurn = (): AppThunk => (dispatch, getState) => {
 
   if (deck.length > 0) {
     const topCard = deck[0];
-    if (hand.length === MAX_CARDS_IN_HAND) {
+    if (hand.length >= MAX_CARDS_IN_HAND) {
       Toastr.error(`Cant draw more cards from the ${player.name}'s deck!`);
       dispatch(burnCard({ id: topCard.id }));
     } else {

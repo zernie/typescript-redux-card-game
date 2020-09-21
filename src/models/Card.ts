@@ -18,7 +18,7 @@ export type Card = Character | Weapon | HeroPower;
 
 export const hasAbility = _.curry(
   (ability: Ability, entity: Card): boolean =>
-    _.contains(ability, entity.abilities) as boolean
+    entity.abilities.includes(ability)
 );
 
 export const hasTaunt = hasAbility(Ability.Taunt);
