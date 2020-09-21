@@ -24,7 +24,6 @@
     "reduce-reducers": "^1.0.4",
     "redux-orm": "^0.16.1",
     "semantic-ui-react": "^0.88.2",
-    "styled-components": "^5.1.1",
     "sunwell": "^0.10.0",
     "toastr": "^2.1.4"
   },
@@ -46,7 +45,6 @@
     "@types/react-redux": "^7.1.9",
     "@types/redux-orm": "^0.13.6",
     "@types/toastr": "^2.1.38",
-    "babel-plugin-styled-components": "^1.10.7",
     "node-gyp": "^7.0.0",
     "typescript": "~3.9.6"
   },
