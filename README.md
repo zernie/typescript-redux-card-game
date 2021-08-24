@@ -1,7 +1,7 @@
 # React & Redux based Hearthstone clone
 Built for educational purposes only. Your contributions are welcome 😉
 
-### [PLAY DEMO](https://zergetaev.ru/typescript-redux-card-game/)
+### [PLAY DEMO](https://zernie.com/typescript-redux-card-game/)
 
 ## Project structure
 * `src/models` contains game models' type declarations and some helper functions.
